@@ -13,9 +13,9 @@ module.exports = {
             'always',
             [
                 'root',
-                '@snailicide/build-config',
-                '@snailicide/template-cli',
-                '@snailicide/g-library'
+                'build-config',
+                'template-cli',
+                'g-library'
             ],
         ],
     },
