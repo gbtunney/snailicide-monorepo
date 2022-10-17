@@ -1,7 +1,7 @@
 {
     "name": "@snailicide/build-config",
-    "private": true,
-    "version": "0.0.1",
+    "private": false,
+    "version": "0.1.0",
     "description": "Snailicide Shared Build Configurations",
     "main": "dist/index.js",
     "files": [
