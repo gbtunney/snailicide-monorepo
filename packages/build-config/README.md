@@ -8,8 +8,8 @@ Provides repository with base configurations that can be extended in package
 ## Commands
 
 ```shell
-pnpm --filter=@snailicid3/build-config run fix
-pnpm --filter=@fam/snailicid3-config run test
+pnpm --filter=@snailicide/build-config run build
+pnpm --filter=@snailicide/build-config publish --access public
 ```
 
 ## Helpful Links
