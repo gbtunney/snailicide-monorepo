@@ -1,0 +1,9 @@
+{
+    "extends": "./tsconfig-base.json",
+    "compilerOptions": {
+        "composite": true,
+        "module": "CommonJS"
+    },
+    "exclude": ["node_modules"],
+    "references": [{ "path": "./src" }]
+}

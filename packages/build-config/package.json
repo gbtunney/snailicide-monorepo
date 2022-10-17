@@ -1,0 +1,76 @@
+{
+    "name": "@snailicide/build-config",
+    "private": true,
+    "version": "0.0.1",
+    "description": "Snailicide Shared Build Configurations",
+    "main": "dist/index.js",
+    "files": [
+        "prettier.config.js",
+        "tsconfig-base.json",
+        ".eslintrc.js",
+        "types/*",
+        "dist/*"
+    ],
+    "types": "types/index.d.ts",
+    "scripts": {
+        "build": "exec -- npm run env | grep package_name | pnpm build:ts && pnpm fix && pnpm check",
+        "build:ts": "tsc -b",
+        "prepublishOnly": "pnpm clean:build && pnpm build",
+        "\n========== CHECK >> ==========": "",
+        "check": "exec -- npm run env | grep package_name | pnpm lint && pnpm prettier",
+        "lint": "cross-var eslint \"{**/*,*}.{$npm_package_extensions_eslint}\" -c .eslint-local.cjs",
+        "prettier": "cross-var prettier  \"{**/*,*}.{$npm_package_extensions_prettier}\" --check",
+        "\n========== FIX >> ==========": "",
+        "fix": "exec -- npm run env | grep package_name | pnpm prettier:fix && pnpm lint:fix",
+        "lint:fix": "cross-var eslint \"{**/*,*}.{$npm_package_extensions_eslint}\"  -c .eslint-local.cjs --fix",
+        "prettier:fix": "cross-var prettier  \"{**/*,*}.{$npm_package_extensions_prettier}\" --write",
+        "test": "echo $npm_package_extensions_eslint ;",
+        "\n========== CLEAN >> ==========": "",
+        "clean:build": "rm -R -f dist && rm -R -f types"
+    },
+    "keywords": [
+        "eslint",
+        "lint",
+        "format",
+        "prettier",
+        "tsconfig",
+        "typescript"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/gbtunney/snailicide-monorepo.git"
+    },
+    "license": "MIT",
+    "author": {
+        "name": "Gillian Tunney",
+        "email": "gbtunney@mac.com"
+    },
+    "devDependencies": {
+        "@types/eslint": "^8.4.6",
+        "@types/node": "^18.7.18",
+        "@types/prettier": "^2.7.0",
+        "@typescript-eslint/eslint-plugin": "^5.38.0",
+        "@typescript-eslint/parser": "^5.38.0",
+        "cross-env": "^7.0.3",
+        "cross-var": "^1.1.0",
+        "dotenv-cli": "^6.0.0",
+        "eslint": "^8.23.1",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-import-resolver-typescript": "^3.5.1",
+        "eslint-plugin-filenames-simple": "^0.7.0",
+        "eslint-plugin-import": "^2.26.0",
+        "eslint-plugin-prettier": "^4.2.1",
+        "npm-run-all": "^4.1.5",
+        "prettier": "^2.7.1",
+        "prettier-plugin-jsdoc": "^0.4.2",
+        "prettier-plugin-sh": "^0.12.8",
+        "typescript": "^4.8.3"
+    },
+    "extensions": {
+        "prettier": "json,yaml,yml,graphql,md",
+        "eslint": "ts,js"
+    },
+    "dependencies": {
+        "type-fest": "^3.1.0"
+    }
+}
