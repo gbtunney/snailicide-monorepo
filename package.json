@@ -14,46 +14,60 @@
     },
     "scripts": {
         "\n========== COMMIT >> ==========": "",
-        "commit": "pnpm exec git-cz",
-        "precommit": "echo '------------TODO: REMOVE placeholder------",
+        "commit": "pnpm run precommit && pnpm exec git-cz",
+        "precommit": "pnpm run fix && git add * --update && pnpm run check",
+        "commit:todo": "echo '#TODO: figure out how to not automatically add fixed files that were not staged before precommit (like commit-lint)'",
+        "\n========== BUILD >> ==========": "",
+        "build": "pnpm -r build && pnpm build:self",
+        "build:self": "tsc --build",
+        "\n========== CODE STYLE >> ==========": "",
+        "lint": "cross-var eslint \"{$npm_package_config_eslint_path}.{$npm_package_config_eslint_extensions}\" -c $npm_package_config_eslint_config",
+        "prettier": "cross-var prettier {$npm_package_config_prettier_path}.{$npm_package_config_prettier_extensions}",
         "\n========== CHECK >> ==========": "",
-        "check": "exec -- npm run env | grep package_name | pnpm check:self && pnpm -r check",
-        "check:self": "exec -- npm run env | grep package_name | pnpm lint && pnpm prettier",
-        "lint": "cross-var eslint \"*.{$npm_package_extensions_eslint}\" -c .eslintrc.js",
-        "prettier": "cross-var prettier  \"*.{$npm_package_extensions_prettier}\" --check",
+        "check": "pnpm check:self && pnpm -r check",
+        "check:self": "pnpm lint && pnpm prettier --check",
         "\n========== FIX >> ==========": "",
-        "fix": "exec -- npm run env | grep package_name | pnpm fix:self && pnpm -r fix",
-        "fix:self": "exec -- npm run env | grep package_name | pnpm prettier:fix && pnpm lint:fix",
-        "lint:fix": "cross-var eslint \"*.{$npm_package_extensions_eslint}\"  -c .eslintrc.js --fix",
-        "prettier:fix": "cross-var prettier  \"*.{$npm_package_extensions_prettier}\" --write",
+        "fix": "pnpm fix:self && pnpm -r fix",
+        "fix:self": "pnpm prettier --write && pnpm lint --fix",
+        "\n========== CLEAN >> ==========": "",
+        "clean": "pnpm clean:self && pnpm -r clean",
+        "clean:self": "tsc --build --clean",
         "\n========== UNINSTALL >> ==========": "",
-        "uninstall": "exec --  pnpm  run uninstall:list | pnpm  run uninstall:rm | pnpm run uninstall:lock",
+        "uninstall": "pnpm run clean && pnpm uninstall:list && pnpm run uninstall:rm && pnpm run uninstall:lock",
         "uninstall:list": "find . -name 'node_modules' -type d -prune",
         "uninstall:rm": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +",
         "uninstall:lock": "rm -f pnpm-lock.yaml && rm -f packages/**/pnpm-lock.yaml",
         "\n========== LIFECYCLE >> ==========": "",
+        "postinstall": "pnpm run build",
         "prepare": "husky install",
         "\n========== TEST >> ==========": "",
-        "test": "exec -- $_ commit"
+        "test": "tsc --build"
     },
     "devDependencies": {
         "@commitlint/cli": "^17.0.3",
         "@commitlint/config-conventional": "^17.0.3",
         "@commitlint/cz-commitlint": "^17.1.2",
+        "@snailicide/build-config": "workspace:^0.1.0",
         "@types/node": "^18.7.18",
         "commitizen": "^4.2.5",
         "conventional-changelog-cli": "^2.2.2",
         "cross-var": "^1.1.0",
         "eslint": "^8.23.1",
         "husky": "^8.0.1",
-        "prettier": "^2.7.1"
+        "prettier": "^2.7.1",
+        "typescript": "^4.8.3"
     },
-    "prettier": "@snailicid3/build-config/prettier.config.js",
-    "extensions": {
-        "prettier": "json,yaml,yml,graphql,md",
-        "eslint": "ts,js"
-    },
+    "prettier": "@snailicide/build-config/prettier.config.js",
     "config": {
+        "eslint": {
+            "extensions": "ts,js,cjs,mjs",
+            "path": ".es*,*",
+            "config": ".eslintrc.cjs"
+        },
+        "prettier": {
+            "extensions": "json,yaml,yml,md",
+            "path": "docs/**/*,*"
+        },
         "commitizen": {
             "path": "@commitlint/cz-commitlint"
         }

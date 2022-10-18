@@ -136,3 +136,6 @@ pnpmfile.js
 *.log
 *.log.*
 scratch
+
+#todo: figure out what to do with this
+*.test.js
