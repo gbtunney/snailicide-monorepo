@@ -1,2 +1,7 @@
 dist
 types
+#TODO: figure out where to put these
+.eslintrc.js
+.eslintrc.d.ts
+.eslint-local.cjs
+.eslint-local.d.cts

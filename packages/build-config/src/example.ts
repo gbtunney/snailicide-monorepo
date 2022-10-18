@@ -1,5 +1,5 @@
-import type { IBuildable } from '.'
-import { isNPMPackage } from '.'
+import type { IBuildable } from './index.js'
+import { isNPMPackage } from './index.js'
 const min_package = {
     name: 'gbttest',
     version: '1.0.0',

@@ -1,4 +1,4 @@
-export { isNPMPackage } from './_types/npm_package'
+export { isNPMPackage } from './_types/npm_package.js'
 
 export type {
     TPackage,
@@ -8,4 +8,4 @@ export type {
     TPackageConfigCodeStyle,
     ILintable,
     PackageJson,
-} from './_types/npm_package'
+} from './_types/npm_package.js'

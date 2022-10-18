@@ -8,34 +8,42 @@
         "prettier.config.js",
         "tsconfig-base.json",
         ".eslintrc.js",
+        ".eslintrc.ts",
+        ".eslintrc.d.ts",
         "types/*",
         "dist/*"
     ],
     "types": "types/index.d.ts",
     "scripts": {
-        "build": "exec -- npm run env | grep package_name | pnpm build:ts && pnpm fix && pnpm check",
-        "build:ts": "tsc -b",
+        "\n========== BUILD >> ==========": "",
+        "build": "pnpm clean && pnpm build:ts && pnpm fix && pnpm check",
+        "build:ts": "tsc --build",
+        "dev": "tsc --build --watch",
+        "\n========== PUBLISH >> ==========": "",
+        "publish": "pnpm publish --access public--dry-run --tag --report-summary",
         "prepublishOnly": "pnpm clean:build && pnpm build",
+        "\n========== CODE STYLE >> ==========": "",
+        "lint": "cross-var eslint \"{$npm_package_config_eslint_path}.{$npm_package_config_eslint_extensions}\" -c $npm_package_config_eslint_config",
+        "prettier": "cross-var prettier {$npm_package_config_prettier_path}.{$npm_package_config_prettier_extensions}",
         "\n========== CHECK >> ==========": "",
-        "check": "exec -- npm run env | grep package_name | pnpm lint && pnpm prettier",
-        "lint": "cross-var eslint \"{**/*,*}.{$npm_package_extensions_eslint}\" -c .eslint-local.cjs",
-        "prettier": "cross-var prettier  \"{**/*,*}.{$npm_package_extensions_prettier}\" --check",
+        "check": "pnpm lint && pnpm prettier --check",
         "\n========== FIX >> ==========": "",
-        "fix": "exec -- npm run env | grep package_name | pnpm prettier:fix && pnpm lint:fix",
-        "lint:fix": "cross-var eslint \"{**/*,*}.{$npm_package_extensions_eslint}\"  -c .eslint-local.cjs --fix",
-        "prettier:fix": "cross-var prettier  \"{**/*,*}.{$npm_package_extensions_prettier}\" --write",
-        "test": "echo $npm_package_extensions_eslint ;",
+        "fix": "pnpm prettier --write && pnpm lint --fix",
         "\n========== CLEAN >> ==========": "",
+        "clean": "pnpm clean:ts && pnpm clean:build",
+        "clean:ts": "tsc --build --clean",
         "clean:build": "rm -R -f dist && rm -R -f types"
     },
     "keywords": [
         "eslint",
         "lint",
+        "code style",
         "format",
         "prettier",
         "tsconfig",
         "typescript"
     ],
+    "homepage": "https://www.npmjs.com/package/@snailicide/build-config",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/gbtunney/snailicide-monorepo.git"
@@ -66,9 +74,16 @@
         "prettier-plugin-sh": "^0.12.8",
         "typescript": "^4.8.3"
     },
-    "extensions": {
-        "prettier": "json,yaml,yml,graphql,md",
-        "eslint": "ts,js"
+    "config": {
+        "eslint": {
+            "extensions": "ts,js,cjs,mjs",
+            "path": ".es*,*,**/*",
+            "config": ".eslint-local.cjs"
+        },
+        "prettier": {
+            "extensions": "cts,json,yaml,yml,graphql,md",
+            "path": "*,**/*"
+        }
     },
     "dependencies": {
         "type-fest": "^3.1.0"

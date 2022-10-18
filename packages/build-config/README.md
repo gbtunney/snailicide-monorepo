@@ -1,21 +1,35 @@
-# Build Config Package
+# Snailicide Build Config Package
 
--   ESLint Base Config [a relative link](./index.js)
--   Prettier Config [a relative link](./prettier.config.js)
+_Provides repository with base configurations that can be extended in new packages._
 
-Provides repository with base configurations that can be extended in package
+**NPM Homepage**: [@snailicide/build-config](https://www.npmjs.com/package/@snailicide/build-config)
+
+-   **Configuration Files**
+
+    -   **Typescript**: [tsconfig-base.json](./tsconfig-base.json)
+    -   **ESLint Base**: [.eslintrc.ts](./.eslintrc.ts)
+    -   **Prettier**: [prettier.config.js](./prettier.config.js)
 
 ## Commands
 
+-   Install
+
 ```shell
-pnpm --filter=@snailicide/build-config run build
-pnpm --filter=@snailicide/build-config publish --access public
+$ pnpm add @snailicide/build-config -D
+```
+
+-   Build & Publish
+
+```shell
+$ pnpm --filter=@snailicide/build-config run build
+$ pnpm --filter=@snailicide/build-config publish --access public
 ```
 
 ## Helpful Links
 
--   [@typescript-eslint/eslint-plugin - npm](https://www.npmjs.com/package/@typescript-eslint/eslint-plugin)
--   [eslint-plugin-prettier - npm](https://www.npmjs.com/package/eslint-plugin-prettier)
--   [eslint-plugin-filenames-simple](https://github.com/epaew/eslint-plugin-filenames-simple/)
--   [eslint-import-resolver-typescript - npm](https://www.npmjs.com/package/eslint-import-resolver-typescript)
--   [eslint-plugin-import](https://www.npmjs.com/package/eslint-plugin-import)
+-   Linting
+    -   [@typescript-eslint/eslint-plugin](https://www.npmjs.com/package/@typescript-eslint/eslint-plugin)
+    -   [eslint-plugin-prettier](https://www.npmjs.com/package/eslint-plugin-prettier)
+    -   [eslint-plugin-filenames-simple](https://github.com/epaew/eslint-plugin-filenames-simple/)
+    -   [eslint-import-resolver-typescript](https://www.npmjs.com/package/eslint-import-resolver-typescript)
+    -   [eslint-plugin-import](https://www.npmjs.com/package/eslint-plugin-import)

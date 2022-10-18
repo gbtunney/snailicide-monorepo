@@ -1,18 +1,9 @@
-// @ts-check
 /* eslint-env node */
-'use strict'
+//const esLintBase = import('./dist/.eslintrc.js')
+import type { Linter } from 'eslint'
 
-/**
- * ESLINT CONFIG BASE
- *
- * @file Base ESLint Configuration for all packages.
- * @author Gillian Tunney
- * @see [eslint-plugin-filenames-simple - npm](https://www.npmjs.com/package/eslint-plugin-filenames-simple)
- * @see {@link ./prettier.config.js}
- */
-
-const options = {
-    root: true,
+const options: Linter.BaseConfig = {
+    // root: true,
     parser: '@typescript-eslint/parser',
     parserOptions: {
         ecmaFeatures: {
@@ -44,7 +35,7 @@ const options = {
         ],
 
         '@typescript-eslint/no-namespace': 'off',
-        '@typescript-eslint/no-var-requires': 'off',
+        //'@typescript-eslint/no-var-requires': 'off',
         '@typescript-eslint/ban-types': [
             'error',
             {
@@ -96,7 +87,14 @@ const options = {
                 'filenames-simple/naming-convention': 'off',
             },
         },
+        {
+            files: ['*.cjs'],
+            rules: {
+                '@typescript-eslint/no-var-requires': 'off',
+                'no-undef': 'off',
+            },
+        },
     ],
 }
-
 module.exports = options
+//export default options
