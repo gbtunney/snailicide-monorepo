@@ -1,8 +1,13 @@
 import type { ActionType, NodePlopAPI, PlopGeneratorConfig } from 'plop'
 import yargs from 'yargs'
+
+const boolBaseTemplate = true //ass oppesed to library todi: change to enum
 const GENERATED_DIRECTORY = 'generated'
 const TEMPLATE_BASE_DIRECTORY = './templates'
-const TEMPLATE_DIRECTORY = `${TEMPLATE_BASE_DIRECTORY}/base`
+const TEMPLATE_DIRECTORY = boolBaseTemplate
+    ? `${TEMPLATE_BASE_DIRECTORY}/base`
+    : `${TEMPLATE_BASE_DIRECTORY}/library`
+
 // @ts-expect-error ddd
 import inquireFilePath from 'inquirer-file-path'
 import { doesFilePathExcist } from './src/template-helpers.js'

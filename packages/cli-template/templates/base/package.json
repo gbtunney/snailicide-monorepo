@@ -2,7 +2,7 @@
     "name": "{{packageName}}",
     "version": "{{version}}",
     "description": "{{description}}",
-    "private": true,
+    "private": false,
     "keywords": [],
     "scripts": {
         "test": "echo \"Error: This is template. \"",
