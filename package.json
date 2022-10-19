@@ -15,8 +15,8 @@
     "scripts": {
         "\n========== COMMIT >> ==========": "",
         "commit": "pnpm run precommit && pnpm exec git-cz",
-        "precommit": "pnpm run fix && git add * --update && pnpm run check",
-        "commit:todo": "echo '#TODO: figure out how to not automatically add fixed files that were not staged before precommit (like commit-lint)'",
+        "precommit": "pnpm run fix && pnpm run check && pnpm run commit:linted",
+        "commit:linted": "git add $(git diff HEAD --cached --name-only)",
         "\n========== BUILD >> ==========": "",
         "build": "pnpm -r build && pnpm build:self",
         "build:self": "tsc --build",
