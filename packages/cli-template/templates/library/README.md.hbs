@@ -1,0 +1,56 @@
+<h1 align="center">Welcome to {{packageName}}👋</h1>
+<p>
+  <img alt="Version" src="https://img.shields.io/badge/version-{{version}}-blue.svg?cacheSeconds=2592000" />
+  <a href="#" target="_blank">
+    <img alt="License: {{license}}" src="https://img.shields.io/badge/License-{{license}}-yellow.svg" />
+  </a>
+</p>
+
+> {{description}}
+
+## Repository
+[{{repositoryName}}](https://github.com/{{repositoryOwner}}/{{repositoryName}}.git)
+
+## Author
+👤 **{{author_name}}**
+- [github](https://github.com/{{repositoryOwner}})
+- [email](mailto:{{author_email}})
+
+# {{sentenceCase packageName}}
+
+[![Continuous Integrations](https://github.com/[{{repositoryOwner}}/{{repositoryName}}/actions/workflows/continuous-integrations.yaml/badge.svg?branch=main)](https://github.com/[repositoryOwner]/[repositoryName]/actions/workflows/continuous-integrations.yaml)
+[![Build Status](https://travis-ci.org/{{repositoryOwner}}/{{repositoryName}}.svg?branch=master)](https://travis-ci.org/[repositoryOwner]/[repositoryName])
+[![License](https://badgen.net/github/license/{{repositoryOwner}}/{{repositoryName}})](./LICENSE)
+
+## Installation
+
+This library is published in the NPM registry and can be installed using any compatible package manager.
+
+```sh
+## For npm, use the command below.
+npm install {{packageName}} --save
+
+## For pnpm, use the command below.
+pnpm install {{packageName}}
+
+# For Yarn, use the command below.
+yarn add {{packageName}}
+```
+
+## Build
+
+```sh
+pnpm --filter={{packageName}} build
+```
+
+## Tests
+
+```sh
+pnpm --filter={{packageName}} test
+```
+
+## Documentation
+
+### Installation from CDN
+
+This module has an UMD bundle available through JSDelivr and Unpkg CDNs.

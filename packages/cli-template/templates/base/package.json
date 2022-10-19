@@ -1,0 +1,45 @@
+{
+    "name": "{{packageName}}",
+    "version": "{{version}}",
+    "description": "{{description}}",
+    "private": true,
+    "keywords": [],
+    "scripts": {
+        "\n========== CHECK >> ==========": "",
+        "check": "exec -- npm run env | grep package_name | pnpm lint && pnpm prettier",
+        "lint": "cross-var eslint \"{**/*,*}.{$npm_package_extensions_eslint}\" -c .eslintrc.cjs",
+        "prettier": "cross-var prettier  \"{**/*,*}.{$npm_package_extensions_prettier}\" --check",
+        "\n========== FIX >> ==========": "",
+        "fix": "exec -- npm run env | grep package_name | pnpm prettier:fix && pnpm lint:fix",
+        "lint:fix": "cross-var eslint \"{**/*,*}.{$npm_package_extensions_eslint}\"  -c .eslintrc.cjs --fix",
+        "prettier:fix": "cross-var prettier  \"{**/*,*}.{$npm_package_extensions_prettier}\" --write",
+        "test": "echo \"Error: This is template. \"",
+        "\n========== CLEAN >> ==========": "",
+        "clean:build": "tsc --build --clean"
+    },
+    "homepage": "https://github.com/{{repositoryOwner}}/{{repositoryName}}#readme",
+    "bugs": {
+        "url": "https://github.com/{{repositoryOwner}}/{{repositoryName}}/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/{{repositoryOwner}}/{{repositoryName}}.git"
+    },
+    "license": "{{license}}",
+    "author": {
+        "name": "{{author_name}}",
+        "email": "{{author_email}}"
+    },
+    "devDependencies": {
+        "@snailicide/build-config": "0.1.0",
+        "@types/node": "^18.7.18",
+        "eslint": "^8.23.1",
+        "prettier": "^2.7.1",
+        "typescript": "^4.8.3"
+    },
+    "prettier": "@snailicide/build-config/prettier.config.js",
+    "extensions": {
+        "prettier": "json,yaml,yml,graphql,md",
+        "eslint": "ts,js"
+    }
+}

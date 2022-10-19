@@ -1,0 +1,79 @@
+{
+    "name": "{{packageName}}",
+    "version": "{{version}}",
+    "description": "{{description}}",
+    "private": false,
+    "keywords": [],
+    "homepage": "https://github.com/{{repositoryOwner}}/{{repositoryName}}#readme",
+    "bugs": {
+        "url": "https://github.com/{{repositoryOwner}}/{{repositoryName}}/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/{{repositoryOwner}}/{{repositoryName}}.git"
+    },
+    "license": "{{license}}",
+    "author": {
+      "name": "{{author_name}}",
+      {{#if author_email}}
+        "email": "{{author_email}}"
+      {{/if}}
+    },
+    "exports": {
+        ".": [
+            {
+                "import": "./dist/index.mjs",
+                "require": "./dist/index.cjs",
+                "default": "./dist/index.js"
+            },
+            "./dist/index.js"
+        ]
+    },
+    "main": "dist/index.js",
+    "umd:main": "dist/index.umd.js",
+    "jsdelivr": "dist/index.umd.js",
+    "unpkg": "dist/index.umd.js",
+    "module": "dist/index.esm.js",
+    "types": "types/index.d.ts",
+    "scripts": {
+        "build": "rollup --config ./rollup.config.js",
+        "clean": "rm -R -f dist && rm -R -f types && rm -R -f docs && rm -R -f *.lock && rm -R -f pnpm-lock.yaml",
+        "doc": "typedoc src/index.ts",
+        "lint": "eslint \"*/**/*.{ts,js,json}\"",
+        "lint:fix": "eslint \"*/**/*.{ts,js,json}\" --fix",
+        "prepublishOnly": "npm run doc && npm run lint && npm run test && npm run build",
+        "test": "jest",
+        "test:watch": "jest --watch",
+        "ts:info": "tsc --showConfig"
+    },
+    "devDependencies": {
+        "@types/eslint": "^8.4.5",
+        "@types/jest": "^28.1.7",
+        "@types/prettier": "^2.7.0",
+        "@typescript-eslint/eslint-plugin": "^5.33.1",
+        "@typescript-eslint/parser": "^5.33.1",
+        "eslint": "^8.22.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-import": "^2.26.0",
+        "eslint-plugin-jsdoc": "^39.3.6",
+        "eslint-plugin-prettier": "^4.2.1",
+        "jest": "^28.1.3",
+        "jsdoc": "^3.6.11",
+        "prettier": "^2.7.1",
+        "prettier-plugin-jsdoc": "^0.3.38",
+        "rollup": "^2.78.0",
+        "rollup-plugin-terser": "^7.0.2",
+        "rollup-plugin-typescript2": "^0.32.1",
+        "ts-jest": "^28.0.8",
+        "ts-jest-resolver": "^2.0.0",
+        "typedoc": "^0.23.10",
+        "typedoc-plugin-markdown": "^3.13.4",
+        "typescript": "^4.7.4",
+"@commitlint/cli": "^17.0.3",
+"@commitlint/config-conventional": "^17.0.3"
+    },
+    "cdn": "dist/index.umd.js",
+    "dependencies": {
+        "@snailicid3/g-library": "^0.1.0"
+    }
+}
