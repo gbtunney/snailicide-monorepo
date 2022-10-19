@@ -12,7 +12,5 @@ const options = require('@snailicide/build-config/.eslintrc.js')
 
 module.exports = {
     ...options,
-    rules: {
-        'no-undef': 'warn',
-    },
+    rules: {},
 }
