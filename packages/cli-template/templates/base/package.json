@@ -5,17 +5,21 @@
     "private": true,
     "keywords": [],
     "scripts": {
-        "\n========== CHECK >> ==========": "",
-        "check": "exec -- npm run env | grep package_name | pnpm lint && pnpm prettier",
-        "lint": "cross-var eslint \"{**/*,*}.{$npm_package_extensions_eslint}\" -c .eslintrc.cjs",
-        "prettier": "cross-var prettier  \"{**/*,*}.{$npm_package_extensions_prettier}\" --check",
-        "\n========== FIX >> ==========": "",
-        "fix": "exec -- npm run env | grep package_name | pnpm prettier:fix && pnpm lint:fix",
-        "lint:fix": "cross-var eslint \"{**/*,*}.{$npm_package_extensions_eslint}\"  -c .eslintrc.cjs --fix",
-        "prettier:fix": "cross-var prettier  \"{**/*,*}.{$npm_package_extensions_prettier}\" --write",
         "test": "echo \"Error: This is template. \"",
+        "\n========== BUILD >> ==========": "",
+        "build": "pnpm clean && pnpm build:ts && pnpm fix && pnpm check",
+        "build:ts": "tsc --build",
+        "dev": "tsc --build --watch",
+        "\n========== CODE STYLE >> ==========": "",
+        "lint": "cross-var eslint \"{$npm_package_config_eslint_path}.{$npm_package_config_eslint_extensions}\" -c $npm_package_config_eslint_config",
+        "prettier": "cross-var prettier {$npm_package_config_prettier_path}.{$npm_package_config_prettier_extensions}",
+        "\n========== CHECK >> ==========": "",
+        "check": "pnpm lint && pnpm prettier --check",
+        "\n========== FIX >> ==========": "",
+        "fix": "pnpm prettier --write && pnpm lint --fix",
         "\n========== CLEAN >> ==========": "",
-        "clean:build": "tsc --build --clean"
+        "clean": "pnpm clean:ts",
+        "clean:ts": "tsc --build --clean"
     },
     "homepage": "https://github.com/{{repositoryOwner}}/{{repositoryName}}#readme",
     "bugs": {
@@ -38,8 +42,15 @@
         "typescript": "^4.8.3"
     },
     "prettier": "@snailicide/build-config/prettier.config.js",
-    "extensions": {
-        "prettier": "json,yaml,yml,graphql,md",
-        "eslint": "ts,js"
+    "config": {
+        "eslint": {
+            "extensions": "ts,js,cjs,mjs",
+            "path": ".es*,*,**/*",
+            "config": ".eslintrc.cjs"
+        },
+        "prettier": {
+            "extensions": "cts,json,yaml,yml,graphql,md",
+            "path": "*,**/*"
+        }
     }
 }
