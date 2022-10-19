@@ -1,0 +1,103 @@
+{
+    "name": "@snailicide/g-library",
+    "version": "0.0.1",
+    "description": "Function library written in typescript",
+    "private": false,
+    "exports": {
+        ".": [
+            {
+                "import": "./dist/index.mjs",
+                "require": "./dist/index.cjs",
+                "default": "./dist/index.js"
+            },
+            "./dist/index.js"
+        ]
+    },
+    "main": "dist/index.js",
+    "types": "types/index.d.ts",
+    "umd:main": "dist/index.umd.js",
+    "jsdelivr": "dist/index.umd.js",
+    "unpkg": "dist/index.umd.js",
+    "module": "dist/index.esm.js",
+    "cdn": "dist/index.umd.js",
+    "keywords": [
+        "typescript",
+        "js",
+        "ts",
+        "javascript",
+        "function library",
+        "type library",
+        "typeguards",
+        "typeguard",
+        "utilities"
+    ],
+    "scripts": {
+        "\n========== BUILD >> ==========": "",
+        "build:rollup": "rollup --config ./rollup.config.js",
+        "build:ts": "tsc --build",
+        "dev": "jest --watch",
+        "\n========== TEST >> ==========": "",
+        "test": "jest",
+        "\n========== DOCS >> ==========": "",
+        "docs:build": "typedoc src/index.ts",
+        "\n========== CLEAN >> ==========": "",
+        "clean": "pnpm clean:build",
+        "clean:build": "rm -R -f dist && rm -R -f types && rm -R -f docs",
+        "\n========== CODE STYLE >> ==========": "",
+        "lint": "cross-var eslint \"{$npm_package_config_eslint_path}.{$npm_package_config_eslint_extensions}\" -c $npm_package_config_eslint_config",
+        "prettier": "cross-var prettier {$npm_package_config_prettier_path}.{$npm_package_config_prettier_extensions}",
+        "\n========== CHECK >> ==========": "",
+        "check": "pnpm lint && pnpm prettier --check",
+        "\n========== FIX >> ==========": "",
+        "fix": "pnpm prettier --write && pnpm lint --fix"
+    },
+    "homepage": "https://github.com/gbtunney/snailicide-monorepo#readme",
+    "bugs": {
+        "url": "https://github.com/gbtunney/snailicide-monorepo/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/gbtunney/snailicide-monorepo.git"
+    },
+    "license": "MIT",
+    "author": {
+        "name": "Gillian Tunney",
+        "email": "gbtunney@mac.com"
+    },
+    "devDependencies": {
+        "@snailicide/build-config": "0.1.0",
+        "@types/node": "^18.7.18",
+        "eslint": "^8.23.1",
+        "prettier": "^2.7.1",
+        "@types/jest": "^28.1.7",
+        "jest": "^28.1.3",
+        "jsdoc": "^3.6.11",
+        "rollup": "^2.78.0",
+        "rollup-plugin-terser": "^7.0.2",
+        "rollup-plugin-typescript2": "^0.32.1",
+        "ts-jest": "^28.0.8",
+        "ts-jest-resolver": "^2.0.0",
+        "typedoc": "^0.23.10",
+        "typedoc-plugin-markdown": "^3.13.4",
+        "typescript": "^4.7.4"
+    },
+    "prettier": "@snailicide/build-config/prettier.config.js",
+    "config": {
+        "eslint": {
+            "extensions": "ts,js,cjs,mjs",
+            "path": ".es*,*,**/*",
+            "config": ".eslintrc.cjs"
+        },
+        "prettier": {
+            "extensions": "cts,json,yaml,yml,graphql,md",
+            "path": "*,**/*"
+        },
+        "jest": {
+            "preset": "ts-jest",
+            "resolver": "ts-jest-resolver",
+            "testPathIgnorePatterns": [
+                "/node_modules/"
+            ]
+        }
+    }
+}
