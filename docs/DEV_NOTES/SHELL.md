@@ -73,3 +73,42 @@ Dragon,Iguana,Salamander,Snake,Lizard,Python,Tortoise,Turtle > Alligator,Crocodi
 # copy output to clipboard
 echo $REPTILES | pbcopy
 ```
+
+## .env file format
+
+```shell
+S3_BUCKET="YOURS3BUCKET"
+SECRET_KEY="YOURSECRETKEYGOESHERE"
+```
+
+```shell
+#output environmental variable
+npx dotenv -p SECRET_KEY
+```
+
+## package.json
+
+-   echo package name
+
+```json5
+{
+    /* * package variables * */
+    '\n========== example >> ==========': '',
+    'example:1': 'echo $npm_package_name;',
+    /* * ENV * */
+    'example:2': 'todo: add example',
+}
+```
+
+-   useful pkgs - _what do they mean, and why are they so similar?_
+
+```json5
+{
+    'conventional-changelog-cli': '^2.2.2',
+    'standard-version': '^9.5.0',
+    'cross-env': '^7.0.3',
+    'cross-var': '^1.1.0',
+    'dotenv': '^16.0.3',
+    'dotenv-cli': '^6.0.0',
+}
+```
