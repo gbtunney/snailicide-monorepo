@@ -21,14 +21,14 @@
         "build": "pnpm -r build && pnpm build:self",
         "build:self": "tsc --build",
         "\n========== CODE STYLE >> ==========": "",
-        "lint": "cross-var eslint \"{$npm_package_config_eslint_path}.{$npm_package_config_eslint_extensions}\" -c $npm_package_config_eslint_config",
+        "lint": "cross-var eslint \"$npm_package_config_eslint_path.{$npm_package_config_eslint_extensions}\" -c $npm_package_config_eslint_config",
         "prettier": "cross-var prettier {$npm_package_config_prettier_path}.{$npm_package_config_prettier_extensions}",
         "\n========== CHECK >> ==========": "",
         "check": "pnpm check:self && pnpm -r check",
         "check:self": "pnpm lint && pnpm prettier --check",
         "\n========== FIX >> ==========": "",
         "fix": "pnpm fix:self && pnpm -r fix",
-        "fix:self": "pnpm prettier --write && pnpm lint --fix",
+        "fix:self": "pnpm prettier --write",
         "\n========== CLEAN >> ==========": "",
         "clean": "pnpm clean:self && pnpm -r clean",
         "clean:self": "tsc --build --clean",
@@ -57,15 +57,15 @@
         "prettier": "^2.7.1",
         "typescript": "^4.8.3"
     },
-    "prettier": "@snailicide/build-config/prettier.config.js",
+    "prettier": "@snailicide/build-config/prettier",
     "config": {
         "eslint": {
             "extensions": "ts,js,cjs,mjs",
-            "path": ".es*,*",
+            "path": "*",
             "config": ".eslintrc.cjs"
         },
         "prettier": {
-            "extensions": "json,yaml,yml,md",
+            "extensions": "ts,js,cjs,mjs,cts,json,yaml,yml,graphql,md",
             "path": "docs/**/*,*"
         },
         "commitizen": {
