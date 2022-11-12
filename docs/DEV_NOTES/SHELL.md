@@ -2,14 +2,14 @@
 
 ## Echo working directory
 
-```shell
+```sh
 echo $PWD
 echo $PATH
 ```
 
 ##Get working directory ( in childpackage )
 
-```shell
+```sh
 pnpm --filter=@snailicide/cli-* run generate:base --file_path $PWD/package.json
 ```
 
@@ -35,7 +35,7 @@ const cleaned_args: z.infer<typeof argsSchema> = argsSchema.parse(
 )
 ```
 
-```shell
+```sh
 pnpm exec ts-node your-script-file.ts --unwantedFlag --name Gillian --email=gbtunney@gmail.com
 ```
 
@@ -61,7 +61,7 @@ export const writeReptiles = () => {
 export default writeReptiles()
 ```
 
-```shell
+```sh
 > REPTILES=$(pnpm --filter=@snailicide/cli-* exec ts-node dist/example-file.js)
 
 $REPTILES > echo
@@ -76,12 +76,12 @@ echo $REPTILES | pbcopy
 
 ## .env file format
 
-```shell
+```sh
 S3_BUCKET="YOURS3BUCKET"
 SECRET_KEY="YOURSECRETKEYGOESHERE"
 ```
 
-```shell
+```sh
 #output environmental variable
 npx dotenv -p SECRET_KEY
 ```

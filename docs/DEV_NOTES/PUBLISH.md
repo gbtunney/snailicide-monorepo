@@ -1,6 +1,6 @@
 # Package publish
 
-```shell
+```sh
 pnpm publish --access public --dry-run --tag --report-summary
 # publish branch option?
 ```

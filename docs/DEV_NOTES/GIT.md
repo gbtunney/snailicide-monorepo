@@ -2,12 +2,12 @@
 
 -   DIY lint-staged
 
-```shell
-git add <files>
-  pnpm run fix && pnpm run check
+```sh
+git add \<files\>
+pnpm run fix && pnpm run check
 #echo diff HEAD list . ? idk cached vs staged??
 git add $(git diff HEAD --cached --name-only)
-pnpm   commit
+pnpm commit
 ```
 
 ## Useful links
@@ -17,7 +17,7 @@ pnpm   commit
 
 ## Tags
 
-```shell
+```sh
 git tag
 #osgeolive-6.5
 #v8.0
