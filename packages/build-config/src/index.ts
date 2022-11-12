@@ -21,3 +21,5 @@ export type { EslintConfig } from './eslint/index.js'
 export { Prettier } from './prettier/index.js'
 export type { PrettierConfig, PrettierOptions } from './prettier/index.js'
 //export default {}
+
+export { Jest } from './jest/index.js'

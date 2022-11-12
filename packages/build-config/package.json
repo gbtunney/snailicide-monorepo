@@ -10,7 +10,8 @@
         },
         "./tsconfig": "./dist/tsconfig-base.json",
         "./eslint": "./dist/.eslintrc.json",
-        "./prettier": "./dist/.prettierrc.json"
+        "./prettier": "./dist/.prettierrc.json",
+        "./jest": "./dist/jest.config.json"
     },
     "type": "module",
     "main": "./dist/index.js",
@@ -34,7 +35,9 @@
         "\n========== CLEAN >> ==========": "",
         "clean": "pnpm clean:ts && pnpm clean:build",
         "clean:ts": "tsc --build --clean",
-        "clean:build": "rm -R -f dist && rm -R -f types"
+        "clean:build": "rm -R -f dist && rm -R -f types",
+        "\n========== TEST >> ==========": "",
+        "test": "jest --config=dist/jest.config.json"
     },
     "keywords": [
         "eslint",

@@ -3,7 +3,7 @@ import copyStaticFiles from 'esbuild-copy-static-files'
 import shell from 'shelljs'
 
 import type { JSONExportConfig, BuildConfig, EntryConfig } from './src/index.js'
-import { Prettier, EsLint, nodeUtils } from './src/index.js'
+import { Prettier, EsLint, Jest, nodeUtils } from './src/index.js'
 
 const jsonExportConfig: JSONExportConfig = [
     {
@@ -14,10 +14,10 @@ const jsonExportConfig: JSONExportConfig = [
         data: EsLint.typeScriptOptions,
         filename: '.eslintrc.json',
     },
-    /* {
-                data: jestConfig,
-                filename:'jest.config.json'
-        }*/
+    {
+        data: Jest,
+        filename: 'jest.config.json',
+    },
 ]
 
 const buildCONFIG: BuildConfig = {
