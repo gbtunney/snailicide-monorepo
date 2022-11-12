@@ -4,12 +4,12 @@
 /** @file Local package eslint config file */
 
 /* eslint-disable @typescript-eslint/no-var-requires */
-const options = require('@snailicide/build-config/.eslintrc.js')
+const options = require('@snailicide/build-config/eslint')
+const merge = require('deepmerge')
 
-module.exports = {
-    ...options,
+module.exports = merge(options, {
+    ignorePatterns: ['src/**/*.test.ts'],
     rules: {
-        'no-undef': 'warn',
-        '@typescript-eslint/no-var-requires': 'off',
+        '@typescript-eslint/no-unused-vars': 'warn',
     },
-}
+})

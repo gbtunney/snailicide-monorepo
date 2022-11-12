@@ -18,7 +18,7 @@
         "\n========== CHECK >> ==========": "",
         "check": "pnpm lint && pnpm prettier --check",
         "\n========== FIX >> ==========": "",
-        "fix": "pnpm prettier --write && pnpm lint --fix",
+        "fix": "pnpm prettier --write",
         "\n========== CLEAN >> ==========": "",
         "clean": "pnpm clean:ts && pnpm clean:generated",
         "clean:ts": "tsc --build --clean",
@@ -33,6 +33,7 @@
         "@snailicide/build-config": "workspace:^0.1.0",
         "@types/node": "^18.7.18",
         "@types/yargs": "^17.0.13",
+        "deepmerge": "^4.2.2",
         "eslint": "^8.23.1",
         "inquirer-file-path": "^1.0.1",
         "node-plop": "^0.31.0",
@@ -42,7 +43,7 @@
         "yargs": "^17.6.0",
         "zod": "^3.19.1"
     },
-    "prettier": "@snailicide/build-config/prettier.config.js",
+    "prettier": "@snailicide/build-config/prettier",
     "config": {
         "eslint": {
             "extensions": "ts,js,cjs,mjs",
@@ -50,7 +51,7 @@
             "config": ".eslintrc.cjs"
         },
         "prettier": {
-            "extensions": "cts,json,yaml,yml,graphql,md",
+            "extensions": "ts,js,cjs,mjs,cts,json,yaml,yml,graphql,md",
             "path": "*,**/*"
         }
     },
