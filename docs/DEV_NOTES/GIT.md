@@ -2,6 +2,8 @@
 
 -   DIY lint-staged
 
+todo: command below fails if file is deleted ( rather than updated )
+
 ```sh
 git add \<files\>
 pnpm run fix && pnpm run check
