@@ -1,16 +1,17 @@
 {
-    "extends": "./../tsconfig-base.json",
+    "extends": "./../static/tsconfig-base.json",
     "compilerOptions": {
         /* Visit https://aka.ms/tsconfig to read more about this file */
 
         /* Language and Environment */
-        "target": "esnext" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
+        "target": "ESNext" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
         "composite": true,
         /* Modules */
         "module": "ESNext" /* Specify what module code is generated. */,
-        "lib": ["esnext"],
-        "moduleResolution": "nodenext",
-        "outDir": "./../dist" /* Specify an output folder for all emitted files. */,
+        "lib": ["ESNext"],
+
+        //  "moduleResolution": "Node",
+        "outDir": "../dist" /* Specify an output folder for all emitted files. */,
         // Output settings.
         "charset": "utf-8",
         "newLine": "LF",
@@ -21,6 +22,6 @@
         "declarationDir": "./../types",
         "declarationMap": true
     },
-    "exclude": ["node_modules"],
-    "include": ["**/*.ts"]
+    "exclude": ["./**/*.test.ts"],
+    "include": ["./**/*.ts", "./**/*.cts", "./**/*.mts"]
 }

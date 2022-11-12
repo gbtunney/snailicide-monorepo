@@ -1,0 +1,10 @@
+{
+    "extends": "./static/tsconfig-base.json",
+    "compilerOptions": {
+        "composite": true,
+        "module": "CommonJS"
+    },
+    "exclude": ["node_modules"],
+    "files": ["./src/index.ts"],
+    "references": [{ "path": "./src" }]
+}
