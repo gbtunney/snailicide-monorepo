@@ -49,7 +49,7 @@
         "\n========== CHECK >> ==========": "",
         "check": "pnpm lint && pnpm prettier --check",
         "\n========== FIX >> ==========": "",
-        "fix": "pnpm prettier --write && pnpm lint --fix"
+        "fix": "pnpm prettier --write"
     },
     "homepage": "https://github.com/gbtunney/snailicide-monorepo#readme",
     "bugs": {
@@ -81,7 +81,7 @@
         "typedoc-plugin-markdown": "^3.13.4",
         "typescript": "^4.7.4"
     },
-    "prettier": "@snailicide/build-config/prettier.config.js",
+    "prettier": "@snailicide/build-config/prettier",
     "config": {
         "eslint": {
             "extensions": "ts,js,cjs,mjs",
@@ -89,7 +89,7 @@
             "config": ".eslintrc.cjs"
         },
         "prettier": {
-            "extensions": "cts,json,yaml,yml,graphql,md",
+            "extensions": "ts,js,cjs,mjs,cts,json,yaml,yml,graphql,md",
             "path": "*,**/*"
         },
         "jest": {

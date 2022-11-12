@@ -8,9 +8,6 @@
 /* eslint-env node */
 
 /** @file Local package eslint config file */
-const options = require('@snailicide/build-config/.eslintrc.js')
+const options = require('@snailicide/build-config/eslint')
 
-module.exports = {
-    ...options,
-    rules: {},
-}
+module.exports = options
