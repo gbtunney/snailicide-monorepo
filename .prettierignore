@@ -1,0 +1,14 @@
+# NPM's shrinkwrap.
+# We're using `package-lock.json` instead.
+npm-shrinkwrap.json
+
+# Yarn's lockfile, Plug'n'Play, folder and settings.
+# We're using npm, and it provides its lockfile and settings.
+.pnp.*
+.yarn/
+.yarnrc
+.yarnrc.yaml
+
+yarn.lock
+package.lock
+pnpm-lock.yaml
