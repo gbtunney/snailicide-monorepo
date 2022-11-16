@@ -5,3 +5,5 @@ types
 .eslintrc.d.ts
 .eslint-local.cjs
 .eslint-local.d.cts
+
+tsconfig-base.json

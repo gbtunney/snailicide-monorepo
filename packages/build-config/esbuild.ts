@@ -22,6 +22,7 @@ const jsonExportConfig: JSONExportConfig = [
 
 const buildCONFIG: BuildConfig = {
     outdir: 'dist',
+    staticfilesout: '.',
     staticfiles: './static',
     // deleteOutDir:true,
     exportESM: true,
@@ -40,7 +41,9 @@ const ENTRY_CONFIG: EntryConfig = {
 export const buildAll = () => {
     const CONFIG_COPY = {
         src: buildCONFIG.staticfiles,
-        dest: buildCONFIG.outdir,
+        dest: buildCONFIG.staticfilesout
+            ? buildCONFIG.staticfilesout
+            : buildCONFIG.outdir,
         dereference: true,
         errorOnExist: false,
         preserveTimestamps: true,
@@ -48,8 +51,6 @@ export const buildAll = () => {
     }
     /* * remove / make new outdir build directory if FLAGGED using deleteOutDir * */
     if (buildCONFIG.deleteOutDir) {
-        console.log('tryingdelete', jsonExportConfig)
-
         shell.rm('-rf', buildCONFIG.outdir)
         shell.mkdir(buildCONFIG.outdir)
     }

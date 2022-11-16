@@ -3,6 +3,10 @@
     "private": false,
     "version": "0.1.0",
     "description": "Snailicide Shared Build Configurations",
+    "files": [
+        "./tsconfig-base.json",
+        "dist"
+    ],
     "exports": {
         ".": {
             "main": "./dist/index.js",
@@ -34,7 +38,7 @@
         "fix": "pnpm prettier --write",
         "\n========== CLEAN >> ==========": "",
         "clean": "pnpm clean:ts && pnpm clean:build",
-        "clean:ts": "tsc --build --clean",
+        "clean:ts": "tsc --build --clean && rm -R -f tsconfig-base.json",
         "clean:build": "rm -R -f dist && rm -R -f types",
         "\n========== TEST >> ==========": "",
         "test": "jest --config=dist/jest.config.json"

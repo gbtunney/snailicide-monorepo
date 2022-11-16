@@ -12,6 +12,7 @@ export type BuildConfig = Required<
 > & {
     baseDirectory?: string
     staticfiles?: string
+    staticfilesout?: string
     deleteOutDir?: boolean
     exportESM?: boolean
     exportMJS?: boolean
