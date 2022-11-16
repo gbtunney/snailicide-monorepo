@@ -1,5 +1,5 @@
 {
-    "extends": "@snailicide/build-config/tsconfig-base.json",
+    "extends": "@snailicide/build-config/tsconfig-base",
     "compilerOptions": {
         /* Language and Environment */
         "target": "ESNext" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
