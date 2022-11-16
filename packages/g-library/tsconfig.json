@@ -1,15 +1,21 @@
-/**
- * @file tsconfig typescript default configuration for packages.
- * @author Gillian Tunney
- * @see [TypeScript](https://www.typescriptlang.org/)
- */
 {
-    "extends": "@snailicide/build-config/tsconfig-base.json",
+    "extends": "@snailicide/build-config/tsconfig-base",
     "compilerOptions": {
-        /* Language and Environment */
-        "target": "ESNext" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
-        /* Modules */
-        "module": "ESNext" /* Specify what module code is generated. */,
-        "lib": ["ESNext"]
-    }
+        // Transpilation settings.
+        "module": "ESNext",
+        "target": "ESNext",
+
+        // Output settings.
+        "charset": "utf-8",
+        "newLine": "LF",
+        "sourceMap": true,
+        "rootDir": ".",
+        // Type declaration settings.
+        "declaration": true,
+        "outDir": "./types",
+        "declarationMap": true,
+        "lib": ["ES2020", "dom", "ESNext"]
+    },
+    "exclude": ["src/**/*.test.ts", "./src/**/*.test.tsx"],
+    "include": ["src/**/*.ts", "**/*.tsx"]
 }

@@ -60,7 +60,8 @@ const options = {
         typescript2({
             clean: true,
             useTsconfigDeclarationDir: true,
-            tsconfig: './tsconfig',
+            useTsconfigDeclarationDir: true,
+            tsconfig: './tsconfig.json',
         }),
     ],
 }
