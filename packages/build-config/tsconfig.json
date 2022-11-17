@@ -16,9 +16,9 @@
     },
     "files": ["esbuild.ts"],
     "exclude": ["node_modules"],
-    "include": ["./src/**/*.test.ts"],
+    "include": ["./src/**/*.test.ts", "./*.cjs"],
     "references": [
         { "path": "./src" }
-        // { "path": "./src/tsconfig.node.json" }
+        //{ "path": "./src/tsconfig.node.json" }
     ]
 }
