@@ -1,6 +1,12 @@
-import { JSONExportConfig } from './index'
 import fs from 'fs'
 
+/* * A COLLECTIOB of esbuild utilities * */
+//todo: move this.
+type JSONExportEntry<T = unknown> = {
+    data: T
+    filename: string
+}
+export type JSONExportConfig = JSONExportEntry[]
 /* * Collection of NODE UTILS * */
 
 /**

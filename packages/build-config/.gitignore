@@ -1,3 +1,4 @@
+# Ignore
 dist
 types
 #TODO: figure out where to put these
@@ -5,5 +6,7 @@ types
 .eslintrc.d.ts
 .eslint-local.cjs
 .eslint-local.d.cts
-
 tsconfig-base.json
+
+# Allow
+!src/tsconfig/tsconfig-base.json

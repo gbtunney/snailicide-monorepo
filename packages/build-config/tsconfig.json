@@ -1,5 +1,5 @@
 {
-    "extends": "./static/tsconfig-base.json",
+    "extends": "./src/tsconfig/tsconfig-base.json",
     "compilerOptions": {
         "target": "ESNext",
         "lib": ["ESNext"],
@@ -14,9 +14,8 @@
         "noImplicitAny": false,
         "moduleResolution": "node"
     },
-    "files": ["esbuild.ts"],
     "exclude": ["node_modules"],
-    "include": ["./src/**/*.test.ts", "./*.cjs"],
+    "include": ["./src/**/*.test.ts"],
     "references": [
         { "path": "./src" }
         //{ "path": "./src/tsconfig.node.json" }

@@ -8,10 +8,15 @@
         "dist"
     ],
     "exports": {
-        ".": {
-            "main": "./dist/index.js",
-            "types": "./types/index.d.ts"
-        },
+        ".": [
+            {
+                "import": "./dist/index.mjs",
+                "types": "./types/index.d.ts",
+                "require": "./dist/index.cjs",
+                "default": "./dist/index.js"
+            },
+            "./dist/index.js"
+        ],
         "./tsconfig": "./dist/tsconfig-base.json",
         "./eslint": "./dist/.eslintrc.json",
         "./prettier": "./dist/.prettierrc.json",
@@ -22,7 +27,8 @@
     "types": "./types/index.d.ts",
     "scripts": {
         "\n========== BUILD >> ==========": "",
-        "build": "pnpm clean && pnpm build:ts && pnpm build:esbuild && pnpm fix && pnpm check",
+        "build": "pnpm build:ts && pnpm build:rollup",
+        "build:rollup": "rollup --config ./rollup.config.js",
         "build:ts": "tsc --build",
         "build:esbuild": "ts-node --esm esbuild.ts",
         "testy": "node testing.cjs",
@@ -64,7 +70,6 @@
         "email": "gbtunney@mac.com"
     },
     "devDependencies": {
-        "@snailicide/g-library": "workspace:^0.0.1",
         "@types/eslint": "^8.4.6",
         "@types/jest": "^29.2.3",
         "@types/node": "^18.7.18",
@@ -76,8 +81,6 @@
         "cross-var": "^1.1.0",
         "deepmerge": "^4.2.2",
         "dotenv-cli": "^6.0.0",
-        "esbuild": "^0.15.14",
-        "esbuild-copy-static-files": "^0.1.0",
         "eslint": "^8.27.0",
         "eslint-config-prettier": "^8.5.0",
         "eslint-import-resolver-typescript": "^3.5.2",
@@ -89,6 +92,9 @@
         "prettier": "^2.7.1",
         "prettier-plugin-jsdoc": "^0.4.2",
         "prettier-plugin-sh": "^0.12.8",
+        "rollup": "^3.3.0",
+        "rollup-plugin-terser": "^7.0.2",
+        "rollup-plugin-typescript2": "^0.34.1",
         "shelljs": "^0.8.5",
         "ts-jest": "^29.0.3",
         "ts-jest-resolver": "^2.0.0",
@@ -106,8 +112,9 @@
             "path": "*,**/*"
         }
     },
-    "prettier": "./dist/.prettierrc.json",
-    "dependencies": {
-        "type-fest": "^3.1.0"
-    }
+    "eslintIgnore": [
+        "dist",
+        "types"
+    ],
+    "prettier": "./dist/.prettierrc.json"
 }
