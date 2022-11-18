@@ -1,5 +1,3 @@
-export { get } from './get'
-
 /* * CSS COLOR VALUE PROPERTIES * */
 
 export type CSSColorSpecialProp =

@@ -1,5 +1,5 @@
-import { isNumberParseable } from './'
-import type { PlainObject } from './_types/utilities/index'
+import { isNumberParseable } from './index.js'
+import type { PlainObject } from './index.js'
 
 describe('unit | isNumberParseable', () => {
     it('returns `true` for values parseable number', () => {

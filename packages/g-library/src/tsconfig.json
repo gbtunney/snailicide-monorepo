@@ -1,0 +1,24 @@
+{
+    "extends": "@snailicide/build-config/tsconfig-base",
+    "compilerOptions": {
+        /* Visit https://aka.ms/tsconfig to read more about this file */
+
+        /* Language and Environment */
+        "target": "ESNext" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
+        "composite": true,
+        /* Modules */
+        "module": "ESNext" /* Specify what module code is generated. */,
+        "lib": ["ESNext", "ES2020", "DOM"],
+        "outDir": "./../types" /* Specify an output folder for all emitted files. */,
+        // Output settings.
+        "sourceMap": true,
+        "rootDir": ".",
+        // Type declaration settings.
+        "declaration": true,
+        "declarationDir": "./../types",
+        "declarationMap": true,
+        "types": ["jest"]
+    },
+    // "exclude": ["**/*.test.ts"],
+    "include": ["**/*.ts", "**/*.cts", "**/*.mts"]
+}

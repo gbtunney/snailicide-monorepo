@@ -1,2 +1,6 @@
+# Ignore
 dist
 types
+
+# Allow
+!src/types

@@ -1,8 +1,8 @@
 import * as RA from 'ramda-adjunct'
-import * as R from 'ramda'
-import { trimCharacters, batchTrimCharacters } from './_trimCharacters'
-import { tg_isNotUndefined } from './../../_types/utilities'
-import type { ExplodeArray } from './type'
+import { isEmpty } from 'ramda'
+import { trimCharacters, batchTrimCharacters } from './_trimCharacters.js'
+import { tg } from './../index.js'
+import type { ExplodeArray } from './type.js'
 
 export const transformExplodeArray = function ({
     value,
@@ -10,20 +10,20 @@ export const transformExplodeArray = function ({
     trim = undefined,
     prefix = undefined,
 }: ExplodeArray): Array<string> {
-    if (R.isEmpty(value)) return []
+    if (isEmpty(value)) return []
 
     //if it is an array already,delimiter is disregarded & array is just cleaned & prefixed.
     let explodedStringArr = RA.isArray(value) ? value : value.toString()
 
     if (
         RA.isString(explodedStringArr) &&
-        tg_isNotUndefined<string | RegExp>(delimiter)
+        tg.isNotUndefined<string | RegExp>(delimiter)
     ) {
         explodedStringArr = explodedStringArr.split(delimiter)
     }
 
     if (
-        tg_isNotUndefined(trim) &&
+        tg.isNotUndefined(trim) &&
         RA.isArray(explodedStringArr) &&
         RA.isNonEmptyArray(explodedStringArr)
     ) {
@@ -35,7 +35,7 @@ export const transformExplodeArray = function ({
         ).filter((_str) => (_str.length > 2 ? true : false))
     }
     if (
-        tg_isNotUndefined<string>(prefix) &&
+        tg.isNotUndefined<string>(prefix) &&
         RA.isArray(explodedStringArr) &&
         RA.isNonEmptyArray(explodedStringArr)
     ) {

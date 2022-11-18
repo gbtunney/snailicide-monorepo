@@ -5,8 +5,8 @@ import type {
     TrimSinglePatternCharacters,
     TransformBatch,
 } from './type'
-import { tg_isNonEmptyArray } from './../../_types/utilities'
-import { escapeRegExp } from './../string/index'
+import { tg } from './../index.js'
+import { escapeRegExp } from './../string/index.js'
 
 const trimCharactersforSinglePattern = function ({
     value,
@@ -76,7 +76,7 @@ export const batchTrimCharacters = ({
             trimEnd,
         })
     })
-    return RA.isString(value) && tg_isNonEmptyArray<string>(result)
+    return RA.isString(value) && tg.isNonEmptyArray<string>(result)
         ? (result[0] as string)
         : (result as string[])
 }

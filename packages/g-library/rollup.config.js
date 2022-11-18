@@ -32,7 +32,7 @@ const options = {
     output: [
         createOutputOptions({
             file: './dist/index.js',
-            format: 'commonjs',
+            format: 'esm',
         }),
         createOutputOptions({
             file: './dist/index.cjs',
@@ -46,19 +46,11 @@ const options = {
             file: './dist/index.esm.js',
             format: 'esm',
         }),
-        createOutputOptions({
-            file: './dist/index.umd.js',
-            format: 'umd',
-        }),
-        createOutputOptions({
-            file: './dist/index.umd.min.js',
-            format: 'umd',
-            plugins: [terser()],
-        }),
     ],
     plugins: [
         typescript2({
-            clean: true,
+            //   clean: true,
+
             useTsconfigDeclarationDir: true,
             useTsconfigDeclarationDir: true,
             tsconfig: './tsconfig.json',

@@ -22,8 +22,5 @@ export {
     escapeRegExp,
 } from './_stringUtils'
 
-export {
-    stringContainsNumber,
-    stringContainsLetter,
-    getHTMLElementFromString,
-} from './_string'
+//todo: rename and move
+export { stringContainsNumber, stringContainsLetter } from './_string'

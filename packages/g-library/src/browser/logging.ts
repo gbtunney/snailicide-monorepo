@@ -1,4 +1,4 @@
-export const importantConsoleLog = function (
+export const styledConsoleLog = function (
     message = 'MESSAGE',
     additional_messages = [],
     additionalcss = 'border:1px solid red;'

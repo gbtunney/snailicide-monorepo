@@ -209,7 +209,28 @@ export const removeNonASCII = (value: string): string =>
     // http://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters
     R.replace(/[^\x20-\x7E]/g, '', value)
 
-export const WHITE_SPACES = [
+export const removeAllNewlines = (value: string): string =>
+    // Matches non-printable ASCII chars -
+    // http://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters
+    R.replace(/\r?\n|\r/g, '', value)
+
+export const NEW_LINE_CHARACTERS = [
+    /* * Unicode:line feed * */
+    '\u000a',
+    /* * Unicode:carriage return * */
+    '\u000d',
+    /* * Unicode:line separator * */
+    '\u2028',
+    /* * Unicode:paragraph separator * */
+    '\u2029',
+    /* * line feed * */
+    '\n',
+    /* * carriage return * */
+    '\r',
+]
+
+///    in Unicode: \u000a or \n, which is a line feed; \u000d or \r, which is a carriage return; \u2028, a line separator; and \u2029, a paragraph separator. In practice though, the regex you posted is suffici
+export const WHITE_SPACE_CHARACTERS = [
     ' ',
     '\n',
     '\r',

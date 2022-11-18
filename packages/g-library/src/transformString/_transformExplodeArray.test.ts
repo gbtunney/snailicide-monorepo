@@ -1,4 +1,4 @@
-import { transformExplodeArray } from './_transformExplodeArray'
+import { transformExplodeArray } from './_transformExplodeArray.js'
 
 describe('transformExplodeArray', () => {
     it('transformExplodeArray', () => {

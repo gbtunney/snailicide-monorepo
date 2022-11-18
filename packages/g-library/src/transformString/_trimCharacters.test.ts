@@ -1,4 +1,4 @@
-import { trimCharacters } from './_trimCharacters'
+import { trimCharacters } from './_trimCharacters.js'
 
 describe('trimCharacters', () => {
     it('returns `true` trimCharacters', () => {

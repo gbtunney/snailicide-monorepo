@@ -9,10 +9,9 @@
 
 /** @file Local package eslint config file */
 
-const options = require('@snailicide/build-config/eslint')
-const merge = require('deepmerge')
+const { EsLint, merge } = require('@snailicide/build-config')
 
-module.exports = merge(options, {
+module.exports = merge(EsLint.typeScriptOptions, {
     ignorePatterns: ['src/**/*.test.ts'],
     rules: {
         '@typescript-eslint/no-unused-vars': 'warn',

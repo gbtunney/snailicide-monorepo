@@ -1,3 +1,5 @@
+import { z } from 'zod'
+
 /** A Branded Type for values parseable to number. */
 export type NumberParseable = (number | string | boolean) & {
     readonly isNumberParseble: unique symbol
@@ -25,8 +27,42 @@ export type NumberParseable = (number | string | boolean) & {
 export const isNumberParseable = (value: unknown): value is NumberParseable =>
     !Number.isNaN(Number(value))
 
-export { get } from './_types'
+export type { JSON, Jsonifiable, Jsonify } from './object/json.js'
+export { getJSONString, getJSON } from './object/json.js'
 
+/* * NODE UTILITIES * */
+export { getFilePathArr } from './node/file.path.array.js'
+export type { FilePath } from './node/file.path.array.js'
+
+export { exportJSONFile } from './node/export.json.file.js'
+export type { JSONExportConfig } from './node/export.json.file.js'
+
+export { getYArgs } from './node/yargs.js'
+
+/* * GENERIC TYPEGUARDS * */
+export * as tg from './typeguard/utility.typeguards.js'
+
+/* * ZOD * */
+export const zod = z
+
+export type {
+    PlainObject,
+    Primitive,
+    PrefixProperties,
+    SuffixProperties,
+    DeepPartial,
+} from './types/utility'
+
+export type {
+    EmptyObject,
+    EmptyArray,
+    EmptyString,
+    Falsy,
+    NilOrEmpty,
+    NilLike,
+    Nullish,
+} from './types/empty'
+//todo:reorganize
 export {
     lowerCase,
     upperCase,
@@ -51,77 +87,40 @@ export {
     stringContainsNumber,
     stringContainsLetter,
     escapeRegExp,
-} from './scripts/string'
-
-export {
-    cleanIntegerType,
-    cleanBooleanType,
-    toInteger,
-    isInteger,
-} from './scripts/_valueTypes'
-
-export {
-    randomInt,
-    getRandomNumber,
-    getDigitCount,
-    formatCurrency,
-} from './scripts/_number'
-
-export {
-    transformExplodeArray,
-    //  explodeCSSClassString,
-    replaceCharacters,
-    trimCharacters,
-    batchTrimCharacters,
-    trimCharactersStart,
-    trimCharactersEnd,
-    getRegMatchStartOfString,
-    getRegMatchEndOfString,
-    validateString,
-    validateStringBatch,
-    startsWith,
-    endsWith,
-    includes,
-    eq,
-    contains,
-    match,
-} from './scripts/transformString'
-
-export type {
-    EmptyObject,
-    EmptyArray,
-    PlainObject,
-    EmptyString,
-    Primitive,
-    Falsy,
-    NilOrEmpty,
-    NilLike,
-    Nullish,
-    PrefixProperties,
-    SuffixProperties,
-    DeepPartial,
-} from './_types/utilities'
-
-/* * TYPEGUARDS!!!!!! * */
-export {
-    tg_isFalsy,
-    tg_isTruthy,
-    tg_isNilOrEmpty,
-    tg_isNotNilOrEmpty,
-    tg_isEmptyString,
-    tg_isString,
-    tg_isNotString,
-    tg_isInteger,
-    tg_isNotInteger,
-    tg_isPrimitive,
-    tg_isNotPrimitive,
-    tg_isNilLike,
-    tg_isNotNilLike,
-    tg_isNullish,
-    tg_isNotNullish,
-    tg_isUndefined,
-    tg_isNotUndefined,
-    tg_isEmptyArray,
-    tg_isNonEmptyArray,
-} from './_types/utilities'
-export { tg_isCSSColorSpecial, tg_isNotCSSColorSpecial } from './_types'
+} from './string/index.js'
+//
+// export {
+//     cleanIntegerType,
+//     cleanBooleanType,
+//     toInteger,
+//     isInteger,
+// } from './scripts/_valueTypes.js'
+//
+// export {
+//     randomInt,
+//     getRandomNumber,
+//     getDigitCount,
+//     formatCurrency,
+// } from './scripts/_number.js'
+//
+// /* * STRING TRANSFORM UTILITIES * */
+// export {
+//     transformExplodeArray,
+//     replaceCharacters,
+//     trimCharacters,
+//     batchTrimCharacters,
+//     trimCharactersStart,
+//     trimCharactersEnd,
+//     getRegMatchStartOfString,
+//     getRegMatchEndOfString,
+//     validateString,
+//     validateStringBatch,
+//     startsWith,
+//     endsWith,
+//     includes,
+//     eq,
+//     contains,
+//     match,
+// } from './transformString/index.js'
+//
+//
