@@ -5,7 +5,9 @@
     "description": "Snailicide Shared Build Configurations",
     "files": [
         "./tsconfig-base.json",
-        "dist"
+        "dist",
+        "types",
+        "CHANGELOG.md"
     ],
     "exports": {
         ".": [
