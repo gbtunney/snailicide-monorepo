@@ -1,5 +1,11 @@
 # @snailicide/build-config
 
+## 0.2.4
+
+### Patch Changes
+
+-   fixed bug in package file
+
 ## 0.2.3
 
 ### Patch Changes

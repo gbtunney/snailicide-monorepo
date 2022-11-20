@@ -1,7 +1,7 @@
 {
     "name": "@snailicide/build-config",
     "private": false,
-    "version": "0.2.3",
+    "version": "0.2.4",
     "description": "Snailicide Shared Build Configurations",
     "files": [
         "./tsconfig-base.json",
@@ -36,8 +36,8 @@
         "testy": "node testing.cjs",
         "dev": "tsc --build --watch",
         "\n========== PUBLISH >> ==========": "",
-        "publish": "pnpm publish --access public --no-git-checks --tag --report-summary",
-        "prepublish": "pnpm clean && pnpm build && pnpm fix && pnpm check",
+        "release": "pnpm publish --access public --report-summary --no-git-checks",
+        "prerelease": "pnpm release && pnpm clean && pnpm build && pnpm fix && pnpm check",
         "\n========== CODE STYLE >> ==========": "",
         "lint": "cross-var eslint \"{$npm_package_config_eslint_path}.{$npm_package_config_eslint_extensions}\" -c $npm_package_config_eslint_config",
         "prettier": "cross-var prettier {$npm_package_config_prettier_path}.{$npm_package_config_prettier_extensions}",
