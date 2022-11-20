@@ -36,7 +36,7 @@
         "testy": "node testing.cjs",
         "dev": "tsc --build --watch",
         "\n========== PUBLISH >> ==========": "",
-        "release": "pnpm prerelease --access public --report-summary --no-git-checks",
+        "release": "pnpm prerelease &&  pnpm publish --access public --report-summary --no-git-checks",
         "prerelease": "pnpm clean && pnpm build && pnpm fix && pnpm check",
         "\n========== CODE STYLE >> ==========": "",
         "lint": "cross-var eslint \"{$npm_package_config_eslint_path}.{$npm_package_config_eslint_extensions}\" -c $npm_package_config_eslint_config",
