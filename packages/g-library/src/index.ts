@@ -4,6 +4,9 @@ import { z } from 'zod'
 export type { Json, Jsonifiable, Jsonify } from './object/json.js'
 export { getJSONString, getJSON } from './object/json.js'
 
+export { isNPMPackage } from './object/npm.package.js'
+export type { NPMPackage } from './object/npm.package.js'
+
 /* * NODE UTILS MODULE * */
 import type * as NodeModule from './node/index.js'
 export { node } from './node/index.js'

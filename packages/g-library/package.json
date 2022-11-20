@@ -53,13 +53,13 @@
         "docs": "jsdoc -c jsdoc.json",
         "\n========== PUBLISH >> ==========": "",
         "release": "pnpm prerelease && pnpm publish --access public --report-summary --no-git-checks",
-        "prerelease": "pnpm clean && pnpm build && pnpm run docs && pnpm fix && pnpm check",
+        "prerelease": "pnpm clean && pnpm build && pnpm run docs && pnpm fix && pnpm check && pnpm test",
         "\n========== CLEAN >> ==========": "",
         "clean": "pnpm clean:ts && pnpm clean:build",
         "clean:ts": "tsc --build --clean",
         "clean:build": "rm -R -f dist && rm -R -f types && rm -R -f docs",
         "\n========== CODE STYLE >> ==========": "",
-        "lint": "cross-var eslint \"{$npm_package_config_eslint_path}.{$npm_package_config_eslint_extensions}\" -c $npm_package_config_eslint_config",
+        "lint": "cross-var eslint \"{$npm_package_config_eslint_path}.{$npm_package_config_eslint_extensions}\" --ignore-path .gitignore -c $npm_package_config_eslint_config",
         "prettier": "cross-var prettier {$npm_package_config_prettier_path}.{$npm_package_config_prettier_extensions}",
         "\n========== CHECK >> ==========": "",
         "check": "pnpm lint && pnpm prettier --check",
@@ -119,11 +119,6 @@
         "ramda-adjunct": "^3.3.0",
         "type-fest": "^3.1.0"
     },
-    "eslintIgnore": [
-        "dist",
-        "types",
-        "docs"
-    ],
     "jest": {
         "preset": "ts-jest",
         "resolver": "ts-jest-resolver",
