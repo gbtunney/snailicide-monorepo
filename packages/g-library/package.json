@@ -1,6 +1,6 @@
 {
     "name": "@snailicide/g-library",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "Function library written in typescript",
     "private": false,
     "type": "module",
@@ -77,7 +77,7 @@
         "email": "gbtunney@mac.com"
     },
     "devDependencies": {
-        "@snailicide/build-config": "workspace:0.2.1",
+        "@snailicide/build-config": "workspace:0.2.2",
         "@types/glob": "^8.0.0",
         "@types/jest": "^29.2.3",
         "@types/node": "^18.7.18",

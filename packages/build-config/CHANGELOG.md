@@ -1,5 +1,11 @@
 # @snailicide/build-config
 
+## 0.2.2
+
+### Patch Changes
+
+-   Added changelog to NPM publish files
+
 ## 0.2.1
 
 ### Patch Changes
