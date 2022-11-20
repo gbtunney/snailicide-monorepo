@@ -11,7 +11,7 @@ module.exports = {
         'scope-enum': [
             2,
             'always',
-            ['root', 'build-config', 'template-cli', 'g-library'],
+            ['root', 'release', 'build-config', 'template-cli', 'g-library'],
         ],
     },
 }
