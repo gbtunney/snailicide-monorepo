@@ -15,6 +15,7 @@
     "scripts": {
         "\n========== COMMIT >> ==========": "",
         "commit": "pnpm run precommit && pnpm exec git-cz",
+        "cz": "pnpm exec git-cz",
         "precommit": "pnpm run fix && pnpm run check && pnpm run commit:linted",
         "commit:linted": "git add $(git diff HEAD --cached --name-only)",
         "\n========== BUILD >> ==========": "",
