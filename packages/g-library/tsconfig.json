@@ -6,8 +6,8 @@
         "composite": false,
         "noEmit": true,
         "module": "ESNext",
-        "types": ["jest"],
-        "rootDir": "."
+        "rootDir": ".",
+        "types": ["@types/jest"]
     },
     "exclude": ["./node_modules"],
     "include": ["./**/*.test.ts"],

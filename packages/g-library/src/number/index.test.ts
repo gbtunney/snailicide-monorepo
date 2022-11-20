@@ -1,13 +1,17 @@
-//parseIntegerType
-import { parseIntegerType, toInteger } from './index.js'
-describe('parseIntegerType,toInteger ', () => {
-    it('returns `number` when parsed', () => {
-        expect(parseIntegerType(33)).toBe(33)
-        expect(parseIntegerType('33px')).toBe(33)
-        expect(parseIntegerType('33.33')).toBe(33)
-        expect(parseIntegerType('33.333px')).toBe(33)
+import 'jest'
+import { numeric } from './index.js'
 
-        ///this is bustedd.
-        expect(parseIntegerType(33.333, false)).toBe(33)
+describe('Parse number tests, ', () => {
+    it('getIntegerDigitCount:', () => {
+        expect(numeric.getIntegerDigitCount(31)).toEqual(2.0)
+        expect(numeric.getIntegerDigitCount(0)).toEqual(0)
+    })
+    it('randomIntInRange tests:', () => {
+        const testResult = numeric.randomIntInRange(31, 120)
+        expect(testResult).toBeGreaterThanOrEqual(31)
+        expect(testResult).toBeLessThanOrEqual(120)
+        const testResult2 = numeric.randomIntInRange(50, 100)
+        expect(testResult2).toBeLessThanOrEqual(100)
+        expect(testResult2).toBeGreaterThanOrEqual(31)
     })
 })

@@ -1,8 +1,8 @@
 import fs from 'fs'
 import path from 'path'
-import { getJSONString, Jsonifiable, JSON } from './../object/json.js'
+import { getJSONString, Jsonifiable, Json } from './../object/json.js'
 
-type JSONExportEntry<T = JSON.Value, V = T extends Jsonifiable ? T : never> = {
+type JSONExportEntry<T = Json.Value, V = T extends Jsonifiable ? T : never> = {
     data: V
     filename: string
 }

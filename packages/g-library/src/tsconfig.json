@@ -13,12 +13,12 @@
         // Output settings.
         "sourceMap": true,
         "rootDir": ".",
+        "types": ["@types/jest"],
         // Type declaration settings.
         "declaration": true,
         "declarationDir": "./../types",
-        "declarationMap": true,
-        "types": ["jest"]
+        "declarationMap": true
     },
-    // "exclude": ["**/*.test.ts"],
+    "exclude": ["**/*.test.ts"],
     "include": ["**/*.ts", "**/*.cts", "**/*.mts"]
 }

@@ -1,4 +1,5 @@
 import { trimCharacters } from './_trimCharacters.js'
+import 'jest'
 
 describe('trimCharacters', () => {
     it('returns `true` trimCharacters', () => {

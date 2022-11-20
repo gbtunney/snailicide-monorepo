@@ -1,3 +1,4 @@
+import 'jest'
 import { batchReplaceAll, replaceAllCharacters } from './_replaceCharacters.js'
 
 describe('Replace Characters', () => {

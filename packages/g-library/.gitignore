@@ -1,6 +1,6 @@
 # Ignore
 dist
 types
-
+docs
 # Allow
 !src/types

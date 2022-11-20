@@ -9,7 +9,7 @@ export {
     trimCharactersEnd,
     getRegMatchStartOfString,
     getRegMatchEndOfString,
-} from './_trimCharacters'
+} from './_trimCharacters.js'
 
 export {
     validateString,
@@ -20,8 +20,8 @@ export {
     eq,
     contains,
     match,
-} from './_validateString'
+} from './_validateString.js'
 export {
     transformExplodeArray,
     explodeCSSClassString,
-} from './_transformExplodeArray'
+} from './_transformExplodeArray.js'

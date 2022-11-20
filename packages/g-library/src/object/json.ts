@@ -31,7 +31,7 @@ export const getJSON = <Type extends Jsonifiable>(
 
 export type { Jsonify, Jsonifiable } from 'type-fest'
 
-export namespace JSON {
+export namespace Json {
     export type Object = JsonObject
     export type Array = JsonArray
     export type Primitive = JsonPrimitive
