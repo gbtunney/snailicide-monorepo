@@ -1,6 +1,6 @@
 {
     "name": "@snailicide/g-library",
-    "version": "0.0.5",
+    "version": "0.1.0",
     "description": "Function library written in typescript",
     "private": false,
     "type": "module",

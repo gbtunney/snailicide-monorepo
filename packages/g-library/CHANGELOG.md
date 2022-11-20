@@ -1,5 +1,11 @@
 # @snailicide/g-library
 
+## 0.1.0
+
+### Minor Changes
+
+-   added npm package validator function with NPMPackage type namespace
+
 ## 0.0.5
 
 ### Patch Changes
