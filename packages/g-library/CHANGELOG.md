@@ -1,5 +1,11 @@
 # @snailicide/g-library
 
+## 0.0.4
+
+### Patch Changes
+
+-   added docs to package
+
 ## 0.0.3
 
 ### Patch Changes

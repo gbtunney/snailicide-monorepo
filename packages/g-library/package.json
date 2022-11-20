@@ -1,6 +1,6 @@
 {
     "name": "@snailicide/g-library",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description": "Function library written in typescript",
     "private": false,
     "type": "module",
@@ -41,7 +41,7 @@
     ],
     "scripts": {
         "\n========== BUILD >> ==========": "",
-        "build": "pnpm build:ts && pnpm build:rollup && pnpm docs",
+        "build": "pnpm build:ts && pnpm build:rollup",
         "build:rollup": "rollup --config ./rollup.config.js",
         "build:ts": "tsc --build",
         "\n========== DEV >> ==========": "",
@@ -51,6 +51,9 @@
         "test:watch": "jest --watch",
         "\n========== DOCS >> ==========": "",
         "docs": "jsdoc -c jsdoc.json",
+        "\n========== PUBLISH >> ==========": "",
+        "publish": "pnpm publish --access public --no-git-checks --tag --report-summary",
+        "prepublishOnly": "pnpm clean && pnpm build && pnpm run docs && pnpm fix && pnpm check",
         "\n========== CLEAN >> ==========": "",
         "clean": "pnpm clean:ts && pnpm clean:build",
         "clean:ts": "tsc --build --clean",
@@ -77,7 +80,7 @@
         "email": "gbtunney@mac.com"
     },
     "devDependencies": {
-        "@snailicide/build-config": "workspace:0.2.2",
+        "@snailicide/build-config": "workspace:0.2.3",
         "@types/glob": "^8.0.0",
         "@types/jest": "^29.2.3",
         "@types/node": "^18.7.18",
@@ -118,7 +121,8 @@
     },
     "eslintIgnore": [
         "dist",
-        "types"
+        "types",
+        "docs"
     ],
     "jest": {
         "preset": "ts-jest",
