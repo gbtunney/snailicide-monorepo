@@ -15,5 +15,8 @@ export type { JSONExportConfig } from './esbuild/nodeutils.js'
 /* * NODE  UTILITIES * todo:move */
 export { nodeUtils } from './esbuild/nodeutils.js'
 
+/* * VITE CONFIGS * */
+export { vite } from './vite/index.js'
+
 import deepmerge from 'deepmerge'
 export const merge = deepmerge
