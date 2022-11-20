@@ -4,6 +4,12 @@
     "description": "Function library written in typescript",
     "private": false,
     "type": "module",
+    "files": [
+        "docs",
+        "types",
+        "dist",
+        "CHANGELOG.md"
+    ],
     "exports": {
         ".": [
             {
@@ -35,7 +41,7 @@
     ],
     "scripts": {
         "\n========== BUILD >> ==========": "",
-        "build": "pnpm build:ts && pnpm build:rollup",
+        "build": "pnpm build:ts && pnpm build:rollup && pnpm docs",
         "build:rollup": "rollup --config ./rollup.config.js",
         "build:ts": "tsc --build",
         "\n========== DEV >> ==========": "",
@@ -44,8 +50,7 @@
         "test": "jest",
         "test:watch": "jest --watch",
         "\n========== DOCS >> ==========": "",
-        "docs": "typedoc ./src/index.ts",
-        "jsdoc": "jsdoc -c jsdoc.json",
+        "docs": "jsdoc -c jsdoc.json",
         "\n========== CLEAN >> ==========": "",
         "clean": "pnpm clean:ts && pnpm clean:build",
         "clean:ts": "tsc --build --clean",
