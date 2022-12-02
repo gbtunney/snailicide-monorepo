@@ -1,14 +1,40 @@
 {
-    "plugins": ["plugins/markdown"],
+    "plugins": [
+        "plugins/markdown",
+        "./node_modules/better-docs/typescript",
+        "./node_modules/better-docs/category"
+    ],
     "recurseDepth": 10,
     "source": {
-        "include": ["./types"],
-        "includePattern": ".js$",
-        "excludePattern": "(node_modules/|docs)"
+        "include": ["./src"],
+        "includePattern": "\\.(jsx|js|ts|tsx)$",
+        "excludePattern": "(node_modules/|docs|dist|types)"
+    },
+    "tags": {
+        "allowUnknownTags": ["category", "optional"]
+    },
+    "better-docs": {
+        "name": "Snailicide GillianLibrary",
+        "logo": "images/logo.png",
+        "title": "@snailicide/g-Library",
+        "css": "style.css",
+        "trackingCode": "tracking-code-which-will-go-to-the-HEAD",
+        "hideGenerator": false,
+        "navLinks": [
+            {
+                "label": "Github",
+                "href": "https://github.com/SoftwareBrothers/admin-bro"
+            },
+            {
+                "label": "Example Application",
+                "href": "https://admin-bro-example-app-staging.herokuapp.com/admin"
+            }
+        ]
     },
     "templates": {
         "cleverLinks": true,
-        "monospaceLinks": true
+        "monospaceLinks": true,
+        "search": true
     },
     "opts": {
         "destination": "./docs",
