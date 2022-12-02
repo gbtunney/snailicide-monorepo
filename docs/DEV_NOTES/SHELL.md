@@ -1,4 +1,4 @@
-#Notes
+# Notes
 
 ## Echo working directory
 
@@ -111,4 +111,10 @@ npx dotenv -p SECRET_KEY
     'dotenv': '^16.0.3',
     'dotenv-cli': '^6.0.0',
 }
+```
+
+## HUSKY - add new hook
+
+```sh
+$ pnpm exec husky add .husky/pre-commit "npx validate-branch-name"
 ```

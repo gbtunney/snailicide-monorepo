@@ -1,4 +1,10 @@
-#GIT NOTES!
+# GIT NOTES!
+
+## Test validate branch name
+
+```sh
+pnpm exec validate-branch-name -r "^(master|main|dev){1}$|^(feature|fix|hotfix|release)/.+$" -t feature/main
+```
 
 -   DIY lint-staged
 
