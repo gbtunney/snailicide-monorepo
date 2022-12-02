@@ -7,8 +7,8 @@ export {
     batchTrimCharacters,
     trimCharactersStart,
     trimCharactersEnd,
-    getRegMatchStartOfString,
-    getRegMatchEndOfString,
+    getRegExpMatchStartOfString,
+    getRegExpMatchEndOfString,
 } from './_trimCharacters.js'
 
 export {

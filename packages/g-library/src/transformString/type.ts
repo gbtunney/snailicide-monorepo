@@ -11,8 +11,6 @@ export interface TrimCharacters extends TransformCharacters {
 export interface ReplaceCharacters extends TransformCharacters {
     replacement: string ///default is empty string
 }
-
-//narrow the pattern to
 export type TransformSinglePattern<T = TrimCharacters> = Omit<
     T extends TransformCharacters ? T : never,
     'pattern'

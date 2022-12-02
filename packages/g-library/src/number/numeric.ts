@@ -1,3 +1,11 @@
+/**
+ * @module Numeric
+ * @author Gillian Tunney collection of utilities for numeric values and
+ *   converting values between float & integer.All functions WILL REMOVE ALL
+ *   whitespace. The final value a valid number
+ * @category Numeric
+ * @see parseInt, parseFloat built in js functions
+ */
 import type { Float, Integer } from 'type-fest'
 import {
     isFinite,
@@ -6,24 +14,20 @@ import {
     isNotNaN,
     isValidNumber,
 } from 'ramda-adjunct'
-/**
- * All functions WILL REMOVE ALL whitespace,letter and punctuation as long as
- * the final value a valid number
- *
- * @module Numeric - utilities for numeric values and converting values betweeen float & integer
- * @author Gillian Tunney
- * @category Numeric
- * @see parseInt, parseFloat built in js functions
- */
+
 export type Numeric = bigint | number
+/* * @typedef {Numeric} * */
+
 export type PossibleNumeric = number | bigint | string
+/* * @typedef {PossibleNumeric} * */
 
 /**
+ * Guard function to determine if value is numeric
+ *
  * @category Numeric
  * @category TypeGuard
  * @template {unknown} Type
- * @function isParsableToNumeric - Guard function to determine if value is
- *   numeric
+ * @function isParsableToNumeric
  * @param {Type} value - Value to test
  * @returns {boolean}
  */
@@ -35,6 +39,8 @@ export const isNumeric = <Type = unknown>(value: Type): value is Type => {
 }
 
 /**
+ * Guard function to determine if value is an exact float (ie not 12 or 12.00)
+ *
  * @category Numeric
  * @category TypeGuard
  * @example
@@ -43,10 +49,9 @@ export const isNumeric = <Type = unknown>(value: Type): value is Type => {
  *     => true
  *
  * @template {number} Type - Must extend number
- * @template {boolean} strict [d=false] - enables strict typing of value
- *   parameter using Float<Type>
- * @function isNumericFloat - Guard function to determine if value is an exact
- *   float (ie not 12 or 12.00)
+ * @template {boolean} strict [ false] enables strict typing of value param as
+ *   Float<Type>
+ * @function isNumericFloat
  * @param {Type | Float<Type>} value - Value to test
  * @returns {boolean}
  */
@@ -57,6 +62,9 @@ export const isNumericFloat = <Type extends number, strict = false>(
 }
 
 /**
+ * Guard function to determine if value is an exact integer (ie not 12.001 but
+ * 12.00 is allowed)
+ *
  * @category Numeric
  * @category TypeGuard
  * @example
@@ -65,10 +73,9 @@ export const isNumericFloat = <Type extends number, strict = false>(
  *     => true
  *
  * @template {number} Type - Must extend number
- * @template {boolean} strict [d=false] - enables strict typing of value
- *   parameter using Integer<Type>
- * @function isNumericInteger - Guard function to determine if value is an exact
- *   integer (ie not 12.001 but 12.00 is allowed)
+ * @template {boolean} strict [false] - enables strict typing param using
+ *   Integer<Type>
+ * @function isNumericInteger
  * @param {Type | Integer<Type>} value - Value to test
  * @returns {boolean}
  */
@@ -77,19 +84,19 @@ export const isNumericInteger = <Type extends number, strict = false>(
 ): value is Integer<Type> => {
     return isInteger(value)
 }
-
-///todo: see if this is useful idk?
 /**
+ * Converts a valid number to a float
+ *
  * @category Numeric
  * @example
  *     const number_to_test = 22.2002
  *     numericToFloat<typeof number_to_test, true>(number_to_test)
  *     => 22.2002
  *
- * @template {number} Type - Must extend number
- * @template {boolean} strict [d=false] - enables strict typing of value
- *   parameter using Float<Type>
- * @function numericToFloat - Converts a valid number to a float
+ * @template {number} Type - Type must extend number
+ * @template {boolean} strict [false]-enables strict typing of value using
+ *   Float<Type>
+ * @function numericToFloat
  * @param {Type | Float<Type>} value - Value to test
  * @returns {number | undefined}
  */
@@ -99,6 +106,9 @@ export const numericToFloat = <Type extends number, strict = false>(
     return isValidNumber(value) ? parseFloat(value.toString()) : undefined
 }
 /**
+ * Converts a integer number to a exact Integer using parseInt (ie not 12.001
+ * but 12.00 is allowed)
+ *
  * @category Numeric
  * @example
  *     const number_to_test_int = 22.000
@@ -108,8 +118,7 @@ export const numericToFloat = <Type extends number, strict = false>(
  * @template {number} Type - Must extend number
  * @template {boolean} strict [d=false] - enables strict typing of value
  *   parameter using Integer<Type>
- * @function numericToInt - Converts a integer number to a exact Integer using
- *   parseInt (ie not 12.001 but 12.00 is allowed)
+ * @function numericToInt
  * @param {Type | Integer<Type>} value - Value to test
  * @returns {number | undefined}
  */

@@ -9,20 +9,26 @@ import {
 import { PossibleNumeric } from './numeric.js'
 /**
  * All functions WILL REMOVE ALL whitespace,letter and punctuation as long as
- * the final value a valid number
+ * the final value a valid number This will convert a possible numeric value (ie
+ * string) to a number (like built in parseInt or parseFloat)
  *
- * @module Parse - this will convert a possible numeric value (ie string) to a number (like built in parseInt or parseFloat)
+ * @module Parse
  * @author Gillian Tunney
  * @category Parse
  * @see parseInt, parseFloat built in js functions
  */
 
+export type EmptyString = ''
+
+/** @typedef {EmptyString} This Is an empty string */
+
 /**
+ * Guard function to determine if value is parsable (contains)
+ *
  * @category Parse
  * @category TypeGuard
  * @template {unknown} Type
- * @function isParsableToNumeric - Guard function to determine if value is
- *   parsable (contains a digit character)
+ * @function isParsableToNumeric
  * @param {Type} value - Value to test
  * @returns {boolean}
  */
@@ -39,13 +45,13 @@ export const isParsableToNumeric = <Type = unknown>(
 }
 
 /**
- * Will remove whitespace,letter and punctuation
+ * Parse value if is numeric ( like result of parseFloat ). Will remove
+ * whitespace,letter and punctuation
  *
  * @category Parse
  * @template {PossibleNumeric} Type - Type must extend a PossibleNumeric
  *   (number|string|bigint)
- * @function parseToNumeric - Parse value if isParseable is a numeric ( like
- *   parseFloat )
+ * @function parseToNumeric
  * @param {Type} value - Value to parse
  * @returns {number | undefined}
  */
@@ -60,13 +66,14 @@ export const parseToNumeric = <Type extends PossibleNumeric>(
 }
 
 /**
- * Will remove whitespace,letter and punctuation along will additional float
- * values ie 1.02 will become 1
+ * Parse value to Integer if isParseable to numeric. **Will** remove
+ * whitespace,letter and punctuation along will additional float values ie 1.02
+ * will become 1
  *
  * @category Parse
  * @template {PossibleNumeric} Type - Type must extend a PossibleNumeric
  *   (number|string|bigint)
- * @function parseToInteger - Parse value to Integer if isParseable to numeric
+ * @function parseToInteger
  * @param {Type} value - Value to parse.
  * @returns {number | undefined}
  */
@@ -82,7 +89,8 @@ export const parseToInteger = <Type extends PossibleNumeric>(
 
 /**
  * @category Parse
- * @function parseToFloat - Alias for parseToNumeric
- * @see parseToNumeric
+ * @function parseToFloat
+ * @alias {parseToNumeric}
+ * @see {parseToNumeric}
  */
 export const parseToFloat = parseToNumeric

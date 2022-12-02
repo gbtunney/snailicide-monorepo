@@ -6,18 +6,22 @@ import type {
 } from './type'
 import { tg } from './../index.js'
 
+type test = string | RegExp | Array<string | RegExp>
 const replaceCharactersSinglePattern = ({
     value,
     pattern = ' ',
     replacement = '',
 }: ReplaceSinglePatternCharacters): string =>
     RA.replaceAll(pattern, replacement, value)
-
-/* * Function replaceAllCharacters * * * *
- * @param { string } - single value
- * @param { string | RegExp | (string | RegExp)[] }  [d=" "] pattern - (blacklist)
- * @param {string} [d=""] replacement -empty string or string with new characters
- * @return { string } - trimmed value */
+/**
+ * @function replaceAllCharacters
+ * @param {string} value - Single value
+ * @param {string | RegExp | (string | RegExp)[]} pattern [" "] blacklisted
+ *   chars
+ * @param {string} replacement [""] - empty string or string with new characters
+ * @returns {string}
+ * @see batchReplaceAll
+ */
 export const replaceAllCharacters = ({
     value,
     pattern = ' ',
@@ -33,12 +37,15 @@ export const replaceAllCharacters = ({
         value
     )
 }
-
-/* * Function batchReplaceAll * * * * TODO: NEEDS UPDATE!!!
- * @param { string | string[] } - array of strings to be replaced.
- * @param { string | RegExp | (string | RegExp)[] }  [d=" "] - pattern (blacklist )
- * @param {string} [d=""] replacement -empty string or string with new characters
- * @return { string } - array of trimmed strings.  */
+//TODO: NEEDS UPDATE!!!
+/**
+ * @function batchReplaceAll
+ * @param {string | string[]} - Array of strings to be replaced.
+ * @param {string | RegExp | (string | RegExp)[]} pattern [ "] blacklisted chars
+ * @param {string} replacement [ ""] - empty string or string with newcharacters
+ * @returns {string} - Array of trimmed strings.
+ * @see replaceAllCharacters
+ */
 export const batchReplaceAll = ({
     value,
     pattern = ' ',

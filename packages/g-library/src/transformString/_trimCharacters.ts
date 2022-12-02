@@ -20,14 +20,14 @@ const trimCharactersforSinglePattern = function ({
             ...(trimStart
                 ? [
                       pattern.length > 1
-                          ? R.replace(getRegMatchStartOfString(pattern), '')
+                          ? R.replace(getRegExpMatchStartOfString(pattern), '')
                           : RA.trimCharsStart(pattern),
                   ]
                 : []),
             ...(trimEnd
                 ? [
                       pattern.length > 1
-                          ? R.replace(getRegMatchEndOfString(pattern), '')
+                          ? R.replace(getRegExpMatchEndOfString(pattern), '')
                           : RA.trimCharsEnd(pattern),
                   ]
                 : []),
@@ -104,7 +104,21 @@ export const trimCharactersEnd = ({
     })
 }
 
-export const getRegMatchStartOfString = (pattern: string, flags = 'g') =>
+/**
+ * Get a regExp from a string that matches the start
+ *
+ * @category StringTransform
+ * @function getRegExpMatchStartOfString
+ * @param {string} pattern - String to regexp
+ * @param {string} flags ["g"] regexp flags
+ * @returns {RegExp}
+ */
+export const getRegExpMatchStartOfString = (pattern: string, flags = 'g') =>
     new RegExp(`^${pattern}`, flags)
-export const getRegMatchEndOfString = (pattern: string, flags = 'g') =>
+
+/**
+ * @function getRegExpMatchEndOfString
+ * @see getRegExpMatchStartOfString
+ */
+export const getRegExpMatchEndOfString = (pattern: string, flags = 'g') =>
     new RegExp(`${escapeRegExp(pattern)}$`, flags)

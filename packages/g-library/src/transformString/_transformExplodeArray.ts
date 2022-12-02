@@ -4,6 +4,7 @@ import { trimCharacters, batchTrimCharacters } from './_trimCharacters.js'
 import { tg } from './../index.js'
 import type { ExplodeArray } from './type.js'
 
+//todo: fix these mangled chars
 export const transformExplodeArray = function ({
     value,
     delimiter = ',',

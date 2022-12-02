@@ -18,8 +18,26 @@ export const isFalsy = <T>(value: T | Falsy): value is Falsy =>
     RA.isFalsy(value)
 export const isTruthy = <T>(value: T | Falsy): value is T => RA.isTruthy(value)
 
+/**
+ * Retuns `true` if the value is `null`,`undefined` or an empty string, array,
+ * or object
+ *
+ * @example
+ *     isNilOrEmpty([1, 2, 3]); //=> false
+ *     isNilOrEmpty([]); //=> true
+ *     isNilOrEmpty(''); //=> true
+ *     isNilOrEmpty(null); //=> true
+ *     isNilOrEmpty(undefined): //=> true
+ *     isNilOrEmpty({}); //=> true
+ *     isNilOrEmpty({length: 0}); //=> false
+ *
+ * @function isNilOrEmpty
+ * @param {T | NilOrEmpty} value - T | NilOrEmpty
+ * @returns {boolean}
+ */
 export const isNilOrEmpty = <T>(value: T | NilOrEmpty): value is NilOrEmpty =>
     RA.isNilOrEmpty(value)
+
 export const isNotNilOrEmpty = <T>(value: T | NilOrEmpty): value is T =>
     RA.isNotNilOrEmpty(value)
 
@@ -51,24 +69,26 @@ export const isNilLike = <T>(value: T | NilLike): value is NilLike =>
 export const isNotNilLike = <T>(value: T | NilLike): value is T =>
     !(RA.isEmptyString(value) || isNil(value))
 
-//'' | null | undefined
 export const isNullish = <T>(value: T | NilLike): value is undefined =>
     RA.isEmptyString(value) || isNil(value)
 export const isNotNullish = <T>(value: T | NilLike): value is T =>
     !(RA.isEmptyString(value) || isNil(value))
 
-// is null | undefined   ????????????????
 /**
- * Typeguard Undefined : narrows Nullish ( null | undefined )
+ * **Typeguard for Undefined:** narrows to **Nullish** _(null|undefined)_ to
  *
+ * @category Typeguard
  * @example
  *     const test_value = 22
  *     if (isNotUndefined(test_value)) {
- *         const vallll: LiteralToPrimitive<typeof test_value> = test_value
+ *         const value: LiteralToPrimitive<typeof test_value> = test_value
  *     }
  *
- * @param value - Description
- * @returns -
+ * @template {T}
+ * @function isUndefined,
+ * @type {Nullish}
+ * @param {T | Nullish} value - Value to test
+ * @returns {boolean} - Returns true if value is undefined
  */
 export const isUndefined = <T>(value: T | Nullish): value is undefined =>
     isNil(value)

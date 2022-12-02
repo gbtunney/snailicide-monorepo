@@ -43,3 +43,5 @@ pnpm --filter=@snailicide/g-library build
 ```sh
 pnpm --filter=@snailicide/g-library test
 ```
+
+## TODO: jsdocPrintWidth look at this variable for line breaks.

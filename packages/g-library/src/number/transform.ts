@@ -1,27 +1,20 @@
 import { isBigInt, isFloat, isInteger, isValidNumber } from 'ramda-adjunct'
 import { isNumeric, numericToInteger, numericToFloat } from './numeric.js'
+import { parseToInteger, parseToNumeric, parseToFloat } from './parse.js'
+
 import type { PossibleNumeric, Numeric } from './numeric.js'
-/**
- * All functions will remove whitespace as long as the final value a valid
- * number
- *
- * WILL NOT: remove letter and punctuation characters like parseInt or
- * parseFloat
- *
- * @module Transform - this will convert a possible numeric value (ie string) to a number
- * @author Gillian Tunney
- * @category Transform
- */
 
 /**
+ * Convert a value to a valid number type
+ *
  * @category Transform
- * @template {PossibleNumeric} Type - Type must extend a PossibleNumeric
- *   (number|string|bigint)
- * @function toNumeric - Convert a value to a valid number type
+ * @template {PossibleNumeric} Type - Type must extend a
+ *   PossibleNumeric(number|string|bigint)
+ * @function toNumeric
  * @param {Type} value
  * @returns {Numeric | undefined} Valid number value
- * @see Float
- * @see Integer
+ * @see parseToNumeric
+ * @see parseToInteger
  */
 export const toNumeric = <Type extends PossibleNumeric>(
     value: Type
@@ -35,15 +28,17 @@ export const toNumeric = <Type extends PossibleNumeric>(
 }
 
 /**
+ * Convert a value to an float. this must be exact float, not like 12
+ *
  * @category Transform
  * @template {number | string} Type
- * @function toFloat - Convert a value to an float. this must be exact float, ie
- *   not like 12
+ * @function toFloat
  * @param {Type} value
  * @returns {number | undefined} Valid number value
  * @see toNumeric -  for more specific details
- * @see numericToInt
- * @see parseToInt
+ * @see numericToFloat
+ * @see parseToFloat
+ * @see toNumeric
  */
 export const toFloat = <Type extends number | string>(
     value: Type
@@ -56,16 +51,18 @@ export const toFloat = <Type extends number | string>(
 }
 
 /**
+ * Convert a value to an integer. this must be exact integer ie not 1.01
+ *
  * @category Transform
- * @template {PossibleNumeric} Type - Type must extend a PossibleNumeric
- *   (number|string|bigint)
- * @function toInteger - Convert a value to an integer. this must be exact
- *   integer ie not 1.01
+ * @template {PossibleNumeric} Type - Type must extend
+ *   PossibleNumeric(number|string|bigint)
+ * @function toInteger
  * @param {Type} value
  * @returns {number | undefined} Valid number value
  * @see toNumeric -  for more specific details
  * @see numericToInt
  * @see parseToInt
+ * @see PossibleNumeric
  */
 export const toInteger = <Type extends PossibleNumeric>(
     value: Type
