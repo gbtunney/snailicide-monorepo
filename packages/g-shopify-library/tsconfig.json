@@ -1,0 +1,18 @@
+{
+    "extends": "@snailicide/build-config/tsconfig-base",
+    "compilerOptions": {
+        "target": "ESNext",
+        "lib": ["ESNext", "DOM"],
+        "composite": false,
+        "noEmit": true,
+        "module": "ESNext",
+        "rootDir": ".",
+        "types": ["@types/jest"]
+    },
+    "exclude": ["./node_modules"],
+    "include": ["./**/*.test.ts"],
+    "references": [
+        { "path": "./src" }
+        // { "path": "./src/tsconfig.node.json" }
+    ]
+}
