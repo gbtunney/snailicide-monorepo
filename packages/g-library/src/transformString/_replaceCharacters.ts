@@ -16,8 +16,7 @@ const replaceCharactersSinglePattern = ({
 /**
  * @function replaceAllCharacters
  * @param {string} value - Single value
- * @param {string | RegExp | (string | RegExp)[]} pattern [" "] blacklisted
- *   chars
+ * @param {string | RegExp | string[] | RegExp[]} pattern - Blacklisted chars
  * @param {string} replacement [""] - empty string or string with new characters
  * @returns {string}
  * @see batchReplaceAll
@@ -41,7 +40,8 @@ export const replaceAllCharacters = ({
 /**
  * @function batchReplaceAll
  * @param {string | string[]} - Array of strings to be replaced.
- * @param {string | RegExp | (string | RegExp)[]} pattern [ "] blacklisted chars
+ * @param {string | RegExp | string[] | RegExp[]} pattern [" "] - blacklisted
+ *   chars
  * @param {string} replacement [ ""] - empty string or string with newcharacters
  * @returns {string} - Array of trimmed strings.
  * @see replaceAllCharacters

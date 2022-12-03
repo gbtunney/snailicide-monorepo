@@ -64,7 +64,7 @@
         "lint": "cross-var eslint \"{$npm_package_config_eslint_path}.{$npm_package_config_eslint_extensions}\" --ignore-path .gitignore -c $npm_package_config_eslint_config",
         "prettier": "cross-var prettier {$npm_package_config_prettier_path}.{$npm_package_config_prettier_extensions}",
         "\n========== CHECK >> ==========": "",
-        "check": "pnpm lint && pnpm prettier --check",
+        "check": "pnpm lint",
         "\n========== FIX >> ==========": "",
         "fix": "pnpm prettier --write"
     },
