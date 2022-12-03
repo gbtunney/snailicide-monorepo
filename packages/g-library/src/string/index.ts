@@ -20,12 +20,13 @@ export {
     unescapeHtml,
     escapeUnicode,
     escapeRegExp,
-} from './_stringUtils'
+} from './_stringUtils.js'
 
 //todo: rename and move
 export {
     stringContainsNumber,
     stringContainsLetter,
     isValidUrl,
-} from './_string'
-export type { URL } from './_string'
+} from './_string.js'
+export type { URL } from './_string.js'
+export { NEW_LINE_CHARACTERS, WHITE_SPACE_CHARACTERS } from './_stringUtils.js'

@@ -3,23 +3,19 @@
  *
  * @author https://github.com/mout/mout/tree/master/src/string
  */
-import RA from 'ramda-adjunct'
-import R from 'ramda'
+import { replaceAll } from 'ramda-adjunct'
+import { toLower, toUpper, replace, pipe, trim, join } from 'ramda'
 
-export const lowerCase = (value: string): string => R.toLower(value)
+export const lowerCase = (value: string): string => toLower(value)
 
-export const upperCase = (value: string): string => R.toUpper(value)
+export const upperCase = (value: string): string => toUpper(value)
 
 export const capitalizeWords = (value: string): string =>
     value.replace(/\w\S*/g, (w) => w.replace(/^\w/, (c) => c.toUpperCase()))
 
 /** Convert string to camelCase text. */
 export const camelCase = (value: string): string => {
-    value = RA.replaceAll(
-        /[-_]/g,
-        ' ',
-        R.pipe(replaceAccents, removeNonWord)(value)
-    )
+    value = replaceAll(/[-_]/g, ' ', pipe(replaceAccents, removeNonWord)(value))
     if (/[a-z]/.test(value) && /^|\s[A-Z]+\s|$/.test(value)) {
         // we convert any word that isn't all caps into lowercase
         // value = value.replace(/\s(\w+)/g, function(word, m) {
@@ -28,62 +24,61 @@ export const camelCase = (value: string): string => {
     } else if (/\s/.test(value)) {
         // if it doesn't contain an acronym and it has spaces we should
         // convert every word to lowercase
-        value = R.toLower(value)
+        value = toLower(value)
     }
-    return R.pipe(
-        R.replace(/\s[a-z]/g, R.toUpper),
-        R.replace(/^\s*[A-Z]+/g, R.toLower),
-        R.replace(/\s+/g, '')
+    return pipe(
+        replace(/\s[a-z]/g, toUpper),
+        replace(/^\s*[A-Z]+/g, toLower),
+        replace(/\s+/g, '')
     )(value)
 }
 
 /** Add space between camelCase text. */
 export const unCamelCase = (value: string): string =>
-    R.pipe(
-        R.replace(/([a-z])([A-Z])/g, '$1 $2'),
+    pipe(
+        replace(/([a-z])([A-Z])/g, '$1 $2'),
         // space before last upper in a sequence followed by lower
-        R.replace(/\b([A-Z]+)([A-Z])([a-z])/, '$1 $2$3'),
+        replace(/\b([A-Z]+)([A-Z])([a-z])/, '$1 $2$3'),
         // uppercase the first character
-        R.replace(/^./, R.toUpper)
+        replace(/^./, toUpper)
     )(value)
 
 /** UPPERCASE first char of each word. */
 export const properCase = (value: string): string =>
-    R.pipe(R.toLower, R.replace(/^\w|\s\w/g, R.toUpper))(value)
+    pipe(toLower, replace(/^\w|\s\w/g, toUpper))(value)
 
 /** CamelCase + UPPERCASE first char */
 export const pascalCase = (value: string): string =>
-    R.replace(/^[a-z]/, R.toUpper, camelCase(value))
+    replace(/^[a-z]/, toUpper, camelCase(value))
 
 /** UPPERCASE first char of each sentence and lowercase other chars. */
 export const sentenceCase = (value: string): string =>
     // Replace first char of each sentence (new line or after '.\s+') to
-    R.pipe(R.toLower, R.replace(/(^\w)|\.\s+(\w)/gm, R.toUpper))(value)
+    pipe(toLower, replace(/(^\w)|\.\s+(\w)/gm, toUpper))(value)
 
 /**
  * Convert to lower case, remove accents, remove non-word chars and replace
- * spaces with the specified delimeter. Does not split camelCase text.
+ * spaces with the specified delimiter. Does not split camelCase text.
+ *
+ * @function slugify
+ * @param {string} value
+ * @param {string} delimiter ['-']
+ * @returns {string}
  */
-
 export const slugify = (value: string, delimiter = '-'): string => {
-    const transformFunc = R.pipe(
-        replaceAccents,
-        removeNonWord,
-        R.trim,
-        R.toLower
-    )
-    return RA.replaceAll(' ', delimiter, transformFunc(value) as string) //.replace(/ +/g, delimiter)
+    const transformFunc = pipe(replaceAccents, removeNonWord, trim, toLower)
+    return replaceAll(' ', delimiter, transformFunc(value) as string) //.replace(/ +/g, delimiter)
 }
 /**
  * Replaces spaces with hyphens, split camelCase text, remove non-word chars,
  * remove accents and convert to lower case.
  */
 export const hyphenate = (value: string): string =>
-    R.pipe(unCamelCase, slugify)(value)
+    pipe(unCamelCase, slugify)(value)
 
 /** Replaces hyphens with spaces. (only hyphens between word chars) */
 export const unhyphenate = (value: string): string =>
-    R.replace(/(\w)(-)(\w)/g, '$1 $3', value)
+    replace(/(\w)(-)(\w)/g, '$1 $3', value)
 
 /**
  * Replaces spaces with underscores, split camelCase text, remove non-word
@@ -94,14 +89,14 @@ export const underscore = (value: string): string =>
 
 /** Remove non-word chars. */
 export const removeNonWord = (value: string): string =>
-    R.replace(/[^0-9a-zA-ZxC0-xFF -]/g, '', value)
+    replace(/[^0-9a-zA-ZxC0-xF -]/g, '', value)
 
 /** Convert line-breaks from DOS/MAC to a single standard (UNIX by default) */
 export const normalizeLineBreaks = (value: string, lineEnd = '\n'): string =>
-    R.pipe(
-        R.replace(/\r\n/g, lineEnd),
-        R.replace(/\r/g, lineEnd),
-        R.replace(/\n/g, lineEnd)
+    pipe(
+        replace(/\r\n/g, lineEnd),
+        replace(/\r/g, lineEnd),
+        replace(/\n/g, lineEnd)
     )(value)
 
 /** Replaces all accented chars with regular ones */
@@ -139,13 +134,13 @@ export const truncate = (
     onlyFullWords = true
 ): string => {
     maxChars = onlyFullWords ? maxChars + 1 : maxChars
-    value = R.trim(value)
+    value = trim(value)
     if (value.length <= maxChars) return value
     value = value.substr(0, maxChars - append.length)
     //crop at last space or remove trailing whitespace
     value = onlyFullWords
         ? value.substr(0, value.lastIndexOf(' '))
-        : R.trim(value)
+        : trim(value)
     return `${value}${append}`
 }
 
@@ -155,35 +150,60 @@ export const truncate = (
  */
 export const abbreviate = (value: string): string => {
     if (!value.match(/\b([A-Z])/g)) return value
-    return R.join('', value.match(/\b([A-Z])/g) as RegExpMatchArray)
+    return join('', value.match(/\b([A-Z])/g) as RegExpMatchArray)
 }
 
-/** Escapes special characters in string for regexp */
+/**
+ * Escapes special characters in string for regexp
+ *
+ * @function escapeRegExp
+ * @param {string} value
+ * @returns {string | undefined}
+ */
 export const escapeRegExp = (value: string): string | undefined => {
     return value.toString().replace(/[-[/\]{}()*+?.,\\^$|#\s]/g, '\\$&')
 }
 
-/** Escapes a string for insertion into HTML. */
-export const escapeHtml = (value: string) =>
-    R.pipe(
-        R.replace(/&/g, '&amp;'),
-        R.replace(/</g, '&lt;'),
-        R.replace(/>/g, '&gt;'),
-        R.replace(/'/g, '&#39;'),
-        R.replace(/"/g, '&quot;')
+/**
+ * Escapes a string for insertion into HTML.
+ *
+ * @function escapeHtml
+ * @param {string} value
+ * @returns {string}
+ */
+export const escapeHtml = (value: string): string =>
+    pipe(
+        replace(/&/g, '&amp;'),
+        replace(/</g, '&lt;'),
+        replace(/>/g, '&gt;'),
+        replace(/'/g, '&#39;'),
+        replace(/"/g, '&quot;')
     )(value)
 
-/** Unescapes HTML special chars */
+/**
+ * Unescapes HTML special chars
+ *
+ * @function unescapeHtml
+ * @param {string} value
+ * @returns {string}
+ */
 export const unescapeHtml = (value: string): string =>
-    R.pipe(
-        R.replace(/&amp;/g, '&'),
-        R.replace(/&lt;/g, '<'),
-        R.replace(/&gt;/g, '>'),
-        R.replace(/&#39;/g, "'"),
-        R.replace(/&quot;/g, '"')
+    pipe(
+        replace(/&amp;/g, '&'),
+        replace(/&lt;/g, '<'),
+        replace(/&gt;/g, '>'),
+        replace(/&#39;/g, "'"),
+        replace(/&quot;/g, '"')
     )(value)
 
-/** Escape string into unicode sequences */
+/**
+ * Escape string into unicode sequences
+ *
+ * @function escapeUnicode
+ * @param {string} value
+ * @param {boolean} shouldEscapePrintable
+ * @returns {string}
+ */
 export function escapeUnicode(
     value: string,
     shouldEscapePrintable = false
@@ -199,20 +219,37 @@ export function escapeUnicode(
     })
 }
 
-/** Remove HTML tags from string. */
+/**
+ * Remove HTML tags from string
+ *
+ * @function stripHtmlTags
+ * @param {string} value
+ * @returns {string}
+ */
 export const stripHtmlTags = (value: string): string =>
-    R.replace(/<[^>]*>/g, '', value)
+    replace(/<[^>]*>/g, '', value)
 
-/** Remove non-printable ASCII chars */
+/**
+ * Remove non-printable ASCII chars
+ *
+ * @function removeNonASCII
+ * @param {string} value
+ * @returns {string}
+ */
 export const removeNonASCII = (value: string): string =>
     // Matches non-printable ASCII chars -
     // http://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters
-    R.replace(/[^\x20-\x7E]/g, '', value)
+    replace(/[^\x20-\x7E]/g, '', value)
 
+/**
+ * @function removeAllNewlines
+ * @param {string} value
+ * @returns {string}
+ */
 export const removeAllNewlines = (value: string): string =>
     // Matches non-printable ASCII chars -
     // http://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters
-    R.replace(/\r?\n|\r/g, '', value)
+    replace(/\r?\n|\r/g, '', value)
 
 export const NEW_LINE_CHARACTERS = [
     /* * Unicode:line feed * */
