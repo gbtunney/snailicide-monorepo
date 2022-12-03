@@ -15,5 +15,7 @@ module.exports = merge(EsLint.typeScriptOptions, {
     ignorePatterns: ['src/**/*.test.ts'],
     rules: {
         '@typescript-eslint/no-unused-vars': 'warn',
+        '@typescript-eslint/prefer-namespace-keyword': 'off',
+        '@typescript-eslint/ban-types': 'warn',
     },
 })
