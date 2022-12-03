@@ -1,5 +1,11 @@
 # @snailicide/g-library
 
+## 0.1.2
+
+### Patch Changes
+
+-   initial release for g-shopify-library with fixes for g-library
+
 ## 0.1.1
 
 ### Patch Changes
