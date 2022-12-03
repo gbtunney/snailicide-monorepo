@@ -34,7 +34,7 @@ export type EmptyString = ''
  */
 export const isParsableToNumeric = <Type = unknown>(
     value: Type
-): value is Type => {
+): value is Type extends PossibleNumeric ? Type : never => {
     //const regex = new RegExp(/(\?+1)([a-z]|[A-Z]|\$|!|@|#|%|&)+(\d)/ )
     if (isString(value) && /\d/.test(value) && value.toString().length > 0) {
         //if string and contains digits

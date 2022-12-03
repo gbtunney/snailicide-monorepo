@@ -57,8 +57,8 @@ const getRandomNumber = (_multiplier = 100): number =>
  * @param {NonNegativeInteger<Type>} value
  * @returns {number}
  */
-const getIntegerDigitCount = <Type extends number>(
-    value: NonNegativeInteger<Type>
+const getIntegerDigitCount = <Type extends number, strict = false>(
+    value: strict extends true ? NonNegativeInteger<Type> : Type
 ): number => {
     const _integer: number = parseInt(value.toString())
     return _integer === 0

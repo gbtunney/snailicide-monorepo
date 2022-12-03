@@ -1,4 +1,4 @@
-import { isNil } from 'ramda'
+import { isNil, isEmpty } from 'ramda'
 import * as RA from 'ramda-adjunct'
 import type {
     Falsy,
@@ -9,7 +9,7 @@ import type {
     EmptyObject,
     EmptyArray,
 } from './../types/empty.js'
-import type { Primitive } from './../types/utility.js'
+import type { Primitive, PlainObject } from './../types/utility.js'
 
 //todo: move these to "empty??"
 
@@ -103,6 +103,16 @@ export const isEmptyArray = <T = unknown>(
 export const isNonEmptyArray = <T = unknown>(
     value: T[] extends EmptyArray ? never : T[]
 ): value is T[] extends EmptyArray ? never : T[] => RA.isNonEmptyArray(value)
+
+export const isNonEmptyObject = <
+    Type extends PlainObject | Record<string, unknown>
+>(
+    value: Type
+): value is Type => RA.isNotEmpty(value)
+
+export const isEmptyObject = <Type extends EmptyObject>(
+    value: Type
+): value is Type => isEmpty(value)
 
 //Test case  --
 /*const test_value  = 22 //'   ' //PlainObject = { hhihih:'hjhj'}

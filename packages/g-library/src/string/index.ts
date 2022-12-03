@@ -23,4 +23,9 @@ export {
 } from './_stringUtils'
 
 //todo: rename and move
-export { stringContainsNumber, stringContainsLetter } from './_string'
+export {
+    stringContainsNumber,
+    stringContainsLetter,
+    isValidUrl,
+} from './_string'
+export type { URL } from './_string'
