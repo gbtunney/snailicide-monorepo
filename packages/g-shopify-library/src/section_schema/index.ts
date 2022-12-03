@@ -2,7 +2,7 @@ import { stringUtils, tg } from '@snailicide/g-library'
 const { capitalizeWords, unCamelCase } = stringUtils
 
 import { stringTransform } from '@snailicide/g-library'
-import * as R from 'ramda'
+import { omit } from 'ramda'
 import type { LocalSchema } from './settings.js'
 import type { SectionSchema } from './settings.schema.js'
 
@@ -10,14 +10,6 @@ export type { SettingTypes, Shared } from './setting.types.js'
 export type { LocalSchema } from './settings.js'
 export type { SectionSchema } from './settings.schema.js'
 export { defineSettings, defineBlocks, defineSchemaPreset } from './settings.js'
-
-type DefineSettingsSchema = <
-    T = LocalSchema.Settings,
-    SettingDef = T extends LocalSchema.Settings ? T : LocalSchema.Settings
->(
-    value: SettingDef,
-    prefix?: string
-) => SectionSchema.Settings
 
 export const defineSchemaSettings = <Type extends LocalSchema.Settings>(
     value: Type,
@@ -115,12 +107,12 @@ export const defineSchemaBlocks = <T = LocalSchema.Blocks>(
     )
 }
 
-export const defineSectionSchema = <T = LocalSchema.Schema>(
-    value: T extends LocalSchema.Schema ? T : never,
+export const defineSectionSchema = <T extends LocalSchema.Schema>(
+    value: T,
     _prefix: string | undefined = undefined
 ): SectionSchema.Schema => {
     const _value: Omit<LocalSchema.Schema, 'settings' | 'blocks' | 'presets'> =
-        R.omit(['settings', 'blocks', 'presets'], value)
+        omit(['settings', 'blocks', 'presets'], value)
 
     const _schema: SectionSchema.Schema = _value
 
