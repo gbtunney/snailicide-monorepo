@@ -84,6 +84,19 @@ export module LocalSchema {
         blocks?: _Blocks extends Blocks ? _Blocks : never
         presets: _Settings extends Settings ? Preset<_Settings, _Blocks>[] : []
     }
+
+    export type ThemeCategory<
+        _Settings extends Settings,
+        TypeString = string
+    > = {
+        name?: TypeString extends string ? TypeString : never
+        settings: _Settings
+    }
+    export type ThemeCategories = Record<string, LocalSchema.ThemeCategory<{}>>
+
+    export type ThemeSettingsSchema<_ThemeCategories = ThemeCategories> = {
+        theme_info: SettingTypes.ThemeInfo
+    } & _ThemeCategories
 }
 
 type DefineSettings = (

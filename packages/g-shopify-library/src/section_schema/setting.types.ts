@@ -194,6 +194,15 @@ export module SettingTypes {
         content: string
     }
 
+    export type ThemeInfo = {
+        name: 'theme_info'
+        theme_name: string
+        theme_version: string //should be semver eventually
+        theme_author: string
+        theme_documentation_url?: string
+        theme_support_url?: string
+    }
+
     export type BasicSettingTypes = {
         /* * Basic Setting Input Types * */
         text: Text
