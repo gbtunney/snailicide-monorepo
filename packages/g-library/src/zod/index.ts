@@ -23,3 +23,17 @@ export type Zod = typeof z & {
 }
 export const zod: Zod = { ...z, optionalDefault, semVer }
 export default zod
+
+export const validateZodType = <Schema extends z.ZodSchema>(
+    value: z.infer<Schema>,
+    schema: Schema
+): value is z.infer<typeof schema> => {
+    return schema.safeParse(value).success
+}
+
+export const tg_Zod = <Type = unknown, Schema = z.ZodSchema>(
+    value: Type,
+    schema: Schema extends z.ZodSchema ? Schema : never
+): value is z.infer<typeof schema> => {
+    return schema.safeParse(value).success
+}

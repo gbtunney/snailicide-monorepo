@@ -1,4 +1,5 @@
-import { zod } from './index.js'
+import { zod, validateZodType, tg_Zod } from './index.js'
+import { z } from 'zod'
 describe('zod ', () => {
     it('returns `true` for values parseable number', () => {
         const schemaParseBad = zod
@@ -65,6 +66,29 @@ describe('zod ', () => {
             test_optional: 'test_string',
             test_semver: '0.0.1',
         })
+
+        const testSchema = z.object({
+            prop1: z.string(),
+            prop2: z.number().int(),
+        })
+        const testval = {
+            prop1: 'jkjkj',
+            prop2: 2,
+        }
+
+        expect(validateZodType(testval, testSchema)).toEqual(true)
+
+        const testval2 = {
+            prop1: 22,
+        }
+        // @ts-expect-error should be error
+        const val = validateZodType(testval2, testSchema)
+        const testVal3 = undefined
+
+        expect(tg_Zod(testVal3, testSchema)).toEqual(false)
+        expect(tg_Zod<z.infer<typeof testSchema>>(testval, testSchema)).toEqual(
+            true
+        )
     })
 })
 export {}
