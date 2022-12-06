@@ -1,4 +1,3 @@
-import 'jest'
 import { isNPMPackage } from './npm.package.js'
 import { omit } from 'ramda'
 const example_package = {

@@ -1,4 +1,3 @@
-import 'jest'
 import { numeric } from './index.js'
 
 describe('Parse number tests, ', () => {

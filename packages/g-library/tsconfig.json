@@ -3,11 +3,11 @@
     "compilerOptions": {
         "target": "ESNext",
         "lib": ["ESNext", "DOM"],
-        "composite": false,
+        "composite": true,
         "noEmit": true,
         "module": "ESNext",
         "rootDir": ".",
-        "types": ["@types/jest"]
+        "types": ["@types/jest", "jest"]
     },
     "exclude": ["./node_modules"],
     "include": ["./**/*.test.ts"],

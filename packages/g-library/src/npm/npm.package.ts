@@ -3,7 +3,7 @@ import SemverJS from '@brunorb/semverjs'
 import { z } from 'zod'
 
 export const validSemVer: RegExp = SemverJS.pattern
-export const validNPMPackageName =
+export const validPackageName =
     /^(@[a-z0-9-~][a-z0-9-._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/
 
 import {
@@ -17,9 +17,7 @@ import {
 /* * Collection of Generic Package Utility Types  * */
 
 const schemaPackage = z.object({
-    name: z
-        .string()
-        .regex(/^(@[a-z0-9-~][a-z0-9-._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/),
+    name: z.string().regex(validPackageName),
     version: z.string().regex(validSemVer),
     description: z.string(),
     main: z.string(),
