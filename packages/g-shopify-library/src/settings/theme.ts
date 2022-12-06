@@ -1,4 +1,4 @@
-import {z} from "zod";
+import { z } from 'zod'
 /*
 export type ThemeInfo = {
     name: 'theme_info'
@@ -17,5 +17,3 @@ const ThemeInfo = z.object({
     theme_documentation_url: z.string().optional(),
     theme_support_url: z.string().optional(),
 })
-
-

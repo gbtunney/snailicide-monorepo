@@ -7,12 +7,10 @@
         "noEmit": true,
         "module": "ESNext",
         "rootDir": ".",
-        "types": ["@types/jest"]
+        "types": ["@types/jest", "jest"],
+        "typeRoots": ["@types/jest", "jest"]
     },
     "exclude": ["./node_modules"],
     "include": ["./**/*.test.ts"],
-    "references": [
-        { "path": "./src" }
-        // { "path": "./src/tsconfig.node.json" }
-    ]
+    "references": [{ "path": "./src" }]
 }
