@@ -1,4 +1,4 @@
 [submodule "themes/shopify-dawn"]
 	path = themes/shopify-dawn
-	url = git@github.com:gbtunney/gbt-theme-dawn.git
-	branch = staging
+	url = git@github.com:gbtunney/gbt-theme-dawn
+	branch = development
