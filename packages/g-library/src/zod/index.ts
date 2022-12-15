@@ -1,6 +1,8 @@
 import { z, ZodString } from 'zod'
 import { validSemVer } from './../npm/index.js'
+import { node } from './../node/index.js'
 import { isNotUndefined } from './../typeguard/utility.typeguards.js'
+import path from 'path'
 /* * CUSTOM ZOD UTILITIES!! * */
 
 export const optionalDefault = <Type extends z.ZodType>(
@@ -16,12 +18,41 @@ export const semVer = (useDefault: undefined | string = undefined) => {
         ? optionalDefault(semVerType, useDefault)
         : semVerType
 }
+
+const normalizePath = (value: string) => path.normalize(path.resolve(value))
+
+export const filePathExists = z
+    .string()
+    .refine((val) => node.doesFileExist(val), {
+        message: 'File path already exists',
+    })
+    .transform(normalizePath)
+
+export const filePathDoesNotExist = z
+    .string()
+    .refine((val) => !node.doesFileExist(val), {
+        message: 'File path already exists',
+    })
+    .transform(normalizePath)
+
+export const filePath = z.string().transform(normalizePath)
+
 /* * ZOD * */
 export type Zod = typeof z & {
     optionalDefault: typeof optionalDefault
     semVer: typeof semVer
+    filePath: typeof filePath
+    filePathExists: typeof filePathExists
+    filePathDoesNotExist: typeof filePathDoesNotExist
 }
-export const zod: Zod = { ...z, optionalDefault, semVer }
+export const zod: Zod = {
+    ...z,
+    optionalDefault,
+    semVer,
+    filePath,
+    filePathExists,
+    filePathDoesNotExist,
+}
 export default zod
 
 export const validateZodType = <Schema extends z.ZodSchema>(

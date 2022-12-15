@@ -14,7 +14,7 @@ export const node = {
      * @param { string } path
      * @returns {boolean}
      */
-    doesFileExcist: (path: string): boolean => fs.existsSync(path),
+    doesFileExist: (path: string): boolean => fs.existsSync(path),
 }
 
 export type { FilePath } from './file.path.array.js'

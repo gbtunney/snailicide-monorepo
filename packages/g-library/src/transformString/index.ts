@@ -1,6 +1,6 @@
 /* * TRANSFORM STRING LIBRARY *
  * @author Gillian Tunney */
-export { batchReplaceAll as replaceCharacters } from './_replaceCharacters'
+export { batchReplaceAll as replaceCharacters } from './_replaceCharacters.js'
 
 export {
     trimCharacters,

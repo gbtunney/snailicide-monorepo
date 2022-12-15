@@ -49,6 +49,7 @@
         "\n========== TEST >> ==========": "",
         "test": "jest",
         "test:watch": "jest --watch",
+        "test:example": "ts-node --esm ./exampleNodeScript.ts --path ./../../themes --name shopify-dawn",
         "\n========== DOCS >> ==========": "",
         "docs": "jsdoc -c ./jsdoc.json -t ./node_modules/better-docs",
         "docs:serve": "vite --config ./vite.docs.config.ts",
