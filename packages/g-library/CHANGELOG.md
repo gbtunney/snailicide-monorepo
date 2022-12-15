@@ -1,5 +1,11 @@
 # @snailicide/g-library
 
+## 0.1.3
+
+### Patch Changes
+
+-   added new zod functions and validators
+
 ## 0.1.2
 
 ### Patch Changes
