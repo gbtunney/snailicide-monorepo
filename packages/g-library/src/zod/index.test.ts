@@ -1,4 +1,4 @@
-import { zod, validateZodType, tg_Zod } from './index.js'
+import { zod, tg_Zod, getZodData } from './index.js'
 import { z } from 'zod'
 describe('zod ', () => {
     it('returns `true` for values parseable number', () => {
@@ -71,24 +71,39 @@ describe('zod ', () => {
             prop1: z.string(),
             prop2: z.number().int(),
         })
-        const testval = {
-            prop1: 'jkjkj',
+        const test_val = {
+            prop1: 'my string',
             prop2: 2,
+            prop3: 3,
+        }
+        const test_bad_val = {
+            prop1: 'my string',
+            prop2: 'supposed to be int',
+        }
+        // @ts-expect-error will ts-error if type is explicity set
+        if (tg_Zod<z.infer<typeof testSchema>>(test_bad_val, testSchema)) {
+            // @ts-expect-error will error
+            const test_bad_parse = getZodData(test_bad_val, testSchema)
         }
 
-        expect(validateZodType(testval, testSchema)).toEqual(true)
+        const test_parse = getZodData(test_val, testSchema)
+        expect(test_parse).toEqual({
+            prop1: 'my string',
+            prop2: 2,
+        })
 
-        const testval2 = {
-            prop1: 22,
+        const test_bad_val_2 = {
+            prop1: '22',
         }
         // @ts-expect-error should be error
-        const val = validateZodType(testval2, testSchema)
-        const testVal3 = undefined
+        const test_parse_bad_2 = getZodData(test_bad_val_2, testSchema)
+        expect(test_parse_bad_2).toEqual(undefined)
+        expect(tg_Zod(test_bad_val_2, testSchema)).toEqual(false)
 
-        expect(tg_Zod(testVal3, testSchema)).toEqual(false)
-        expect(tg_Zod<z.infer<typeof testSchema>>(testval, testSchema)).toEqual(
-            true
-        )
+        expect(tg_Zod(undefined, testSchema)).toEqual(false)
+        expect(
+            tg_Zod<z.infer<typeof testSchema>>(test_val, testSchema)
+        ).toEqual(true)
     })
 })
 export {}

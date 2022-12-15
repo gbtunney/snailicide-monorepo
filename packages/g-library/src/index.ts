@@ -17,6 +17,7 @@ export * as tg from './typeguard/utility.typeguards.js'
 
 /* * ZOD * */
 export { zod } from './zod/index.js'
+export { tg_Zod, getZodData } from './zod/index.js'
 
 export type {
     PlainObject,

@@ -1,8 +1,9 @@
-import { z, ZodString } from 'zod'
+import { z } from 'zod'
+import path from 'path'
 import { validSemVer } from './../npm/index.js'
 import { node } from './../node/index.js'
 import { isNotUndefined } from './../typeguard/utility.typeguards.js'
-import path from 'path'
+
 /* * CUSTOM ZOD UTILITIES!! * */
 
 export const optionalDefault = <Type extends z.ZodType>(
@@ -55,13 +56,62 @@ export const zod: Zod = {
 }
 export default zod
 
-export const validateZodType = <Schema extends z.ZodSchema>(
-    value: z.infer<Schema>,
-    schema: Schema
-): value is z.infer<typeof schema> => {
-    return schema.safeParse(value).success
+/**
+ * Get zod data typed
+ *
+ * @category Zod
+ * @example
+ *     getZodData( z.object({
+ *     prop1: z.string(),
+ *     prop2: z.number().int(),
+ *     },{
+ *     prop1: 'i am a string',
+ *     prop2: 2,
+ *     prop3: 3
+ *     } )
+ *     => {
+ *     prop1: 'i am a string',
+ *     prop2: 2
+ *     }
+ *
+ * @template {z.ZodSchema} Schema
+ * @function getZodData
+ * @param {Schema extends z.ZodSchema ? z.infer<Schema> : never} value - Value
+ *   to parse
+ * @param {Schema extends z.ZodSchema ? Schema : never} schema - Zod schema to
+ *   use
+ * @returns {z.infer<typeof schema>}
+ */
+export const getZodData = <Schema = z.ZodSchema>(
+    value: Schema extends z.ZodSchema ? z.infer<Schema> : never,
+    schema: Schema extends z.ZodSchema ? Schema : never
+): z.infer<typeof schema> => {
+    return tg_Zod(value, schema) ? schema.parse(value) : undefined
 }
 
+/**
+ * Guard function to determine if value is parseable according to schema
+ *
+ * @category Zod
+ * @category TypeGuard
+ * @example
+ *     tg_Zod( z.object({
+ *     prop1: z.string(),
+ *     prop2: z.number().int(),
+ *     },{
+ *     prop1: 'i am a string',
+ *     prop2: 2,
+ *     } )
+ *     => true
+ *
+ * @template {unknown} Type
+ * @template {z.ZodSchema} Schema
+ * @function tg_Zod
+ * @param {Type} value - Value to test
+ * @param {Schema extends z.ZodSchema ? Schema : never} schema - Zod schema to
+ *   use
+ * @returns {boolean}
+ */
 export const tg_Zod = <Type = unknown, Schema = z.ZodSchema>(
     value: Type,
     schema: Schema extends z.ZodSchema ? Schema : never
