@@ -1,5 +1,3 @@
-import 'jest'
-import { isInteger, isFloat, isBigInt } from 'ramda-adjunct'
 import * as _parse from './parse.js'
 import * as _num from './numeric.js'
 

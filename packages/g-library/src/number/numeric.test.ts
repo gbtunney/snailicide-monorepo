@@ -1,4 +1,3 @@
-import 'jest'
 import { isInteger, isFloat, isBigInt } from 'ramda-adjunct'
 import * as _num from './numeric.js'
 describe('Numeric Module', () => {

@@ -17,7 +17,8 @@
         // Type declaration settings.
         "declaration": true,
         "declarationDir": "./../types",
-        "declarationMap": true
+        "declarationMap": true,
+        "removeComments": false
     },
     "exclude": ["**/*.test.ts"],
     "include": ["**/*.ts", "**/*.cts", "**/*.mts"]

@@ -4,8 +4,8 @@ import { z } from 'zod'
 export type { Json, Jsonifiable, Jsonify } from './object/json.js'
 export { getJSONString, getJSON } from './object/json.js'
 
-export { isNPMPackage } from './object/npm.package.js'
-export type { NPMPackage } from './object/npm.package.js'
+/* * NPM UTILS * */
+export * as npm from './npm/index.js'
 
 /* * NODE UTILS MODULE * */
 import type * as NodeModule from './node/index.js'
@@ -16,7 +16,7 @@ export type Node = NodeModule
 export * as tg from './typeguard/utility.typeguards.js'
 
 /* * ZOD * */
-export const zod = z
+export { zod } from './zod/index.js'
 
 export type {
     PlainObject,

@@ -1,6 +1,4 @@
 import { trimCharacters } from './_trimCharacters.js'
-import 'jest'
-
 describe('trimCharacters', () => {
     it('returns `true` trimCharacters', () => {
         expect(trimCharacters({ value: '     -7.5', pattern: ' ' })).toBe(
