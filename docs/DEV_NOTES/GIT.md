@@ -1,5 +1,20 @@
 # GIT NOTES!
 
+-   Commit [Link](https://github.com/gbtunney/gbt-theme-dawn/commit/7035aaa754ba4f99b1ff1f245d9f882ef6951b96)
+
+## Add package from commit hash
+
+```sh
+#link to specific commit on website:
+open https://github.com/<user>/<repository>/commit/<commit-hash>
+
+#download git archive (zip | tar.gz)  by branch or hash
+wget https://github.com/<user>/<repository>/archive/<branch-or-commit>.zip
+
+#add as dependency
+ pnpm add -w -D git://github.com/gbtunney/gbt-theme-dawn.git#7035aaa754ba4f99b1ff1f245d9f882ef6951b96
+```
+
 ## Test validate branch name
 
 ```sh
