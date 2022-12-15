@@ -76,11 +76,9 @@ export default zod
  *
  * @template {z.ZodSchema} Schema
  * @function getZodData
- * @param {Schema extends z.ZodSchema ? z.infer<Schema> : never} value - Value
- *   to parse
- * @param {Schema extends z.ZodSchema ? Schema : never} schema - Zod schema to
- *   use
- * @returns {z.infer<typeof schema>}
+ * @param {unknown} value - Z.infer<typeof schema>
+ * @param {Schema} schema - Zod schema to use
+ * @returns {unknown} Z.infer<typeof schema>
  */
 export const getZodData = <Schema = z.ZodSchema>(
     value: Schema extends z.ZodSchema ? z.infer<Schema> : never,
@@ -108,8 +106,7 @@ export const getZodData = <Schema = z.ZodSchema>(
  * @template {z.ZodSchema} Schema
  * @function tg_Zod
  * @param {Type} value - Value to test
- * @param {Schema extends z.ZodSchema ? Schema : never} schema - Zod schema to
- *   use
+ * @param {Schema} schema - Zod schema to use
  * @returns {boolean}
  */
 export const tg_Zod = <Type = unknown, Schema = z.ZodSchema>(
