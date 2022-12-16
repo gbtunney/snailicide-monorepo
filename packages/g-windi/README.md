@@ -19,7 +19,7 @@
 -   [github](https://github.com/gbtunney)
 -   [email](mailto:gbtunney@mac.com)
 
-# Snailicide g library
+# Snailicide g-windi - a collection of windiCSS Vue3 composables
 
 ## Installation
 
@@ -27,21 +27,21 @@ This library is published in the NPM registry and can be installed using any com
 
 ```sh
 ## For pnpm workspace, use the command below.
-pnpm add @snailicide/g-library@workspace:*
+pnpm add @snailicide/g-windi@workspace:*
 
-pnpm --filter=[yourGlob] add @snailicide/g-library@workspace:*
+pnpm --filter=[yourGlob] add @snailicide/g-windi@workspace:*
 ```
 
 ## Build
 
 ```sh
-pnpm --filter=@snailicide/g-library build
+pnpm --filter=@snailicide/g-windi build
 ```
 
 ## Tests
 
 ```sh
-pnpm --filter=@snailicide/g-library test
+pnpm --filter=@snailicide/g-windi test
 ```
 
 ## TODO: jsdocPrintWidth look at this variable for line breaks.
