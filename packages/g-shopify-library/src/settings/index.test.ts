@@ -1,14 +1,5 @@
-import { z, ZodString } from 'zod'
+import { Setting, SettingsMapped, validateSettingsSchema } from './index.js'
 
-import {
-    settingSchema,
-    getSetting,
-    SettingSchemaMap,
-    validateSettingsSchema,
-    Setting,
-    Settings,
-    SettingsMapped,
-} from './index.js'
 describe('zod', () => {
     it('zod', () => {
         type ExampleIconSettings = {
@@ -56,7 +47,7 @@ describe('zod', () => {
         ]
 
         const validateTest = validateSettingsSchema(test_icon_settings)
-        const test_color_toggle: Setting<'checkbox'> = {
+        const test_color_toggle: Setting<'checkbox', 'color_toggle'> = {
             id: 'color_toggle',
             type: 'checkbox',
             default: false,
@@ -86,10 +77,9 @@ describe('zod', () => {
                 default: 'black',
             },
         ]
-
-        expect(validateSettingsSchema<Setting[]>(exampleSection)).toBe(true)
+        expect(validateSettingsSchema(exampleSection)).toBe(true)
         const obj2: Setting<'text'> = {
-            id: 'css_classes',
+            id: 'hi', //'css_classes',
             type: 'text',
             label: 'Add custom css below',
         }

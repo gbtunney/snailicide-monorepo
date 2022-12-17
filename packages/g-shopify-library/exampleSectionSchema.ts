@@ -1,4 +1,8 @@
-import { LocalSchema, defineSettings, defineSectionSchema } from './index.js'
+import {
+    LocalSchema,
+    defineSettings,
+    defineSectionSchema,
+} from './src/index.js'
 import type { PrefixProperties } from '@snailicide/g-library'
 
 export type HeadingSettings = {

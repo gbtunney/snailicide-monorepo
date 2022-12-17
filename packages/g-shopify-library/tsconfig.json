@@ -11,6 +11,7 @@
         "typeRoots": ["@types/jest", "jest"]
     },
     "exclude": ["./node_modules"],
+    "files": ["exampleSectionSchema.ts", "writeExampleSchema.ts"],
     "include": ["./**/*.test.ts"],
     "references": [{ "path": "./src" }]
 }

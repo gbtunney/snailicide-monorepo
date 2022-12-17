@@ -1,4 +1,3 @@
-// {isVariantAvailable, isShopifyID, isGetMaxQuantity, shopifyMediaURL }
 import * as RA from 'ramda-adjunct'
 import {
     numeric,
