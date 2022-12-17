@@ -27,7 +27,7 @@
         "prettier": "cross-var prettier {$npm_package_config_prettier_path}.{$npm_package_config_prettier_extensions}",
         "\n========== CHECK >> ==========": "",
         "check": "pnpm check:self && pnpm -r check",
-        "check:self": "pnpm lint && pnpm prettier --check",
+        "check:self": "pnpm lint",
         "\n========== FIX >> ==========": "",
         "fix": "pnpm fix:self && pnpm -r fix",
         "fix:self": "pnpm prettier --write",
