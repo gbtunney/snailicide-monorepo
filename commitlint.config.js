@@ -16,7 +16,6 @@ module.exports = {
                 'release',
                 'build-config',
                 'g-library',
-                'g-shopify-library',
                 'g-windi',
                 'template-cli',
             ],
