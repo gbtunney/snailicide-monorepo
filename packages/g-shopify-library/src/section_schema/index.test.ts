@@ -1,10 +1,9 @@
-// noinspection JSVoidFunctionReturnValueUsed
-import type { LocalSchema } from './settings'
-import type { SectionSchema } from './settings.schema'
-import { defineSchemaPreset } from './settings'
+import type { LocalSchema } from './settings.js'
+import type { SectionSchema } from './settings.schema.js'
+import { defineSchemaPreset } from './settings.js'
+
 describe('Section Schema Settings', () => {
     it('ShopifySchema.Section.Checkbox', () => {
-        // defineSettings
         type IconSettings = {
             icon_path: LocalSchema.Setting<'text'>
             color_toggle: LocalSchema.Setting<'checkbox'>
