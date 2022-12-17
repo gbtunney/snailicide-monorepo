@@ -61,3 +61,32 @@ git show-ref --tags
 git tag -n5
 #show 5 lines of annotation
 ```
+
+## Repo merging notes
+
+-   [Git Filter Repo](https://github.com/newren/git-filter-repo#how-do-i-install-it)
+
+```shell
+#remove all other files and history except path
+git filter-repo --path packages/g-shopify-library
+```
+
+-   Merge git repositories
+
+```shell
+cd repo-b
+git remote add repo-a ../repo-a
+git fetch repo-a
+git merge --allow-unrelated-histories a/main
+git remote remove repo-a
+
+#then use the git filter-repo
+```
+
+-   push an existing repository from the command line
+
+````shell
+git remote add origin git@github.com:gbtunney/junk.git
+git branch -M main
+git push -u origin main```
+````
