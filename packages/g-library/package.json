@@ -84,7 +84,7 @@
         "email": "gbtunney@mac.com"
     },
     "devDependencies": {
-        "@snailicide/build-config": "workspace:0.2.4",
+        "@snailicide/build-config": "workspace:0.2.5",
         "@types/glob": "^8.0.0",
         "@types/jest": "^29.2.3",
         "@types/node": "^18.7.18",

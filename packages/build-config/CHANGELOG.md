@@ -1,5 +1,11 @@
 # @snailicide/build-config
 
+## 0.2.5
+
+### Patch Changes
+
+-   fixed "tsconfig-base" link in package exports
+
 ## 0.2.4
 
 ### Patch Changes
