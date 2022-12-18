@@ -19,7 +19,7 @@
             },
             "./dist/index.js"
         ],
-        "./tsconfig": "./dist/tsconfig-base.json",
+        "./tsconfig-base": "./tsconfig-base.json",
         "./eslint": "./dist/.eslintrc.json",
         "./prettier": "./dist/.prettierrc.json",
         "./jest": "./dist/jest.config.json"
