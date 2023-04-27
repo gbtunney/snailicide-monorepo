@@ -1,5 +1,11 @@
 # @snailicide/g-library
 
+## 0.2.0
+
+### Minor Changes
+
+-   added new functions for file arrays, yargs and base64 encoding
+
 ## 0.1.3
 
 ### Patch Changes

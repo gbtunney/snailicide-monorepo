@@ -81,7 +81,7 @@
         "email": "gbtunney@mac.com"
     },
     "devDependencies": {
-        "@snailicide/g-library": "workspace:^0.1.3",
+        "@snailicide/g-library": "workspace:^0.2.0",
         "@types/jest": "^29.5.1",
         "@types/node": "^18.16.1",
         "eslint": "^8.39.0",
