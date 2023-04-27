@@ -1,6 +1,5 @@
 // @ts-check
 
-import { terser } from 'rollup-plugin-terser'
 import typescript2 from 'rollup-plugin-typescript2'
 import shell from 'shelljs'
 import { Prettier, EsLint, Jest, nodeUtils } from './dist/index.js'
