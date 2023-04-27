@@ -44,4 +44,9 @@ pnpm --filter=@snailicide/g-windi build
 pnpm --filter=@snailicide/g-windi test
 ```
 
+[g-windi](https://www.npmjs.com/package/@snailicide/g-windi): A collection of utility functions for building configurations and themes for WindiCSS. These can also be used for similar frameworks like TailwindCSS and Unocss.
+
+-   Includes functions that utilize Windi CSS's engine at runtime to debug full configurations, including plugins.full configuration is resolved by the build tools. This is similar to [antfu/windicss-runtime-dom: 🪄 Enables Windi CSS for any site with one-line code without any build tools](https://github.com/antfu/windicss-runtime-dom), except does not use mutation observer.
+-   This is useful for a wide range of purposes, including debugging specific configurations, as well as compiling classes added via form, like Shopify's Customizer or Elementor.
+
 ## TODO: jsdocPrintWidth look at this variable for line breaks.
