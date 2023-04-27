@@ -1,5 +1,3 @@
-import { z } from 'zod'
-
 /* * JSON TYPES and UTILS * */
 export type { Json, Jsonifiable, Jsonify } from './object/json.js'
 export { getJSONString, getJSON } from './object/json.js'

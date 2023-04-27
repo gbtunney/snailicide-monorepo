@@ -1,4 +1,4 @@
-import type { NonNegativeInteger, Integer, Finite, Float } from 'type-fest'
+import type { NonNegativeInteger, Integer, Finite } from 'type-fest'
 import * as parse from './parse.js'
 import * as transform from './transform.js'
 import * as _numeric from './numeric.js'

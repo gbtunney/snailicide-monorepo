@@ -2,8 +2,9 @@ import { z } from 'zod'
 import path from 'path'
 import { validSemVer } from './../npm/index.js'
 import { node } from './../node/index.js'
-import { isNotUndefined } from './../typeguard/utility.typeguards.js'
+import MarkdownIt from 'markdown-it'
 
+import { isNotUndefined } from './../typeguard/utility.typeguards.js'
 /* * CUSTOM ZOD UTILITIES!! * */
 
 export const optionalDefault = <Type extends z.ZodType>(
@@ -19,6 +20,31 @@ export const semVer = (useDefault: undefined | string = undefined) => {
         ? optionalDefault(semVerType, useDefault)
         : semVerType
 }
+
+export const renderMarkdown = (
+    value: string,
+    _options: MarkdownIt['options'] = {
+        html: false,
+    }
+) => {
+    return MarkdownIt(_options).render(value)
+}
+export const renderInlineMarkdown = (
+    value: string,
+    _options: MarkdownIt['options'] = {
+        html: true,
+    }
+) => {
+    return MarkdownIt(_options).renderInline(value)
+}
+
+export const markdown = z
+    .string()
+    .transform((val: string) => renderMarkdown(val))
+
+export const markdownInline = z
+    .string()
+    .transform((val: string) => renderInlineMarkdown(val))
 
 const normalizePath = (value: string) => path.normalize(path.resolve(value))
 
@@ -115,3 +141,17 @@ export const tg_Zod = <Type = unknown, Schema = z.ZodSchema>(
 ): value is z.infer<typeof schema> => {
     return schema.safeParse(value).success
 }
+
+export const parseFactory =
+    <T extends z.ZodTypeAny>(schema: T) =>
+    (data: unknown): z.infer<T> => {
+        try {
+            return schema.parse(data)
+        } catch (err) {
+            // handle error
+            throw new Error()
+        }
+    }
+
+const User = z.object({ name: z.string() })
+const parseUser = parseFactory(User)

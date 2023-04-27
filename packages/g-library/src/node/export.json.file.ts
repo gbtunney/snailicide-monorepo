@@ -18,7 +18,7 @@ export type JSONExportConfig = JSONExportEntry[]
  *   excists.
  * @returns {void}
  */
-export const exportJSONFile = <T extends Jsonifiable>(
+export const exportJSONFile = (
     config: JSONExportConfig,
     outdir: string | undefined = undefined,
     overwrite: 'ON' | 'ERROR' | 'WARN' = 'ON'

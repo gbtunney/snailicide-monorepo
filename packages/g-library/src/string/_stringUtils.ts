@@ -294,3 +294,6 @@ export const WHITE_SPACE_CHARACTERS = [
     '\u205F',
     '\u3000',
 ]
+
+//REGEXP NO SPACE AT START OR END!!
+export const noWhiteSpaceStartEnd = new RegExp(/^\s|\s$/)

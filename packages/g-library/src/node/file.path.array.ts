@@ -1,6 +1,7 @@
 import glob from 'glob'
 import path from 'path'
-import { trimCharactersStart } from './../transformString/_trimCharacters.js'
+import fs from 'fs'
+import isGlob from 'is-glob'
 import { transformExplodeArray } from './../transformString/_transformExplodeArray.js'
 
 export type FilePath = {
@@ -11,6 +12,7 @@ export type FilePath = {
     filename: string
     absolute: string
     dirarray: string[]
+    excists: boolean
 }
 
 /**
@@ -23,25 +25,60 @@ export type FilePath = {
  * @returns {FilePath[]} - Array of data objects containing various file path
  *   parameters
  */
-export const getFilePathArr = function (value: string): FilePath[] {
-    return glob.sync(value).map((_path: string): FilePath => {
-        const dirarray = transformExplodeArray({
-            value: path.resolve(path.dirname(_path)),
-            delimiter: '/',
-        }).filter((_item) => _item.length > 0)
-        const parentdirname =
-            dirarray.length > 0 ? dirarray[dirarray.length - 1] : undefined
-        return {
-            basename: path.basename(_path),
-            dirname: path.dirname(_path),
-            parentdirname,
-            extname: trimCharactersStart({
-                value: path.extname(_path),
-                pattern: '.',
-            }),
-            filename: path.basename(_path, path.extname(_path)),
-            absolute: path.resolve(_path),
-            dirarray,
-        }
-    })
+export const getFilePathArr = (value: string): FilePath[] => {
+    const filteredArray = (
+        arr: (FilePath | undefined)[]
+    ): arr is FilePath[] => {
+        return !arr.some((_entry) => _entry === undefined)
+    }
+    const _result = glob
+        .sync(value)
+        .map((_path: string): FilePath | undefined => {
+            return getFilePathObj(_path)
+        })
+        .filter((_result) => _result !== undefined)
+    return filteredArray(_result) ? _result : []
+}
+
+export const getFilePathObj = function (_path: string): FilePath | undefined {
+    if (isGlob(_path)) {
+        console.error(
+            'the path ',
+            _path,
+            ' is a glob, please use getFilePathArr function instead!'
+        )
+        return undefined
+    }
+    const resolvedPath = path.resolve(_path)
+    const dirarray = getDirectoryArr(resolvedPath)
+    const parentdirname = getParentDirectory(resolvedPath)
+    const result = {
+        basename: path.basename(resolvedPath),
+        dirname: path.dirname(resolvedPath),
+        parentdirname,
+        extname: getExt(resolvedPath),
+        filename: getFilename(resolvedPath),
+        absolute: resolvedPath,
+        dirarray,
+        excists: fs.existsSync(resolvedPath),
+    }
+    return result
+}
+export const getDirectoryArr = (_path: string): string[] => {
+    const resolvedPath = path.resolve(_path)
+    return transformExplodeArray({
+        value: path.resolve(path.dirname(resolvedPath)),
+        delimiter: '/',
+    }).filter((_item) => _item.length > 0)
+}
+export const getParentDirectory = (_path: string) => {
+    const dirarray = getDirectoryArr(_path)
+    return dirarray.length > 0 ? dirarray[dirarray.length - 1] : undefined
+}
+export const getFilename = (fullPath: string) =>
+    path.basename(fullPath, path.extname(fullPath))
+export const getExt = (fullPath: string) =>
+    path.extname(fullPath).replace('.', '')
+export const getFullPath = (_value: string, _root: string | undefined) => {
+    return _root !== undefined ? `${_root}/${_value}` : _value
 }

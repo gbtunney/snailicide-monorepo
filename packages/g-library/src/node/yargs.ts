@@ -11,11 +11,4 @@ export const getYArgs = <T extends z.ZodSchema>(
     } else if (debug === true) return schema.parse(data)
     else return undefined
 }
-
-const example = () => {
-    const fileArgsSchema = z.object({
-        watch: z.boolean().default(false), //use file flag
-    })
-    const example = getYArgs(fileArgsSchema)
-    //   console.log('example', example.watch)
-}
+export const getArgsObject = (value = process.argv) => yargs(value).argv

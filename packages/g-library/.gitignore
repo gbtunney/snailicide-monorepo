@@ -2,5 +2,6 @@
 dist
 types
 docs
+src/commanderzod
 # Allow
 !src/types

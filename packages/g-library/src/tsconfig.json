@@ -20,6 +20,6 @@
         "declarationMap": true,
         "removeComments": false
     },
-    "exclude": ["**/*.test.ts"],
+    "exclude": ["**/*.test.ts", "./commanderzod/*"],
     "include": ["**/*.ts", "**/*.cts", "**/*.mts"]
 }
