@@ -1,4 +1,4 @@
-import glob from 'glob'
+import { globSync } from 'glob'
 import path from 'path'
 import fs from 'fs'
 import isGlob from 'is-glob'
@@ -31,8 +31,7 @@ export const getFilePathArr = (value: string): FilePath[] => {
     ): arr is FilePath[] => {
         return !arr.some((_entry) => _entry === undefined)
     }
-    const _result = glob
-        .sync(value)
+    const _result = globSync(value)
         .map((_path: string): FilePath | undefined => {
             return getFilePathObj(_path)
         })

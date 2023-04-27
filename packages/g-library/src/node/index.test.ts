@@ -22,12 +22,10 @@ describe('getFilePathArr getFilePathObj', () => {
         )
         const filePathGlob = './sample_image/*'
         if (filePathObj2 !== undefined) {
-            console.log('image', filePathObj)
             expect(filePathObj2.excists).toEqual(false)
         } else expect(false).toEqual(true)
 
         if (filePathObj !== undefined) {
-            console.log('image', filePathObj)
             expect(filePathObj.filename).toEqual('testimage')
             expect(filePathObj.extname).toEqual('jpeg')
             expect(filePathObj.parentdirname).toEqual('sample_image')
