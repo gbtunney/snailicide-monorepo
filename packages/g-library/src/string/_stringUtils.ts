@@ -4,7 +4,9 @@
  * @author https://github.com/mout/mout/tree/master/src/string
  */
 import { replaceAll } from 'ramda-adjunct'
-import { toLower, toUpper, replace, pipe, trim, join } from 'ramda'
+import { toLower, toUpper, replace, pipe, trim } from 'ramda'
+import type { RegExpMatchArray } from './../regexp/index.js'
+import { isNotNull } from './../typeguard/utility.typeguards.js'
 
 export const lowerCase = (value: string): string => toLower(value)
 
@@ -148,9 +150,15 @@ export const truncate = (
  * Capture all capital letters following a word boundary (in case the input is
  * in all caps)
  */
+
 export const abbreviate = (value: string): string => {
     if (!value.match(/\b([A-Z])/g)) return value
-    return join('', value.match(/\b([A-Z])/g) as RegExpMatchArray)
+    const matchArr: RegExpMatchArray | null = value.match(/\b([A-Z])/g)
+    if (isNotNull<Exclude<RegExpMatchArray, null>>(matchArr)) {
+        return matchArr.join('')
+    } else {
+        return value
+    }
 }
 
 /**
@@ -160,7 +168,7 @@ export const abbreviate = (value: string): string => {
  * @param {string} value
  * @returns {string | undefined}
  */
-export const escapeRegExp = (value: string): string | undefined => {
+export const escapeRegExp = (value: string): string => {
     return value.toString().replace(/[-[/\]{}()*+?.,\\^$|#\s]/g, '\\$&')
 }
 
@@ -250,50 +258,6 @@ export const removeAllNewlines = (value: string): string =>
     // Matches non-printable ASCII chars -
     // http://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters
     replace(/\r?\n|\r/g, '', value)
-
-export const NEW_LINE_CHARACTERS = [
-    /* * Unicode:line feed * */
-    '\u000a',
-    /* * Unicode:carriage return * */
-    '\u000d',
-    /* * Unicode:line separator * */
-    '\u2028',
-    /* * Unicode:paragraph separator * */
-    '\u2029',
-    /* * line feed * */
-    '\n',
-    /* * carriage return * */
-    '\r',
-]
-
-///    in Unicode: \u000a or \n, which is a line feed; \u000d or \r, which is a carriage return; \u2028, a line separator; and \u2029, a paragraph separator. In practice though, the regex you posted is suffici
-export const WHITE_SPACE_CHARACTERS = [
-    ' ',
-    '\n',
-    '\r',
-    '\t',
-    '\f',
-    '\v',
-    '\u00A0',
-    '\u1680',
-    '\u180E',
-    '\u2000',
-    '\u2001',
-    '\u2002',
-    '\u2003',
-    '\u2004',
-    '\u2005',
-    '\u2006',
-    '\u2007',
-    '\u2008',
-    '\u2009',
-    '\u200A',
-    '\u2028',
-    '\u2029',
-    '\u202F',
-    '\u205F',
-    '\u3000',
-]
 
 //REGEXP NO SPACE AT START OR END!!
 export const noWhiteSpaceStartEnd = new RegExp(/^\s|\s$/)

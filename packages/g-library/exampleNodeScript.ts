@@ -13,11 +13,6 @@ const example_schema = zod.object({
     name: z.string(),
     overwrite: zod.optionalDefault(z.boolean(), false),
 })
-const _argObj = {
-    //repository: "hhh",
-    path: './../../themes/',
-    name: '/shopify-theme-example',
-}
 
 const getParsedArguments = (schema: z.ZodSchema) => {
     const parsedData = node.getYArgs(schema, false, process.argv)

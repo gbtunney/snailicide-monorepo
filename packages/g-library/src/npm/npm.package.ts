@@ -1,18 +1,26 @@
 // @ts-expect-error doesnt have types
 import SemverJS from '@brunorb/semverjs'
 import { z } from 'zod'
+import { isValidRegExp } from './../typeguard/utility.typeguards.js'
 
+import type {
+    Merge,
+    OmitIndexSignature,
+    PackageJson,
+    RequireAtLeastOne,
+} from 'type-fest'
+
+type PackageJsonStandard = PackageJson['PackageJsonStandard']
+type PackageScripts = PackageJson['scripts']
+type TypeScriptConfiguration = PackageJson['TypeScriptConfiguration']
 export const validSemVer: RegExp = SemverJS.pattern
 export const validPackageName =
     /^(@[a-z0-9-~][a-z0-9-._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/
 
-import {
-    Merge,
-    OmitIndexSignature,
-    PackageJson,
-    SetRequired,
-    RequireAtLeastOne,
-} from 'type-fest'
+export const isValidSemVer = (value: string) =>
+    isValidRegExp(value, validSemVer)
+export const isValidPackageName = (value: string) =>
+    isValidRegExp(value, validPackageName)
 
 /* * Collection of Generic Package Utility Types  * */
 
@@ -30,6 +38,26 @@ const schemaPackage = z.object({
 })
 
 type SchemaPackage = z.infer<typeof schemaPackage>
+
+export const tg_NPMPackageCustom = <Schema extends z.ZodTypeAny>(
+    schema: Schema,
+    value: unknown
+): value is z.infer<Schema> => {
+    //  : value is z.infer<base.merge(schema)>
+    return schema.safeParse(value).success
+}
+
+export const isNPMPackageCustom = <
+    T extends z.input<typeof schemaPackage>,
+    Schema extends z.ZodObject<any>
+>(
+    value: T,
+    schema: Schema,
+    base: typeof schemaPackage = schemaPackage
+) => {
+    const newSchema = base.merge(schema)
+    return tg_NPMPackageCustom<typeof newSchema>(newSchema, value)
+}
 
 export const isNPMPackage = <
     BaseType extends Merge<PackageJson, SchemaPackage>
@@ -58,40 +86,66 @@ export namespace NPMPackage {
             : PackageJson & BaseType,
         SchemaPackage
     >
-    export type LifeCycleScripts = PackageJson.Scripts
+    export type LifeCycleScripts = PackageScripts
 
     export type PackageJsonTypescript<
-        BaseType = PackageJson.PackageJsonStandard,
+        BaseType = PackageJsonStandard,
         strict = true
     > = PackageJsonBase<BaseType, strict> &
         RequireAtLeastOne<
-            PackageJson.TypeScriptConfiguration,
-            keyof PackageJson.TypeScriptConfiguration
+            TypeScriptConfiguration,
+            keyof TypeScriptConfiguration
         >
-    export type PackageJsonStandard<strict = true> = PackageJsonBase<
-        PackageJson.PackageJsonStandard,
+    export type PackageStandard<strict = true> = PackageJsonBase<
+        PackageJsonStandard,
+        strict
+    >
+    export type MinimumPackageJson<strict = false> = PackageJsonBase<
+        PackageJsonStandard,
         strict
     >
 
-    export type MinimumPackageJson<
-        BaseType = PackageJson.PackageJsonStandard,
-        strict = false
-    > = PackageJsonBase<PackageJson.PackageJsonStandard, strict>
-
     export type NPMPackageJson = PackageJsonBase<PackageJson, false>
     export type IsPackageJson<
-        BaseType = PackageJson.PackageJsonStandard,
+        BaseType = PackageJsonStandard,
         strict = true
     > = PackageJsonBase<BaseType, strict>
 
+    type PackageScriptsReq<
+        requiredProps extends string,
+        strict = false,
+        BaseType = PackageJsonBase['scripts']
+    > = BaseType extends PackageJsonBase['scripts']
+        ? strict extends boolean
+            ? strict extends false
+                ? Merge<
+                      BaseType,
+                      {
+                          [Property in requiredProps]: string
+                      }
+                  >
+                : {
+                      [Property in requiredProps]: string
+                  }
+            : never
+        : never
+
     export type RequiredPackageScripts<
-        ScriptKeys extends string,
-        strict = false
-    > = {
-        scripts: strict extends true
-            ? SetRequired<Pick<PackageJson.Scripts, ScriptKeys>, ScriptKeys>
-            : SetRequired<PackageJson.Scripts, ScriptKeys>
-    }
+        requiredProps extends string,
+        strict = false,
+        BaseType = PackageJsonBase
+    > = BaseType extends PackageJsonBase
+        ? Merge<
+              BaseType,
+              {
+                  scripts: PackageScriptsReq<
+                      requiredProps,
+                      strict,
+                      BaseType['scripts']
+                  >
+              }
+          >
+        : never
 }
 
 export default NPMPackage

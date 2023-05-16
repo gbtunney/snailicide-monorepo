@@ -11,11 +11,22 @@ export const node = {
     getArgsObject,
     getYArgs,
     ...filePath,
+    /* * Types * */
     /* * does file excist - works with files and directories
      * @param { string } path
      * @returns {boolean}
      */
     doesFileExist: (path: string): boolean => fs.existsSync(path),
 }
-export type { FilePath } from './file.path.array.js'
-export type { JSONExportConfig } from './export.json.file.js'
+export default node
+/* * TYPES * */
+import type { FilePath, FileType } from './file.path.array.js'
+import type { JSONExportConfig } from './export.json.file.js'
+import type { ImageMimeType } from './encodeBase64.js'
+
+export type Node = {
+    FilePath: FilePath
+    FileType: FileType
+    JSONExportConfig: JSONExportConfig
+    ImageMimeType: ImageMimeType
+}

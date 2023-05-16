@@ -1,8 +1,6 @@
 import { isBigInt, isFloat, isInteger, isValidNumber } from 'ramda-adjunct'
-import { isNumeric, numericToInteger, numericToFloat } from './numeric.js'
-import { parseToInteger, parseToNumeric, parseToFloat } from './parse.js'
-
-import type { PossibleNumeric, Numeric } from './numeric.js'
+import type { Numeric, PossibleNumeric } from './numeric.js'
+import { isNumeric, numericToFloat, numericToInteger } from './numeric.js'
 
 /**
  * Convert a value to a valid number type

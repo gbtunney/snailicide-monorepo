@@ -14,11 +14,13 @@
         "sourceMap": true,
         "rootDir": ".",
         "types": ["@types/jest"],
+        //"strict": true,
         // Type declaration settings.
         "declaration": true,
         "declarationDir": "./../types",
         "declarationMap": true,
-        "removeComments": false
+        "removeComments": false,
+        "strict": true
     },
     "exclude": ["**/*.test.ts", "./commanderzod/*"],
     "include": ["**/*.ts", "**/*.cts", "**/*.mts"]

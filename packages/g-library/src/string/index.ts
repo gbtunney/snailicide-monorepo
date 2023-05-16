@@ -29,4 +29,4 @@ export {
     isValidUrl,
 } from './_string.js'
 export type { URL } from './_string.js'
-export { NEW_LINE_CHARACTERS, WHITE_SPACE_CHARACTERS } from './_stringUtils.js'
+export { renderMarkdown, renderInlineMarkdown } from './_markdown.js'

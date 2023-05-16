@@ -1,5 +1,6 @@
-import { isNPMPackage } from './npm.package.js'
+import { isNPMPackage, NPMPackage } from './npm.package.js'
 import { omit } from 'ramda'
+
 const example_package = {
     name: 'g-libttest',
     version: '1.0.2',
@@ -9,6 +10,17 @@ const example_package = {
     scripts: {},
     author: {
         email: 'gbtunney@mac.com',
+    },
+}
+const example_package2: NPMPackage.RequiredPackageScripts<
+    'build' | 'preinstall'
+> = {
+    ...example_package,
+    name: 'g-libttest',
+    scripts: {
+        build: '33333',
+        clean: 'jkjk',
+        preinstall: 'jkjkjjk',
     },
 }
 const example_package_bad_name = {

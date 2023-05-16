@@ -74,6 +74,15 @@ export const isNullish = <T>(value: T | NilLike): value is undefined =>
 export const isNotNullish = <T>(value: T | NilLike): value is T =>
     !(RA.isEmptyString(value) || isNil(value))
 
+export const isNotNull = <T extends NonNullable<any>>(
+    value: unknown
+): value is T => RA.isNotNull(value)
+
+export const isNull = (value: unknown): value is null => RA.isNull(value)
+
+export const isValidRegExp = (value: string, regexp: RegExp): value is string =>
+    regexp.test(value)
+
 /**
  * **Typeguard for Undefined:** narrows to **Nullish** _(null|undefined)_ to
  *

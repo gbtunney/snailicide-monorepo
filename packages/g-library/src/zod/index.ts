@@ -1,68 +1,111 @@
 import { z } from 'zod'
-import path from 'path'
 import { validSemVer } from './../npm/index.js'
 import { node } from './../node/index.js'
-import MarkdownIt from 'markdown-it'
+import {
+    FileType,
+    FilePath,
+    getFullPath,
+    getFilePathArr,
+    normalizePath,
+    getExistingPathType,
+} from './../node/file.path.array.js'
+import * as RA from 'ramda-adjunct'
 
-import { isNotUndefined } from './../typeguard/utility.typeguards.js'
 /* * CUSTOM ZOD UTILITIES!! * */
-
 export const optionalDefault = <Type extends z.ZodType>(
     value: Type,
     _value: z.infer<Type>
 ) => {
     return z.union([value.default(_value), value.optional()])
 }
+export const semVer = () => z.string().regex(validSemVer)
 
-export const semVer = (useDefault: undefined | string = undefined) => {
-    const semVerType = z.string().regex(validSemVer)
-    return isNotUndefined(useDefault)
-        ? optionalDefault(semVerType, useDefault)
-        : semVerType
+export const fsPath = (root: string | undefined = undefined) => {
+    return z
+        .string()
+        .transform((value) => getFullPath(value, root))
+        .transform(normalizePath)
 }
 
-export const renderMarkdown = (
-    value: string,
-    _options: MarkdownIt['options'] = {
-        html: false,
-    }
+export const fsPathArray = (
+    root: string | undefined = undefined,
+    getDirectoryFileContents = false
 ) => {
-    return MarkdownIt(_options).render(value)
+    return fsPath(root).transform((value) =>
+        getFilePathArr(value, getDirectoryFileContents)
+    )
 }
-export const renderInlineMarkdown = (
-    value: string,
-    _options: MarkdownIt['options'] = {
-        html: true,
-    }
+
+export const fsPathExists = (
+    exists = true,
+    root: string | undefined = undefined,
+    allowedType: FileType | 'any' | FileType[] = 'any'
 ) => {
-    return MarkdownIt(_options).renderInline(value)
+    if (exists === false) {
+        return fsPathTypeExists('none', root)
+    }
+    return fsPathTypeExists(allowedType, root)
 }
 
-export const markdown = z
-    .string()
-    .transform((val: string) => renderMarkdown(val))
+export const fsPathTypeExists = (
+    allowedType: FileType | 'any' | 'none' | FileType[] = 'any',
+    root: string | undefined = undefined
+) => {
+    return fsPath(root).refine(
+        (value) => {
+            let _inner_result = false
+            const pathType: FileType = getExistingPathType(value)
+            if (allowedType === 'any') {
+                if (pathType === 'glob') _inner_result = true
+                else if (node.doesFileExist(value)) _inner_result = true
+            } else if (allowedType === 'none') return pathType === undefined
+            else {
+                const ALLOWED: FileType[] = RA.isString(allowedType)
+                    ? [allowedType]
+                    : allowedType
+                ALLOWED.forEach((item) => {
+                    if (pathType === item) _inner_result = true
+                })
+            }
+            return _inner_result
+        },
+        (value) => {
+            return {
+                message: `File path ${
+                    value ? 'does not ' : 'does'
+                } exist ${allowedType}`,
+            }
+        }
+    )
+}
+//validates if it is a glob, and if it exists.
+export const fsPathArrayHasFiles = (
+    getDirectoryFileContents = false,
+    root: string | undefined = undefined
+) => {
+    return fsPathArray(root, getDirectoryFileContents).refine(
+        (val) => {
+            if (val && val.length > 0 && val[0] !== undefined) {
+                const _possibleDir: FilePath = val[0]
+                if (
+                    getDirectoryFileContents === false &&
+                    _possibleDir.extname.length <= 0
+                )
+                    return false
+            }
+            return val.length > 0
+        },
+        {
+            message: `File path array does not contain files`,
+        }
+    )
+}
 
-export const markdownInline = z
-    .string()
-    .transform((val: string) => renderInlineMarkdown(val))
+export const filePathExists = fsPathExists(true)
 
-const normalizePath = (value: string) => path.normalize(path.resolve(value))
+export const filePathDoesNotExist = fsPathExists(false)
 
-export const filePathExists = z
-    .string()
-    .refine((val) => node.doesFileExist(val), {
-        message: 'File path already exists',
-    })
-    .transform(normalizePath)
-
-export const filePathDoesNotExist = z
-    .string()
-    .refine((val) => !node.doesFileExist(val), {
-        message: 'File path already exists',
-    })
-    .transform(normalizePath)
-
-export const filePath = z.string().transform(normalizePath)
+export const filePath = fsPath()
 
 /* * ZOD * */
 export type Zod = typeof z & {
@@ -71,15 +114,27 @@ export type Zod = typeof z & {
     filePath: typeof filePath
     filePathExists: typeof filePathExists
     filePathDoesNotExist: typeof filePathDoesNotExist
+    fsPath: typeof fsPath
+    fsPathExists: typeof fsPathExists
+    fsPathArray: typeof fsPathArray
+    fsPathArrayHasFiles: typeof fsPathArrayHasFiles
+    fsPathTypeExists: typeof fsPathTypeExists
 }
-export const zod: Zod = {
+
+export const zod = {
     ...z,
     optionalDefault,
     semVer,
     filePath,
     filePathExists,
     filePathDoesNotExist,
+    fsPath,
+    fsPathExists,
+    fsPathArray,
+    fsPathArrayHasFiles,
+    fsPathTypeExists,
 }
+
 export default zod
 
 /**
@@ -152,6 +207,3 @@ export const parseFactory =
             throw new Error()
         }
     }
-
-const User = z.object({ name: z.string() })
-const parseUser = parseFactory(User)

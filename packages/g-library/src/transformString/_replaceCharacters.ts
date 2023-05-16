@@ -3,10 +3,9 @@ import type {
     ReplaceCharacters,
     ReplaceSinglePatternCharacters,
     TransformBatch,
-} from './type'
+} from './type.js'
 import { tg } from './../index.js'
 
-type test = string | RegExp | Array<string | RegExp>
 const replaceCharactersSinglePattern = ({
     value,
     pattern = ' ',

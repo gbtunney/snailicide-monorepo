@@ -6,7 +6,10 @@ import type {
     TransformBatch,
 } from './type'
 import { tg } from './../index.js'
-import { escapeRegExp } from './../string/index.js'
+import {
+    getRegExpStartOfString,
+    getRegExpEndOfString,
+} from './../regexp/index.js'
 
 const trimCharactersforSinglePattern = function ({
     value,
@@ -20,14 +23,14 @@ const trimCharactersforSinglePattern = function ({
             ...(trimStart
                 ? [
                       pattern.length > 1
-                          ? R.replace(getRegExpMatchStartOfString(pattern), '')
+                          ? R.replace(getRegExpStartOfString(pattern), '')
                           : RA.trimCharsStart(pattern),
                   ]
                 : []),
             ...(trimEnd
                 ? [
                       pattern.length > 1
-                          ? R.replace(getRegExpMatchEndOfString(pattern), '')
+                          ? R.replace(getRegExpEndOfString(pattern), '')
                           : RA.trimCharsEnd(pattern),
                   ]
                 : []),
@@ -103,22 +106,3 @@ export const trimCharactersEnd = ({
         trimEnd: true,
     })
 }
-
-/**
- * Get a regExp from a string that matches the start
- *
- * @category StringTransform
- * @function getRegExpMatchStartOfString
- * @param {string} pattern - String to regexp
- * @param {string} flags ["g"] regexp flags
- * @returns {RegExp}
- */
-export const getRegExpMatchStartOfString = (pattern: string, flags = 'g') =>
-    new RegExp(`^${pattern}`, flags)
-
-/**
- * @function getRegExpMatchEndOfString
- * @see getRegExpMatchStartOfString
- */
-export const getRegExpMatchEndOfString = (pattern: string, flags = 'g') =>
-    new RegExp(`${escapeRegExp(pattern)}$`, flags)

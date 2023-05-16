@@ -1,7 +1,6 @@
 import {
     isBigInt,
     isInteger,
-    isNotNaN,
     isNaN,
     isString,
     isValidNumber,
