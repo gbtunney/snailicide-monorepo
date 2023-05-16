@@ -68,7 +68,7 @@
         "\n========== CHECK >> ==========": "",
         "check": "pnpm lint",
         "\n========== FIX >> ==========": "",
-        "fix": "pnpm prettier -- --write"
+        "fix": "pnpm prettier --write"
     },
     "homepage": "https://github.com/gbtunney/snailicide-monorepo#readme",
     "bugs": {
@@ -84,32 +84,32 @@
         "email": "gbtunney@mac.com"
     },
     "devDependencies": {
-        "@snailicide/build-config": "workspace:0.2.5",
+        "@snailicide/build-config": "workspace:*",
         "@types/glob": "^8.1.0",
         "@types/is-glob": "^4.0.2",
         "@types/jest": "^29.5.1",
         "@types/markdown-it": "^12.2.3",
-        "@types/node": "^18.16.1",
+        "@types/node": "^20.1.5",
         "@types/yargs": "^17.0.24",
         "better-docs": "^2.7.2",
-        "eslint": "^8.39.0",
+        "eslint": "^8.40.0",
         "expect-type": "^0.15.0",
-        "glob": "^10.2.2",
+        "glob": "^10.2.4",
         "is-glob": "^4.0.3",
         "jest": "^29.5.0",
         "jsdoc": "^4.0.2",
         "markdown-it": "^13.0.1",
         "nodemon": "^2.0.22",
         "prettier": "^2.8.8",
-        "rollup": "^3.21.0",
+        "rollup": "^3.21.7",
         "rollup-plugin-typescript2": "^0.34.1",
         "taffydb": "^2.7.3",
         "ts-jest": "^29.1.0",
         "ts-jest-resolver": "^2.0.1",
         "ts-node": "^10.9.1",
         "typescript": "^5.0.4",
-        "vite": "^4.3.3",
-        "yargs": "^17.7.1",
+        "vite": "^4.3.6",
+        "yargs": "^17.7.2",
         "zod": "^3.21.4"
     },
     "directories": {
@@ -129,10 +129,10 @@
     },
     "dependencies": {
         "@brunorb/semverjs": "^1.0.4",
-        "@types/ramda": "^0.29.0",
+        "@types/ramda": "^0.29.1",
         "ramda": "^0.29.0",
         "ramda-adjunct": "^4.0.0",
-        "type-fest": "^3.9.0"
+        "type-fest": "^3.10.0"
     },
     "jest": {
         "preset": "ts-jest",

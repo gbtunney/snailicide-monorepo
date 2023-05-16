@@ -17,6 +17,7 @@ module.exports = {
                 'build-config',
                 'g-library',
                 'g-windi',
+                'cli-app',
                 'template-cli',
             ],
         ],

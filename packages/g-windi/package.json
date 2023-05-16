@@ -65,7 +65,7 @@
         "\n========== CHECK >> ==========": "",
         "check": "pnpm lint",
         "\n========== FIX >> ==========": "",
-        "fix": "pnpm prettier -- --write"
+        "fix": "pnpm prettier --write"
     },
     "homepage": "https://github.com/gbtunney/snailicide-monorepo#readme",
     "bugs": {
@@ -81,14 +81,14 @@
         "email": "gbtunney@mac.com"
     },
     "devDependencies": {
-        "@snailicide/g-library": "workspace:^0.2.0",
+        "@snailicide/g-library": "workspace:^",
         "@types/jest": "^29.5.1",
-        "@types/node": "^18.16.1",
-        "eslint": "^8.39.0",
+        "@types/node": "^20.1.5",
+        "eslint": "^8.40.0",
         "jest": "^29.5.0",
         "jsdoc": "^4.0.2",
         "prettier": "^2.8.8",
-        "rollup": "^3.21.0",
+        "rollup": "^3.21.7",
         "rollup-plugin-typescript2": "^0.34.1",
         "ts-jest": "^29.1.0",
         "ts-jest-resolver": "^2.0.1",
@@ -111,13 +111,13 @@
         }
     },
     "dependencies": {
-        "@types/ramda": "^0.29.0",
-        "@vueuse/core": "^10.1.0",
+        "@types/ramda": "^0.29.1",
+        "@vueuse/core": "^10.1.2",
         "chroma.ts": "^1.0.10",
         "ramda": "^0.29.0",
         "ramda-adjunct": "^4.0.0",
-        "type-fest": "^3.9.0",
-        "vue": "^3.2.47",
+        "type-fest": "^3.10.0",
+        "vue": "^3.3.2",
         "windicss": "^3.5.6"
     },
     "jest": {
