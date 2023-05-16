@@ -9,7 +9,7 @@
         /* Modules */
         "module": "ESNext" /* Specify what module code is generated. */,
         "lib": ["ESNext", "DOM"],
-        "outDir": "./../dist" /* Specify an output folder for all emitted files. */,
+        "outDir": "./../types" /* Specify an output folder for all emitted files. */,
         // Output settings.
         "sourceMap": true,
         "rootDir": ".",
