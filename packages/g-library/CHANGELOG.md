@@ -1,5 +1,11 @@
 # @snailicide/g-library
 
+## 0.2.1
+
+### Patch Changes
+
+-   new custom schemas in zod module,added more functions in node module for file handling.
+
 ## 0.2.0
 
 ### Minor Changes
