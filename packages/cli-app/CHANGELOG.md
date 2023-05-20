@@ -1,5 +1,11 @@
 # @snailicide/cli-app
 
+## 0.0.3
+
+### Patch Changes
+
+-   fix for merge error
+
 ## 0.0.2
 
 ### Patch Changes

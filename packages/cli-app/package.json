@@ -1,6 +1,6 @@
 {
     "name": "@snailicide/cli-app",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "type": "module",
     "description": "Node Cli App Boilerplate with commander, zod, chalk",
     "keywords": [
