@@ -1,6 +1,6 @@
 {
     "name": "@snailicide/cli-app",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "type": "module",
     "description": "Node Cli App Boilerplate with commander, zod, chalk",
     "keywords": [
@@ -20,7 +20,7 @@
         "\n========== BUILD >> ==========": "",
         "build": "pnpm build:ts && pnpm build:rollup",
         "build:ts": "tsc --build",
-        "build:rollup": "rollup --config ./rollup.config.js",
+        "build:rollup": "rollup --config ./rollup.config.mjs",
         "\n========== DEV >> ==========": "",
         "dev": "tsc  --build --watch",
         "\n========== TEST >> ==========": "",
