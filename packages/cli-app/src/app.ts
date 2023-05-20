@@ -2,7 +2,7 @@ import clear from 'clear'
 import { OptionValues, program } from 'commander'
 import yargs from 'yargs'
 import { z } from 'zod'
-import { npm, stringUtils } from '@snailicide/g-library'
+import { npm, stringUtils, tg } from '@snailicide/g-library'
 import { doPrintHeader, getHeader } from './header.js'
 import { resolveSchema } from './schema.js'
 
@@ -37,19 +37,24 @@ export const appOptionsSchema = z.object({
     print: z.boolean().default(true).describe('Print header'),
 })
 export type AppOptions = z.infer<typeof appOptionsSchema>
-export type UnResolvedAppOptions = z.input<typeof appOptionsSchema>
+export type unResolvedAppOptions = z.input<typeof appOptionsSchema>
 export type ResolvedAppOptions = z.output<typeof appOptionsSchema>
 
 export const initApp = <Schema extends z.ZodTypeAny>(
     schema: Schema,
     initFunction: (value: z.infer<Schema>) => void,
-    unresolved_options: UnResolvedAppOptions
+    unresolved_options: unResolvedAppOptions
 ) => {
-    const resolved_app_options = resolveSchema(
+    const resolved_app_options = resolveSchema<typeof appOptionsSchema>(
         appOptionsSchema,
         unresolved_options
     )
-    if (resolved_app_options !== undefined) {
+
+    if (
+        tg.isNotUndefined<z.output<typeof appOptionsSchema>>(
+            resolved_app_options
+        )
+    ) {
         const app_options = resolved_app_options
         if (app_options.clear) clear()
         /* * Print the header if print ==true  * */
@@ -64,16 +69,18 @@ export const initApp = <Schema extends z.ZodTypeAny>(
         const getTypedSchema = <T extends z.ZodTypeAny>(schema: T): T => schema
         /* * Write commander options from zod descriptions * */
         const option_schema = getTypedSchema<typeof schema>(schema)
-        Object.entries(option_schema._def.schema._def.shape()).forEach(
-            ([key, _schema]) => {
-                const schema: Record<string, any> = <Record<string, any>>_schema
-                const description =
-                    schema && schema['description']
-                        ? schema['description']
-                        : stringUtils.capitalizeWords(key)
-                program.option(`--${key}`, description)
-            }
-        )
+        const iterateOptions = option_schema._def.schema
+            ? option_schema._def.schema._def.shape()
+            : option_schema._def.shape()
+
+        Object.entries(iterateOptions).forEach(([key, _schema]) => {
+            const schema: Record<string, any> = <Record<string, any>>_schema
+            const description =
+                schema && schema['description']
+                    ? schema['description']
+                    : stringUtils.capitalizeWords(key)
+            program.option(`--${key}`, description)
+        })
         /* * END Write commander options * */
         program.parse(process.argv)
         const options: OptionValues = program.opts()
@@ -93,10 +100,11 @@ export const initApp = <Schema extends z.ZodTypeAny>(
                     resolveSchema(option_schema, getArgsObject(), true)
                 )
             }
-            initFunction(resolvedArgs)
+            return initFunction(resolvedArgs)
         }
     }
 }
+export default initApp
 /*
 if (options['help']) {
     program.outputHelp()

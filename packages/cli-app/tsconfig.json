@@ -7,7 +7,9 @@
         "noEmit": true,
         "module": "ESNext",
         "rootDir": ".",
-        "types": ["node"]
+        "allowSyntheticDefaultImports": true,
+
+        "types": ["@types/node", "@types/jest", "jest", "node"]
     },
     "exclude": ["./node_modules"],
     "include": ["./**/*.test.ts"],

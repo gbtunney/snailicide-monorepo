@@ -1,4 +1,4 @@
-import { zod, node } from '@snailicide/g-library'
+import { zod } from '@snailicide/g-library'
 import { z } from 'zod'
 
 export const base_schema = zod
@@ -16,15 +16,6 @@ export const base_schema = zod
             .describe('<dir> Output directory'),
         debug: zod.boolean().default(false).describe('Debug output'),
         verbose: zod.boolean().default(false).describe('Verbose Logging'),
-    })
-    .transform((value) => {
-        const outDir =
-            value.outDir !== undefined
-                ? zod.filePath.parse(
-                      node.getFullPath(value.outDir, value.rootDir)
-                  )
-                : value.outDir
-        return { ...value, outDir }
     })
     .describe('An example CLI for making svgs')
 

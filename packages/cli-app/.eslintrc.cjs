@@ -12,7 +12,7 @@
 const { EsLint, merge } = require('@snailicide/build-config')
 
 module.exports = merge(EsLint.typeScriptOptions, {
-    ignorePatterns: ['src/**/*.test.ts'],
+    ignorePatterns: ['src/**/*.test.ts', '*.cjs'],
     rules: {
         '@typescript-eslint/no-unused-vars': 'warn',
     },
