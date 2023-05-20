@@ -1,23 +1,21 @@
 import { zod } from '@snailicide/g-library'
 import { z } from 'zod'
 
-export const base_schema = zod
-    .object({
-        rootDir: zod.filePathExists
-            .default('.')
-            .describe('<dir> Set Root Directory'),
-        outFile: zod
-            .string()
-            .default('svg-swatch')
-            .describe('Output file name with no extension'),
-        outDir: zod
-            .string()
-            .default('./tests/_output')
-            .describe('<dir> Output directory'),
-        debug: zod.boolean().default(false).describe('Debug output'),
-        verbose: zod.boolean().default(false).describe('Verbose Logging'),
-    })
-    .describe('An example CLI for making svgs')
+export const base_schema = zod.object({
+    rootDir: zod.filePathExists
+        .default('.')
+        .describe('<dir> Set Root Directory'),
+    outFile: zod
+        .string()
+        .default('svg-swatch')
+        .describe('Output file name with no extension'),
+    outDir: zod
+        .string()
+        .default('./tests/_output')
+        .describe('<dir> Output directory'),
+    debug: zod.boolean().default(false).describe('Debug output'),
+    verbose: zod.boolean().default(false).describe('Verbose Logging'),
+})
 
 export type BaseArgs = z.infer<typeof base_schema>
 
