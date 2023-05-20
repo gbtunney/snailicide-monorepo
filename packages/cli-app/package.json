@@ -24,7 +24,7 @@
         "\n========== DEV >> ==========": "",
         "dev": "tsc  --build --watch",
         "\n========== TEST >> ==========": "",
-        "test": "pnpm test:cli && pnpm test:build:cli  && pnpm test:help",
+        "test": "pnpm test:jest && pnpm test:cli && pnpm test:build:cli  && pnpm test:help",
         "test:jest": "jest",
         "test:dev": "jest --watch",
         "test:help": "pnpm test:cli --help",

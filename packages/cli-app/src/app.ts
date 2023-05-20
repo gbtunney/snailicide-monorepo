@@ -73,8 +73,21 @@ export const initApp = <Schema extends z.ZodTypeAny>(
             ? option_schema._def.schema._def.shape()
             : option_schema._def.shape()
 
+        let array_keys: string[] = []
         Object.entries(iterateOptions).forEach(([key, _schema]) => {
             const schema: Record<string, any> = <Record<string, any>>_schema
+            //todo: this is ugly and a hack
+            if (schema && schema['_def'] && schema['_def']['typeName']) {
+                if (schema['_def']['typeName'] === 'ZodArray') {
+                    array_keys = [...array_keys, key]
+                } else if (
+                    schema['_def']['typeName'] === 'ZodDefault' &&
+                    schema['_def']['innerType']['_def']['typeName'] ===
+                        'ZodArray'
+                ) {
+                    array_keys = [...array_keys, key]
+                }
+            }
             const description =
                 schema && schema['description']
                     ? schema['description']
@@ -85,19 +98,19 @@ export const initApp = <Schema extends z.ZodTypeAny>(
         program.parse(process.argv)
         const options: OptionValues = program.opts()
 
-        const getArgsObject = (value = process.argv) => yargs(value).argv
+        const getArgsObject = (value = process.argv) =>
+            yargs(value).array(array_keys).argv
 
         const new_option_schema = getTypedSchema<typeof schema>(schema)
-
         const pendingArgs = resolveSchema(new_option_schema, getArgsObject())
-
         if (pendingArgs !== undefined) {
             const resolvedArgs: z.output<typeof new_option_schema> = pendingArgs
+            //todo: debug needs to be parsed seperately.
             if (resolvedArgs.debug === true) {
                 console.error('DEBUG:: RAW ARGS: ', getArgsObject())
                 console.error(
                     'DEBUG:: RESOLVED ARGS:: ',
-                    resolveSchema(option_schema, getArgsObject(), true)
+                    resolveSchema(option_schema, getArgsObject())
                 )
             }
             return initFunction(resolvedArgs)

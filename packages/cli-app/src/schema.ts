@@ -30,13 +30,15 @@ export const tg_ZodSchema = <Schema extends z.ZodSchema<any>>(
 
 export const resolveSchema = <Schema extends z.ZodSchema>(
     schema: Schema,
-    value: unknown,
-    debug = false
+    value: unknown
 ): z.infer<Schema> | undefined => {
     if (tg_ZodSchema(schema, value)) {
         return schema.parse(value)
     } else {
-        if (debug) schema.parse(value)
+        const result = schema.safeParse(value)
+        if (!result.success) {
+            console.error(JSON.stringify(result.error.errors, undefined, 4))
+        }
         return undefined
     }
 }

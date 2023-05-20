@@ -1,5 +1,6 @@
 import { unResolvedAppOptions, initApp } from './app.js'
 import { BaseArgs, base_schema } from './schema.js'
+import { z } from 'zod'
 
 const initFunc = (args: BaseArgs) => {
     if (args.verbose === true) {
@@ -10,8 +11,14 @@ const OPTIONS: unResolvedAppOptions = {
     name: 'Example App',
     description: 'This is an example to demonstrate use',
 }
+const myschema = base_schema.merge(
+    z.object({
+        testarr: z.number().array().describe('test array'),
+        testarr2: z.string().array().default([]).describe('test array'),
+    })
+)
 const initialize = () => {
-    initApp(base_schema, initFunc, OPTIONS)
+    initApp(myschema, initFunc, OPTIONS)
 }
 export default initialize()
 //import {zod} from "../../g-library/types/zod/index";

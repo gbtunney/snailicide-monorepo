@@ -21,8 +21,8 @@ const initFunc = (args: BaseArgs) => {
     }
     return true
 }
-describe('unit | isNumberParseable', () => {
-    it('returns `true` for values parseable number', () => {
+describe('cli-app', () => {
+    it('returns `true` if merged schema is parsable', () => {
         const test_schema = base_schema.transform(transformFunc)
         const my_custom_schema = base_schema
             .merge(
