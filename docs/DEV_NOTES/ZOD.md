@@ -1,5 +1,30 @@
 # Zod Notes
 
+## ZodType with ZodEffects
+
+> When using `z.ZodType` with `z.ZodEffects` _( .refine, .transform, preprocess, etc... )_, you will need to define the input and output types of the schema. `z.ZodType<Output, z.ZodTypeDef, Input>`
+
+```ts
+const isValidId = (id: string): id is `${string}/${string}` =>
+    id.split('/').length === 2
+
+const baseSchema = z.object({
+    id: z.string().refine(isValidId),
+})
+
+type Input = z.input<typeof baseSchema> & {
+    children: Input[]
+}
+
+type Output = z.output<typeof baseSchema> & {
+    children: Output[]
+}
+
+const schema: z.ZodType<Output, z.ZodTypeDef, Input> = baseSchema.extend({
+    children: z.lazy(() => schema.array()),
+})
+```
+
 ## Wrapped transform
 
 > from [Error when transforming wrapped parser · Issue #361 · colinhacks/zod](https://github.com/colinhacks/zod/issues/361)
