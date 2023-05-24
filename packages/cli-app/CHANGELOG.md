@@ -1,5 +1,11 @@
 # @snailicide/cli-app
 
+## 0.0.4
+
+### Patch Changes
+
+-   removed commander and switched to yargs, added get types function.
+
 ## 0.0.3
 
 ### Patch Changes
