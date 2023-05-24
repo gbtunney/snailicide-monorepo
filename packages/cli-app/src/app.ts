@@ -1,10 +1,10 @@
 import clear from 'clear'
-import { OptionValues, program } from 'commander'
 import yargs from 'yargs'
 import { z } from 'zod'
 import { npm, stringUtils, tg } from '@snailicide/g-library'
 import { doPrintHeader, getHeader } from './header.js'
 import { resolveSchema } from './schema.js'
+import { getZodType } from './helpers.js'
 
 export const appOptionsSchema = z.object({
     name: z
@@ -17,6 +17,7 @@ export const appOptionsSchema = z.object({
         .refine((value) => npm.validSemVer.test(value), {
             message: 'Version must be a valid semver',
         }),
+    alias: z.record(z.string()).default({}),
     title_color: z
         .object({
             fg: z.string().default('#d104ff'), //TODO: validate with chroma
@@ -39,7 +40,13 @@ export const appOptionsSchema = z.object({
 export type AppOptions = z.infer<typeof appOptionsSchema>
 export type unResolvedAppOptions = z.input<typeof appOptionsSchema>
 export type ResolvedAppOptions = z.output<typeof appOptionsSchema>
-
+export type AppAliasOption<Schema extends z.AnyZodObject | z.ZodEffects<any>> =
+    {
+        help?: string
+        version?: string
+    } & {
+        [Key in keyof z.infer<Schema>]?: string
+    }
 export const initApp = <Schema extends z.ZodTypeAny>(
     schema: Schema,
     initFunction: (value: z.infer<Schema>) => void,
@@ -49,7 +56,6 @@ export const initApp = <Schema extends z.ZodTypeAny>(
         appOptionsSchema,
         unresolved_options
     )
-
     if (
         tg.isNotUndefined<z.output<typeof appOptionsSchema>>(
             resolved_app_options
@@ -61,22 +67,33 @@ export const initApp = <Schema extends z.ZodTypeAny>(
         if (app_options.print) {
             doPrintHeader(getHeader(app_options))
         }
-        program
-            .name(app_options.name)
-            .version(app_options.version, '-v,--version', '--version')
-            .description(app_options.description)
         //hack idk
         const getTypedSchema = <T extends z.ZodTypeAny>(schema: T): T => schema
+
         /* * Write commander options from zod descriptions * */
-        const option_schema = getTypedSchema<typeof schema>(schema)
+        const option_schema: Schema = getTypedSchema<Schema>(schema)
         const iterateOptions = option_schema._def.schema
             ? option_schema._def.schema._def.shape()
             : option_schema._def.shape()
 
+        const OPTIONS_OBJ = Array.from(Object.entries(iterateOptions)).reduce(
+            (accum, [key, value]) => {
+                return {
+                    ...accum,
+                    [key]: {
+                        type: getZodType(value as z.ZodTypeAny),
+                        // , required: (value as z.ZodTypeAny).isOptional()
+                        describe: (value as z.ZodTypeAny).description
+                            ? (value as z.ZodTypeAny).description
+                            : stringUtils.capitalizeWords(key),
+                    },
+                }
+            },
+            {}
+        )
         let array_keys: string[] = []
-        Object.entries(iterateOptions).forEach(([key, _schema]) => {
-            const schema: Record<string, any> = <Record<string, any>>_schema
-            //todo: this is ugly and a hack
+        Object.entries(iterateOptions).forEach(([key, value]) => {
+            const schema: Record<string, any> = <Record<string, any>>value
             if (schema && schema['_def'] && schema['_def']['typeName']) {
                 if (schema['_def']['typeName'] === 'ZodArray') {
                     array_keys = [...array_keys, key]
@@ -88,19 +105,19 @@ export const initApp = <Schema extends z.ZodTypeAny>(
                     array_keys = [...array_keys, key]
                 }
             }
-            const description =
-                schema && schema['description']
-                    ? schema['description']
-                    : stringUtils.capitalizeWords(key)
-            program.option(`--${key}`, description)
-        })
-        /* * END Write commander options * */
-        program.parse(process.argv)
-        const options: OptionValues = program.opts()
+        }, {})
 
-        const getArgsObject = (value = process.argv) =>
-            yargs(value).array(array_keys).argv
+        const getArgsInstance = (value = process.argv) =>
+            yargs(value)
+                .scriptName(app_options.name)
+                .version(app_options.version)
+                .array(array_keys)
+                .option(OPTIONS_OBJ)
+                //.showHelp()
+                .alias(app_options.alias)
 
+        const yargsInstance = getArgsInstance()
+        const getArgsObject = (value = process.argv) => yargsInstance.argv
         const new_option_schema = getTypedSchema<typeof schema>(schema)
         const pendingArgs = resolveSchema(new_option_schema, getArgsObject())
         if (pendingArgs !== undefined) {
@@ -114,17 +131,9 @@ export const initApp = <Schema extends z.ZodTypeAny>(
                 )
             }
             return initFunction(resolvedArgs)
+        } else {
+            yargsInstance.showHelp()
         }
     }
 }
 export default initApp
-/*
-if (options['help']) {
-    program.outputHelp()
-} else {
-    const getArgsObject = (value = process.argv) => yargs(value).argv
-    const resolvedArgs = resolveOptions(getArgsObject())
-    if (resolvedArgs !== undefined) {
-    }
-}
-*/

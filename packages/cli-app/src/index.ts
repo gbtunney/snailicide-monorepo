@@ -8,6 +8,7 @@ import * as schema from './schema.js'
 export default { app, schema }
 export type {
     AppOptions,
+    AppAliasOption,
     unResolvedAppOptions,
     ResolvedAppOptions,
 } from './app.js'
