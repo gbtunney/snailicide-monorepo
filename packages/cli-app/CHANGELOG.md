@@ -1,5 +1,13 @@
 # @snailicide/cli-app
 
+## 0.0.5
+
+### Patch Changes
+
+-   Added examples and usage to yargs
+-   Improved help screen and header display
+-   Improved error messages for debugging
+
 ## 0.0.4
 
 ### Patch Changes
