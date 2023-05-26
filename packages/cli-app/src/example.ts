@@ -8,10 +8,10 @@ import {
 } from './schema.js'
 
 const initFunc = (args: BaseArgs, help: undefined | string) => {
-    if (args.debug === true) {
-        console.log('RESOLVED APP ARGS::initFunc: ', args, 'done')
+    if (args.verbose === true) {
+        // console.log('VERBOSE FLAG ::RESOLVED APP ARGS::initFunc: ', args, 'done')
     }
-    console.log(help)
+    console.log(help, '\n', 'SUCCESS!! :: all args parsed')
 }
 
 const myschema = base_schema
@@ -40,22 +40,13 @@ const OPTIONS: unResolvedAppOptions = {
         ['$0 --config "~/config.json"', 'Use custom config'],
         ['$0 --safe', 'Start in safe mode'],
     ],
+    hidden: ['testarr'],
 }
 
 const initialize = async () => {
-    const instance_yargs = initApp(myschema, initFunc, OPTIONS)
+    const instance_yargs = await initApp(myschema, initFunc, OPTIONS)
+    if (instance_yargs !== undefined) {
+        // instance_yargs.showHelp()
+    }
 }
 export default initialize()
-//import {zod} from "../../g-library/types/zod/index";
-//import {node} from "../../g-library/types/node/index";
-
-/*
-.transform((value) => {
-    const outDir =
-        value.outDir !== undefined
-            ? zod.filePath.parse(
-                node.getFullPath(value.outDir, value.rootDir)
-            )
-            : value.outDir
-    return { ...value, outDir }
-})*/

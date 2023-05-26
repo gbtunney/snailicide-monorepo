@@ -2,7 +2,8 @@ import chalk from 'chalk'
 import clear from 'clear'
 import yargs from 'yargs'
 import { z } from 'zod'
-import { npm, stringUtils, tg } from '@snailicide/g-library'
+import * as process from 'process'
+import { stringUtils, tg } from '@snailicide/g-library'
 import { doPrintHeader, getHeader } from './header.js'
 import {
     app_schema,
@@ -10,7 +11,7 @@ import {
     resolveSchema,
     resolveSchemaError,
 } from './schema.js'
-import { getZodType } from './helpers.js'
+import { getZodType, removeAnsi } from './helpers.js'
 
 export type InitFunction<Schema = z.ZodSchema> = (
     value: Schema extends z.ZodSchema ? z.infer<Schema> : never,
@@ -19,7 +20,8 @@ export type InitFunction<Schema = z.ZodSchema> = (
 export const initApp = async <Schema extends z.ZodTypeAny>(
     schema: Schema,
     initFunction: InitFunction<Schema>, // ( value: z.infer<Schema> ,help?: string)=> void,
-    unresolved_options: unResolvedAppOptions
+    unresolved_options: unResolvedAppOptions,
+    argstr = process.argv
 ) => {
     const resolved_app_options = resolveSchema<typeof app_schema>(
         app_schema,
@@ -80,7 +82,6 @@ export const initApp = async <Schema extends z.ZodTypeAny>(
             : `\nWelcome to ${app_options.name}\n${
                   getHeader(app_options).divider
               }`
-
         const getArgsInstance = (value = process.argv) =>
             yargs(value)
                 .scriptName(app_options.name)
@@ -96,34 +97,40 @@ export const initApp = async <Schema extends z.ZodTypeAny>(
         /* * Print the header if print ==true  * */
         console.log(header)
 
-        const yargsInstance = getArgsInstance()
+        const yargsInstance = getArgsInstance(argstr)
+        const raw_arguments = yargsInstance.argv
+        app_options.hidden.forEach((_key) => {
+            yargsInstance.hide(_key)
+        })
         const new_option_schema = getTypedSchema<typeof schema>(schema)
-        const pendingArgs = resolveSchema(new_option_schema, getArgsInstance())
+        const pendingArgs = resolveSchema(new_option_schema, raw_arguments)
 
         if (pendingArgs !== undefined) {
             const resolvedArgs: z.output<typeof new_option_schema> = pendingArgs
             if (resolvedArgs.debug) {
-                console.log('DEBUG:: RAW ARGS: ', yargsInstance)
+                console.log('DEBUG:: RAW ARGS: ', raw_arguments)
                 console.log('DEBUG:: RESOLVED ARGUMENTS:: ', resolvedArgs)
             }
             const _help: string = await yargsInstance.getHelp()
-            return initFunction(resolvedArgs, `${header}\n${_help}`)
+            initFunction(resolvedArgs, `${removeAnsi(_help)}`)
+            return yargsInstance
         } else {
             yargsInstance.showHelp()
-            const error = resolveSchemaError(new_option_schema, yargsInstance)
+            const error = resolveSchemaError(new_option_schema, raw_arguments)
             /* * TODO: maybe pull debug schema from base schema * */
             const debug_bool = resolveSchema(
                 z.object({ debug: z.boolean().default(false) }),
-                yargsInstance
+                raw_arguments
             )
             if (debug_bool?.debug === true) {
-                console.error('DEBUG:: RAW ARGS: ', yargsInstance)
+                console.error('DEBUG:: RAW ARGS: ', raw_arguments)
             }
             if (tg.isNotUndefined(error)) {
                 console.error('\n', JSON.stringify(error, undefined, 4))
             }
+            return undefined
         }
-        return 'gggg'
     }
+    return undefined
 }
 export default initApp

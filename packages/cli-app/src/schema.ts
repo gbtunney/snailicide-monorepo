@@ -28,6 +28,10 @@ export const app_schema = z.object({
         .array(zod.tuple([zod.string(), zod.string()]))
         .default([])
         .describe('Examples for app cli help'),
+    hidden: zod
+        .array(zod.string())
+        .default([])
+        .describe('hide a key from the help menu'),
     title_color: z
         .object({
             fg: zod.string().default('#d104ff'), //TODO: validate with chroma

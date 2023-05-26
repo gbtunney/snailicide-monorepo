@@ -4,7 +4,7 @@ import { zod, node } from '@snailicide/g-library'
 import { z } from 'zod'
 
 const OPTIONS: unResolvedAppOptions = {
-    name: 'Example App',
+    name: 'Unit Test',
     description: 'This is an example to demonstrate use',
 }
 
@@ -32,9 +32,16 @@ describe('cli-app', () => {
                 })
             )
             .transform(transformFunc)
-        expect(await initApp(base_schema, initFunc, OPTIONS)).toBe(true)
-        expect(await initApp(test_schema, initFunc, OPTIONS)).toBe(true)
-        expect(await initApp(my_custom_schema, initFunc, OPTIONS)).toBe(true)
+
+        expect(await initApp(base_schema, initFunc, OPTIONS)).toBeDefined()
+        expect(await initApp(test_schema, initFunc, OPTIONS)).toBeDefined()
+        expect(await initApp(my_custom_schema, initFunc, OPTIONS)).toBeDefined()
+        expect(
+            await initApp(my_custom_schema, initFunc, OPTIONS, [
+                '--rootDir',
+                '33',
+            ])
+        ).toBeUndefined()
     })
 })
 export {}
