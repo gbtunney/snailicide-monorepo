@@ -11,5 +11,5 @@ export type {
     AppAliasOption,
     unResolvedAppOptions,
     ResolvedAppOptions,
-} from './app.js'
+} from './schema.js'
 export type { BaseArgs } from './schema.js'

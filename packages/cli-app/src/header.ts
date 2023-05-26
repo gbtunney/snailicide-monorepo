@@ -1,9 +1,9 @@
 import figlet from 'figlet'
-import { appOptionsSchema } from './app.js'
 import chalk from 'chalk'
 import { z } from 'zod'
+import { app_schema } from './schema.js'
 
-type AppOptions = z.output<typeof appOptionsSchema>
+type AppOptions = z.output<typeof app_schema>
 export type PrintHeader = AppOptions & {
     app_title: string
     divider: string
@@ -14,8 +14,8 @@ const getTitleColor = (
 ): string => {
     return chalk.bgHex(color.bg).hex(color.fg)(value)
 }
-export const doPrintHeader = (header: PrintHeader) => {
-    console.log(`${header.app_title}\n${header.divider}\n`)
+export const doPrintHeader = (header: PrintHeader): string => {
+    return `${header.app_title}\n${header.divider}\n`
 }
 export const getHeader = (options: AppOptions): PrintHeader => {
     const app_title: string = getTitleColor(

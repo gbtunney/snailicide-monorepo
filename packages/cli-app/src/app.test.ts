@@ -1,5 +1,5 @@
-import { unResolvedAppOptions, initApp } from './app.js'
-import { BaseArgs, base_schema } from './schema.js'
+import { initApp, InitFunction } from './app.js'
+import { base_schema, unResolvedAppOptions } from './schema.js'
 import { zod, node } from '@snailicide/g-library'
 import { z } from 'zod'
 
@@ -15,14 +15,15 @@ const transformFunc = (value: z.output<typeof base_schema>) => {
             : value.outDir
     return { ...value, outDir }
 }
-const initFunc = (args: BaseArgs) => {
+
+const initFunc: InitFunction<typeof base_schema> = (args) => {
     if (args.verbose === true) {
         console.warn('RESOLVED APP ARGS: ', args)
     }
     return true
 }
 describe('cli-app', () => {
-    it('returns `true` if merged schema is parsable', () => {
+    it('returns `true` if merged schema is parsable', async () => {
         const test_schema = base_schema.transform(transformFunc)
         const my_custom_schema = base_schema
             .merge(
@@ -31,10 +32,9 @@ describe('cli-app', () => {
                 })
             )
             .transform(transformFunc)
-
-        expect(initApp(base_schema, initFunc, OPTIONS)).toBe(true)
-        expect(initApp(test_schema, initFunc, OPTIONS)).toBe(true)
-        expect(initApp(my_custom_schema, initFunc, OPTIONS)).toBe(true)
+        expect(await initApp(base_schema, initFunc, OPTIONS)).toBe(true)
+        expect(await initApp(test_schema, initFunc, OPTIONS)).toBe(true)
+        expect(await initApp(my_custom_schema, initFunc, OPTIONS)).toBe(true)
     })
 })
 export {}
