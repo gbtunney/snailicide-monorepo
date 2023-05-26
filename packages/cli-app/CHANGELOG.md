@@ -1,5 +1,13 @@
 # @snailicide/cli-app
 
+## 0.0.6
+
+### Patch Changes
+
+-   -   fixed yargs bug
+    -   added hidden option to hide option in help
+    -   added removeAnsi function for readme help output
+
 ## 0.0.5
 
 ### Patch Changes
