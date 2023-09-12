@@ -32,17 +32,17 @@
     "devDependencies": {
         "@brunorb/semverjs": "^1.0.4",
         "@snailicide/build-config": "workspace:^",
-        "@types/node": "^20.1.5",
+        "@types/node": "^20.6.0",
         "@types/yargs": "^17.0.24",
         "deepmerge": "^4.3.1",
-        "eslint": "^8.40.0",
+        "eslint": "^8.49.0",
         "inquirer-file-path": "^1.0.1",
-        "node-plop": "^0.31.1",
-        "plop": "^3.1.2",
-        "prettier": "^2.8.8",
-        "typescript": "^5.0.4",
+        "node-plop": "^0.32.0",
+        "plop": "^4.0.0",
+        "prettier": "^3.0.3",
+        "typescript": "^5.2.2",
         "yargs": "^17.7.2",
-        "zod": "^3.21.4"
+        "zod": "^3.22.2"
     },
     "prettier": "@snailicide/build-config/prettier",
     "config": {
