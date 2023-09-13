@@ -1,7 +1,7 @@
 {
     "name": "@snailicide/build-config",
     "private": false,
-    "version": "0.2.5",
+    "version": "0.2.6",
     "description": "Snailicide Shared Build Configurations",
     "files": [
         "./tsconfig-base.json",
@@ -17,7 +17,7 @@
                 "require": "./dist/index.cjs",
                 "default": "./dist/index.js"
             },
-            "./dist/index.js"
+            "./types/index.js"
         ],
         "./tsconfig-base": "./tsconfig-base.json",
         "./eslint": "./dist/.eslintrc.json",
@@ -25,7 +25,7 @@
         "./jest": "./dist/jest.config.json"
     },
     "type": "module",
-    "main": "./dist/index.js",
+    "main": "./types/index.js",
     "types": "./types/index.d.ts",
     "scripts": {
         "\n========== BUILD >> ==========": "",

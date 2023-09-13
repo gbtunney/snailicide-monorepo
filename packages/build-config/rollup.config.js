@@ -60,7 +60,6 @@ const rollUp = () => {
 
     const options = {
         input: './src/index.ts',
-        clean: false,
         output: [
             createOutputOptions({
                 file: './dist/index.js',

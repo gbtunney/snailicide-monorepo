@@ -1,5 +1,11 @@
 # @snailicide/build-config
 
+## 0.2.6
+
+### Patch Changes
+
+-   fixed large dependency issues
+
 ## 0.2.5
 
 ### Patch Changes
