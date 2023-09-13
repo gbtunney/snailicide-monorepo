@@ -1,8 +1,11 @@
 // @ts-check
 
 import typescript2 from 'rollup-plugin-typescript2'
+import { nodeResolve } from '@rollup/plugin-node-resolve'
+import commonjs from '@rollup/plugin-commonjs'
+import json from '@rollup/plugin-json'
 import shell from 'shelljs'
-import { Prettier, EsLint, Jest, nodeUtils } from './dist/index.js'
+import { Prettier, EsLint, Jest, nodeUtils } from './types/index.js'
 
 /** Comment with library information to be appended in the generated bundles. */
 const banner = `/*
@@ -20,7 +23,7 @@ const banner = `/*
 function createOutputOptions(options) {
     return {
         banner,
-        name: 'snailicideGLibrary',
+        name: 'snailicideBuildConfig',
         exports: 'named',
         sourcemap: true,
         ...options,
@@ -43,7 +46,7 @@ const jsonExportConfig = [
 ]
 
 const copyTSConfig = () => {
-    //shell.cp('-R', 'stuff/', 'out/Release');
+    shell.mkdir('-p', './dist')
     shell.cp('./src/tsconfig/tsconfig-base.json', '.')
 }
 
@@ -57,6 +60,7 @@ const rollUp = () => {
 
     const options = {
         input: './src/index.ts',
+        clean: false,
         output: [
             createOutputOptions({
                 file: './dist/index.js',
@@ -77,10 +81,13 @@ const rollUp = () => {
         ],
         plugins: [
             typescript2({
-                clean: true,
+                //  clean: true,
                 useTsconfigDeclarationDir: true,
                 tsconfig: './src/tsconfig.json',
             }),
+            json(),
+            nodeResolve({ preferBuiltins: true }),
+            commonjs(),
         ],
     }
     return options

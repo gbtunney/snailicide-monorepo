@@ -1,8 +1,8 @@
-import { defineConfig } from 'vite'
+import { UserConfig } from 'vite'
 
 export const vite = {
-    docServer: (port = 5555) => {
-        return defineConfig({
+    docServer: (port = 5555): UserConfig => {
+        return {
             server: {
                 port: port,
                 strictPort: true,
@@ -10,6 +10,6 @@ export const vite = {
             base: '.',
             publicDir: './docs',
             root: './docs',
-        })
+        }
     },
 }

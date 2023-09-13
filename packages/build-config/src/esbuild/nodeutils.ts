@@ -17,7 +17,7 @@ export type JSONExportConfig = JSONExportEntry[]
  */
 const exportJSON = (
     config: JSONExportConfig,
-    outdir: string | undefined = undefined
+    outdir: string | undefined = undefined,
 ) => {
     config.forEach((entry) => {
         try {
@@ -25,7 +25,7 @@ const exportJSON = (
                 outdir === undefined
                     ? `./${addFileExtension(entry.filename)}`
                     : `./${outdir}/${addFileExtension(entry.filename)}`,
-                getJSONString<typeof entry.data>(entry.data)
+                getJSONString<typeof entry.data>(entry.data),
             )
         } catch (e) {
             console.error(e)

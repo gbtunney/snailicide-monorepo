@@ -22,6 +22,7 @@ const options: Linter.BaseConfig = {
         '@typescript-eslint/no-namespace': 'warn',
         '@typescript-eslint/no-unused-vars': 'error',
         //'@typescript-eslint/no-var-requires': 'off',
+        '@typescript-eslint/no-explicit-any': 'warn',
         '@typescript-eslint/ban-types': [
             'error',
             {

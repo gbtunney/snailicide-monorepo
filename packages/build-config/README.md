@@ -29,7 +29,8 @@ $ pnpm --filter=@snailicide/build-config publish --access public
 
 -   Linting
     -   [@typescript-eslint/eslint-plugin](https://www.npmjs.com/package/@typescript-eslint/eslint-plugin)
-    -   [eslint-plugin-prettier](https://www.npmjs.com/package/eslint-plugin-prettier)
     -   [eslint-plugin-filenames-simple](https://github.com/epaew/eslint-plugin-filenames-simple/)
     -   [eslint-import-resolver-typescript](https://www.npmjs.com/package/eslint-import-resolver-typescript)
     -   [eslint-plugin-import](https://www.npmjs.com/package/eslint-plugin-import)
+
+> Note: to transpile to (var and no arrow functions use target = ES5
