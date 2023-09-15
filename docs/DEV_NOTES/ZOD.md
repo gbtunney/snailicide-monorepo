@@ -9,7 +9,7 @@ const isValidId = (id: string): id is `${string}/${string}` =>
     id.split('/').length === 2
 
 const baseSchema = z.object({
-    id: z.string().refine(isValidId),
+    id: z.string().refine(isValidId)
 })
 
 type Input = z.input<typeof baseSchema> & {
@@ -21,7 +21,7 @@ type Output = z.output<typeof baseSchema> & {
 }
 
 const schema: z.ZodType<Output, z.ZodTypeDef, Input> = baseSchema.extend({
-    children: z.lazy(() => schema.array()),
+    children: z.lazy(() => schema.array())
 })
 ```
 
@@ -96,13 +96,13 @@ const schemaForType =
 const dog = schemaForType<Dog>()(
     z.object({
         name: z.string(),
-        neutered: z.boolean(),
+        neutered: z.boolean()
     })
 )
 
 //Passing "Dog" as a generic type parameter tells Typescript what the schema should look like
 const dogSchema = z.object<Dog>({
     name: z.string().min(3),
-    neutered: z.string(), //Error: string can't be assigned to boolean
+    neutered: z.string() //Error: string can't be assigned to boolean
 })
 ```

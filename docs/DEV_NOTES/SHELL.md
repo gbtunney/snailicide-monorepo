@@ -28,7 +28,7 @@ import { z } from 'zod'
 
 const argsSchema = z.object({
     name: z.string().default('unknown_name'),
-    email: z.string().email().optional(),
+    email: z.string().email().optional()
 })
 const cleaned_args: z.infer<typeof argsSchema> = argsSchema.parse(
     yargs(process.argv).argv
@@ -53,7 +53,7 @@ const reptiles: Array<string> = [
     'Lizard',
     'Python',
     'Tortoise',
-    'Turtle',
+    'Turtle'
 ]
 export const writeReptiles = () => {
     console.log(reptiles.toString())
@@ -96,7 +96,7 @@ npx dotenv -p SECRET_KEY
     '\n========== example >> ==========': '',
     'example:1': 'echo $npm_package_name;',
     /* * ENV * */
-    'example:2': 'todo: add example',
+    'example:2': 'todo: add example'
 }
 ```
 
@@ -109,7 +109,7 @@ npx dotenv -p SECRET_KEY
     'cross-env': '^7.0.3',
     'cross-var': '^1.1.0',
     'dotenv': '^16.0.3',
-    'dotenv-cli': '^6.0.0',
+    'dotenv-cli': '^6.0.0'
 }
 ```
 
