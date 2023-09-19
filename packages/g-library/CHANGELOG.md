@@ -1,5 +1,11 @@
 # @snailicide/g-library
 
+## 0.2.2
+
+### Patch Changes
+
+-   fixed dependencies and rollup issues. Added missing vite config file for the document viewer.
+
 ## 0.2.1
 
 ### Patch Changes

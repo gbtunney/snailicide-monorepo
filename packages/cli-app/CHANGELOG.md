@@ -1,5 +1,12 @@
 # @snailicide/cli-app
 
+## 0.0.7
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @snailicide/g-library@0.2.2
+
 ## 0.0.6
 
 ### Patch Changes

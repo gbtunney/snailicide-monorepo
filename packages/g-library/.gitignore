@@ -2,7 +2,7 @@
 dist
 types
 docs
-new.rollup.config.d.ts
-new.rollup.config.js
+rollup.config.d.ts
+rollup.config.js
 # Allow
 !src/types
