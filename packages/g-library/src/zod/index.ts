@@ -20,11 +20,9 @@ export const optionalDefault = <Type extends z.ZodType>(
     return z.union([value.default(_value), value.optional()])
 }
 export const semVer = () =>
-    z
-        .string()
-        .refine((value) => isValidSemVer(value), {
-            message: 'Please enter valid semver',
-        })
+    z.string().refine((value) => isValidSemVer(value), {
+        message: 'Please enter valid semver',
+    })
 
 export const fsPath = (root: string | undefined = undefined) => {
     return z

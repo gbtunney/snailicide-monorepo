@@ -29,58 +29,57 @@ const createOutputOptions = (
         ...options,
     }
 }
-const config: RollupOptions =
-    {
-        input: 'src/index.ts',
+const config: RollupOptions = {
+    input: 'src/index.ts',
 
-        output: [
-            /* * ESM - MAIN  * */
-            createOutputOptions({
-                file: pkg.main,
-                format: 'esm',
-            }),
-            /* * ESM - MINIFIED  * */
-            createOutputOptions({
-                file: ( pkg.main ).replace(".js",".min.js"),
-                format: 'esm',
-                sourcemap: false,
-                plugins:[terser()]
-            }),
-            /* * MJS * */
-            createOutputOptions({
-                file: pkg.module      ,
-                format: 'esm',
-            }),
-            /* * CJS * */
-            createOutputOptions({
-                file: pkg.commonjs,
-                format: 'commonjs',
-            }),
-            /* * IIFE CDN * */
-            createOutputOptions({
-                file: pkg.cdn,
-                format: 'iife',
-                plugins:[terser()]
-            }),
-            /* * UMD * */
-            createOutputOptions({
-                file: pkg["umd:main"],
-                format: 'umd',
-            })
-        ],
-        plugins: [
-            typescript2({
-                useTsconfigDeclarationDir: true,
-                tsconfig: './tsconfig.json',
-            }),
-            json(),
-            nodePolyfills(),
-            nodeExternals(),
-            //TODO: FIX SO things are being bundled properly?
-            nodeResolve({preferBuiltins: true }), // so Rollup can find `ms`
-            commonjs(), // so Rollup can convert `ms` to an ES modulefilesize(),
-            filesize(),
-        ],
-    }
+    output: [
+        /* * ESM - MAIN  * */
+        createOutputOptions({
+            file: pkg.main,
+            format: 'esm',
+        }),
+        /* * ESM - MINIFIED  * */
+        createOutputOptions({
+            file: pkg.main.replace('.js', '.min.js'),
+            format: 'esm',
+            sourcemap: false,
+            plugins: [terser()],
+        }),
+        /* * MJS * */
+        createOutputOptions({
+            file: pkg.module,
+            format: 'esm',
+        }),
+        /* * CJS * */
+        createOutputOptions({
+            file: pkg.commonjs,
+            format: 'commonjs',
+        }),
+        /* * IIFE CDN * */
+        createOutputOptions({
+            file: pkg.cdn,
+            format: 'iife',
+            plugins: [terser()],
+        }),
+        /* * UMD * */
+        createOutputOptions({
+            file: pkg['umd:main'],
+            format: 'umd',
+        }),
+    ],
+    plugins: [
+        typescript2({
+            useTsconfigDeclarationDir: true,
+            tsconfig: './tsconfig.json',
+        }),
+        json(),
+        nodePolyfills(),
+        nodeExternals(),
+        //TODO: FIX SO things are being bundled properly?
+        nodeResolve({ preferBuiltins: true }), // so Rollup can find `ms`
+        commonjs(), // so Rollup can convert `ms` to an ES modulefilesize(),
+        filesize(),
+    ],
+}
 
 export default config

@@ -5,7 +5,7 @@
         "lib": ["ESNext", "DOM"],
         "composite": true,
         "module": "ESNext",
-        "rootDir": ".",
+        "rootDir": "."
     },
     "exclude": ["./**/*.ts"],
     "files": ["./package.json", "rollup.config.ts"],

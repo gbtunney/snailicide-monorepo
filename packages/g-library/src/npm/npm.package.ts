@@ -22,11 +22,9 @@ export const isValidPackageName = (value: string) =>
 
 const schemaPackage = z.object({
     name: z.string().regex(validPackageName),
-    version: z
-        .string()
-        .refine((value) => isValidSemVer(value), {
-            message: 'Please enter valid semver',
-        }),
+    version: z.string().refine((value) => isValidSemVer(value), {
+        message: 'Please enter valid semver',
+    }),
     description: z.string(),
     main: z.string(),
     author: z
