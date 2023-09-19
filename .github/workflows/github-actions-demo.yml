@@ -14,8 +14,8 @@ jobs:
       - run: echo "🖥️ The workflow is now ready to test your code on the runner."
       - name: Setup Node.js environment
       - uses: actions/setup-node@v3.8.1
-      - with:
-        - node-version: '18.7.0'
+        - with:
+          - node-version: '18.7.0'
       - name: Install pnpm !
       - run: npm install pnpm -g
       - run: pnpm install
