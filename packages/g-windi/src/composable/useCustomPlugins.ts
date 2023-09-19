@@ -9,7 +9,7 @@ import {
 export const useCustomPlugins = () => {
     const transformRotatePlugin = (): Plugin => {
         const funcRotateCallback: rangeMapperFunction = (
-            _value
+            _value,
         ): DeepNestObject => {
             return {
                 [`.rotate-${_value}`]: {
@@ -19,7 +19,7 @@ export const useCustomPlugins = () => {
         }
         const result: DeepNestObject = usePluginUtilities().rangeMapperCSSinJS(
             rangeStep(360 / 8, -315, 360),
-            funcRotateCallback
+            funcRotateCallback,
         )
         return usePluginUtilities().pluginFactory(result)
     }
@@ -57,7 +57,7 @@ export const useCustomPlugins = () => {
     }
     const bgOpacityPlugin = (): Plugin => {
         const funcBGCallback: rangeMapperFunction = (
-            _value
+            _value,
         ): DeepNestObject => {
             return {
                 [`bg-opacity-${_value}`]: {
@@ -67,7 +67,7 @@ export const useCustomPlugins = () => {
         }
         const result: DeepNestObject = usePluginUtilities().rangeMapperCSSinJS(
             rangeStep(10, 10, 100),
-            funcBGCallback
+            funcBGCallback,
         )
         return usePluginUtilities().pluginFactory(result)
     }

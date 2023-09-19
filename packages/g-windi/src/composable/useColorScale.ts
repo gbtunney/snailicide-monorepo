@@ -20,7 +20,7 @@ export const useColorScale = () => {
         { scale = [], default_color, color_count = 5 }: ColorScaleConfig = {
             scale: [],
             color_count: 5,
-        }
+        },
     ) => {
         if (RA.isUndefined(default_color) && RA.isEmptyArray(scale)) return
         if (RA.isUndefined(default_color) && scale.length > 0)
@@ -47,11 +47,11 @@ export const useColorScale = () => {
                     },
                 }
             },
-            { ['DEFAULT']: chroma.color(default_color as Chromable).hex() }
+            { ['DEFAULT']: chroma.color(default_color as Chromable).hex() },
         )
     }
     const getColorScale = (
-        colorScaleConfig: ColorScaleConfigCollection
+        colorScaleConfig: ColorScaleConfigCollection,
     ): ThemeColors => {
         return Object.entries(colorScaleConfig).reduce(
             (accumulator, [key, value]) => {
@@ -64,12 +64,12 @@ export const useColorScale = () => {
                     }),
                 }
             },
-            {}
+            {},
         )
     }
 
     const colorScalePresetFactory = (
-        colorScaleConfig: ColorScaleConfigCollection
+        colorScaleConfig: ColorScaleConfigCollection,
     ): WindiConfig => {
         return {
             theme: {

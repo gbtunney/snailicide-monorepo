@@ -10,7 +10,7 @@ export const useWindiCSS = (config: Config = {}) => {
     const processor = ref(new Processor(config))
     const extractStylesFromHTML = (
         el: HTMLElement,
-        includeNestedHTML = true
+        includeNestedHTML = true,
     ) => {
         const classString = join(' ', Array.from(el.classList))
         const { success, ignored } = processor.value.interpret(classString)
@@ -29,7 +29,7 @@ export const useWindiCSS = (config: Config = {}) => {
     const interpretWindiStyles = (
         value: string[] | string,
         config: Config | undefined = undefined,
-        logging = true
+        logging = true,
     ) => {
         if (config) processor.value = new Processor(config)
 
@@ -45,7 +45,7 @@ export const useWindiCSS = (config: Config = {}) => {
         const { styleSheet, success, ignored } =
             processor.value.interpret(val_trimmed)
         const styleSheetCompiled: string | undefined = processor.value.validate(
-            val_trimmed
+            val_trimmed,
         )
             ? styleSheet.build(false)
             : undefined
@@ -59,7 +59,7 @@ export const useWindiCSS = (config: Config = {}) => {
                 '\nignored::',
                 ignored,
                 '\nstyleSheetCompiled:\n',
-                styleSheetCompiled
+                styleSheetCompiled,
             )
         }
         return {
@@ -72,7 +72,7 @@ export const useWindiCSS = (config: Config = {}) => {
     const compileCSS = (
         value: string[] | string,
         inject: boolean,
-        styleTagOptions: UseStyleTagOptions = {}
+        styleTagOptions: UseStyleTagOptions = {},
     ) => {
         const { styleSheetCompiled } = interpretWindiStyles(value)
         if (styleSheetCompiled !== undefined) {

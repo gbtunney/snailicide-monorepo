@@ -13,7 +13,7 @@ export const usePluginUtilities = () => {
     }
     const rangeMapperCSSinJS = (
         values: number[],
-        callback: rangeMapperFunction
+        callback: rangeMapperFunction,
     ) => {
         return values.reduce((accumulator: DeepNestObject, value) => {
             return { ...accumulator, ...callback(value) }

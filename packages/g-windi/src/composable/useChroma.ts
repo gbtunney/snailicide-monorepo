@@ -34,7 +34,7 @@ export const useChroma = () => {
     }
     const split_complement = (
         color: Chromable,
-        format?: chroma.ColorFormat
+        format?: chroma.ColorFormat,
     ) => {
         const [hue, ...rest] = chroma.color(color).hsl()
         return [
@@ -47,7 +47,7 @@ export const useChroma = () => {
         color: Chromable,
         format?: chroma.ColorFormat,
         results = 6,
-        slices = 30
+        slices = 30,
     ) => {
         const [hue, ...rest] = chroma.color(color).hsl()
         return [
@@ -82,7 +82,7 @@ export const useChroma = () => {
 
     const chromaColorBrighten = (
         value: string | undefined,
-        amount: number
+        amount: number,
     ): Color | undefined => {
         if (tg.isUndefined(value) || tg_isCSSColorSpecial(value))
             return undefined
@@ -113,13 +113,13 @@ export const useChroma = () => {
     function monochromatic(
         color: Chromable,
         format?: chroma.ColorFormat,
-        results = 6
+        results = 6,
     ) {
         // const [h,s,v] = chroma.color(color).hsv()
         const modification = 1 / results
         const explodeColorByResultsArr = repeat(
             chroma.color(color).hsv(),
-            results
+            results,
         )
         /*const newexplodeColorByResultsArr = explodeColorByResultsArr.map( (value,index)=>{
             const [h,s,v] =value
