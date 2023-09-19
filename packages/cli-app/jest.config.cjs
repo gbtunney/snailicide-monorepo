@@ -9,11 +9,11 @@ const config = {
         'chalk': require.resolve('chalk'),
         '#ansi-styles': path.join(
             require.resolve('chalk').split('chalk')[0],
-            'chalk/source/vendor/ansi-styles/index.js'
+            'chalk/source/vendor/ansi-styles/index.js',
         ),
         '#supports-color': path.join(
             require.resolve('chalk').split('chalk')[0],
-            'chalk/source/vendor/supports-color/index.js'
+            'chalk/source/vendor/supports-color/index.js',
         ),
     },
 }

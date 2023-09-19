@@ -15,17 +15,17 @@ import { getZodType, removeAnsi } from './helpers.js'
 
 export type InitFunction<Schema = z.ZodSchema> = (
     value: Schema extends z.ZodSchema ? z.infer<Schema> : never,
-    help: string | undefined
+    help: string | undefined,
 ) => void
 export const initApp = async <Schema extends z.ZodTypeAny>(
     schema: Schema,
     initFunction: InitFunction<Schema>, // ( value: z.infer<Schema> ,help?: string)=> void,
     unresolved_options: unResolvedAppOptions,
-    argstr = process.argv
+    argstr = process.argv,
 ) => {
     const resolved_app_options = resolveSchema<typeof app_schema>(
         app_schema,
-        unresolved_options
+        unresolved_options,
     )
     if (tg.isNotUndefined<z.output<typeof app_schema>>(resolved_app_options)) {
         const app_options = resolved_app_options
@@ -50,7 +50,7 @@ export const initApp = async <Schema extends z.ZodTypeAny>(
                     },
                 }
             },
-            {}
+            {},
         )
         /* * PARSE ARRAY KEYS WIP * */
         let array_keys: string[] = []
@@ -120,7 +120,7 @@ export const initApp = async <Schema extends z.ZodTypeAny>(
             /* * TODO: maybe pull debug schema from base schema * */
             const debug_bool = resolveSchema(
                 z.object({ debug: z.boolean().default(false) }),
-                raw_arguments
+                raw_arguments,
             )
             if (debug_bool?.debug === true) {
                 console.error('DEBUG:: RAW ARGS: ', raw_arguments)

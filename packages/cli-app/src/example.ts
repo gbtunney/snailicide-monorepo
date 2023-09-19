@@ -19,7 +19,7 @@ const myschema = base_schema
         z.object({
             testarr: z.number().array().default([]).describe('test array'),
             testarr2: z.string().array().default([]).describe('test array'),
-        })
+        }),
     )
     .transform((value) => {
         return value

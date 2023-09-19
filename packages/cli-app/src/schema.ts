@@ -71,7 +71,7 @@ export const base_schema = zod.object({
 
 export const tg_ZodSchema = <Schema extends z.ZodSchema<any>>(
     schema: Schema,
-    value: unknown
+    value: unknown,
 ): value is z.infer<Schema> => {
     return schema.safeParse(value).success
 }
@@ -79,7 +79,7 @@ export const tg_ZodSchema = <Schema extends z.ZodSchema<any>>(
 export const resolveSchema = <Schema extends z.ZodSchema>(
     schema: Schema,
     value: unknown,
-    suppressError = true
+    suppressError = true,
 ): z.infer<Schema> | undefined => {
     if (tg_ZodSchema(schema, value)) {
         return schema.parse(value)
@@ -93,7 +93,7 @@ export const resolveSchema = <Schema extends z.ZodSchema>(
 }
 export const resolveSchemaError = <Schema extends z.ZodSchema>(
     schema: Schema,
-    value: unknown
+    value: unknown,
 ): z.ZodFormattedError<any> | undefined => {
     if (!tg_ZodSchema(schema, value)) {
         const result = schema.safeParse(value)

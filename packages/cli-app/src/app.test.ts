@@ -29,7 +29,7 @@ describe('cli-app', () => {
             .merge(
                 z.object({
                     my_custom_prop: z.string().default('hello'),
-                })
+                }),
             )
             .transform(transformFunc)
 
@@ -40,7 +40,7 @@ describe('cli-app', () => {
             await initApp(my_custom_schema, initFunc, OPTIONS, [
                 '--rootDir',
                 '33',
-            ])
+            ]),
         ).toBeUndefined()
     })
 })

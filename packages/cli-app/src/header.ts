@@ -10,7 +10,7 @@ export type PrintHeader = AppOptions & {
 }
 const getTitleColor = (
     value: string,
-    color: AppOptions['title_color']
+    color: AppOptions['title_color'],
 ): string => {
     return chalk.bgHex(color.bg).hex(color.fg)(value)
 }
@@ -24,7 +24,7 @@ export const getHeader = (options: AppOptions): PrintHeader => {
                   horizontalLayout: 'full',
               })
             : options.name,
-        options.title_color
+        options.title_color,
     )
     const divider = '__________________________________________'
     return {
