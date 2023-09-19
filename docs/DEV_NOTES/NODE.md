@@ -13,6 +13,6 @@ const filePathExcistBool = fs.existsSync('package.json')
 import fs from 'fs'
 const getFileContent = fs.readFileSync('package.json', {
     encoding: 'utf8',
-    flag: 'r'
+    flag: 'r',
 })
 ```
