@@ -1,11 +1,19 @@
-import * as RA from 'ramda-adjunct'
-import * as R from 'ramda'
+//import * as RA from 'ramda-adjunct'
+import {
+    ensureArray,
+    isString,
+    isRegExp,
+    trimCharsStart,
+    trimCharsEnd,
+} from 'ramda-adjunct'
+
+import { pipe, replace as ramda_replace } from 'ramda'
 import type {
     TrimCharacters,
     TrimSinglePatternCharacters,
     TransformBatch,
 } from './type'
-import { tg } from './../index.js'
+import { isNonEmptyArray } from './../typeguard/utility.typeguards.js'
 import {
     getRegExpStartOfString,
     getRegExpEndOfString,
@@ -18,30 +26,30 @@ const trimCharactersforSinglePattern = function ({
     trimEnd = true,
 }: TrimSinglePatternCharacters): string {
     if (!trimStart && !trimEnd) return value
-    if (RA.isString(pattern)) {
+    if (isString(pattern)) {
         return [
             ...(trimStart
                 ? [
                       pattern.length > 1
-                          ? R.replace(getRegExpStartOfString(pattern), '')
-                          : RA.trimCharsStart(pattern),
+                          ? ramda_replace(getRegExpStartOfString(pattern), '')
+                          : trimCharsStart(pattern),
                   ]
                 : []),
             ...(trimEnd
                 ? [
                       pattern.length > 1
-                          ? R.replace(getRegExpEndOfString(pattern), '')
-                          : RA.trimCharsEnd(pattern),
+                          ? ramda_replace(getRegExpEndOfString(pattern), '')
+                          : trimCharsEnd(pattern),
                   ]
                 : []),
         ].reduce((accumulator: string, func) => {
-            return R.pipe(func)(accumulator)
+            return pipe(func)(accumulator)
         }, value)
-    } else if (RA.isRegExp(pattern)) return R.replace(pattern, '')(value)
+    } else if (isRegExp(pattern)) return ramda_replace(pattern, '')(value)
     else return value
 }
 
-//example -   end of line. /gi$/g    start of line. /^gi/g
+//NOTES -   end of line. /gi$/g    start of line. /^gi/g
 //R.replace(new RegExp( '^gi' ,'g' ) ,"","gillian"
 export const trimCharacters = ({
     value,
@@ -50,7 +58,7 @@ export const trimCharacters = ({
     trimEnd = true,
 }: TrimCharacters): string => {
     if (!trimStart && !trimEnd) return value
-    return RA.ensureArray(pattern).reduce<typeof value>(
+    return ensureArray(pattern).reduce<typeof value>(
         (accumulator: string, pattern_single: RegExp | string) => {
             return trimCharactersforSinglePattern({
                 value: accumulator,
@@ -69,7 +77,7 @@ export const batchTrimCharacters = ({
     trimStart = true,
     trimEnd = true,
 }: TransformBatch<TrimCharacters>): string | string[] => {
-    const _value = RA.isString(value) ? RA.ensureArray(value) : value //already an array
+    const _value = isString(value) ? ensureArray(value) : value //already an array
 
     const result = _value.map((single_value) => {
         return trimCharacters({
@@ -79,7 +87,7 @@ export const batchTrimCharacters = ({
             trimEnd,
         })
     })
-    return RA.isString(value) && tg.isNonEmptyArray<string>(result)
+    return isString(value) && isNonEmptyArray<string>(result)
         ? (result[0] as string)
         : (result as string[])
 }

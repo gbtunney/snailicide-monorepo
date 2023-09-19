@@ -6,9 +6,7 @@ export type EmptyObject = {
 }
 
 /* * EmptyArray * */
-export type EmptyArray = {
-    [K in number]: never
-}
+export type EmptyArray = []
 
 /* * @type EmptyArray * */
 export type EmptyString = ''

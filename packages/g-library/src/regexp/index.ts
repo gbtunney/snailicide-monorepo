@@ -1,12 +1,12 @@
 import { escapeRegExp } from './../string/index.js'
-import * as RA from 'ramda-adjunct'
+import { ensureArray } from 'ramda-adjunct'
 
 const _match = 'String'.match
 export type RegExpMatchArray = ReturnType<typeof _match>
 const TRIM_CHARS_DEFAULT = ['.', "'", '"', ' ', '-', '[', ']', '(', ')'] ///stuff to trim from css classes.
 
 const regexListString = (_value: string | string[]): string => {
-    const value: string[] = RA.ensureArray(_value)
+    const value: string[] = ensureArray(_value)
     const escaped: string[] = value.map((str: string) => escapeRegExp(str))
     return escaped.join('|')
 }
@@ -46,7 +46,7 @@ export const getRegExpTrim = (
 const mapFlags = (flags: Flag | Flag[] | undefined = undefined): string => {
     if (flags === undefined) return ''
     else {
-        const flagArr = RA.ensureArray(flags).map((value: Flag) => {
+        const flagArr = ensureArray(flags).map((value: Flag) => {
             if (value === 'global') return 'g'
             else if (value === 'ignoreCase') return 'i'
             else if (value === 'multiline') return 'm'

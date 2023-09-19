@@ -2,7 +2,7 @@ import { globSync } from 'glob'
 import path from 'path'
 import fs from 'fs'
 import _isGlob from 'is-glob'
-import * as RA from 'ramda-adjunct'
+import { isString } from 'ramda-adjunct'
 import { transformExplodeArray } from './../transformString/_transformExplodeArray.js'
 
 export type FilePath = {
@@ -96,7 +96,7 @@ export const isFile = (
     if (result === true && allowedExtention === undefined) return true
     else if (result === true && allowedExtention !== undefined) {
         let _inner_result = false
-        const ALLOWED = RA.isString(allowedExtention)
+        const ALLOWED = isString(allowedExtention)
             ? [allowedExtention]
             : allowedExtention
         ALLOWED.forEach((item: string) => {

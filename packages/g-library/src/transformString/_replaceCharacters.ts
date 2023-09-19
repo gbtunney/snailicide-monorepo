@@ -1,17 +1,17 @@
-import * as RA from 'ramda-adjunct'
+import { ensureArray, isString, replaceAll } from 'ramda-adjunct'
 import type {
     ReplaceCharacters,
     ReplaceSinglePatternCharacters,
     TransformBatch,
 } from './type.js'
-import { tg } from './../index.js'
+import { isNonEmptyArray } from './../typeguard/utility.typeguards.js'
 
 const replaceCharactersSinglePattern = ({
     value,
     pattern = ' ',
     replacement = '',
 }: ReplaceSinglePatternCharacters): string =>
-    RA.replaceAll(pattern, replacement, value)
+    replaceAll(pattern, replacement, value)
 /**
  * @function replaceAllCharacters
  * @param {string} value - Single value
@@ -25,7 +25,7 @@ export const replaceAllCharacters = ({
     pattern = ' ',
     replacement = '',
 }: ReplaceCharacters): string => {
-    return RA.ensureArray(pattern).reduce<typeof value>(
+    return ensureArray(pattern).reduce<typeof value>(
         (accumulator: string, _pattern) =>
             replaceCharactersSinglePattern({
                 pattern: _pattern,
@@ -50,7 +50,7 @@ export const batchReplaceAll = ({
     pattern = ' ',
     replacement = '',
 }: TransformBatch<ReplaceCharacters>): string | string[] => {
-    const _value = RA.isString(value) ? RA.ensureArray(value) : value //already an array
+    const _value = isString(value) ? ensureArray(value) : value //already an array
 
     const result = _value.map((single_value) => {
         return replaceAllCharacters({
@@ -59,7 +59,7 @@ export const batchReplaceAll = ({
             replacement,
         })
     })
-    return RA.isString(value) && tg.isNonEmptyArray<string>(result)
+    return isString(value) && isNonEmptyArray<string>(result)
         ? (result[0] as string)
         : result
 }

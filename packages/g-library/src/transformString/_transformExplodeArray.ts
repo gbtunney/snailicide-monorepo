@@ -1,7 +1,7 @@
-import * as RA from 'ramda-adjunct'
+import { ensureArray, isString, isArray, isNonEmptyArray } from 'ramda-adjunct'
 import { isEmpty } from 'ramda'
 import { trimCharacters, batchTrimCharacters } from './_trimCharacters.js'
-import { tg } from './../index.js'
+import { isNotUndefined } from './../typeguard/utility.typeguards.js'
 import type { ExplodeArray } from './type.js'
 
 //todo: fix these mangled chars
@@ -14,19 +14,19 @@ export const transformExplodeArray = function ({
     if (isEmpty(value)) return []
 
     //if it is an array already,delimiter is disregarded & array is just cleaned & prefixed.
-    let explodedStringArr = RA.isArray(value) ? value : value.toString()
+    let explodedStringArr = isArray(value) ? value : value.toString()
 
     if (
-        RA.isString(explodedStringArr) &&
-        tg.isNotUndefined<string | RegExp>(delimiter)
+        isString(explodedStringArr) &&
+        isNotUndefined<string | RegExp>(delimiter)
     ) {
         explodedStringArr = explodedStringArr.split(delimiter)
     }
 
     if (
-        tg.isNotUndefined(trim) &&
-        RA.isArray(explodedStringArr) &&
-        RA.isNonEmptyArray(explodedStringArr)
+        isNotUndefined(trim) &&
+        isArray(explodedStringArr) &&
+        isNonEmptyArray(explodedStringArr)
     ) {
         explodedStringArr = (
             batchTrimCharacters({
@@ -36,9 +36,9 @@ export const transformExplodeArray = function ({
         ).filter((_str) => (_str.length > 2 ? true : false))
     }
     if (
-        tg.isNotUndefined<string>(prefix) &&
-        RA.isArray(explodedStringArr) &&
-        RA.isNonEmptyArray(explodedStringArr)
+        isNotUndefined<string>(prefix) &&
+        isArray(explodedStringArr) &&
+        isNonEmptyArray(explodedStringArr)
     ) {
         const cleaned_prefix = trimCharacters({
             value: prefix,
@@ -48,7 +48,7 @@ export const transformExplodeArray = function ({
             (_str) => `${cleaned_prefix}${_str}`,
         )
     }
-    return RA.ensureArray(explodedStringArr) //bc the type errors otherwise
+    return ensureArray(explodedStringArr) //bc the type errors otherwise
 }
 
 const TRIM_CHARS_DEFAULT = ['.', "'", '"', ' ', '-', '[', ']', '(', ')'] ///stuff to trim from css classes.
@@ -63,14 +63,3 @@ export const explodeCSSClassString = ({
     transformExplodeArray({ value, prefix, delimiter, trim })
 
 export default transformExplodeArray
-
-/*.
-OLD STUFFF. . ,
-map(function (item) {
-  return prefix ? `${prefix}${delimiter}${item}` : item;
-}).filter(function (_item) {
-  return (isInteger(_item)
-      || RA.isInteger(_item)
-      || (RA.isString(_item)
-          && _item.length > 2));
-}*/

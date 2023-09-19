@@ -6,9 +6,8 @@
         "composite": true,
         "module": "ESNext",
         "rootDir": ".",
-        "types": ["@types/jest", "jest", "node"]
     },
     "exclude": ["./**/*.ts"],
-    "files": ["./package.json", "new.rollup.config.ts"],
+    "files": ["./package.json", "rollup.config.ts"],
     "include": ["./*.ts"]
 }

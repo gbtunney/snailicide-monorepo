@@ -1,5 +1,7 @@
 import { z } from 'zod'
-import { validSemVer } from './../npm/index.js'
+import { isString } from 'ramda-adjunct'
+
+import { isValidSemVer } from './../npm/index.js'
 import { node } from './../node/index.js'
 import {
     FileType,
@@ -9,7 +11,6 @@ import {
     normalizePath,
     getExistingPathType,
 } from './../node/file.path.array.js'
-import * as RA from 'ramda-adjunct'
 
 /* * CUSTOM ZOD UTILITIES!! * */
 export const optionalDefault = <Type extends z.ZodType>(
@@ -18,7 +19,12 @@ export const optionalDefault = <Type extends z.ZodType>(
 ) => {
     return z.union([value.default(_value), value.optional()])
 }
-export const semVer = () => z.string().regex(validSemVer)
+export const semVer = () =>
+    z
+        .string()
+        .refine((value) => isValidSemVer(value), {
+            message: 'Please enter valid semver',
+        })
 
 export const fsPath = (root: string | undefined = undefined) => {
     return z
@@ -60,7 +66,7 @@ export const fsPathTypeExists = (
                 else if (node.doesFileExist(value)) _inner_result = true
             } else if (allowedType === 'none') return pathType === undefined
             else {
-                const ALLOWED: FileType[] = RA.isString(allowedType)
+                const ALLOWED: FileType[] = isString(allowedType)
                     ? [allowedType]
                     : allowedType
                 ALLOWED.forEach((item) => {

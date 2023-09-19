@@ -1,4 +1,4 @@
-import * as RA from 'ramda-adjunct'
+import { isNotUndefined, isString, isRegExp } from 'ramda-adjunct'
 
 /**
  * Validate String TODO:update tihs.
@@ -43,7 +43,7 @@ export const validateString = (
     pattern: string | RegExp,
     validate_op: validateOperation = 'eq',
 ): boolean => {
-    if (RA.isRegExp(pattern)) return match(value, pattern as RegExp)
+    if (isRegExp(pattern)) return match(value, pattern as RegExp)
     return (validate_op as validateFunc)(value, pattern as string)
 }
 
@@ -53,7 +53,7 @@ export const validateStringBatch = (
     operation: 'some' | 'every' = 'some',
 ): boolean => {
     let validateArr: IValidateObj[] = []
-    if (RA.isString(value) && RA.isNotUndefined(validateObjects)) {
+    if (isString(value) && isNotUndefined(validateObjects)) {
         validateArr = (validateObjects as Omit<IValidateObj, 'value'>[]).map(
             (obj) => {
                 return { ...obj, value }

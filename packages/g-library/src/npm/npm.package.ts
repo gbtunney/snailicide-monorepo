@@ -1,5 +1,4 @@
-// @ts-expect-error doesnt have types
-import SemverJS from '@brunorb/semverjs'
+import Semver from 'semver'
 import { z } from 'zod'
 import { isValidRegExp } from './../typeguard/utility.typeguards.js'
 
@@ -13,12 +12,9 @@ import type {
 type PackageJsonStandard = PackageJson['PackageJsonStandard']
 type PackageScripts = PackageJson['scripts']
 type TypeScriptConfiguration = PackageJson['TypeScriptConfiguration']
-export const validSemVer: RegExp = SemverJS.pattern
 export const validPackageName =
     /^(@[a-z0-9-~][a-z0-9-._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/
-
-export const isValidSemVer = (value: string) =>
-    isValidRegExp(value, validSemVer)
+export const isValidSemVer = (value: string) => Semver.valid(value)
 export const isValidPackageName = (value: string) =>
     isValidRegExp(value, validPackageName)
 
@@ -26,7 +22,11 @@ export const isValidPackageName = (value: string) =>
 
 const schemaPackage = z.object({
     name: z.string().regex(validPackageName),
-    version: z.string().regex(validSemVer),
+    version: z
+        .string()
+        .refine((value) => isValidSemVer(value), {
+            message: 'Please enter valid semver',
+        }),
     description: z.string(),
     main: z.string(),
     author: z
