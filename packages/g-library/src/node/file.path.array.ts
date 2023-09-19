@@ -30,10 +30,10 @@ export type FileType = 'directory' | 'file' | 'symlink' | 'glob' | undefined
  */
 export const getFilePathArr = (
     value: string,
-    getDirectoryFiles = false
+    getDirectoryFiles = false,
 ): FilePath[] => {
     const filteredArray = (
-        arr: (FilePath | undefined)[]
+        arr: (FilePath | undefined)[],
     ): arr is FilePath[] => {
         return !arr.some((_entry) => _entry === undefined)
     }
@@ -53,7 +53,7 @@ export const getFilePathArr = (
 export const isFileArray = (
     value: string,
     exists = true,
-    allowDirectory = false
+    allowDirectory = false,
 ): boolean => {
     const _path: string = path.resolve(value)
     /* * If we dont care if it excists, test if it is a glob or has no extention.  * */
@@ -89,7 +89,7 @@ export const getExistingPathType = (value: string): FileType => {
 /* * isFile - if the string is a glob, we do not care if it excists or resolves.  * */
 export const isFile = (
     value: string,
-    allowedExtention: string | string[] | undefined = undefined
+    allowedExtention: string | string[] | undefined = undefined,
 ) => {
     const extention = path.extname(path.resolve(value))
     const result = extention.length > 1
@@ -120,7 +120,7 @@ export const getFilePathObj = function (_path: string): FilePath | undefined {
         console.error(
             'the path ',
             _path,
-            ' is a glob, please use getFilePathArr function instead!'
+            ' is a glob, please use getFilePathArr function instead!',
         )
         return undefined
     }

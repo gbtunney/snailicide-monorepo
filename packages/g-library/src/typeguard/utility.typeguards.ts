@@ -43,7 +43,7 @@ export const isNotNilOrEmpty = <T>(value: T | NilOrEmpty): value is T =>
 
 /* * EMPTY STRING!!!!! * */
 export const isEmptyString = <T = unknown>(
-    value: T | EmptyString
+    value: T | EmptyString,
 ): value is EmptyString => RA.isEmptyString(value)
 
 export const isString = <T = unknown>(value: T | string): value is string =>
@@ -52,14 +52,14 @@ export const isNotString = <T = unknown>(value: T | string): value is T =>
     RA.isNotString(value)
 
 export const isInteger = <T extends Primitive>(
-    value: T | number
+    value: T | number,
 ): value is number => RA.isInteger(value)
 export const isNotInteger = <T extends Primitive>(
-    value: T | number
+    value: T | number,
 ): value is T => RA.isNotInteger(value)
 
 export const isPrimitive = <T = unknown>(
-    value: T | Primitive
+    value: T | Primitive,
 ): value is Primitive => RA.isPrimitive(value)
 export const isNotPrimitive = <T = unknown>(value: T | Primitive): value is T =>
     RA.isNotPrimitive(value)
@@ -75,7 +75,7 @@ export const isNotNullish = <T>(value: T | NilLike): value is T =>
     !(RA.isEmptyString(value) || isNil(value))
 
 export const isNotNull = <T extends NonNullable<any>>(
-    value: unknown
+    value: unknown,
 ): value is T => RA.isNotNull(value)
 
 export const isNull = (value: unknown): value is null => RA.isNull(value)
@@ -102,25 +102,25 @@ export const isValidRegExp = (value: string, regexp: RegExp): value is string =>
 export const isUndefined = <T>(value: T | Nullish): value is undefined =>
     isNil(value)
 export const isNotUndefined = <T = unknown>(
-    value: (T extends NonNullable<T> ? T : never) | Nullish
+    value: (T extends NonNullable<T> ? T : never) | Nullish,
 ): value is T extends NonNullable<T> ? T : never => RA.isNotNil(value)
 
 export const isEmptyArray = <T = unknown>(
-    value: T[] extends EmptyArray ? EmptyArray : never
+    value: T[] extends EmptyArray ? EmptyArray : never,
 ): value is T[] extends EmptyArray ? EmptyArray : never =>
     RA.isEmptyArray(value)
 export const isNonEmptyArray = <T = unknown>(
-    value: T[] extends EmptyArray ? never : T[]
+    value: T[] extends EmptyArray ? never : T[],
 ): value is T[] extends EmptyArray ? never : T[] => RA.isNonEmptyArray(value)
 
 export const isNonEmptyObject = <
-    Type extends PlainObject | Record<string, unknown>
+    Type extends PlainObject | Record<string, unknown>,
 >(
-    value: Type
+    value: Type,
 ): value is Type => RA.isNotEmpty(value)
 
 export const isEmptyObject = <Type extends EmptyObject>(
-    value: Type
+    value: Type,
 ): value is Type => isEmpty(value)
 
 //Test case  --

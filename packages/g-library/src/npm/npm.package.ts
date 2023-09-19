@@ -41,7 +41,7 @@ type SchemaPackage = z.infer<typeof schemaPackage>
 
 export const tg_NPMPackageCustom = <Schema extends z.ZodTypeAny>(
     schema: Schema,
-    value: unknown
+    value: unknown,
 ): value is z.infer<Schema> => {
     //  : value is z.infer<base.merge(schema)>
     return schema.safeParse(value).success
@@ -49,20 +49,20 @@ export const tg_NPMPackageCustom = <Schema extends z.ZodTypeAny>(
 
 export const isNPMPackageCustom = <
     T extends z.input<typeof schemaPackage>,
-    Schema extends z.ZodObject<any>
+    Schema extends z.ZodObject<any>,
 >(
     value: T,
     schema: Schema,
-    base: typeof schemaPackage = schemaPackage
+    base: typeof schemaPackage = schemaPackage,
 ) => {
     const newSchema = base.merge(schema)
     return tg_NPMPackageCustom<typeof newSchema>(newSchema, value)
 }
 
 export const isNPMPackage = <
-    BaseType extends Merge<PackageJson, SchemaPackage>
+    BaseType extends Merge<PackageJson, SchemaPackage>,
 >(
-    value: BaseType
+    value: BaseType,
 ): value is BaseType => {
     const result = schemaPackage.safeParse(value)
     return result && result.success === true ? true : false
@@ -79,7 +79,7 @@ export namespace NPMPackage {
     >
     export type PackageJsonRequiredProps<
         BaseType = PackageJson,
-        strict = true
+        strict = true,
     > = Merge<
         strict extends true
             ? OmitIndexSignature<BaseType>
@@ -90,7 +90,7 @@ export namespace NPMPackage {
 
     export type PackageJsonTypescript<
         BaseType = PackageJsonStandard,
-        strict = true
+        strict = true,
     > = PackageJsonBase<BaseType, strict> &
         RequireAtLeastOne<
             TypeScriptConfiguration,
@@ -108,13 +108,13 @@ export namespace NPMPackage {
     export type NPMPackageJson = PackageJsonBase<PackageJson, false>
     export type IsPackageJson<
         BaseType = PackageJsonStandard,
-        strict = true
+        strict = true,
     > = PackageJsonBase<BaseType, strict>
 
     type PackageScriptsReq<
         requiredProps extends string,
         strict = false,
-        BaseType = PackageJsonBase['scripts']
+        BaseType = PackageJsonBase['scripts'],
     > = BaseType extends PackageJsonBase['scripts']
         ? strict extends boolean
             ? strict extends false
@@ -133,7 +133,7 @@ export namespace NPMPackage {
     export type RequiredPackageScripts<
         requiredProps extends string,
         strict = false,
-        BaseType = PackageJsonBase
+        BaseType = PackageJsonBase,
     > = BaseType extends PackageJsonBase
         ? Merge<
               BaseType,

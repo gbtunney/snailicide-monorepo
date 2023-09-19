@@ -31,7 +31,7 @@ export const camelCase = (value: string): string => {
     return pipe(
         replace(/\s[a-z]/g, toUpper),
         replace(/^\s*[A-Z]+/g, toLower),
-        replace(/\s+/g, '')
+        replace(/\s+/g, ''),
     )(value)
 }
 
@@ -42,7 +42,7 @@ export const unCamelCase = (value: string): string =>
         // space before last upper in a sequence followed by lower
         replace(/\b([A-Z]+)([A-Z])([a-z])/, '$1 $2$3'),
         // uppercase the first character
-        replace(/^./, toUpper)
+        replace(/^./, toUpper),
     )(value)
 
 /** UPPERCASE first char of each word. */
@@ -98,7 +98,7 @@ export const normalizeLineBreaks = (value: string, lineEnd = '\n'): string =>
     pipe(
         replace(/\r\n/g, lineEnd),
         replace(/\r/g, lineEnd),
-        replace(/\n/g, lineEnd)
+        replace(/\n/g, lineEnd),
     )(value)
 
 /** Replaces all accented chars with regular ones */
@@ -133,7 +133,7 @@ export const truncate = (
     value: string,
     maxChars = 200,
     append = '...',
-    onlyFullWords = true
+    onlyFullWords = true,
 ): string => {
     maxChars = onlyFullWords ? maxChars + 1 : maxChars
     value = trim(value)
@@ -185,7 +185,7 @@ export const escapeHtml = (value: string): string =>
         replace(/</g, '&lt;'),
         replace(/>/g, '&gt;'),
         replace(/'/g, '&#39;'),
-        replace(/"/g, '&quot;')
+        replace(/"/g, '&quot;'),
     )(value)
 
 /**
@@ -201,7 +201,7 @@ export const unescapeHtml = (value: string): string =>
         replace(/&lt;/g, '<'),
         replace(/&gt;/g, '>'),
         replace(/&#39;/g, "'"),
-        replace(/&quot;/g, '"')
+        replace(/&quot;/g, '"'),
     )(value)
 
 /**
@@ -214,7 +214,7 @@ export const unescapeHtml = (value: string): string =>
  */
 export function escapeUnicode(
     value: string,
-    shouldEscapePrintable = false
+    shouldEscapePrintable = false,
 ): string {
     return value.replace(/[\s\S]/g, function (ch) {
         // skip printable ASCII chars if we should not escape them

@@ -59,7 +59,7 @@ export const trimCharacters = ({
                 trimEnd,
             })
         },
-        value
+        value,
     )
 }
 

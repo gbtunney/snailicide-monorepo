@@ -13,14 +13,14 @@ const regexListString = (_value: string | string[]): string => {
 
 export const getRegExpList = (
     _value: string | string[],
-    flag: Flag | Flag[] | undefined = 'global'
+    flag: Flag | Flag[] | undefined = 'global',
 ): RegExp => {
     return new RegExp(regexListString(_value), mapFlags(flag))
 }
 
 export const getRegExpStartOfString = (
     _value: string | string[],
-    flag: Flag | Flag[] | undefined = 'global'
+    flag: Flag | Flag[] | undefined = 'global',
 ): RegExp => {
     return new RegExp(`^${regexListString(_value)}`, mapFlags(flag))
 }
@@ -31,13 +31,13 @@ export const getRegExpStartOfString = (
  */
 export const getRegExpEndOfString = (
     _value: string | string[],
-    flag: Flag | Flag[] | undefined = 'global'
+    flag: Flag | Flag[] | undefined = 'global',
 ): RegExp => {
     return new RegExp(`${regexListString(_value)}$`, mapFlags(flag))
 }
 export const getRegExpTrim = (
     _value: string | string[],
-    flag: Flag | Flag[] | undefined = 'global'
+    flag: Flag | Flag[] | undefined = 'global',
 ): RegExp => {
     const start = getRegExpStartOfString(_value, flag)
     const end = getRegExpEndOfString(_value, flag)

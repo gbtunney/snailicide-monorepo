@@ -7,7 +7,7 @@ describe('Replace Characters', () => {
                 value: '!!hello_am_a_cat',
                 pattern: ['!', '_'],
                 replacement: '--',
-            })
+            }),
         ).toBe('----hello--am--a--cat')
     })
 
@@ -17,7 +17,7 @@ describe('Replace Characters', () => {
                 value: ['!!hello_am_a_cat', ' g!llian_t '],
                 pattern: ['!', '_', ' '],
                 replacement: '--',
-            })
+            }),
         ).toStrictEqual(['----hello--am--a--cat', '--g--llian--t--'])
 
         expect(
@@ -25,7 +25,7 @@ describe('Replace Characters', () => {
                 value: 'bg_red_700',
                 pattern: '_',
                 replacement: '-',
-            })
+            }),
         ).toBe('bg-red-700')
 
         expect(
@@ -33,7 +33,7 @@ describe('Replace Characters', () => {
                 value: ['.bg_red_700'],
                 pattern: ['_', '.'],
                 replacement: '-',
-            })
+            }),
         ).toStrictEqual(['-bg-red-700'])
     })
 })

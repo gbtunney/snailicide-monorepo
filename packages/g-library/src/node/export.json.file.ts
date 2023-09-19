@@ -21,7 +21,7 @@ export type JSONExportConfig = JSONExportEntry[]
 export const exportJSONFile = (
     config: JSONExportConfig,
     outdir: string | undefined = undefined,
-    overwrite: 'ON' | 'ERROR' | 'WARN' = 'ON'
+    overwrite: 'ON' | 'ERROR' | 'WARN' = 'ON',
 ): void => {
     config.forEach((entry) => {
         const file_name =
@@ -47,7 +47,7 @@ export const exportJSONFile = (
             console.error(
                 `Cannot write ${file_path}, file already excists`,
                 file_path,
-                entry
+                entry,
             )
             ////throw eror??'
             throw new Error(`Cannot write ${file_path}, file already excists`)

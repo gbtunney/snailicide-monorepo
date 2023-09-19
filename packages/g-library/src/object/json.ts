@@ -10,7 +10,7 @@ import {
 export const getJSONString = <Type extends Jsonifiable>(
     value: Type,
     prettyPrint = true,
-    indentSpaces = 4
+    indentSpaces = 4,
 ): string => {
     return prettyPrint
         ? JSON.stringify(getJSON<Type>(value), undefined, indentSpaces)
@@ -18,7 +18,7 @@ export const getJSONString = <Type extends Jsonifiable>(
 }
 
 export const getJSON = <Type extends Jsonifiable>(
-    value: Type
+    value: Type,
 ): Jsonify<Type> | undefined => {
     try {
         const json_value: Jsonify<Type> = JSON.parse(JSON.stringify(value))

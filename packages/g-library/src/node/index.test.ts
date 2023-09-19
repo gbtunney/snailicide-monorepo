@@ -10,12 +10,12 @@ describe('encodeBase64 getImageBase64', () => {
     it('returns an encoded string for a file path', () => {
         const imageTest = getImageBase64(
             './sample_image/testimage.jpeg',
-            'jpeg'
+            'jpeg',
         )
         expect(imageTest.length).toBeGreaterThan(20)
         const imageTest2 = getImageBase64(
             './sample_image/_badurltestimage.jpeg',
-            'jpeg'
+            'jpeg',
         )
         expect(imageTest2).toBe('undefined')
     })
@@ -24,7 +24,7 @@ describe('getFilePathArr getFilePathObj', () => {
     it('returns filepath object', () => {
         const filePathObj = getFilePathObj('./sample_image/testimage.jpeg')
         const filePathObj2 = getFilePathObj(
-            './sample_image/_badurltestimage.jpeg'
+            './sample_image/_badurltestimage.jpeg',
         )
         const filePathGlob = './sample_image/*'
         if (filePathObj2 !== undefined) {
@@ -48,17 +48,17 @@ describe('getFilePathArr getFilePathObj', () => {
         expect(getExistingPathType('./sample_image/*.{jpeg,jpg}')).toBe('glob')
 
         expect(getExistingPathType('./sample_image/*.{png,jpg}')).toBe(
-            undefined
+            undefined,
         )
         expect(getExistingPathType('./sample_image/kitten2.jpeg')).toBe('file')
         expect(getExistingPathType('./sample_image/kitten332.jpeg')).toBe(
-            undefined
+            undefined,
         )
 
         expect(isFile('./sample_image//')).toBe(false)
         expect(isFile('./sample_image/fileme.png', 'jpeg')).toBe(false)
         expect(
-            isFile('./sample_image/fileme.png', ['jpeg', 'png', 'svg'])
+            isFile('./sample_image/fileme.png', ['jpeg', 'png', 'svg']),
         ).toBe(true)
 
         expect(isFileArray('./sample_image/fileme.png')).toBe(false)

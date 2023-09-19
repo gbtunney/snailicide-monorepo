@@ -56,7 +56,7 @@ export const isNumeric = <Type = unknown>(value: Type): value is Type => {
  * @returns {boolean}
  */
 export const isNumericFloat = <Type extends number, strict = false>(
-    value: strict extends true ? Float<Type> : Type
+    value: strict extends true ? Float<Type> : Type,
 ): value is Float<Type> => {
     return isFloat(value)
 }
@@ -80,7 +80,7 @@ export const isNumericFloat = <Type extends number, strict = false>(
  * @returns {boolean}
  */
 export const isNumericInteger = <Type extends number, strict = false>(
-    value: strict extends true ? Integer<Type> : Type
+    value: strict extends true ? Integer<Type> : Type,
 ): value is Integer<Type> => {
     return isInteger(value)
 }
@@ -101,7 +101,7 @@ export const isNumericInteger = <Type extends number, strict = false>(
  * @returns {number | undefined}
  */
 export const numericToFloat = <Type extends number, strict = false>(
-    value: strict extends true ? Float<Type> : Type
+    value: strict extends true ? Float<Type> : Type,
 ): number | undefined => {
     return isValidNumber(value) ? parseFloat(value.toString()) : undefined
 }
@@ -123,7 +123,7 @@ export const numericToFloat = <Type extends number, strict = false>(
  * @returns {number | undefined}
  */
 export const numericToInteger = <Type extends number, strict = false>(
-    value: strict extends true ? Integer<Type> : Type
+    value: strict extends true ? Integer<Type> : Type,
 ): number | undefined => {
     return isInteger(value) ? parseInt(value.toString()) : undefined
 }

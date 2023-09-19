@@ -11,14 +11,14 @@ export const getImageExtensionLiteral = (value: string): ImageMimeType => {
         console.warn(
             'Warning:: ',
             value,
-            'is not appropriate extension for base64 image encoding, using png'
+            'is not appropriate extension for base64 image encoding, using png',
         )
         return 'png'
     }
 }
 export const getImageBase64 = (
     file_path: string,
-    mime_type: ImageMimeType = 'png'
+    mime_type: ImageMimeType = 'png',
 ): string => {
     const encoding = `data:image/${
         mime_type === 'svg' ? 'svg+xml' : mime_type
@@ -31,7 +31,7 @@ export const getImageBase64 = (
         console.error(
             'Error! base64 encoding fail :',
             resolvedPath,
-            'does not excist'
+            'does not excist',
         )
         return 'undefined'
     }

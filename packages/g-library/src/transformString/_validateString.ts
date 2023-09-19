@@ -41,7 +41,7 @@ export const match = (value: string, pattern: RegExp): boolean =>
 export const validateString = (
     value: string,
     pattern: string | RegExp,
-    validate_op: validateOperation = 'eq'
+    validate_op: validateOperation = 'eq',
 ): boolean => {
     if (RA.isRegExp(pattern)) return match(value, pattern as RegExp)
     return (validate_op as validateFunc)(value, pattern as string)
@@ -50,19 +50,19 @@ export const validateString = (
 export const validateStringBatch = (
     value: string | IValidateObj[],
     validateObjects?: Omit<IValidateObj, 'value'>[],
-    operation: 'some' | 'every' = 'some'
+    operation: 'some' | 'every' = 'some',
 ): boolean => {
     let validateArr: IValidateObj[] = []
     if (RA.isString(value) && RA.isNotUndefined(validateObjects)) {
         validateArr = (validateObjects as Omit<IValidateObj, 'value'>[]).map(
             (obj) => {
                 return { ...obj, value }
-            }
+            },
         )
     } else validateArr = value as IValidateObj[]
     const _operation =
         operation === 'some' ? validateArr.some : validateArr.every
     return _operation((obj) =>
-        validateString(obj.value, obj.pattern, obj.validate_op)
+        validateString(obj.value, obj.pattern, obj.validate_op),
     )
 }

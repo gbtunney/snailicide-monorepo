@@ -45,7 +45,7 @@ export const transformExplodeArray = function ({
             pattern: TRIM_CHARS_DEFAULT,
         })
         explodedStringArr = explodedStringArr.map(
-            (_str) => `${cleaned_prefix}${_str}`
+            (_str) => `${cleaned_prefix}${_str}`,
         )
     }
     return RA.ensureArray(explodedStringArr) //bc the type errors otherwise

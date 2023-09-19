@@ -15,7 +15,7 @@ import { isNumeric, numericToFloat, numericToInteger } from './numeric.js'
  * @see parseToInteger
  */
 export const toNumeric = <Type extends PossibleNumeric>(
-    value: Type
+    value: Type,
 ): Numeric | undefined => {
     if (isNumeric<Type>(value)) {
         if (isBigInt(value)) return BigInt(value)
@@ -39,7 +39,7 @@ export const toNumeric = <Type extends PossibleNumeric>(
  * @see toNumeric
  */
 export const toFloat = <Type extends number | string>(
-    value: Type
+    value: Type,
 ): number | undefined => {
     if (isNumeric<Type>(value) && !isBigInt(value)) {
         return toNumeric(value) !== undefined && isFloat(value)
@@ -63,7 +63,7 @@ export const toFloat = <Type extends number | string>(
  * @see PossibleNumeric
  */
 export const toInteger = <Type extends PossibleNumeric>(
-    value: Type
+    value: Type,
 ): number | undefined => {
     if (isNumeric<Type>(value)) {
         if (isBigInt(value)) return undefined

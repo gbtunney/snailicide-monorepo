@@ -32,7 +32,7 @@ export const replaceAllCharacters = ({
                 value: accumulator,
                 replacement,
             }),
-        value
+        value,
     )
 }
 //TODO: NEEDS UPDATE!!!

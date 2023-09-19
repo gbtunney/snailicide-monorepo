@@ -6,7 +6,7 @@ import { zod, node } from './src/index.js' //'@snailicide/g-library'
 const example_schema = zod.object({
     repository: zod.optionalDefault(
         z.string().url(),
-        'https://github.com/gbtunney/gbt-theme-dawn'
+        'https://github.com/gbtunney/gbt-theme-dawn',
     ),
     commitOrBranch: zod.optionalDefault(z.string(), 'main'),
     path: z.string(),
@@ -33,7 +33,7 @@ const getParsedArguments = (schema: z.ZodSchema) => {
         } else {
             console.log(
                 'Error: file path already excists',
-                zod.filePath.parse(file_path)
+                zod.filePath.parse(file_path),
             )
         }
     } else {

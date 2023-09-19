@@ -14,7 +14,7 @@ import * as RA from 'ramda-adjunct'
 /* * CUSTOM ZOD UTILITIES!! * */
 export const optionalDefault = <Type extends z.ZodType>(
     value: Type,
-    _value: z.infer<Type>
+    _value: z.infer<Type>,
 ) => {
     return z.union([value.default(_value), value.optional()])
 }
@@ -29,17 +29,17 @@ export const fsPath = (root: string | undefined = undefined) => {
 
 export const fsPathArray = (
     root: string | undefined = undefined,
-    getDirectoryFileContents = false
+    getDirectoryFileContents = false,
 ) => {
     return fsPath(root).transform((value) =>
-        getFilePathArr(value, getDirectoryFileContents)
+        getFilePathArr(value, getDirectoryFileContents),
     )
 }
 
 export const fsPathExists = (
     exists = true,
     root: string | undefined = undefined,
-    allowedType: FileType | 'any' | FileType[] = 'any'
+    allowedType: FileType | 'any' | FileType[] = 'any',
 ) => {
     if (exists === false) {
         return fsPathTypeExists('none', root)
@@ -49,7 +49,7 @@ export const fsPathExists = (
 
 export const fsPathTypeExists = (
     allowedType: FileType | 'any' | 'none' | FileType[] = 'any',
-    root: string | undefined = undefined
+    root: string | undefined = undefined,
 ) => {
     return fsPath(root).refine(
         (value) => {
@@ -75,13 +75,13 @@ export const fsPathTypeExists = (
                     value ? 'does not ' : 'does'
                 } exist ${allowedType}`,
             }
-        }
+        },
     )
 }
 //validates if it is a glob, and if it exists.
 export const fsPathArrayHasFiles = (
     getDirectoryFileContents = false,
-    root: string | undefined = undefined
+    root: string | undefined = undefined,
 ) => {
     return fsPathArray(root, getDirectoryFileContents).refine(
         (val) => {
@@ -97,7 +97,7 @@ export const fsPathArrayHasFiles = (
         },
         {
             message: `File path array does not contain files`,
-        }
+        },
     )
 }
 
@@ -163,7 +163,7 @@ export default zod
  */
 export const getZodData = <Schema = z.ZodSchema>(
     value: Schema extends z.ZodSchema ? z.infer<Schema> : never,
-    schema: Schema extends z.ZodSchema ? Schema : never
+    schema: Schema extends z.ZodSchema ? Schema : never,
 ): z.infer<typeof schema> => {
     return tg_Zod(value, schema) ? schema.parse(value) : undefined
 }
@@ -192,7 +192,7 @@ export const getZodData = <Schema = z.ZodSchema>(
  */
 export const tg_Zod = <Type = unknown, Schema = z.ZodSchema>(
     value: Type,
-    schema: Schema extends z.ZodSchema ? Schema : never
+    schema: Schema extends z.ZodSchema ? Schema : never,
 ): value is z.infer<typeof schema> => {
     return schema.safeParse(value).success
 }
