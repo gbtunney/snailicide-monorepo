@@ -40,7 +40,7 @@ export const PACKAGE_GENERATOR: PlopGeneratorConfig = {
                 'DATAAA',
                 _data,
                 'after',
-                packageSchema.safeParse(ParsedDataObject)
+                packageSchema.safeParse(ParsedDataObject),
             )
 
             const actions: ActionType[] = [
@@ -66,7 +66,7 @@ export const PACKAGE_GENERATOR: PlopGeneratorConfig = {
 }
 export default function (plop: NodePlopAPI) {
     const args: z.infer<typeof fileArgsSchema> = fileArgsSchema.parse(
-        yargs(process.argv).argv
+        yargs(process.argv).argv,
     )
     // console.log('the args are ', args,plop,PACKAGE_GENERATOR)
     const enummm = z
