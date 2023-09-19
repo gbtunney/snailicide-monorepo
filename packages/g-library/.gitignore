@@ -2,6 +2,7 @@
 dist
 types
 docs
-src/commanderzod
+new.rollup.config.d.ts
+new.rollup.config.js
 # Allow
 !src/types
