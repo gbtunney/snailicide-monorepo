@@ -1,6 +1,27 @@
 # GIT NOTES!
 
+-   name: Deploy GitHub Pages site uses: actions/deploy-pages@v1.2.9
+
 -   Commit [Link](https://github.com/gbtunney/gbt-theme-dawn/commit/7035aaa754ba4f99b1ff1f245d9f882ef6951b96)
+
+## Init instructions
+
+-   create a new repository on the command line
+    ```shell
+    echo "# test2" >> README.md
+    git init
+    git add README.md
+    git commit -m "first commit"
+    git branch -M main
+    git remote add origin git@github.com:gbtunney/test2.git
+    git push -u origin main
+    ```
+-   push an existing repository from the command line
+    ```shell
+    git remote add origin git@github.com:gbtunney/test2.git
+    git branch -M main
+    git push -u origin main
+    ```
 
 ## Add package from commit hash
 
