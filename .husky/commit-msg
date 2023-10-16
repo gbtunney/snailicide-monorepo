@@ -5,7 +5,7 @@ pnpm exec git-branch-is --not master
 
 echo $?
 
-if $? ; then
+if $ ; then
     echo "Command succeeded"
 else
     echo "Command failed"
