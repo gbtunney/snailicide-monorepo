@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-npx --no -- commitlint --edit "$1"
+pnpm exec git-branch-is --not master
+pnpm exec commitlint --edit "$1"

@@ -106,9 +106,13 @@ export const isNotUndefined = <T = unknown>(
 ): value is T extends NonNullable<T> ? T : never => RA.isNotNil(value)
 
 export const isEmptyArray = <T = unknown>(
-    value: T[] extends EmptyArray ? EmptyArray : never,
-): value is T[] extends EmptyArray ? EmptyArray : never =>
-    RA.isEmptyArray(value)
+    value: T[] extends any[] ? T[] : never,
+): value is T[] => RA.isEmptyArray(value)
+
+export const isArray = <T = any>(
+    value: T[] extends any[] ? T[] : never,
+): value is T[] extends any[] ? T[] : never => RA.isArray(value)
+
 export const isNonEmptyArray = <T = unknown>(
     value: T[] extends EmptyArray ? never : T[],
 ): value is T[] extends EmptyArray ? never : T[] => RA.isNonEmptyArray(value)
@@ -117,12 +121,16 @@ export const isNonEmptyObject = <
     Type extends PlainObject | Record<string, unknown>,
 >(
     value: Type,
-): value is Type => RA.isNotEmpty(value)
+): value is Type => RA.isNotEmpty(value) && RA.isNotArray(value)
 
 export const isEmptyObject = <Type extends EmptyObject>(
     value: Type,
 ): value is Type => isEmpty(value)
-
+//TODO: NOTE WHY IS THIS 'EMPTY'?
+export const isPlainObject = <Type = unknown>(
+    value: Type extends PlainObject | Record<string, unknown> ? Type : never,
+): value is Type extends PlainObject | Record<string, unknown> ? Type : never =>
+    RA.isPlainObject(value)
 //Test case  --
 /*const test_value  = 22 //'   ' //PlainObject = { hhihih:'hjhj'}
 if ( tg_isNotUndefined( test_value) ){
