@@ -7,7 +7,10 @@ pnpm exec git-branch-is  -i -r "^feat/"
 
 if $
 then
-        echo "Both variables are the same"
+       echo "branch check: failed, aborting commit."
 else
-        echo "Both variables are different"
+  # branch passes, then commitlint.
+   echo "branch check: success, continueing to commit lint"
+  pnpm exec commitlint --edit "$1"
+   echo "commitlint success"
 fi
