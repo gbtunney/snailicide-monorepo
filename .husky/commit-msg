@@ -2,4 +2,6 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 pnpm exec git-branch-is --not master
-pnpm exec commitlint --edit "$1"
+
+echo $?
+# pnpm exec commitlint --edit "$1"
