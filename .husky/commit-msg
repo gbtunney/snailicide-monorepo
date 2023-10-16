@@ -3,14 +3,4 @@
 
 pnpm exec git-branch-is  -i -r "^feat/"
 
-# pnpm exec commitlint --edit "$1"
-
-if $
-then
-       echo "branch check: failed, aborting commit."
-else
-  # branch passes, then commitlint.
-   echo "branch check: success, continueing to commit lint"
-  pnpm exec commitlint --edit "$1"
-   echo "commitlint success"
-fi
+pnpm exec commitlint --edit "$1"
