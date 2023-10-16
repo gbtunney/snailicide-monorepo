@@ -1,6 +1,14 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-pnpm exec git-branch-is --not master
+pnpm exec git-branch-is master
 
-$ echo $?
+echo $?
+
+if $? ; then
+    echo "Command succeeded"
+    exit
+else
+    echo "Command failed"
+    exit
+fi
