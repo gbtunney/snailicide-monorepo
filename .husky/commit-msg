@@ -3,3 +3,4 @@
 
 pnpm exec git-branch-is --not main
 pnpm exec commitlint --edit "$1"
+#dd
