@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-pnpm exec git-branch-is  -i -r "^feat/"
-
+ pnpm exec git-branch-is --not main
+# pnpm exec git-branch-is  -i -r "^feat/"
 pnpm exec commitlint --edit "$1"
