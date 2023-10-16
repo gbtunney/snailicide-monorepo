@@ -3,5 +3,11 @@
 
 pnpm exec git-branch-is  -i -r "^feat/"
 
-echo $?
 # pnpm exec commitlint --edit "$1"
+
+if $
+then
+        echo "Both variables are the same"
+else
+        echo "Both variables are different"
+fi
