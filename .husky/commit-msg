@@ -4,3 +4,4 @@
  pnpm exec git-branch-is --not main
 # pnpm exec git-branch-is  -i -r "^feat/"
 pnpm exec commitlint --edit "$1"
+#dd
