@@ -41,10 +41,11 @@
         "\n========== LIFECYCLE >> ==========": "",
         "prepare": "husky install",
         "postinstall": "pnpm --filter=@snailicide/build-config build",
+        "\n========== WORKFLOW >> ==========": "",
+        "workflow:archive": "open /Applications/Docker.app && cross-var pnpm exec gh act --workflows  ./workflows/workflow-build.yml --reuse",
         "\n========== TEST >> ==========": "",
-        "test": "tsc --build",
-        "test:actions": "gh act"
-    },
+        "test": "pnpm -r test"
+        },
     "devDependencies": {
         "@changesets/cli": "^2.26.2",
         "@commitlint/cli": "^17.7.1",

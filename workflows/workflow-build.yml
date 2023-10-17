@@ -2,15 +2,14 @@ name: snailicide/build
 on:
   workflow_call:
     inputs:
-      PACKAGE_NAME:
+      ARCHIVE_PATH:
         required: true
         type: string
 jobs:
-  dry-run:
+  archive:
     runs-on: ubuntu-latest
     steps:
-
-      - name: Build Snailicide Monorepo 🐌
+      - run:  echo 'Archive Snailicide Monorepo 🐌';
 
       - name: Checkout 🛎️
         uses: actions/checkout@v3
@@ -27,4 +26,6 @@ jobs:
 
       - name: BUILD ALL PACKAGES
         run: |
-          pnpm run build && pnpm run fix && pnpm run check
+          pnpm run build && pnpm run fix && pnpm run check && pnpm run test
+
+      - run: echo "🍏 This job's status is ${{ job.status }}."
