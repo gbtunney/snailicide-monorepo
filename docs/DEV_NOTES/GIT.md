@@ -36,16 +36,21 @@ wget https://github.com/<user>/<repository>/archive/<branch-or-commit>.zip
  pnpm add -w -D git://github.com/gbtunney/gbt-theme-dawn.git#7035aaa754ba4f99b1ff1f245d9f882ef6951b96
 ```
 
-## Test validate branch name
+## STASH CHANGES!!!
 
-```sh
-pnpm exec validate-branch-name -r "^(master|main|dev){1}$|^(feature|fix|hotfix|release)/.+$" -t feature/main
-```
+- **Stash single file**: ```git stash -m "Description of scope" -- <file>```
 
--   DIY lint-staged
+- **Restore from stash, then delete**: ```git stash pop```
+
+- Files can be stashed with comments.
+```git stash push -m "Change comment" -- file1.txt```
+
+- View stash: ```git stash list```
+
+- Creating a Copy of a Stashed File Under a Different Filename
+```git show stash@{0}:stashed_file.rb > copy_of_stashed_file.rb```
 
 todo: command below fails if file is deleted ( rather than updated )
-
 ```sh
 git add \<files\>
 pnpm run fix && pnpm run check
