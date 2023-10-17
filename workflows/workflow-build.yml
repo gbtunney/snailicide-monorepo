@@ -26,6 +26,6 @@ jobs:
 
       - name: BUILD ALL PACKAGES
         run: |
-          pnpm run build && pnpm run fix && pnpm run check && pnpm run test
+          pnpm run build && pnpm run fix && pnpm run check
 
       - run: echo "🍏 This job's status is ${{ job.status }}."

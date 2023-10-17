@@ -42,10 +42,10 @@
         "prepare": "husky install",
         "postinstall": "pnpm --filter=@snailicide/build-config build",
         "\n========== WORKFLOW >> ==========": "",
-        "workflow:archive": "open /Applications/Docker.app && cross-var pnpm exec gh act --workflows  ./workflows/workflow-build.yml --reuse",
+        "workflow:archive": "pnpm install && open /Applications/Docker.app && cross-var pnpm exec gh act --workflows  ./workflows/workflow-build.yml --reuse",
         "\n========== TEST >> ==========": "",
         "test": "pnpm -r test"
-        },
+    },
     "devDependencies": {
         "@changesets/cli": "^2.26.2",
         "@commitlint/cli": "^17.7.1",
@@ -61,6 +61,15 @@
         "lint-staged": "^14.0.1",
         "prettier": "^3.0.3",
         "typescript": "^5.2.2"
+    },
+    "husky": {
+        "hooks": {
+            "pre-push": "./commands/pre-push $HUSKY_GIT_STDIN",
+            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+        }
+    },
+    "lint-staged": {
+
     },
     "prettier": "@snailicide/build-config/prettier",
     "config": {
