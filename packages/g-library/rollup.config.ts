@@ -31,7 +31,6 @@ const createOutputOptions = (
 }
 const config: RollupOptions = {
     input: 'src/index.ts',
-
     output: [
         /* * ESM - MAIN  * */
         createOutputOptions({
@@ -57,7 +56,7 @@ const config: RollupOptions = {
         }),
         /* * IIFE CDN * */
         createOutputOptions({
-            file: pkg.cdn,
+            file: pkg.cdn.replace('.js', `-${pkg.version}.js`),
             format: 'iife',
             plugins: [terser()],
         }),

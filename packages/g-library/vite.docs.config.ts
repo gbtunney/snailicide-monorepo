@@ -1,3 +1,3 @@
-import { vite } from '@snailicide/build-config'
+import { vite as BuildVite } from '@snailicide/build-config'
 
-export default vite.docServer(4444)
+export default BuildVite.docServer(5555)

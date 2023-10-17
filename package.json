@@ -40,6 +40,7 @@
         "uninstall:lock": "rm -f pnpm-lock.yaml && rm -f packages/**/pnpm-lock.yaml",
         "\n========== LIFECYCLE >> ==========": "",
         "prepare": "husky install",
+        "postinstall": "pnpm --filter=@snailicide/build-config build",
         "\n========== TEST >> ==========": "",
         "test": "tsc --build",
         "test:actions": "gh act"

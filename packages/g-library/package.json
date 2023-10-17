@@ -9,8 +9,17 @@
         "types",
         "dist",
         "CHANGELOG.md",
-        "vite.docs.config.ts"
+        "vite.docs.config.ts",
+        "doc.server.js"
     ],
+    "bin": {
+        "docs": "./doc.server.js"
+    },
+    "engines": {
+        "node": ">=18.0.0",
+        "pnpm": ">=8.0.0"
+    },
+    "packageManager": "pnpm@>=8.5.0",
     "exports": {
         ".": [
             {
@@ -27,7 +36,7 @@
     "umd:main": "dist/index.umd.js",
     "module": "dist/index.esm.js",
     "commonjs": "dist/index.cjs",
-    "cdn": "dist/index.iife.js",
+    "cdn": "dist/g-library.js",
     "keywords": [
         "typescript",
         "js",
@@ -41,22 +50,28 @@
     ],
     "scripts": {
         "\n========== BUILD >> ==========": "",
-        "build": "pnpm build:ts && pnpm build:rollup",
+        "build": "pnpm build:ts && pnpm build:rollup && pnpm run docs",
         "build:rollup": "rollup --config ./rollup.config.js",
         "build:ts": "tsc --build",
         "\n========== DEV >> ==========": "",
         "dev": "tsc --build --watch",
         "\n========== TEST >> ==========": "",
         "test": "jest",
+        "test:workflow": "open /Applications/Docker.app && pnpm test:workflow:release",
+        "test:workflow:release": "cross-var pnpm exec gh act --workflows  $(git rev-parse --show-toplevel)/workflows/workflow-release-package.yml  --input PACKAGE_NAME='$npm_package_name' --reuse",
         "test:watch": "jest --watch",
         "test:example": "ts-node --esm ./exampleNodeScript.ts --path ./../../themes --name shopify-dawn",
         "\n========== DOCS >> ==========": "",
-        "docs": "jsdoc -c ./jsdoc.json -t ./node_modules/better-docs",
+        "docs": "pnpm exec jsdoc -c ./jsdoc.json -t ./node_modules/better-docs",
         "docs:serve": "vite --config ./vite.docs.config.ts",
         "docs:dev": "nodemon --exec 'jsdoc -c ./jsdoc.json -t ./node_modules/better-docs' --watch ./src",
         "\n========== PUBLISH >> ==========": "",
         "release": "pnpm prerelease && pnpm publish --access public --report-summary --no-git-checks",
-        "prerelease": "pnpm clean && pnpm build && pnpm run docs && pnpm fix && pnpm check && pnpm test",
+        "prerelease": "pnpm clean && pnpm build && pnpm fix && pnpm check && pnpm test && pnpm run release:archive",
+        "release:archive": "mkdir -p ./releases &&  pnpm exec npm pack --pack-destination='./releases'",
+        "\n========== DEPLOY >> ==========": "",
+        "deploy": "pnpm prerelease && pnpm deploy:docs",
+        "deploy:docs": "cross-var scp -r $npm_package_config_deploy_docs_local $npm_package_config_deploy_docs_remote",
         "\n========== CLEAN >> ==========": "",
         "clean": "pnpm clean:ts && pnpm clean:build",
         "clean:ts": "tsc --build --clean",
@@ -77,13 +92,18 @@
         "@types/ramda": "^0.29.4",
         "@types/semver": "^7.5.2",
         "@types/yargs": "^17.0.24",
+        "chroma.ts": "^1.0.10",
+        "fuse.js": "^6.6.2",
         "glob": "^10.3.4",
+        "handlebars": "^4.7.8",
         "is-glob": "^4.0.3",
         "markdown-it": "^13.0.1",
         "ramda": "^0.29.0",
         "ramda-adjunct": "^4.1.1",
         "semver": "^7.5.4",
+        "shelljs": "^0.8.5",
         "type-fest": "^4.3.1",
+        "vite": "^4.4.9",
         "yargs": "^17.7.2",
         "zod": "^3.22.2"
     },
@@ -111,11 +131,10 @@
         "ts-jest": "^29.1.1",
         "ts-jest-resolver": "^2.0.1",
         "ts-node": "^10.9.1",
-        "typescript": "^5.2.2",
-        "vite": "^4.4.9"
+        "typescript": "^5.2.2"
     },
     "directories": {
-        "doc": "docs"
+        "doc": "./docs"
     },
     "prettier": "@snailicide/build-config/prettier",
     "jest": {
@@ -128,6 +147,12 @@
         ]
     },
     "config": {
+        "deploy": {
+            "docs": {
+                "remote": "bluehost:~/public_html/docs-snailicide",
+                "local": "./docs/*"
+            }
+        },
         "eslint": {
             "extensions": "ts,js,cjs,mjs",
             "path": ".es*,*,**/*",
@@ -138,10 +163,7 @@
             "path": "*,**/*"
         }
     },
-    "homepage": "https://github.com/gbtunney/snailicide-monorepo#readme",
-    "bugs": {
-        "url": "https://github.com/gbtunney/snailicide-monorepo/issues"
-    },
+    "homepage": "https://github.com/gbtunney/snailicide-monorepo/tree/main/packages/g-library",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/gbtunney/snailicide-monorepo.git"

@@ -6,3 +6,4 @@ rollup.config.d.ts
 rollup.config.js
 # Allow
 !src/types
+!releases/*

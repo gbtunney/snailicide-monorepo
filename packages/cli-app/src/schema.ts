@@ -20,7 +20,7 @@ export const app_schema = z.object({
     version: zod
         .string()
         .default('0.0.0')
-        .refine((value) => npm.validSemVer.test(value), {
+        .refine((value) => npm.isValidSemVer(value), {
             message: 'Version must be a valid semver',
         }),
     alias: zod.record(zod.string()).default({}),
