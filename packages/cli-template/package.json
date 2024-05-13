@@ -35,14 +35,14 @@
         "@types/node": "^20.6.2",
         "@types/yargs": "^17.0.24",
         "deepmerge": "^4.3.1",
-        "eslint": "^8.49.0",
+        "eslint": "8.49.0",
         "inquirer-file-path": "^1.0.1",
         "node-plop": "^0.32.0",
-        "plop": "^4.0.0",
-        "prettier": "^3.0.3",
-        "typescript": "^5.2.2",
+        "plop": "^4.0.1",
+        "prettier": "^3.2.5",
+        "typescript": "^5.4.5",
         "yargs": "^17.7.2",
-        "zod": "^3.22.2"
+        "zod": "^3.23.8"
     },
     "prettier": "@snailicide/build-config/prettier",
     "config": {
@@ -57,6 +57,6 @@
         }
     },
     "dependencies": {
-        "ts-node": "^10.9.1"
+        "ts-node": "^10.9.2"
     }
 }

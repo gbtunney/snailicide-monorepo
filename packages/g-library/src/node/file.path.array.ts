@@ -65,9 +65,9 @@ export const isFileArray = (
         const newglob: undefined | string = isGlob(_path)
             ? _path
             : allowDirectory && isDirectory(_path)
-            ? //make a glob.
-              path.resolve(`${_path}/*`)
-            : undefined
+              ? //make a glob.
+                path.resolve(`${_path}/*`)
+              : undefined
         if (newglob === undefined) return false
         else if (getFilePathArr(newglob).length > 0) return true
     }

@@ -12,6 +12,13 @@
         "name": "Gillian Tunney",
         "email": "gbtunney@mac.com"
     },
+    "engines": {
+        "node": ">=18.0.0",
+        "pnpm": ">=9.0.0"
+    },
+    "pnpm": {
+        "default": "^9.0.0"
+    },
     "scripts": {
         "\n========== COMMIT >> ==========": "",
         "commit": "pnpm run precommit && pnpm exec git-cz",
@@ -46,20 +53,20 @@
         "test:actions": "gh act"
     },
     "devDependencies": {
-        "@changesets/cli": "^2.26.2",
-        "@commitlint/cli": "^17.7.1",
-        "@commitlint/config-conventional": "^17.7.0",
-        "@commitlint/cz-commitlint": "^17.7.1",
-        "@snailicide/build-config": "workspace:^",
-        "@types/node": "^20.6.2",
+        "@changesets/cli": "^2.27.1",
+        "@commitlint/cli": "^19.3.0",
+        "@commitlint/config-conventional": "^19.2.2",
+        "@commitlint/cz-commitlint": "^19.2.0",
+        "@snailicide/build-config": "^",
+        "@types/node": "^20.12.11",
         "commitizen": "^4.3.0",
         "cross-var": "^1.1.0",
-        "eslint": "^8.49.0",
+        "eslint": "8.49.0",
         "git-branch-is": "^4.0.0",
-        "husky": "^8.0.3",
-        "lint-staged": "^14.0.1",
-        "prettier": "^3.0.3",
-        "typescript": "^5.2.2"
+        "husky": "^9.0.11",
+        "lint-staged": "^15.2.2",
+        "prettier": "^3.2.5",
+        "typescript": "^5.4.5"
     },
     "prettier": "@snailicide/build-config/prettier",
     "config": {
