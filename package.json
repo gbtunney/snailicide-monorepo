@@ -38,7 +38,7 @@
         "uninstall:list": "find . -name 'node_modules' -type d -prune",
         "uninstall:rm": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +",
         "uninstall:lock": "rm -f pnpm-lock.yaml && rm -f packages/**/pnpm-lock.yaml",
-        "\n========== LIFECYCLE >> ==========": "",
+        "\n==   ======== LIFECYCLE >> ==========": "",
         "prepare": "husky install",
         "postinstall": "pnpm --filter=@snailicide/build-config build",
         "\n========== WORKFLOW >> ==========": "",
@@ -68,9 +68,7 @@
             "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
         }
     },
-    "lint-staged": {
-
-    },
+    "lint-staged": {},
     "prettier": "@snailicide/build-config/prettier",
     "config": {
         "eslint": {
