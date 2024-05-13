@@ -2,8 +2,8 @@
 dist
 types
 docs
-rollup.config.d.ts
-rollup.config.js
+*.d.ts
+*.js
 # Allow
 !src/types
 !releases/*

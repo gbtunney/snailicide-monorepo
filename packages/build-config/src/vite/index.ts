@@ -7,7 +7,7 @@ export const vite = {
                 port: port,
                 strictPort: true,
             },
-            base: '.',
+            base: './',
             publicDir: './docs',
             root: './docs',
         }

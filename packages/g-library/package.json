@@ -14,7 +14,7 @@
         "doc.server.js"
     ],
     "bin": {
-        "docs": "./doc.server.js"
+        "g-library-docs": "./docs.server.mjs"
     },
     "exports": {
         ".": {
@@ -48,7 +48,7 @@
     ],
     "scripts": {
         "\n========== BUILD >> ==========": "",
-        "build": "pnpm build:ts && pnpm build:rollup && pnpm build:rollup:module && pnpm docs",
+        "build": "pnpm build:ts && pnpm build:rollup && pnpm build:rollup:module && pnpm docs:build",
         "build:rollup": "rollup --config ./rollup.config.js",
         "build:rollup:module": "rollup --config ./rollup.config.modules.js",
         "build:ts": "tsc --build",
@@ -61,8 +61,8 @@
         "test:watch": "jest --watch",
         "test:example": "ts-node --esm ./exampleNodeScript.ts --path ./../../themes --name shopify-dawn",
         "\n========== DOCS >> ==========": "",
-        "docs": "pnpm exec jsdoc -c ./jsdoc.json -t ./node_modules/better-docs",
-        "docs:serve": "vite --config ./vite.docs.config.ts",
+        "docs:build": "pnpm exec jsdoc -c ./jsdoc.json -t ./node_modules/better-docs",
+        "docs:serve": "pnpm run docs:build && vite --config ./vite.docs.config.ts",
         "docs:dev": "nodemon --exec 'jsdoc -c ./jsdoc.json -t ./node_modules/better-docs' --watch ./src",
         "\n========== PUBLISH >> ==========": "",
         "release": "pnpm prerelease && pnpm publish --access public --report-summary --no-git-checks",
@@ -76,10 +76,10 @@
         "clean:ts": "tsc --build --clean",
         "clean:build": "rm -R -f dist && rm -R -f types && rm -R -f docs",
         "\n========== CODE STYLE >> ==========": "",
-        "lint": "cross-var eslint {$npm_package_config_eslint_path}.{$npm_package_config_eslint_extensions} -c $npm_package_config_eslint_config",
+        "lint": "cross-var eslint {$npm_package_config_eslint_path}.{$npm_package_config_eslint_extensions} --ignore-path .gitignore -c $npm_package_config_eslint_config",
         "prettier": "cross-var prettier {$npm_package_config_prettier_path}.{$npm_package_config_prettier_extensions} --ignore-path ./.gitignore",
         "\n========== CHECK >> ==========": "",
-        "check": "echo 'todo:pnpm lint'",
+        "check": "pnpm lint",
         "\n========== FIX >> ==========": "",
         "fix": "pnpm prettier --write"
     },
@@ -111,11 +111,12 @@
         "@rollup/plugin-json": "^6.1.0",
         "@rollup/plugin-node-resolve": "^15.2.3",
         "@rollup/plugin-terser": "^0.4.4",
-        "@snailicide/build-config": "*",
+        "@snailicide/build-config": "workspace:^",
         "@types/jest": "^29.5.12",
+        "@types/shelljs": "^0.8.12",
         "better-docs": "^2.7.3",
         "cross-var": "^1.1.0",
-        "eslint": "^9.2.0",
+        "eslint": "^8.57.0",
         "jest": "^29.7.0",
         "jsdoc": "^4.0.3",
         "nodemon": "^3.1.0",
