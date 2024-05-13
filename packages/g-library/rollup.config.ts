@@ -77,7 +77,7 @@ const config: RollupOptions = {
         //TODO: FIX SO things are being bundled properly?
         nodeResolve({ preferBuiltins: true }), // so Rollup can find `ms`
         commonjs(), // so Rollup can convert `ms` to an ES modulefilesize(),
-        filesize(),
+        filesize,
     ],
 }
 

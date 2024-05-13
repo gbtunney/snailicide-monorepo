@@ -10,20 +10,18 @@ import { RollupOptions, OutputOptions } from 'rollup'
 import pkg from './package.json' assert { type: 'json' }
 
 /** Comment with library information to be appended in the generated bundles. */
-const bannerbk = `/*
+const banner = `/*
  * ${pkg.name} v${pkg.version}
  * (c) ${new Date().getFullYear()} - ${pkg.author.name}
  * Released under the ${pkg.license} License.
  * Build: ${new Date().toLocaleString()}
  */`
 
-const banner = '/*return*/'
-
 const createOutputOptions = (
     options: Partial<OutputOptions>,
 ): OutputOptions => {
     return {
-        name: 'GLibrary',
+        name: 'GLibraryString',
         exports: 'named',
         sourcemap: true,
         ...options,
@@ -79,12 +77,10 @@ const config: RollupOptions = {
             tsconfig: './tsconfig.json',
         }),
         json(),
-        //  nodePolyfills(),
+        // nodePolyfills(),
         // nodeExternals(),
-        //TODO: FIX SO things are being bundled properly?
-        nodeResolve({ preferBuiltins: false }), // so Rollup can find `ms`
-        // commonjs(), // so Rollup can convert `ms` to an ES modulefilesize(),
-        filesize(),
+        nodeResolve({ preferBuiltins: true }), //makes the esm file bundle properly
+        filesize,
     ],
 }
 
