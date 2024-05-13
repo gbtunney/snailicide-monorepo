@@ -1,5 +1,11 @@
 # @snailicide/build-config
 
+## 0.2.7
+
+### Patch Changes
+
+-   Fixed bug with vite docserver in build-config (base key) Updated dependencies
+
 ## 0.2.6
 
 ### Patch Changes
