@@ -1,16 +1,43 @@
 /* * NODE UTILITIES * */
 import fs from 'fs'
-import * as filePath from './file.path.array.js'
+import {
+    getFilePathArr,
+    isFileArray,
+    isFile,
+    getDirectoryArr,
+    getExistingPathType,
+    isGlob,
+    isDirectory,
+    getExt,
+    getFilename,
+    getFilePathObj,
+    getFullPath,
+    getParentDirectory,
+    normalizePath,
+} from './file.path.array.js'
 import { getImageBase64 } from './encodeBase64.js'
 import { exportJSONFile } from './export.json.file.js'
-import { getYArgs, getArgsObject } from './yargs.js'
+//import { getYArgs, getArgsObject } from './yargs-util.js'
 
 export const node = {
     getImageBase64,
     exportJSONFile,
-    getArgsObject,
-    getYArgs,
-    ...filePath,
+    getFilePathArr,
+    isFileArray,
+    isFile,
+    getDirectoryArr,
+    getExistingPathType,
+    isGlob,
+    isDirectory,
+    getExt,
+    getFilename,
+    getFilePathObj,
+    getFullPath,
+    getParentDirectory,
+    normalizePath,
+    //getArgsObject,
+    //   getYArgs,
+
     /* * Types * */
     /* * does file excist - works with files and directories
      * @param { string } path

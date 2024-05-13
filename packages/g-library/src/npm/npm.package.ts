@@ -1,7 +1,7 @@
-import Semver from 'semver'
+import * as semver from 'semver'
 import { z } from 'zod'
 import { isValidRegExp } from './../typeguard/utility.typeguards.js'
-
+const Semver: typeof semver = semver
 import type {
     Merge,
     OmitIndexSignature,

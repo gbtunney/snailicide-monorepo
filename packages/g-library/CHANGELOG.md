@@ -1,4 +1,4 @@
-# @snailicide/g-library
+# @snailicide/g-library@0.2.1
 
 ## 0.2.2
 
