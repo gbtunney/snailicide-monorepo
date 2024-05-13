@@ -1,6 +1,5 @@
 import typescript2 from 'rollup-plugin-typescript2'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
-import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
 import { nodeExternals } from 'rollup-plugin-node-externals'
 import filesize from 'rollup-plugin-filesize'
@@ -22,61 +21,65 @@ const createOutputOptions = (
     options: Partial<OutputOptions>,
 ): OutputOptions => {
     return {
-        banner,
-        name: 'GLibrary',
+        name: 'GLibraryString',
         exports: 'named',
         sourcemap: true,
         ...options,
     }
 }
 const config: RollupOptions = {
-    input: 'src/index.ts',
+    input: 'src/string/index.ts',
     output: [
-        /* * ESM - MAIN  * */
+        /* /!* * ESM - MAIN  * *!/
         createOutputOptions({
             file: pkg.main,
             format: 'esm',
         }),
-        /* * ESM - MINIFIED  * */
+        /!* * ESM - MINIFIED  * *!/
         createOutputOptions({
             file: pkg.main.replace('.js', '.min.js'),
             format: 'esm',
             sourcemap: false,
             plugins: [terser()],
         }),
-        /* * MJS * */
+        /!* * MJS * *!/
         createOutputOptions({
             file: pkg.module,
             format: 'esm',
         }),
-        /* * CJS * */
+        /!* * CJS * *!/
         createOutputOptions({
             file: pkg.commonjs,
             format: 'commonjs',
-        }),
+        }),*/
         /* * IIFE CDN * */
         createOutputOptions({
-            file: pkg.cdn.replace('.js', `-${pkg.version}.js`),
-            format: 'iife',
-            plugins: [terser()],
+            file: './dist/string-node/index.esm.js', //pkg.main.replace('.js', '-iife.js'),
+            format: 'esm',
+            sourcemap: true,
         }),
-        /* * UMD * */
         createOutputOptions({
-            file: pkg['umd:main'],
-            format: 'umd',
+            file: './dist/string-node/index.iife.js', //pkg.main.replace('.js', '-iife.js'),
+            format: 'iife',
+            sourcemap: true,
+        }),
+        /* * IIFE for CDN - MINIFIED  * */
+        createOutputOptions({
+            file: './dist/string-node/index.iife.min.js',
+            format: 'iife',
+            sourcemap: false,
+            plugins: [terser()],
         }),
     ],
     plugins: [
         typescript2({
-            useTsconfigDeclarationDir: true,
+            useTsconfigDeclarationDir: false,
             tsconfig: './tsconfig.json',
         }),
         json(),
-        nodePolyfills(),
-        nodeExternals(),
-        //TODO: FIX SO things are being bundled properly?
-        nodeResolve({ preferBuiltins: true }), // so Rollup can find `ms`
-        commonjs(), // so Rollup can convert `ms` to an ES modulefilesize(),
+        // nodePolyfills(),
+        // nodeExternals(),
+        nodeResolve({ preferBuiltins: true }), //makes the esm file bundle properly
         filesize,
     ],
 }

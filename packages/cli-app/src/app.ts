@@ -75,8 +75,8 @@ export const initApp = async <Schema extends z.ZodTypeAny>(
         const desc = app_options.description
             ? app_options.description
             : schema.description
-            ? schema.description
-            : app_options.name
+              ? schema.description
+              : app_options.name
         const header: string = app_options.print
             ? doPrintHeader(getHeader(app_options))
             : `\nWelcome to ${app_options.name}\n${

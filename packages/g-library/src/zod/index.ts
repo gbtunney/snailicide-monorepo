@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { isString } from 'ramda-adjunct'
 
-import { isValidSemVer } from './../npm/index.js'
+//import { isValidSemVer } from './../npm/index.js'
 import { node } from './../node/index.js'
 import {
     FileType,
@@ -19,10 +19,12 @@ export const optionalDefault = <Type extends z.ZodType>(
 ) => {
     return z.union([value.default(_value), value.optional()])
 }
+/*
 export const semVer = () =>
     z.string().refine((value) => isValidSemVer(value), {
         message: 'Please enter valid semver',
     })
+*/
 
 export const fsPath = (root: string | undefined = undefined) => {
     return z
@@ -111,35 +113,7 @@ export const filePathDoesNotExist = fsPathExists(false)
 
 export const filePath = fsPath()
 
-/* * ZOD * */
-export type Zod = typeof z & {
-    optionalDefault: typeof optionalDefault
-    semVer: typeof semVer
-    filePath: typeof filePath
-    filePathExists: typeof filePathExists
-    filePathDoesNotExist: typeof filePathDoesNotExist
-    fsPath: typeof fsPath
-    fsPathExists: typeof fsPathExists
-    fsPathArray: typeof fsPathArray
-    fsPathArrayHasFiles: typeof fsPathArrayHasFiles
-    fsPathTypeExists: typeof fsPathTypeExists
-}
-
-export const zod = {
-    ...z,
-    optionalDefault,
-    semVer,
-    filePath,
-    filePathExists,
-    filePathDoesNotExist,
-    fsPath,
-    fsPathExists,
-    fsPathArray,
-    fsPathArrayHasFiles,
-    fsPathTypeExists,
-}
-
-export default zod
+//export default zod
 
 /**
  * Get zod data typed
@@ -211,3 +185,17 @@ export const parseFactory =
             throw new Error()
         }
     }
+
+export const zod = {
+    optionalDefault,
+    filePath,
+    filePathExists,
+    filePathDoesNotExist,
+    fsPath,
+    fsPathExists,
+    fsPathArray,
+    fsPathArrayHasFiles,
+    fsPathTypeExists,
+    tg_Zod,
+    getZodData,
+}

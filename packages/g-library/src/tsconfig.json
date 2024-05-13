@@ -20,6 +20,7 @@
         "declarationDir": "./../types",
         "declarationMap": true,
         "removeComments": false,
+        "allowSyntheticDefaultImports": true,
         "strict": true
     },
     "exclude": ["**/*.test.ts", "./commanderzod/*"],

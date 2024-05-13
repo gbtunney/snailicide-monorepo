@@ -4,7 +4,13 @@
 
 ```shell
 pnpm exec husky add .husky/commit-msg 'npx commitlint --edit $1'
+pnpm exec git-branch-is --not main
 ```
+
+## Prevent Direct Commits
+
+-   `pnpm exec git-branch-is  -i -r "^feat/"`
+-   `pnpm exec git-branch-is  -i -r "^feat/"`
 
 ## Commitlint
 

@@ -1,5 +1,5 @@
-import { isNil, isEmpty } from 'ramda'
-import * as RA from 'ramda-adjunct'
+import { isNil, isEmpty, isNotEmpty } from 'ramda'
+import { RA } from './ramdaimports.js'
 import type {
     Falsy,
     NilOrEmpty,
@@ -121,7 +121,7 @@ export const isNonEmptyObject = <
     Type extends PlainObject | Record<string, unknown>,
 >(
     value: Type,
-): value is Type => RA.isNotEmpty(value) && RA.isNotArray(value)
+): value is Type => isNotEmpty(value) && RA.isNotArray(value)
 
 export const isEmptyObject = <Type extends EmptyObject>(
     value: Type,

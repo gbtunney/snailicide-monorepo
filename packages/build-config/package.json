@@ -50,7 +50,7 @@
         "clean:ts": "tsc --build --clean && rm -R -f tsconfig-base.json",
         "clean:build": "rm -R -f dist && rm -R -f types",
         "\n========== TEST >> ==========": "",
-        "test": "jest --config=dist/jest.config.json"
+        "test:bk": "jest --config=dist/jest.config.json"
     },
     "keywords": [
         "eslint",

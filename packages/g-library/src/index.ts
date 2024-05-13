@@ -1,6 +1,15 @@
 /* * JSON TYPES and UTILS * */
+
 export type { Json, Jsonifiable, Jsonify } from './object/json.js'
 export { getJSONString, getJSON } from './object/json.js'
+
+/* * GENERIC TYPEGUARDS * */
+export { tg } from './typeguard/index.js'
+
+/* * ZOD * */
+export { zod } from './zod/index.js'
+
+/* * ZOD * */
 
 /* * NPM UTILS * */
 export * as npm from './npm/index.js'
@@ -9,13 +18,6 @@ export * as npm from './npm/index.js'
 import type * as NodeModule from './node/index.js'
 export { node } from './node/index.js'
 export type Node = NodeModule
-
-/* * GENERIC TYPEGUARDS * */
-export * as tg from './typeguard/utility.typeguards.js'
-
-/* * ZOD * */
-export { zod } from './zod/index.js'
-export { tg_Zod, getZodData } from './zod/index.js'
 
 export type {
     PlainObject,

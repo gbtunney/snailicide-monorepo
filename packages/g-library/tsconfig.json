@@ -10,7 +10,6 @@
         "types": ["@types/jest", "jest", "node"]
     },
     "exclude": ["./node_modules"],
-    "files": ["./exampleNodeScript.ts"],
     "include": ["./**/*.test.ts"],
     "references": [{ "path": "./src" }, { "path": "./tsconfig.rollup.json" }]
 }

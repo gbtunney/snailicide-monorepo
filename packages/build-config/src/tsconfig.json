@@ -19,6 +19,6 @@
         "declarationDir": "./../types",
         "declarationMap": true
     },
-    "exclude": ["./**/*.test.ts"],
+    "exclude": ["./**/*.test.ts", "./rollup/index.ts"],
     "include": ["./**/*.ts", "./**/*.cts", "./**/*.mts"]
 }

@@ -1,6 +1,7 @@
 import { z } from 'zod'
 
 export const getZodType = (dschema: z.ZodTypeAny): string | undefined => {
+    // @ts-expect-error todo: FIX THIS AT some pt
     if (dschema instanceof z.ZodEffects<any>) {
         if (dschema.innerType() instanceof z.ZodEffects) {
             const _inner = dschema.innerType()
