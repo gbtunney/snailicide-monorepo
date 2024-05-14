@@ -20,7 +20,7 @@ type validateOperation =
     | validateFunc
 type validateFunc = (value: string, pattern: string) => boolean
 
-interface IValidateObj {
+export interface IValidateObj {
     value: string
     pattern: string | RegExp
     validate_op?: validateOperation

@@ -27,10 +27,11 @@ const createOutputOptions = (
         ...options,
     }
 }
-const config: RollupOptions = {
-    input: 'src/string/index.ts',
-    output: [
-        /* /!* * ESM - MAIN  * *!/
+const config: RollupOptions[] = [
+    {
+        input: 'src/string/index.ts',
+        output: [
+            /* /!* * ESM - MAIN  * *!/
         createOutputOptions({
             file: pkg.main,
             format: 'esm',
@@ -52,36 +53,37 @@ const config: RollupOptions = {
             file: pkg.commonjs,
             format: 'commonjs',
         }),*/
-        /* * IIFE CDN * */
-        createOutputOptions({
-            file: './dist/string-node/index.esm.js', //pkg.main.replace('.js', '-iife.js'),
-            format: 'esm',
-            sourcemap: true,
-        }),
-        createOutputOptions({
-            file: './dist/string-node/index.iife.js', //pkg.main.replace('.js', '-iife.js'),
-            format: 'iife',
-            sourcemap: true,
-        }),
-        /* * IIFE for CDN - MINIFIED  * */
-        createOutputOptions({
-            file: './dist/string-node/index.iife.min.js',
-            format: 'iife',
-            sourcemap: false,
-            plugins: [terser()],
-        }),
-    ],
-    plugins: [
-        typescript2({
-            useTsconfigDeclarationDir: false,
-            tsconfig: './tsconfig.json',
-        }),
-        json(),
-        // nodePolyfills(),
-        // nodeExternals(),
-        nodeResolve({ preferBuiltins: true }), //makes the esm file bundle properly
-        filesize,
-    ],
-}
+            /* * IIFE CDN * */
+            createOutputOptions({
+                file: './dist/string-node/index.esm.js', //pkg.main.replace('.js', '-iife.js'),
+                format: 'esm',
+                sourcemap: true,
+            }),
+            createOutputOptions({
+                file: './dist/string-node/index.iife.js', //pkg.main.replace('.js', '-iife.js'),
+                format: 'iife',
+                sourcemap: true,
+            }),
+            /* * IIFE for CDN - MINIFIED  * */
+            createOutputOptions({
+                file: './dist/string-node/index.iife.min.js',
+                format: 'iife',
+                sourcemap: false,
+                plugins: [terser()],
+            }),
+        ],
+        plugins: [
+            typescript2({
+                useTsconfigDeclarationDir: false,
+                tsconfig: './tsconfig.json',
+            }),
+            json(),
+            // nodePolyfills(),
+            // nodeExternals(),
+            nodeResolve({ preferBuiltins: true }), //makes the esm file bundle properly
+            filesize,
+        ],
+    },
+]
 
 export default config

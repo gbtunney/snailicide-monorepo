@@ -24,7 +24,7 @@ import {
     isNullish,
     isNotUndefined,
     isUndefined,
-    isValidRegExp,
+    isMatchRegExp,
 } from './utility.typeguards.js'
 
 export const tg = {
@@ -53,6 +53,6 @@ export const tg = {
     isNullish,
     isNotUndefined,
     isUndefined,
-    isValidRegExp,
+    isMatchRegExp,
 }
 export default tg

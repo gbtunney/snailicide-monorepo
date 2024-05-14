@@ -12,6 +12,10 @@
 
 [snailicide-monorepo](https://github.com/gbtunney/snailicide-monorepo.git)
 
+## Docs
+
+-   http://gilliantunney.com/docs-snailicide/
+
 ## Author
 
 👤 **Gillian Tunney**

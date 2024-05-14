@@ -1,7 +1,6 @@
-import * as semver from 'semver'
 import { z } from 'zod'
-import { isValidRegExp } from './../typeguard/utility.typeguards.js'
-const Semver: typeof semver = semver
+import { isMatchRegExp } from './../typeguard/utility.typeguards.js'
+import { lookup } from './../regexp/index.js'
 import type {
     Merge,
     OmitIndexSignature,
@@ -12,16 +11,15 @@ import type {
 type PackageJsonStandard = PackageJson['PackageJsonStandard']
 type PackageScripts = PackageJson['scripts']
 type TypeScriptConfiguration = PackageJson['TypeScriptConfiguration']
-export const validPackageName =
-    /^(@[a-z0-9-~][a-z0-9-._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/
-export const isValidSemVer = (value: string) => Semver.valid(value)
+
+export const isValidSemVer = (value: string) =>
+    isMatchRegExp(value, lookup.semver)
 export const isValidPackageName = (value: string) =>
-    isValidRegExp(value, validPackageName)
+    isMatchRegExp(value, lookup.validPackageName)
 
 /* * Collection of Generic Package Utility Types  * */
-
 const schemaPackage = z.object({
-    name: z.string().regex(validPackageName),
+    name: z.string().regex(lookup.validPackageName),
     version: z.string().refine((value) => isValidSemVer(value), {
         message: 'Please enter valid semver',
     }),

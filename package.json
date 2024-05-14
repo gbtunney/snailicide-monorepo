@@ -43,6 +43,7 @@
         "postinstall": "pnpm --filter=@snailicide/build-config build",
         "\n========== WORKFLOW >> ==========": "",
         "workflow:archive": "pnpm install && open /Applications/Docker.app && cross-var pnpm exec gh act --workflows  ./workflows/workflow-build.yml --reuse",
+        "registry:start": "pnpm exec verdaccio",
         "\n========== TEST >> ==========": "",
         "test": "pnpm -r test"
     },
@@ -60,7 +61,8 @@
         "husky": "^8.0.3",
         "lint-staged": "^14.0.1",
         "prettier": "^3.0.3",
-        "typescript": "^5.2.2"
+        "typescript": "^5.2.2",
+        "verdaccio": "^5.31.0"
     },
     "husky": {
         "hooks": {

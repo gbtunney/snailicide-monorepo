@@ -18,7 +18,7 @@
     },
     "exports": {
         ".": {
-            "import": "./dist/index.mjs",
+            "import": "./dist/index.js",
             "types": "./types/index.d.ts",
             "require": "./dist/index.cjs",
             "default": "./dist/index.js"
@@ -48,7 +48,7 @@
     ],
     "scripts": {
         "\n========== BUILD >> ==========": "",
-        "build": "pnpm build:ts && pnpm build:rollup && pnpm build:rollup:module && pnpm docs:build",
+        "build": "pnpm build:ts && pnpm build:rollup && pnpm build:rollup:module",
         "build:rollup": "rollup --config ./rollup.config.js",
         "build:rollup:module": "rollup --config ./rollup.config.modules.js",
         "build:ts": "tsc --build",
@@ -66,7 +66,7 @@
         "docs:dev": "nodemon --exec 'jsdoc -c ./jsdoc.json -t ./node_modules/better-docs' --watch ./src",
         "\n========== PUBLISH >> ==========": "",
         "release": "pnpm prerelease && pnpm publish --access public --report-summary --no-git-checks",
-        "prerelease": "pnpm clean && pnpm build && pnpm fix && pnpm check && pnpm test && pnpm run release:archive",
+        "prerelease": "pnpm clean && pnpm build && pnpm run docs:build && pnpm fix && pnpm check && pnpm test && pnpm run release:archive",
         "release:archive": "mkdir -p ./releases &&  pnpm exec npm pack --pack-destination='./releases'",
         "\n========== DEPLOY >> ==========": "",
         "deploy": "pnpm prerelease && pnpm deploy:docs",
@@ -92,6 +92,7 @@
         "@types/semver": "^7.5.8",
         "@types/yargs": "^17.0.32",
         "chroma.ts": "^1.0.10",
+        "flat": "^6.0.1",
         "fuse.js": "^7.0.0",
         "glob": "^10.3.15",
         "handlebars": "^4.7.8",
@@ -101,6 +102,7 @@
         "ramda-adjunct": "^5.0.0",
         "semver": "^7.6.2",
         "shelljs": "^0.8.5",
+        "ts-deepmerge": "^7.0.0",
         "type-fest": "^4.18.2",
         "vite": "^5.2.11",
         "yargs": "^17.7.2",
@@ -147,6 +149,9 @@
         ]
     },
     "config": {
+        "publish": {
+            "private": "http://localhost:4873"
+        },
         "deploy": {
             "docs": {
                 "remote": "bluehost:~/public_html/docs-snailicide",
