@@ -6,6 +6,7 @@ import filesize from 'rollup-plugin-filesize'
 import nodePolyfills from 'rollup-plugin-polyfill-node'
 import terser from '@rollup/plugin-terser'
 import { RollupOptions, OutputOptions } from 'rollup'
+import commonjs from '@rollup/plugin-commonjs'
 
 import pkg from './package.json' assert { type: 'json' }
 
@@ -29,7 +30,7 @@ const createOutputOptions = (
 }
 const config: RollupOptions[] = [
     {
-        input: 'src/string/index.ts',
+        input: 'src/index-browser.ts',
         output: [
             /* /!* * ESM - MAIN  * *!/
         createOutputOptions({
@@ -78,9 +79,13 @@ const config: RollupOptions[] = [
                 tsconfig: './tsconfig.json',
             }),
             json(),
-            // nodePolyfills(),
+             //nodePolyfills(),
             // nodeExternals(),
-            nodeResolve({ preferBuiltins: true }), //makes the esm file bundle properly
+            nodeResolve({ browser:true }), //makes the esm file bundle properly
+            commonjs({
+                // include: /node_modules/,
+                requireReturnsDefault: 'auto', // <---- this solves default issue
+            }),
             filesize,
         ],
     },

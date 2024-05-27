@@ -12,7 +12,7 @@ import type {
     TrimCharacters,
     TrimSinglePatternCharacters,
     TransformBatch,
-} from './type'
+} from './type.js'
 import { isNonEmptyArray } from './../typeguard/utility.typeguards.js'
 import {
     getRegExpStartOfString,

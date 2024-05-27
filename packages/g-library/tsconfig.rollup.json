@@ -8,6 +8,9 @@
         "rootDir": "."
     },
     "exclude": ["./**/*.ts"],
-    "files": ["./package.json", "rollup.config.ts", "rollup.config.modules.ts"],
-    "include": ["./*.ts"]
+    "files": ["./package.json","rollup.config.ts",
+      /*"rollup.config.old.ts",*/ "rollup.config.modules.ts"],
+    "include": ["./*.ts"],
+    "references": [{ "path": "./src" }]
+
 }

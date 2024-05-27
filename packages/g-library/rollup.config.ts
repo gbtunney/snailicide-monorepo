@@ -3,11 +3,11 @@ import { nodeResolve } from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
 import { nodeExternals } from 'rollup-plugin-node-externals'
-import filesize from 'rollup-plugin-filesize'
 import nodePolyfills from 'rollup-plugin-polyfill-node'
 import terser from '@rollup/plugin-terser'
-import { RollupOptions, OutputOptions } from 'rollup'
+import ts from "rollup-plugin-ts";
 
+import {Plugin, RollupOptions, OutputOptions } from 'rollup'
 import pkg from './package.json' assert { type: 'json' }
 
 /** Comment with library information to be appended in the generated bundles. */
@@ -58,7 +58,7 @@ const config: RollupOptions = {
         createOutputOptions({
             file: pkg.cdn.replace('.js', `-${pkg.version}.js`),
             format: 'iife',
-            plugins: [terser()],
+           // plugins: [terser()],
         }),
         /* * UMD * */
         createOutputOptions({
@@ -67,18 +67,16 @@ const config: RollupOptions = {
         }),
     ],
     plugins: [
-        typescript2({
-            useTsconfigDeclarationDir: true,
-            tsconfig: './tsconfig.json',
+        ts({browserslist:false,
+            tsconfig: (resolvedConfig )=> ({...resolvedConfig,  "declaration": true,allowJs: false}) /* Plugin options */
+
         }),
         json(),
-        nodePolyfills(),
-        nodeExternals(),
+     // nodePolyfills(),
+       // nodeExternals({/*exclude:['type-fest','ramda']*/}),
         //TODO: FIX SO things are being bundled properly?
-        nodeResolve({ preferBuiltins: true }), // so Rollup can find `ms`
-        commonjs(), // so Rollup can convert `ms` to an ES modulefilesize(),
-        filesize,
+        nodeResolve({}), // so Rollup can find `ms`
+        commonjs( {requireReturnsDefault: 'auto'}) // <---- this solves default issue), // so Rollup can convert `ms` to an ES modulefilesize(),
     ],
 }
-
-export default config
+export default [config ]

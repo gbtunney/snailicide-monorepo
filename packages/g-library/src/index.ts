@@ -1,17 +1,14 @@
 /* * GENERIC TYPEGUARDS * */
 export { tg } from './typeguard/index.js'
 
-/* * ZOD * */
-export { zod } from './zod/index.js'
 
 /* * NPM UTILS * */
 export * as npm from './npm/index.js'
 
 /* * NODE UTILS MODULE * */
-import type * as NodeModule from './node/index.js'
-export { node } from './node/index.js'
-export type Node = NodeModule
-
+//import type * as NodeModule from './node/index.js'
+//export { node } from './node/index.js'
+//export type Node = NodeModule
 export type {
     PlainObject,
     Primitive,
