@@ -79,9 +79,9 @@ const config: RollupOptions[] = [
                 tsconfig: './tsconfig.json',
             }),
             json(),
-             //nodePolyfills(),
+            //nodePolyfills(),
             // nodeExternals(),
-            nodeResolve({ browser:true }), //makes the esm file bundle properly
+            nodeResolve({ browser: true }), //makes the esm file bundle properly
             commonjs({
                 // include: /node_modules/,
                 requireReturnsDefault: 'auto', // <---- this solves default issue

@@ -97,5 +97,3 @@ export const filePathExists = fsPathExists(true)
 export const filePathDoesNotExist = fsPathExists(false)
 
 export const filePath = fsPath()
-
-

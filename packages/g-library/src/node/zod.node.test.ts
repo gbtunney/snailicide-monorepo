@@ -4,7 +4,7 @@ import * as zod from './zod.node.js'
 describe('zod custom schemas', () => {
     it('returns fsPathT', () => {
         //todo: reenable
-      /*  expect(
+        /*  expect(
             zod
                 .fsPathTypeExists('any', './')
                 .safeParse('sample_image/testimage.jpeg').success,

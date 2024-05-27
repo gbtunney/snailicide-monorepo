@@ -1,5 +1,8 @@
 import typescript2 from 'rollup-plugin-typescript2'
-import { nodeResolve,RollupNodeResolveOptions } from '@rollup/plugin-node-resolve'
+import {
+    nodeResolve,
+    RollupNodeResolveOptions,
+} from '@rollup/plugin-node-resolve'
 import json from '@rollup/plugin-json'
 import { nodeExternals } from 'rollup-plugin-node-externals'
 import filesize from 'rollup-plugin-filesize'
@@ -21,8 +24,8 @@ const dts_config = [
 import pkg from './package.json' assert { type: 'json' }
 
 /** Comment with library information to be appended in the generated bundles. */
-const get_banner =(export_name:string, package_json: typeof pkg =pkg) => {
-   return `/*
+const get_banner = (export_name: string, package_json: typeof pkg = pkg) => {
+    return `/*
  * ${package_json.name} v${package_json.version}
  * Module: ${export_nameexport_name}
  * (c) ${new Date().getFullYear()} - ${package_json.author.name}
@@ -73,7 +76,6 @@ const config: RollupOptions = {
     ],
     plugins: [
         typescript2({
-
             useTsconfigDeclarationDir: true,
             tsconfig: './tsconfig.json',
         }),
@@ -86,19 +88,8 @@ const config: RollupOptions = {
         filesize,
     ],
 }
-const dts_config = [
-    // your default rollup config for transpilation and bundling
-    // ...
-    {
-        // path to your declaration files root
-        input: './dist/dts/index.d.ts',
-        output: [{ file: 'dist/index.d.ts', format: 'es' }],
-        plugins: [dts()],
-    },
-]
-const master_output_configs ={
 
-}
+const master_output_configs = {}
 
 const fileName = 'dist/batcher.js'
 const batch_config: RollupOptions = {

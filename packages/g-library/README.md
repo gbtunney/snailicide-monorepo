@@ -52,6 +52,4 @@ pnpm --filter=@snailicide/g-library test
 
 [ ] jsdocPrintWidth look at this variable for line breaks
 
-[ ] fix mjs file and iife  , repubblish
-[ ] add new functions  with date..
-
+[ ] fix mjs file and iife , repubblish [ ] add new functions with date..

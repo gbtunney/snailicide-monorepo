@@ -1,4 +1,4 @@
-import z from "zod"
+import z from 'zod'
 /**
  * Get zod data typed
  *
