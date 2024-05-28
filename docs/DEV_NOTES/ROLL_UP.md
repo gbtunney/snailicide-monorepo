@@ -17,6 +17,46 @@ export type ModuleFormat =
     | 'systemjs'
 ```
 
+```ts
+const export_key_lookup: Record<ExportType, KeyData> = {
+    require: {
+        extension: 'cjs',
+        internal_format: 'cjs',
+        module_format: 'commonjs',
+    },
+    import: {
+        extension: 'mjs',
+        internal_format: 'es',
+        module_format: 'module',
+    },
+    default: {
+        extension: 'js',
+        internal_format: 'es',
+        module_format: 'esm',
+    },
+    /* types: {
+        extension: 'd.ts',
+        internal_format: "ts",
+        module_format: "typescript"
+    },*/
+    browser_default: {
+        extension: '-iife.js',
+        internal_format: 'iife',
+        module_format: 'iife',
+    },
+    browser_import: {
+        extension: '.js',
+        internal_format: 'es',
+        module_format: 'esm',
+    },
+    browser_umd: {
+        extension: 'umd.js',
+        internal_format: 'umd',
+        module_format: 'umd',
+    },
+}
+```
+
 ## Formats
 
 -   browser: (format) iife
@@ -35,7 +75,7 @@ export type ModuleFormat =
         -   "." : index.mjs || "module_name": "{fileName}".mjs
             -   "import": {{output_dir}}/{{fileName}}.{{?min}}.mjs
 
--   x "import": "./dist/index.js", MJS root: module
+-   x "import": "./dist/index.mjs", MJS root: module
 -   "types": "./types/index.d.ts", d.ts root: types
 -   x "require": "./dist/index.cjs", root: commonjs
 -   x "default": "./dist/index.js" esm ( bundled? )

@@ -48,7 +48,7 @@
     ],
     "scripts": {
         "\n========== BUILD >> ==========": "",
-        "build": "pnpm build:ts && pnpm build:rollup && pnpm build:rollup:module",
+        "build": "pnpm build:ts && pnpm build:rollup",
         "build:rollup": "rollup --config ./rollup.config.js",
         "build:rollup:module": "rollup --config ./rollup.config.modules.js",
         "build:ts": "tsc --build",

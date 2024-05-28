@@ -1,6 +1,5 @@
 import { z } from 'zod'
 import { isString } from 'ramda-adjunct'
-import { doesFileExist } from './file.path.array.js'
 import {
     FileType,
     FilePath,
@@ -8,6 +7,7 @@ import {
     getFilePathArr,
     normalizePath,
     getExistingPathType,
+    doesFileExist,
 } from './../node/file.path.array.js'
 
 /* * CUSTOM ZOD UTILITIES!! * */

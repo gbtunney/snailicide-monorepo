@@ -33,3 +33,5 @@ export type { Json, Jsonifiable, Jsonify } from './object/json.js'
 export * as objectUtils from './object/index.js'
 
 export * as colorUtils from './color/index.js'
+
+import { node } from './node.js'
