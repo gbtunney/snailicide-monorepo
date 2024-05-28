@@ -1,39 +1,40 @@
-import {
-    Jsonifiable,
-    Jsonify,
-    JsonValue,
-    JsonArray,
-    JsonObject,
-    JsonPrimitive,
-} from 'type-fest'
+import { Jsonifiable } from 'type-fest'
+import { Json } from '../types/utility.js'
+import { isJsonValue } from '../typeguard/json.typeguards.js'
 
-export const getJSONString = <Type extends Jsonifiable>(
-    value: Type,
-    prettyPrint = true,
+/**
+ * PrettyPrint a JSON object
+ *
+ * @param {T extends JsonArray|JsonObject} value - A parseable JSON object
+ * @param {int} indentSpaces - (default 4) An integer representing the spaces to
+ *   indent
+ * @returns {string} - Formatted string
+ */
+export const prettyPrintJSON = <T extends Jsonifiable>(
+    value: T,
     indentSpaces = 4,
 ): string => {
-    return prettyPrint
-        ? JSON.stringify(getJSON<Type>(value), undefined, indentSpaces)
-        : JSON.stringify(getJSON<Type>(value))
+    return JSON.stringify(
+        JSON.parse(JSON.stringify(value)),
+        undefined,
+        indentSpaces,
+    )
 }
 
-export const getJSON = <Type extends Jsonifiable>(
-    value: Type,
-): Jsonify<Type> | undefined => {
+export const safeSerializeJson = <T extends Json.Value>(
+    data: T,
+    prettyPrint: boolean = true,
+): string =>
+    isJsonValue<T>(data)
+        ? prettyPrintJSON(data, prettyPrint === true ? 4 : 0)
+        : `Error serializing JSON:: ${data}`
+
+export const safeDeserializeJson = (data: string): Json.Value | undefined => {
     try {
-        const json_value: Jsonify<Type> = JSON.parse(JSON.stringify(value))
+        const json_value = JSON.parse(data)
+        if (isJsonValue(json_value)) return json_value
     } catch (e) {
         console.error(e)
-        return undefined
     }
-    return JSON.parse(JSON.stringify(value))
-}
-
-export type { Jsonify, Jsonifiable } from 'type-fest'
-
-export namespace Json {
-    export type Object = JsonObject
-    export type Array = JsonArray
-    export type Primitive = JsonPrimitive
-    export type Value = JsonValue
+    return undefined
 }

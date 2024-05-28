@@ -53,11 +53,27 @@ export const properCase = (value: string): string =>
 export const pascalCase = (value: string): string =>
     replace(/^[a-z]/, toUpper, camelCase(value))
 
-/** UPPERCASE first char of each sentence and lowercase other chars. */
-export const sentenceCase = (value: string): string =>
-    // Replace first char of each sentence (new line or after '.\s+') to
-    pipe(toLower, replace(/(^\w)|\.\s+(\w)/gm, toUpper))(value)
+export const uuidv4 = () => {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(
+        /[xy]/g,
+        function (c) {
+            const r = (Math.random() * 16) | 0,
+                v = c == 'x' ? r : (r & 0x3) | 0x8
+            return v.toString(16)
+        },
+    )
+}
 
+/** UPPERCASE first char of each sentence and lowercase other chars. */
+export const sentenceCase = (value: string) =>
+    value
+        .split('.')
+        .map(function (word, index) {
+            return index === 0
+                ? word.charAt(0).toUpperCase().concat(word.substr(1))
+                : word
+        })
+        .join(' ')
 /**
  * Convert to lower case, remove accents, remove non-word chars and replace
  * spaces with the specified delimiter. Does not split camelCase text.

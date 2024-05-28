@@ -22,11 +22,21 @@ export {
     escapeRegExp,
 } from './_stringUtils.js'
 
-//todo: rename and move
-export {
-    stringContainsNumber,
-    stringContainsLetter,
-    isValidUrl,
-} from './_string.js'
+import * as StringUtils from './_stringUtils.js'
+import * as StringGen from './_string.js'
+import * as Flat from 'flat'
+import * as Markdown from './_markdown.js'
+import * as stringTransform from './../transformString/index.js'
+
+export const stringUtils = {
+    ...StringUtils,
+    ...StringGen,
+    ...Flat,
+    ...Markdown,
+
+    ...stringTransform,
+    // ...stringTransform
+}
+
 export type { URL } from './_string.js'
-export { renderMarkdown, renderInlineMarkdown } from './_markdown.js'
+export default stringUtils

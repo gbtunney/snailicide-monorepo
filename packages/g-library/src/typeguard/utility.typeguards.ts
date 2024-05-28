@@ -80,7 +80,7 @@ export const isNotNull = <T extends NonNullable<any>>(
 
 export const isNull = (value: unknown): value is null => RA.isNull(value)
 
-export const isValidRegExp = (value: string, regexp: RegExp): value is string =>
+export const isMatchRegExp = (value: string, regexp: RegExp): value is string =>
     regexp.test(value)
 
 /**

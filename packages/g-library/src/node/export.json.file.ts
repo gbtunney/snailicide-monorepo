@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
-import { getJSONString, Jsonifiable, Json } from './../object/json.js'
-
+import { prettyPrintJSON } from './../object/json.js'
+import { Json, Jsonifiable } from './../types/utility.js'
 type JSONExportEntry<T = Json.Value, V = T extends Jsonifiable ? T : never> = {
     data: V
     filename: string
@@ -33,7 +33,7 @@ export const exportJSONFile = (
             : path.resolve(file_name)
 
         const writeFile = (path: string = file_path) => {
-            fs.writeFileSync(path, getJSONString(entry.data))
+            fs.writeFileSync(path, prettyPrintJSON(entry.data))
         }
         if (overwrite === 'ON') {
             writeFile() ///write the file return success.

@@ -1,8 +1,11 @@
-import { escapeRegExp } from './../string/index.js'
 import { ensureArray } from 'ramda-adjunct'
-
+import { escapeRegExp } from './../string/_stringUtils.js'
 const _match = 'String'.match
 export type RegExpMatchArray = ReturnType<typeof _match>
+export { isMatchRegExp } from './../typeguard/utility.typeguards.js'
+
+export * as lookup from './dictionary.js'
+
 const TRIM_CHARS_DEFAULT = ['.', "'", '"', ' ', '-', '[', ']', '(', ')'] ///stuff to trim from css classes.
 
 /**
@@ -106,49 +109,3 @@ export type Flag =
      * indicated in its lastIndex property.
      */
     | 'sticky'
-
-export const newLineChars = [
-    /* * Unicode:line feed * */
-    '\u000a',
-    /* * Unicode:carriage return * */
-    '\u000d',
-    /* * Unicode:line separator * */
-    '\u2028',
-    /* * Unicode:paragraph separator * */
-    '\u2029',
-    /* * line feed * */
-    '\n',
-    /* * carriage return * */
-    '\r',
-]
-
-///    in Unicode: \u000a or \n, which is a line feed; \u000d or \r, which is a carriage return; \u2028, a line separator; and \u2029, a paragraph separator. In practice though, the regex you posted is suffici
-export const whiteSpaceCharacters = [
-    ' ',
-    '\n',
-    '\r',
-    '\t',
-    '\f',
-    '\v',
-    '\u00A0',
-    '\u1680',
-    '\u180E',
-    '\u2000',
-    '\u2001',
-    '\u2002',
-    '\u2003',
-    '\u2004',
-    '\u2005',
-    '\u2006',
-    '\u2007',
-    '\u2008',
-    '\u2009',
-    '\u200A',
-    '\u2028',
-    '\u2029',
-    '\u202F',
-    '\u205F',
-    '\u3000',
-]
-
-export { escapeRegExp } from './../string/index.js'

@@ -12,6 +12,10 @@
 
 [snailicide-monorepo](https://github.com/gbtunney/snailicide-monorepo.git)
 
+## Docs
+
+-   http://gilliantunney.com/docs-snailicide/
+
 ## Author
 
 👤 **Gillian Tunney**
@@ -44,4 +48,8 @@ pnpm --filter=@snailicide/g-library build
 pnpm --filter=@snailicide/g-library test
 ```
 
-## TODO: jsdocPrintWidth look at this variable for line breaks.
+## TODO:
+
+[ ] jsdocPrintWidth look at this variable for line breaks
+
+[ ] fix mjs file and iife , repubblish [ ] add new functions with date..
