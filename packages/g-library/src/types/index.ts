@@ -4,6 +4,8 @@ export type {
     PrefixProperties,
     SuffixProperties,
     DeepPartial,
+    Json,
+    Jsonifiable,
 } from './utility.js'
 
 export type {

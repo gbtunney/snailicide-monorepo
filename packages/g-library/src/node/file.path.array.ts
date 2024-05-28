@@ -159,3 +159,5 @@ export const getFullPath = (_value: string, _root: string | undefined) => {
 }
 export const normalizePath = (value: string) =>
     path.normalize(path.resolve(value))
+
+export const doesFileExist = (path: string): boolean => fs.existsSync(path)

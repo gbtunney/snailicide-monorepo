@@ -1,6 +1,5 @@
-import { escapeRegExp } from './../string/_stringUtils.js'
 import { ensureArray } from 'ramda-adjunct'
-
+import { escapeRegExp } from './../string/_stringUtils.js'
 const _match = 'String'.match
 export type RegExpMatchArray = ReturnType<typeof _match>
 export { isMatchRegExp } from './../typeguard/utility.typeguards.js'

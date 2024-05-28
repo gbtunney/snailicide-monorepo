@@ -1,16 +1,8 @@
 /* * GENERIC TYPEGUARDS * */
 export { tg } from './typeguard/index.js'
 
-/* * ZOD * */
-export { zod } from './zod/index.js'
-
 /* * NPM UTILS * */
 export * as npm from './npm/index.js'
-
-/* * NODE UTILS MODULE * */
-import type * as NodeModule from './node/index.js'
-export { node } from './node/index.js'
-export type Node = NodeModule
 
 export type {
     PlainObject,
@@ -25,6 +17,8 @@ export type {
     NilOrEmpty,
     NilLike,
     Nullish,
+    Json,
+    Jsonifiable,
 } from './types/index.js'
 
 /* * STRING UTILITIES * */
@@ -36,8 +30,10 @@ export * as stringTransform from './transformString/index.js'
 
 export { numeric } from './number/index.js'
 
-/* * JSON TYPES and OBJECT UTILS * */
-export type { Json, Jsonifiable, Jsonify } from './object/json.js'
+export * as dateUtils from './date/index.js'
+
+export * as zodUtils from './zod_helpers/index.js'
+/* * JSON & OBJECT UTILS * */
 export * as objectUtils from './object/index.js'
 
 export * as colorUtils from './color/index.js'
