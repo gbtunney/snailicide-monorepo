@@ -18,23 +18,39 @@
     },
     "exports": {
         ".": {
-            "import": "./dist/index.js",
-            "types": "./types/index.d.ts",
-            "require": "./dist/index.cjs",
-            "default": "./dist/index.js"
+            "default": "./dist/index.js",
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.cjs"
         },
-        "./string-cdn": "./dist/string-node/index-iife.js",
-        "./string": {
-            "import": "./dist/string-node/index.esm.js",
-            "default": "./dist/string-node/index.esm.js"
+        "./node": {
+            "default": "./dist/node.js",
+            "types": "./dist/node.d.ts",
+            "import": "./dist/node.mjs",
+            "require": "./dist/node.cjs"
+        },
+        "./node.js": {
+            "default": "./dist/node.js",
+            "types": "./dist/node.d.ts",
+            "import": "./dist/node.mjs",
+            "require": "./dist/node.cjs"
+        },
+        "./cdn": {
+            "default": "./dist/cdn/index.js",
+            "types": "./dist/cdn/index.d.js",
+            "browser": {
+                "import": "./dist/cdn/index.js",
+                "browser_default": "./dist/cdn/index-iife.js",
+                "umd": "./dist/cdn/index-umd.js"
+            }
         }
     },
-    "main": "dist/index.js",
+    "main": "./dist/index.js",
     "types": "types/index.d.ts",
-    "umd:main": "dist/index.umd.js",
-    "module": "dist/index.esm.js",
-    "commonjs": "dist/index.cjs",
-    "cdn": "dist/g-library.js",
+    "module": "./dist/index.mjs",
+    "commonjs": "./dist/index.cjs",
+    "umd:main": "./dist/cdn/index-umd.js",
+    "cdn": "./dist/cdn/index-iife.js",
     "keywords": [
         "typescript",
         "js",
@@ -63,7 +79,7 @@
         "test:example": "ts-node --esm ./exampleNodeScript.ts --path ./../../themes --name shopify-dawn",
         "\n========== DOCS >> ==========": "",
         "docs:build": "pnpm exec jsdoc -c ./jsdoc.json -t ./node_modules/better-docs",
-        "docs:serve": "pnpm run docs:build && vite --config ./vite.docs.config.ts",
+        "docs:serve": " vite --config ./vite.docs.config.ts",
         "docs:dev": "nodemon --exec 'jsdoc -c ./jsdoc.json -t ./node_modules/better-docs' --watch ./src",
         "\n========== PUBLISH >> ==========": "",
         "release": "pnpm prerelease && pnpm publish --access public --report-summary --no-git-checks",
@@ -99,6 +115,7 @@
         "handlebars": "^4.7.8",
         "is-glob": "^4.0.3",
         "markdown-it": "^14.1.0",
+        "moment": "^2.30.1",
         "ramda": "^0.30.0",
         "ramda-adjunct": "^5.0.0",
         "semver": "^7.6.2",
@@ -125,13 +142,9 @@
         "nodemon": "^3.1.1",
         "prettier": "^3.2.5",
         "rollup": "^4.18.0",
-        "rollup-plugin-ts": "*",
-        "rollup-plugin-buble": "^0.19.8",
-        "rollup-plugin-bundle-esm": "^0.1.1",
-        "rollup-plugin-filesize": "^10.0.0",
         "rollup-plugin-node-externals": "^7.1.2",
         "rollup-plugin-polyfill-node": "^0.13.0",
-        "rollup-plugin-sizes": "^1.0.6",
+        "rollup-plugin-ts": "*",
         "rollup-plugin-typescript2": "^0.36.0",
         "taffydb": "^2.7.3",
         "ts-jest": "^29.1.3",

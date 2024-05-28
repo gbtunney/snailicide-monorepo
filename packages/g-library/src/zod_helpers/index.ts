@@ -1,4 +1,15 @@
 import z from 'zod'
+
+export const schemaForType =
+    <T>() =>
+    <S extends z.ZodType<T, any, any>>(arg: S) => {
+        return arg
+    }
+
+/** So that it doesnt lose its schema typing after a transform or merge function */
+export const wrapSchema = <T extends z.Schema<any>>(schema: T): T => {
+    return schema
+}
 /**
  * Get zod data typed
  *

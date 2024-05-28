@@ -1,9 +1,4 @@
-import {
-    Plugin,
-    RollupOptions,
-    OutputOptions,
-    InternalModuleFormat,
-} from 'rollup'
+import { RollupOptions, OutputOptions, InternalModuleFormat } from 'rollup'
 import ts from 'rollup-plugin-ts'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
@@ -78,7 +73,7 @@ const export_key_lookup: Record<ExportType, KeyData> = {
         module_format: 'esm',
     },
     browser_umd: {
-        extension: 'umd.js',
+        extension: '-umd.js',
         internal_format: 'umd',
         module_format: 'umd',
     },
@@ -168,7 +163,7 @@ const inner_index_config = getOutputObj({
     export_key: '*',
     library_name: 'gLibrary',
 })
-console.log('EXPORTS OBBJECT', inner_index_config.exportObj)
+console.log('EXPORTS OBBJECT', JSON.stringify(inner_index_config.exportObj))
 
 const index_config: RollupOptions = {
     ...inner_index_config.config,
@@ -179,6 +174,7 @@ const index_config: RollupOptions = {
                 ...resolvedConfig,
                 declaration: true,
                 allowJs: false,
+                sourceMap: true,
             }) /* Plugin options */,
         }),
         json(),
@@ -197,7 +193,7 @@ const node_config_obj = getOutputObj({
     export_key: 'node',
     library_name: 'gLibraryNode',
 })
-console.log('NODE EXPORTS OBBJECT', node_config_obj.exportObj)
+console.log('NODE EXPORTS OBBJECT', JSON.stringify(node_config_obj.exportObj))
 
 const node_config: RollupOptions = {
     ...node_config_obj.config,
@@ -208,6 +204,7 @@ const node_config: RollupOptions = {
                 ...resolvedConfig,
                 declaration: true,
                 allowJs: false,
+                sourceMap: true,
             }) /* Plugin options */,
         }),
         json(),
@@ -232,7 +229,7 @@ const inner_cdn_config = getOutputObj({
     export_key: '*',
     library_name: 'gLibrary',
 })
-console.log('CDN OBBJECT', inner_cdn_config.exportObj)
+console.log('CDN OBBJECT', JSON.stringify(inner_cdn_config.exportObj))
 
 const cdn_config: RollupOptions = {
     ...inner_cdn_config.config,
@@ -243,6 +240,7 @@ const cdn_config: RollupOptions = {
                 ...resolvedConfig,
                 declaration: true,
                 allowJs: false,
+                sourceMap: true,
             }) /* Plugin options */,
         }),
         json(),

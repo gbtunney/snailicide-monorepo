@@ -1,3 +1,4 @@
+import * as json from './json.typeguards.js'
 import {
     isFalsy,
     isTruthy,
@@ -54,5 +55,6 @@ export const tg = {
     isNotUndefined,
     isUndefined,
     isMatchRegExp,
+    ...json,
 }
 export default tg

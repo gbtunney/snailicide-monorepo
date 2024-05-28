@@ -5,6 +5,7 @@
         "lib": ["ESNext", "DOM"],
         "composite": true,
         "module": "ESNext",
+        "sourceMap": true,
         "rootDir": "."
     },
     "exclude": ["./**/*.ts"],

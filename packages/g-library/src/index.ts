@@ -17,6 +17,8 @@ export type {
     NilOrEmpty,
     NilLike,
     Nullish,
+    Json,
+    Jsonifiable,
 } from './types/index.js'
 
 /* * STRING UTILITIES * */
@@ -28,10 +30,10 @@ export * as stringTransform from './transformString/index.js'
 
 export { numeric } from './number/index.js'
 
-/* * JSON TYPES and OBJECT UTILS * */
-export type { Json, Jsonifiable, Jsonify } from './object/json.js'
+export * as dateUtils from './date/index.js'
+
+export * as zodUtils from './zod_helpers/index.js'
+/* * JSON & OBJECT UTILS * */
 export * as objectUtils from './object/index.js'
 
 export * as colorUtils from './color/index.js'
-
-import { node } from './node.js'

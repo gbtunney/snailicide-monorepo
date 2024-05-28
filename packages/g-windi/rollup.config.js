@@ -26,7 +26,7 @@ function createOutputOptions(options) {
 
 /** @type {import('rollup').RollupOptions} */
 const options = {
-    input: './src/zod.node.ts',
+    input: './src/index.ts',
     output: [
         createOutputOptions({
             file: './dist/index.js',
