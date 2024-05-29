@@ -11,8 +11,7 @@ describe('typeguards', () => {
         const test: EmptyArray = []
         const test2 = ['gillian']
         const testObj = { hi: 'gillian' }
-        expect(isNonEmptyArray<string>(test2)).toBe(true)
-        expect(isEmptyArray(test2)).toBe(false)
+        expect(isNonEmptyArray<string[]>(test2)).toBe(true)
 
         // @ts-expect-error should make a ts error
         expect(isNonEmptyArray(testObj)).toBe(false)

@@ -10,6 +10,8 @@ import type {
     EmptyArray,
 } from './../types/empty.js'
 import type { Primitive, PlainObject } from './../types/utility.js'
+import { IsArray } from './../types/utility.js'
+import { UnknownArray } from 'type-fest'
 
 //todo: move these to "empty??"
 
@@ -46,7 +48,7 @@ export const isEmptyString = <T = unknown>(
     value: T | EmptyString,
 ): value is EmptyString => RA.isEmptyString(value)
 
-export const isString = <T = unknown>(value: T | string): value is string =>
+export const isString = <T extends string>(value: unknown): value is T =>
     RA.isString(value)
 export const isNotString = <T = unknown>(value: T | string): value is T =>
     RA.isNotString(value)
@@ -101,21 +103,23 @@ export const isMatchRegExp = (value: string, regexp: RegExp): value is string =>
  */
 export const isUndefined = <T>(value: T | Nullish): value is undefined =>
     isNil(value)
-export const isNotUndefined = <T = unknown>(
-    value: (T extends NonNullable<T> ? T : never) | Nullish,
-): value is T extends NonNullable<T> ? T : never => RA.isNotNil(value)
+export const isNotUndefined = <T>(value: unknown): value is T =>
+    RA.isNotNil(value)
 
 export const isEmptyArray = <T = unknown>(
     value: T[] extends any[] ? T[] : never,
 ): value is T[] => RA.isEmptyArray(value)
 
-export const isArray = <T = any>(
-    value: T[] extends any[] ? T[] : never,
-): value is T[] extends any[] ? T[] : never => RA.isArray(value)
-
 export const isNonEmptyArray = <T = unknown>(
-    value: T[] extends EmptyArray ? never : T[],
-): value is T[] extends EmptyArray ? never : T[] => RA.isNonEmptyArray(value)
+    value: T extends EmptyArray ? never : IsArray<T> extends true ? T : never,
+): value is T extends EmptyArray
+    ? never
+    : IsArray<T> extends true
+      ? T
+      : never => RA.isNonEmptyArray(value)
+
+export const isArray = <T extends UnknownArray>(value: unknown): value is T =>
+    RA.isArray(value)
 
 export const isNonEmptyObject = <
     Type extends PlainObject | Record<string, unknown>,

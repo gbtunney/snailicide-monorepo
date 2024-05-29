@@ -31,7 +31,7 @@ describe('Replace Characters', () => {
         expect(
             batchReplaceAll({
                 value: ['.bg_red_700'],
-                pattern: ['_', '.'],
+                pattern: ['.', '_'],
                 replacement: '-',
             }),
         ).toStrictEqual(['-bg-red-700'])

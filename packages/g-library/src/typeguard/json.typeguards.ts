@@ -1,7 +1,7 @@
 import { Jsonifiable } from 'type-fest'
 import { RA } from './ramdaimports.js'
 import { PlainObject, Json } from '../types/utility.js'
-import { isUndefined } from '../typeguard/utility.typeguards.js'
+import { isNotUndefined } from '../typeguard/utility.typeguards.js'
 
 // string | number | boolean | null;
 export const isJsonifiable = <T extends Jsonifiable>(
@@ -25,12 +25,12 @@ export const isJsonValue = <T extends Json.Value>(
         RA.isString(value) ||
         RA.isNumber(value) ||
         RA.isBoolean(value) ||
-        isUndefined(value)
+        isNotUndefined(value)
     )
 }
 
 export const isJsonifiableObjectLike = <T extends Json.Object | Json.Array>(
-    value: unknown,
+    value: T,
 ): value is T extends Json.Object | Json.Array ? T : never => {
     return RA.isObjectLike(value)
 }

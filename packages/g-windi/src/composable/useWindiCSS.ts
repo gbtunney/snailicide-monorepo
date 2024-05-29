@@ -3,7 +3,7 @@ import { join } from 'ramda'
 import { useStyleTag, UseStyleTagOptions } from '@vueuse/core'
 import Processor from 'windicss'
 import type { Config } from 'windicss/types/interfaces'
-import { stringTransform } from '@snailicide/g-library'
+import { stringUtils } from '@snailicide/g-library'
 
 export type windiCSS = typeof useWindiCSS
 export const useWindiCSS = (config: Config = {}) => {
@@ -33,12 +33,12 @@ export const useWindiCSS = (config: Config = {}) => {
     ) => {
         if (config) processor.value = new Processor(config)
 
-        const val_replaced = stringTransform.replaceCharacters({
+        const val_replaced = stringUtils.replaceCharacters({
             value: value.toString(),
             pattern: ['  ', ','],
             replacement: ' ',
         }) as string
-        const val_trimmed = stringTransform.trimCharacters({
+        const val_trimmed = stringUtils.trimCharacters({
             value: val_replaced,
             pattern: ['.', "'", '"', '[', ']'],
         })
