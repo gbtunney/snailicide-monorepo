@@ -1,5 +1,15 @@
 # @snailicide/g-library@0.2.1
 
+## 0.4.0
+
+### Minor Changes
+
+-   -   fixed missing .mjs index file
+    -   tried to fix bundling issue ( probably unsucessful)
+    -   added moment date functions
+    -   added json deserializing functions
+    -   seperated node functions from main
+
 ## 0.3.0
 
 ### Minor Changes
