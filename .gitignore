@@ -141,6 +141,7 @@ examples
 #todo: figure out what to do with this
 *.test.js
 *.js
+*.d.js
 .ssh
 examples
 apps

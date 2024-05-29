@@ -1,11 +1,15 @@
-import { transformExplodeArray } from './_transformExplodeArray.js'
+import {
+    explodeCSSClassString,
+    transformExplodeArray,
+} from './_transformExplodeArray.js'
 
 describe('transformExplodeArray', () => {
     it('transformExplodeArray', () => {
         expect(
             transformExplodeArray({
                 value: '!!hello_am_a_cat, g!llian_t ',
-                trim: { pattern: ['!', ' ', '.'] },
+                trim: { pattern: ['!', ' ', '.', ','] },
+                delimiter: ' ',
             }),
         ).toStrictEqual(['hello_am_a_cat', 'g!llian_t'])
 

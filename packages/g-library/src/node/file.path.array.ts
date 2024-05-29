@@ -3,7 +3,6 @@ import path from 'path'
 import fs from 'fs'
 import _isGlob from 'is-glob'
 import { isString } from 'ramda-adjunct'
-import { transformExplodeArray } from './../transformString/_transformExplodeArray.js'
 
 export type FilePath = {
     basename: string
@@ -141,10 +140,11 @@ export const getFilePathObj = function (_path: string): FilePath | undefined {
 }
 export const getDirectoryArr = (_path: string): string[] => {
     const resolvedPath = path.resolve(_path)
-    return transformExplodeArray({
-        value: path.resolve(path.dirname(resolvedPath)),
-        delimiter: '/',
-    }).filter((_item) => _item.length > 0)
+
+    return path
+        .resolve(path.dirname(resolvedPath))
+        .split('/')
+        .filter((_item) => _item.length > 0)
 }
 export const getParentDirectory = (_path: string) => {
     const dirarray = getDirectoryArr(_path)

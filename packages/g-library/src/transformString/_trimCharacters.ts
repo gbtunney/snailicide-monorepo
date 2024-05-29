@@ -1,19 +1,8 @@
 //import * as RA from 'ramda-adjunct'
-import {
-    ensureArray,
-    isString,
-    isRegExp,
-    trimCharsStart,
-    trimCharsEnd,
-} from 'ramda-adjunct'
+import { ensureArray, trimCharsStart, trimCharsEnd } from 'ramda-adjunct'
 
 import { pipe, replace as ramda_replace } from 'ramda'
-import type {
-    TrimCharacters,
-    TrimSinglePatternCharacters,
-    TransformBatch,
-} from './type.js'
-import { isNonEmptyArray } from './../typeguard/utility.typeguards.js'
+import type { TrimCharacters, BaseValue, BatchBaseValue } from './type.js'
 import {
     getRegExpStartOfString,
     getRegExpEndOfString,
@@ -24,29 +13,29 @@ const trimCharactersforSinglePattern = function ({
     pattern = ' ',
     trimStart = true,
     trimEnd = true,
-}: TrimSinglePatternCharacters): string {
+}: BaseValue & {
+    pattern: string //this is different.
+} & TrimCharacters): string {
     if (!trimStart && !trimEnd) return value
-    if (isString(pattern)) {
-        return [
-            ...(trimStart
-                ? [
-                      pattern.length > 1
-                          ? ramda_replace(getRegExpStartOfString(pattern), '')
-                          : trimCharsStart(pattern),
-                  ]
-                : []),
-            ...(trimEnd
-                ? [
-                      pattern.length > 1
-                          ? ramda_replace(getRegExpEndOfString(pattern), '')
-                          : trimCharsEnd(pattern),
-                  ]
-                : []),
-        ].reduce((accumulator: string, func) => {
-            return pipe(func)(accumulator)
-        }, value)
-    } else if (isRegExp(pattern)) return ramda_replace(pattern, '')(value)
-    else return value
+    return [
+        ...(trimStart
+            ? [
+                  ///if the pattern string is longer than 1 character, use ramda replace instead
+                  pattern.length > 1
+                      ? ramda_replace(getRegExpStartOfString(pattern), '')
+                      : trimCharsStart(pattern),
+              ]
+            : []),
+        ...(trimEnd
+            ? [
+                  pattern.length > 1
+                      ? ramda_replace(getRegExpEndOfString(pattern), '')
+                      : trimCharsEnd(pattern),
+              ]
+            : []),
+    ].reduce((accumulator: string, func) => {
+        return pipe(func)(accumulator)
+    }, value)
 }
 
 //NOTES -   end of line. /gi$/g    start of line. /^gi/g
@@ -56,19 +45,19 @@ export const trimCharacters = ({
     pattern = ' ',
     trimStart = true,
     trimEnd = true,
-}: TrimCharacters): string => {
+}: BaseValue & {
+    pattern: string | string[]
+} & TrimCharacters): string => {
     if (!trimStart && !trimEnd) return value
-    return ensureArray(pattern).reduce<typeof value>(
-        (accumulator: string, pattern_single: RegExp | string) => {
-            return trimCharactersforSinglePattern({
-                value: accumulator,
-                pattern: pattern_single,
-                trimStart,
-                trimEnd,
-            })
-        },
-        value,
-    )
+    const patterns = ensureArray(pattern)
+    return patterns.reduce<string>((accumulator, pattern_single) => {
+        return trimCharactersforSinglePattern({
+            value: accumulator,
+            pattern: pattern_single,
+            trimStart,
+            trimEnd,
+        })
+    }, value)
 }
 
 export const batchTrimCharacters = ({
@@ -76,10 +65,12 @@ export const batchTrimCharacters = ({
     pattern = ' ',
     trimStart = true,
     trimEnd = true,
-}: TransformBatch<TrimCharacters>): string | string[] => {
-    const _value = isString(value) ? ensureArray(value) : value //already an array
+}: BatchBaseValue & {
+    pattern: string | string[] //this is different.
+} & TrimCharacters): string[] => {
+    const _value = ensureArray(value)
 
-    const result = _value.map((single_value) => {
+    return _value.map((single_value) => {
         return trimCharacters({
             value: single_value,
             pattern,
@@ -87,15 +78,14 @@ export const batchTrimCharacters = ({
             trimEnd,
         })
     })
-    return isString(value) && isNonEmptyArray<string>(result)
-        ? (result[0] as string)
-        : (result as string[])
 }
 
 export const trimCharactersStart = ({
     value,
     pattern = ' ',
-}: TrimCharacters): string => {
+}: BaseValue & {
+    pattern: string | string[]
+}): string => {
     return trimCharacters({
         value,
         pattern,
@@ -106,7 +96,9 @@ export const trimCharactersStart = ({
 export const trimCharactersEnd = ({
     value,
     pattern = ' ',
-}: TrimCharacters): string => {
+}: BaseValue & {
+    pattern: string | string[]
+}): string => {
     return trimCharacters({
         value,
         pattern,

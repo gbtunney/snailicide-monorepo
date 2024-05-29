@@ -6,7 +6,7 @@ export type EmptyObject = {
 }
 
 /* * EmptyArray * */
-export type EmptyArray = []
+export type EmptyArray = readonly []
 
 /* * @type EmptyArray * */
 export type EmptyString = ''
