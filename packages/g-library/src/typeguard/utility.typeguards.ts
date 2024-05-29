@@ -48,7 +48,7 @@ export const isEmptyString = <T = unknown>(
     value: T | EmptyString,
 ): value is EmptyString => RA.isEmptyString(value)
 
-export const isString = <T extends string>(value: T): value is T =>
+export const isString = <T extends string>(value: unknown): value is T =>
     RA.isString(value)
 export const isNotString = <T = unknown>(value: T | string): value is T =>
     RA.isNotString(value)
