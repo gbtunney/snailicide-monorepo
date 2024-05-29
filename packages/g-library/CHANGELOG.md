@@ -1,5 +1,11 @@
 # @snailicide/g-library@0.2.1
 
+## 0.4.1
+
+### Patch Changes
+
+-   fixed bug with recursive stringUtils
+
 ## 0.4.0
 
 ### Minor Changes
