@@ -41,7 +41,7 @@
         "uninstall:lock": "rm -f pnpm-lock.yaml && rm -f packages/**/pnpm-lock.yaml",
         "\n========== LIFECYCLE >> ==========": "",
         "prepare": "husky install",
-        "postinstall": "pnpm --filter=@snailicide/build-config build",
+        "postinstall": "pnpm --filter=@snailicide/build-config build && pnpm build:self",
         "\n========== WORKFLOW >> ==========": "",
         "workflow:archive": "pnpm install && open /Applications/Docker.app && cross-var pnpm exec gh act --workflows  ./workflows/workflow-build.yml --reuse",
         "registry:start": "pnpm exec verdaccio",

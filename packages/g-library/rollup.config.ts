@@ -7,9 +7,12 @@ import { nodeExternals } from 'rollup-plugin-node-externals'
 import nodePolyfills from 'rollup-plugin-polyfill-node'
 import terser from '@rollup/plugin-terser'
 import path from 'path'
-
+import { unflatten } from 'flat'
+import { omit } from 'ramda'
+import { merge as deepmerge } from 'ts-deepmerge'
 import pkg from './package.json' assert { type: 'json' }
 
+//TODO: MOVE THIS TO BUILD-CONFIG
 /** Comment with library information to be appended in the generated bundles. */
 const get_banner = (library_name: string, package_json: typeof pkg = pkg) => {
     return `/*
@@ -78,16 +81,51 @@ const export_key_lookup: Record<ExportType, KeyData> = {
         module_format: 'umd',
     },
 }
-
+const getOutfileName = (
+    _export_key: string,
+    _out_file_name_override: undefined | string = undefined,
+) => {
+    return _out_file_name_override !== undefined
+        ? _out_file_name_override
+        : getExportKey(_export_key) === '.'
+          ? 'index'
+          : getExportKey(_export_key)
+}
+const getExportKey = (_export_key: string) => {
+    return _export_key === '.' || _export_key === '*' || _export_key === 'main'
+        ? '.'
+        : _export_key
+}
+const addMinFileExtension = (_value: string, insert_value: string = '.min') => {
+    const insert = (
+        value: string,
+        replace_value: string = '',
+        index: number = 0,
+    ) => {
+        return index > 0
+            ? `${value.substring(0, index)}${replace_value}${value.substring(index, value.length)}`
+            : value
+    }
+    const myMatch: null | RegExpMatchArray = _value.match(
+        new RegExp(/\.[a-z]{2,7}$/),
+    )
+    if (myMatch !== null && myMatch.index !== undefined) {
+        return insert(_value, insert_value, myMatch.index)
+    }
+    return 'ERROR'
+}
 type EntryConfig = {
-    export_key: '*' | 'main' | string
+    export_key: '.' | '*' | 'main' | string
+    in_file_name_override?: string | undefined
+    out_file_name_override?:
+        | string
+        | undefined /** No extension?? overrides the export key in naming the file and the key? */
     export_types: ExportType[]
     source_dir: string
     output_dir: string
     library_name: string
     //overridess
-    overrides?: Partial<OutputOptions>
-    //minify: true,
+    overrides?: Partial<OutputOptions> & { minify?: boolean }
 }
 
 const getOutputObj = (
@@ -97,17 +135,34 @@ const getOutputObj = (
     exportObj: Record<string, Record<string, string>>
     config: RollupOptions
 } => {
-    const { export_key, source_dir, output_dir } = entry
-    const filename =
-        export_key === '*' || export_key === 'main' ? 'index' : export_key
-    const source_file = path.resolve(`${source_dir}/${filename}.ts`)
-    const overrides = entry.overrides !== undefined ? entry.overrides : {}
+    const {
+        export_key,
+        source_dir,
+        output_dir,
+        out_file_name_override,
+        in_file_name_override,
+    }: Pick<
+        EntryConfig,
+        | 'export_key'
+        | 'source_dir'
+        | 'output_dir'
+        | 'out_file_name_override'
+        | 'in_file_name_override'
+    > = entry
+
+    const filename = getOutfileName(export_key, out_file_name_override)
+    const source_file = path.resolve(
+        `${source_dir}/${in_file_name_override !== undefined ? in_file_name_override : getOutfileName(export_key, undefined)}.ts`,
+    )
+    const overrides: Partial<OutputOptions> & { minify?: boolean } =
+        entry.overrides !== undefined ? entry.overrides : {}
 
     //expand output objects by export type
     type ExpandedExportType = {
         export_type: ExportType
         file: string
         format: InternalModuleFormat
+        export_key?: string
     }
     //return minimal objects so we can get an export map later
     const expandedExportTypes: ExpandedExportType[] = entry.export_types.map(
@@ -126,128 +181,141 @@ const getOutputObj = (
         },
     )
 
-    ///Record<export_key, Record<export_types, file>     >
     const export_object = {
-        [export_key]: expandedExportTypes.reduce<Record<string, string>>(
-            (acc, value: ExpandedExportType) => {
-                type Dummy = Record<ExportType, string>
-                return {
-                    ...acc,
-                    [value.export_type]: path.relative('.', value.file), //processTranscriptionSlice(value)
-                }
-            },
-            {},
-        ),
+        [getExportKey(export_key)]: expandedExportTypes.reduce<
+            Record<string, string>
+        >((acc, value: ExpandedExportType) => {
+            return {
+                ...acc,
+                [value.export_type]: path.relative('.', value.file), //processTranscriptionSlice(value)
+            }
+        }, {}),
     }
+
     const config = {
         input: source_file,
-        output: expandedExportTypes.map((value) => {
-            return createOutputOptions({
-                ...overrides,
+        output: expandedExportTypes.reduce<OutputOptions[]>((acc, value) => {
+            const _overrides = omit(['minify'], overrides)
+
+            const mainOutputObject = createOutputOptions({
+                ..._overrides,
                 name: entry.library_name,
                 file: value.file,
                 format: value.format,
             })
-        }),
+            const newOutputArray = [
+                ...(overrides.minify !== undefined && overrides.minify === true
+                    ? /** Add minify options here */
+                      [
+                          createOutputOptions({
+                              ...mainOutputObject,
+                              file: addMinFileExtension(value.file),
+                              sourcemap: false,
+                              //i am assuming right now not configuring plugins idk can switch to deep merge ??
+                              plugins: [terser()],
+                          }),
+                      ]
+                    : []),
+                mainOutputObject,
+            ]
+            return [...acc, ...newOutputArray]
+        }, []),
     }
-    return { exportObj: export_object, config }
+    return { exportObj: unflatten(export_object, { delimiter: '_' }), config }
 }
 
 //TODO?change thhis for concise
 //const inputConfig :EntryConfig =
 
-const inner_index_config = getOutputObj({
+const CDN_PLUGINS_LIST = [
+    ts({
+        browserslist: false,
+        tsconfig: (resolvedConfig) => ({
+            ...resolvedConfig,
+            declaration: true,
+            allowJs: false,
+            sourceMap: true,
+        }) /* Plugin options */,
+    }),
+    json(),
+    //nodePolyfills(),
+    // nodeExternals({ }),
+    nodeResolve({ browser: true }), // so Rollup can find `ms`
+    commonjs({ requireReturnsDefault: 'auto' }), // <---- this solves default issue), // so Rollup can convert `ms` to an ES modulefilesize(),
+]
+
+const RESOLVED_PLUGINS_LIST = [
+    ts({
+        browserslist: false,
+        tsconfig: (resolvedConfig) => ({
+            ...resolvedConfig,
+            declaration: true,
+            allowJs: false,
+            sourceMap: true,
+        }) /* Plugin options */,
+    }),
+    json(),
+    nodePolyfills(),
+    nodeExternals({}),
+    //TODO: FIX SO things are being bundled properly?
+    nodeResolve({ preferBuiltins: true }), // so Rollup can find `ms`
+    commonjs({ requireReturnsDefault: 'auto' }), // <---- this solves default issue), // so Rollup can convert `ms` to an ES modulefilesize(),
+]
+const getDirectoryObj = {
     source_dir: './src/',
     output_dir: './dist/',
-    export_types: ['default', 'import', 'require'],
-    export_key: '*',
-    library_name: 'gLibrary',
-})
-console.log('EXPORTS OBBJECT', JSON.stringify(inner_index_config.exportObj))
-
-const index_config: RollupOptions = {
-    ...inner_index_config.config,
-    plugins: [
-        ts({
-            browserslist: false,
-            tsconfig: (resolvedConfig) => ({
-                ...resolvedConfig,
-                declaration: true,
-                allowJs: false,
-                sourceMap: true,
-            }) /* Plugin options */,
-        }),
-        json(),
-        nodePolyfills(),
-        nodeExternals({}),
-        //TODO: FIX SO things are being bundled properly?
-        nodeResolve({ preferBuiltins: true }), // so Rollup can find `ms`
-        commonjs({ requireReturnsDefault: 'auto' }), // <---- this solves default issue), // so Rollup can convert `ms` to an ES modulefilesize(),
-    ],
 }
 
-const node_config_obj = getOutputObj({
-    source_dir: './src/',
-    output_dir: './dist/',
-    export_types: ['default', 'import', 'require'],
-    export_key: 'node',
-    library_name: 'gLibraryNode',
-})
-console.log('NODE EXPORTS OBBJECT', JSON.stringify(node_config_obj.exportObj))
-
-const node_config: RollupOptions = {
-    ...node_config_obj.config,
-    plugins: [
-        ts({
-            browserslist: false,
-            tsconfig: (resolvedConfig) => ({
-                ...resolvedConfig,
-                declaration: true,
-                allowJs: false,
-                sourceMap: true,
-            }) /* Plugin options */,
+const outputObjectsArr = [
+    {
+        ...getOutputObj({
+            source_dir: './src/',
+            output_dir: './dist/',
+            export_types: ['default', 'import', 'require'],
+            export_key: '*',
+            library_name: 'gLibrary',
         }),
-        json(),
-        nodePolyfills(),
-        nodeExternals({}),
-        //TODO: FIX SO things are being bundled properly?
-        nodeResolve({ preferBuiltins: true }), // so Rollup can find `ms`
-        commonjs({ requireReturnsDefault: 'auto' }), // <---- this solves default issue), // so Rollup can convert `ms` to an ES modulefilesize(),
-    ],
-}
-
-///web obj
-const inner_cdn_config = getOutputObj({
-    source_dir: './src/',
-    output_dir: './dist/cdn',
-    export_types: [
-        'browser_import',
-        'browser_default',
-        'default',
-        'browser_umd',
-    ],
-    export_key: '*',
-    library_name: 'gLibrary',
-})
-console.log('CDN OBBJECT', JSON.stringify(inner_cdn_config.exportObj))
-
-const cdn_config: RollupOptions = {
-    ...inner_cdn_config.config,
-    plugins: [
-        ts({
-            browserslist: false,
-            tsconfig: (resolvedConfig) => ({
-                ...resolvedConfig,
-                declaration: true,
-                allowJs: false,
-                sourceMap: true,
-            }) /* Plugin options */,
+        plugins: RESOLVED_PLUGINS_LIST,
+    },
+    {
+        ...getOutputObj({
+            ...getDirectoryObj,
+            export_types: ['default', 'import', 'require'],
+            export_key: 'node',
+            library_name: 'gLibraryNode',
         }),
-        json(),
-        //nodePolyfills(),
-        // nodeExternals({ }),
-        nodeResolve({ browser: true }), // so Rollup can find `ms`
-        commonjs({ requireReturnsDefault: 'auto' }), // <---- this solves default issue), // so Rollup can convert `ms` to an ES modulefilesize(),
-    ],
-}
-export default [index_config, node_config, cdn_config]
+        plugins: RESOLVED_PLUGINS_LIST,
+    },
+    {
+        ...getOutputObj({
+            ...getDirectoryObj,
+            export_types: [
+                'browser_import',
+                'browser_default',
+                'default',
+                'browser_umd',
+            ],
+            out_file_name_override: 'cdn-index',
+            export_key: '*',
+            library_name: 'gLibrary',
+            overrides: {
+                minify: true,
+            },
+        }),
+        plugins: CDN_PLUGINS_LIST,
+    },
+]
+const CONFIG: RollupOptions[] = outputObjectsArr.map((item): RollupOptions => {
+    const { plugins, config } = item
+    return {
+        ...config,
+        plugins,
+    }
+})
+
+const result = outputObjectsArr.reduce<Record<string, {}>>((acc, value) => {
+    const obj = value.exportObj
+    return deepmerge(acc, value.exportObj)
+}, {})
+console.log('IMPORTS OBJECT', result)
+export default CONFIG

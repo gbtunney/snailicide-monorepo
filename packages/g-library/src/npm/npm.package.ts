@@ -1,28 +1,32 @@
-import { z } from 'zod'
-import { isMatchRegExp } from './../typeguard/utility.typeguards.js'
-import { lookup } from './../regexp/index.js'
+import semvervalid from 'semver/functions/valid.js'
 import type {
     Merge,
     OmitIndexSignature,
     PackageJson,
     RequireAtLeastOne,
 } from 'type-fest'
+import { z } from 'zod'
+import { isMatchRegExp } from './../typeguard/utility.typeguards.js'
+import { lookup } from './../regexp/index.js'
+import { wrapSchema } from '../zod_helpers/index.js'
 
 type PackageJsonStandard = PackageJson['PackageJsonStandard']
 type PackageScripts = PackageJson['scripts']
 type TypeScriptConfiguration = PackageJson['TypeScriptConfiguration']
 
-export const isValidSemVer = (value: string) =>
-    isMatchRegExp(value, lookup.semver)
+export const isValidSemVer = (value: string) => semvervalid(value)
 export const isValidPackageName = (value: string) =>
     isMatchRegExp(value, lookup.validPackageName)
 
 /* * Collection of Generic Package Utility Types  * */
-const schemaPackage = z.object({
+export const basePackage = z.object({
     name: z.string().regex(lookup.validPackageName),
-    version: z.string().refine((value) => isValidSemVer(value), {
-        message: 'Please enter valid semver',
-    }),
+    version: z.string().refine(
+        (value) => {
+            return semvervalid(value)
+        },
+        { message: 'Please enter a valid semver' },
+    ),
     description: z.string(),
     main: z.string(),
     author: z
@@ -33,7 +37,24 @@ const schemaPackage = z.object({
         .optional(),
 })
 
-type SchemaPackage = z.infer<typeof schemaPackage>
+type BasePackage = z.infer<typeof basePackage>
+
+export const parseNPMPackage = <
+    S extends z.AnyZodObject,
+    BS extends z.AnyZodObject,
+>(
+    value: unknown,
+    schema: S,
+    base_schema: z.AnyZodObject = basePackage, //as z.AnyZodObject
+): z.infer<Merge<S, BS>> | undefined => {
+    const _schema = wrapSchema<z.AnyZodObject>(base_schema).merge(
+        wrapSchema<S>(schema),
+    )
+    if (_schema.safeParse(value).success) {
+        return _schema.parse(value)
+    }
+    return undefined
+}
 
 export const tg_NPMPackageCustom = <Schema extends z.ZodTypeAny>(
     schema: Schema,
@@ -44,34 +65,34 @@ export const tg_NPMPackageCustom = <Schema extends z.ZodTypeAny>(
 }
 
 export const isNPMPackageCustom = <
-    T extends z.input<typeof schemaPackage>,
+    T extends z.input<typeof basePackage>,
     Schema extends z.ZodObject<any>,
 >(
     value: T,
     schema: Schema,
-    base: typeof schemaPackage = schemaPackage,
+    base: typeof basePackage = basePackage,
 ) => {
     const newSchema = base.merge(schema)
     return tg_NPMPackageCustom<typeof newSchema>(newSchema, value)
 }
 
-export const isNPMPackage = <
-    BaseType extends Merge<PackageJson, SchemaPackage>,
->(
-    value: BaseType,
-): value is BaseType => {
-    const result = schemaPackage.safeParse(value)
-    return result && result.success === true ? true : false
+export const isNPMPackage = <S extends z.AnyZodObject>(
+    value: unknown,
+    schema: undefined | S = undefined, // wrapSchema<z.AnyZodObject>(basePackage)
+): value is z.infer<S> => {
+    if (schema === undefined) {
+        return wrapSchema<z.AnyZodObject>(basePackage).safeParse(value).success
+    } else return wrapSchema<S>(schema).safeParse(value).success
 }
 
 export namespace NPMPackage {
-    type SchemaPackage = z.infer<typeof schemaPackage>
-    export type RequiredProps = SchemaPackage
+    type BasePackage = z.infer<typeof basePackage>
+    export type RequiredProps = BasePackage
     export type PackageJsonBase<BaseType = PackageJson, strict = true> = Merge<
         strict extends true
             ? OmitIndexSignature<BaseType>
             : PackageJson & BaseType,
-        SchemaPackage
+        BasePackage
     >
     export type PackageJsonRequiredProps<
         BaseType = PackageJson,
@@ -80,7 +101,7 @@ export namespace NPMPackage {
         strict extends true
             ? OmitIndexSignature<BaseType>
             : PackageJson & BaseType,
-        SchemaPackage
+        BasePackage
     >
     export type LifeCycleScripts = PackageScripts
 
