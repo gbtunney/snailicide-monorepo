@@ -38,6 +38,7 @@ type KeyData = {
 }
 
 type ExportType =
+    | 'types'
     | 'require'
     | 'import'
     | 'default'
@@ -60,11 +61,11 @@ const export_key_lookup: Record<ExportType, KeyData> = {
         internal_format: 'es',
         module_format: 'esm',
     },
-    /* types: {
-        extension: 'd.ts',
-        internal_format: "ts",
-        module_format: "typescript"
-    },*/
+    types: {
+        extension: '.d.ts',
+        internal_format: 'es',
+        module_format: 'typescript',
+    },
     browser_default: {
         extension: '-iife.js',
         internal_format: 'iife',
@@ -94,7 +95,9 @@ const getOutfileName = (
 const getExportKey = (_export_key: string) => {
     return _export_key === '.' || _export_key === '*' || _export_key === 'main'
         ? '.'
-        : _export_key
+        : _export_key.charAt(0) !== '.'
+          ? `./${_export_key}`
+          : _export_key
 }
 const addMinFileExtension = (_value: string, insert_value: string = '.min') => {
     const insert = (
@@ -162,7 +165,7 @@ const getOutputObj = (
         export_type: ExportType
         file: string
         format: InternalModuleFormat
-        export_key?: string
+        export_key: string
     }
     //return minimal objects so we can get an export map later
     const expandedExportTypes: ExpandedExportType[] = entry.export_types.map(
@@ -173,10 +176,12 @@ const getOutputObj = (
             const file = path.resolve(`${output_dir}/${filename}${extension}`)
             const format: InternalModuleFormat =
                 export_key_lookup[export_type].internal_format
+            const export_key = entry.export_key
             return {
                 export_type,
                 file,
                 format,
+                export_key,
             }
         },
     )
@@ -187,7 +192,7 @@ const getOutputObj = (
         >((acc, value: ExpandedExportType) => {
             return {
                 ...acc,
-                [value.export_type]: path.relative('.', value.file), //processTranscriptionSlice(value)
+                [value.export_type]: `./${path.relative('.', value.file)}`, //processTranscriptionSlice(value)
             }
         }, {}),
     }
@@ -218,7 +223,10 @@ const getOutputObj = (
                     : []),
                 mainOutputObject,
             ]
-            return [...acc, ...newOutputArray]
+            return [
+                ...acc,
+                ...(value.export_type !== 'types' ? newOutputArray : []),
+            ]
         }, []),
     }
     return { exportObj: unflatten(export_object, { delimiter: '_' }), config }
@@ -247,12 +255,15 @@ const CDN_PLUGINS_LIST = [
 const RESOLVED_PLUGINS_LIST = [
     ts({
         browserslist: false,
-        tsconfig: (resolvedConfig) => ({
-            ...resolvedConfig,
-            declaration: true,
-            allowJs: false,
-            sourceMap: true,
-        }) /* Plugin options */,
+        tsconfig: (resolvedConfig) => {
+            //  console.log("THE RESOLVRDF CONGIG ", resolvedConfig);
+            return {
+                ...resolvedConfig,
+                declaration: true,
+                allowJs: false,
+                sourceMap: true,
+            }
+        } /* Plugin options */,
     }),
     json(),
     nodePolyfills(),
@@ -271,7 +282,7 @@ const outputObjectsArr = [
         ...getOutputObj({
             source_dir: './src/',
             output_dir: './dist/',
-            export_types: ['default', 'import', 'require'],
+            export_types: ['default', 'import', 'require', 'types'],
             export_key: '*',
             library_name: 'gLibrary',
         }),
@@ -280,7 +291,7 @@ const outputObjectsArr = [
     {
         ...getOutputObj({
             ...getDirectoryObj,
-            export_types: ['default', 'import', 'require'],
+            export_types: ['default', 'import', 'require', 'types'],
             export_key: 'node',
             library_name: 'gLibraryNode',
         }),
@@ -292,8 +303,8 @@ const outputObjectsArr = [
             export_types: [
                 'browser_import',
                 'browser_default',
-                'default',
                 'browser_umd',
+                'types',
             ],
             out_file_name_override: 'cdn-index',
             export_key: '*',
