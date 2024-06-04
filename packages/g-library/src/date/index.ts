@@ -28,6 +28,7 @@ export const isValidIsoDate = (value: string) =>
 /** DURATION STUFF */
 export const format_duration_long = 'HH:mm:ss.SS'
 export const format_duration_truncated = 'mm:ss'
+export const format_duration_basic = 'mm:ss.SS' //because otherwise the hour is busted?
 
 /** Milliseconds to ISO String */
 export const msToIsoString = (ms_value: number): string =>
@@ -41,17 +42,18 @@ export const formatISOtoDuration = (
 /** HIGH RES TIMESTAMP STUFF */
 
 /** 1,000,000 nanoseconds/millisecond. */
-export const ns_to_ms = (ns_value: number): number =>
-    moment.utc(ns_value / 1000000).milliseconds() ///.format('HH:mm:ss.SS')
+export const ns_to_ms = (ns_value: number): number => ns_value / 1000000
+//TODO: LITERALLY NO IDEA WHY THIS MILLISECOND FUNCTION IS BUSTED ;; it says 53ms = 4 sec
+// moment.utc(ns_value / 1000000).milliseconds() ///.format('HH:mm:ss.SS')
 
 export const highresTimestamptoISOString = (ns: number): string => {
     return msToIsoString(ns_to_ms(ns))
 }
 const timestampIsoToDifference = (
-    ns_in: string,
-    ns_out: string,
+    iso_in: string,
+    iso_out: string,
     unit: unitOfTime.Diff = 'millisecond',
-): number => moment(ns_in).diff(ns_out, unit)
+): number => moment(iso_in).diff(iso_out, unit)
 
 export const getTimestampDuration = (
     ns_in: number,
