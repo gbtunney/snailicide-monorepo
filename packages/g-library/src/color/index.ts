@@ -2,7 +2,7 @@ import * as chroma from 'chroma.ts'
 import type { Chromable, Color, ColorFormat, Scale, ColorMode } from 'chroma.ts'
 import { repeat } from 'ramda'
 import { tg } from './../typeguard/index.js'
-import { tg_isCSSColorSpecial } from './css.js'
+import { isCSSColorSpecial } from './../browser/css.js'
 
 type HSL = [number, number, number]
 /**
@@ -10,66 +10,55 @@ type HSL = [number, number, number]
  * [hueDegrees, saturation1, value1]
  */
 
-const validate = (color: Chromable): boolean => {
-    // todo: fix return chromajs.valid(color)
-    console.log('color is ', chroma.color('palegreen'))
-    chroma.color('palegreen')
-    return true
+export const validate = (color: Chromable): boolean => {
+    try {
+        chroma.color(color)
+        return true
+    } catch (exception) {
+        return false
+    }
 }
 
-/*
- const getChromaColor = (color: Chromable, format?: chroma.ColorFormat) => {
-        if (!validate(color)) return
-        const chroma_color = chroma.color(color)
-        const [hue, saturation, lightness] = chroma_color.hsl()
-        return {
-            chroma: chroma_color,
-            hue,
-            saturation,
-            lightness,
-            textColor: chroma_color.textColor(),
-            luminance: chroma_color.luminance(),
-            temperature: chroma_color.temperature(),
-            complement: complement(chroma_color),
-            split_complement: split_complement(chroma_color),
-            triad: triad(chroma_color),
-            tetrad: tetrad(chroma_color),
-            analogous: analogous(chroma_color),
-        }
-    }
-*/
+export const isChromaColor = <T extends Chromable>(
+    color: T,
+): color is T extends Chromable ? T : never => {
+    return validate(color)
+}
 
 const rotateHueFunction = (hue: number, incrementValue: number): number => {
     //todo: chheck to see if inc is an integer.
     return (hue + incrementValue) % 360
 }
 //RA.rangeStep(5, 0, 20); // => [0, 5, 10, 15]
-const complement = (color: Chromable) => {
+export const complement = (color: Chromable, format: ColorFormat = 'hsl') => {
     const [hue, sat, luminance]: HSL = chroma.color(color).hsl()
-    return chroma.color([rotateHueFunction(hue, 180), sat, luminance], 'hsl')
+    return chroma.color([rotateHueFunction(hue, 180), sat, luminance], format)
 }
-const triad = (color: Chromable, format?: chroma.ColorFormat) => {
+export const triad = (color: Chromable, format: ColorFormat = 'hsl') => {
     const [hue, sat, luminance]: HSL = chroma.color(color).hsl()
     return [hue, rotateHueFunction(hue, 120), rotateHueFunction(hue, 240)].map(
-        (hue_step) => chroma.color([hue_step, sat, luminance], 'hsl'),
+        (hue_step) => chroma.color([hue_step, sat, luminance], format),
     )
 }
-const tetrad = (color: Chromable) => {
+export const tetrad = (color: Chromable, format: ColorFormat = 'hsl') => {
     const [hue, sat, luminance]: HSL = chroma.color(color).hsl()
     return [
         hue,
         rotateHueFunction(hue, 90),
         rotateHueFunction(hue, 180),
         rotateHueFunction(hue, 270),
-    ].map((hue_step) => chroma.color([hue_step, sat, luminance], 'hsl'))
+    ].map((hue_step) => chroma.color([hue_step, sat, luminance], format))
 }
-const split_complement = (color: Chromable, format?: chroma.ColorFormat) => {
+export const split_complement = (
+    color: Chromable,
+    format: ColorFormat = 'hsl',
+) => {
     const [hue, sat, luminance]: HSL = chroma.color(color).hsl()
     return [hue, rotateHueFunction(hue, 72), rotateHueFunction(hue, 216)].map(
-        (hue_step) => chroma.color([hue_step, sat, luminance], 'hsl'),
+        (hue_step) => chroma.color([hue_step, sat, luminance], format),
     )
 }
-const analogous = (color: Chromable, results = 6, slices = 30) => {
+export const analogous = (color: Chromable, results = 6, slices = 30) => {
     const [hue, sat, luminance]: HSL = chroma.color(color).hsl()
     return [hue, rotateHueFunction(hue, 72), rotateHueFunction(hue, 216)].map(
         (hue_step) => chroma.color([hue_step, sat, luminance], 'hsl'),
@@ -79,9 +68,11 @@ const analogous = (color: Chromable, results = 6, slices = 30) => {
 export const getChromaColor = (
     color: Chromable,
     format?: chroma.ColorFormat,
-) => {
-    if (!validate(color)) return
-    const chroma_color = chroma.color(color)
+): ChromaColorPalatte | undefined => {
+    if (!validate(color)) return undefined
+
+    const chroma_color = chroma.color(color) //(validate(color)) ? chroma.color(color) : undefined
+
     const [hue, saturation, lightness] = chroma_color.hsl()
     return {
         chroma: chroma_color,
@@ -103,7 +94,7 @@ const chromaColorBrighten = (
     value: string | undefined,
     amount: number,
 ): Color | undefined => {
-    if (tg.isUndefined(value) || tg_isCSSColorSpecial(value)) return undefined
+    if (tg.isUndefined(value) || isCSSColorSpecial(value)) return undefined
     if (tg.isNotUndefined<string>(value)) {
         if (chroma.color(value)) {
             //TODO:make typegaurd for chroma
@@ -181,3 +172,9 @@ export type ChromaColorPalatte = {
     tetrad: Color[]
     analogous: Color[]
 }
+
+import * as _chroma from 'chroma.ts'
+export const Chroma: typeof _chroma = _chroma
+export default getChromaColor
+export type { Chromable, Color, ColorFormat, Scale, ColorMode } from 'chroma.ts'
+export type { CSSColorSpecialProp } from './../browser/css.js'

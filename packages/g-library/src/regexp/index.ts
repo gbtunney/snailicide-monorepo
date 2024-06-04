@@ -4,9 +4,8 @@ const _match = 'String'.match
 export type RegExpMatchArray = ReturnType<typeof _match>
 export { isMatchRegExp } from './../typeguard/utility.typeguards.js'
 
-export * as lookup from './dictionary.js'
-
-const TRIM_CHARS_DEFAULT = ['.', "'", '"', ' ', '-', '[', ']', '(', ')'] ///stuff to trim from css classes.
+import * as _lookup from './dictionary.js'
+export const lookup: typeof _lookup = _lookup
 
 /**
  * GetRegExpFromStrings Turn a string or strings into a regexp
@@ -122,3 +121,15 @@ export type Flag =
      * indicated in its lastIndex property.
      */
     | 'sticky'
+
+export const regexp = {
+    getRegExpFromStrings,
+    getRegExpStartOfString,
+    getRegExpEndOfString,
+    getRegExpTrim,
+
+    fileExtension,
+
+    lookup: _lookup,
+}
+export default regexp

@@ -44,3 +44,12 @@ export const isJsonifiableObject = <T extends PlainObject>(
 export const isJsonifiableArray = <T extends Json.Array>(
     value: unknown,
 ): value is T extends Json.Array ? T : never => RA.isArray(value)
+
+export const tg_json = {
+    isJsonifiable,
+    isJsonValue,
+    isJsonifiableObjectLike,
+    isJsonifiableObject,
+    isJsonifiableArray,
+}
+export default tg_json

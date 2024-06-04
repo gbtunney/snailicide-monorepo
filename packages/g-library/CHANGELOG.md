@@ -1,5 +1,17 @@
 # @snailicide/g-library@0.2.1
 
+## 0.4.4
+
+### Patch Changes
+
+-   tried to fix the default imports
+
+## 0.4.3
+
+### Patch Changes
+
+-   fixed package exports
+
 ## 0.4.2
 
 ### Patch Changes

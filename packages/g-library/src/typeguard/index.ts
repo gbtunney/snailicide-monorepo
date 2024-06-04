@@ -1,4 +1,7 @@
-import * as json from './json.typeguards.js'
+import tg_json from './json.typeguards.js'
+import { isZodParsable } from './../zod_helpers/index.js'
+import { isCSSColorSpecial, isNotCSSColorSpecial } from './../browser/css.js'
+import { isNPMPackage } from './../npm/npm.package.js'
 import {
     isFalsy,
     isTruthy,
@@ -55,6 +58,10 @@ export const tg = {
     isNotUndefined,
     isUndefined,
     isMatchRegExp,
-    ...json,
+    ...tg_json,
+    isZodParsable,
+    isCSSColorSpecial,
+    isNotCSSColorSpecial,
+    isNPMPackage,
 }
 export default tg

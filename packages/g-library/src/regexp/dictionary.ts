@@ -9,6 +9,18 @@ export const validPackageName =
  */
 export const packageManager = /(npm|pnpm|yarn)@\d+\.\d+\.\d+(-.+)?/
 
+export const default_trim_characters = [
+    '.',
+    "'",
+    '"',
+    ' ',
+    '-',
+    '[',
+    ']',
+    '(',
+    ')',
+] ///stuff to trim from css classes.
+
 export const newLineChars = [
     /* * Unicode:line feed * */
     '\u000a',
