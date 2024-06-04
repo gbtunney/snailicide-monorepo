@@ -317,5 +317,5 @@ const result = outputObjectsArr.reduce<Record<string, {}>>((acc, value) => {
     const obj = value.exportObj
     return deepmerge(acc, value.exportObj)
 }, {})
-console.log('IMPORTS OBJECT', result)
+console.log('IMPORTS OBJECT', JSON.stringify(result))
 export default CONFIG

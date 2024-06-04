@@ -17,39 +17,30 @@
     },
     "exports": {
         ".": {
-            "default": "./dist/index.js",
-            "types": "./dist/index.d.ts",
-            "import": "./dist/index.mjs",
-            "require": "./dist/index.cjs"
-        },
-        "./node": {
-            "default": "./dist/node.js",
-            "types": "./dist/node.d.ts",
-            "import": "./dist/node.mjs",
-            "require": "./dist/node.cjs"
-        },
-        "./node.js": {
-            "default": "./dist/node.js",
-            "types": "./dist/node.d.ts",
-            "import": "./dist/node.mjs",
-            "require": "./dist/node.cjs"
-        },
-        "./cdn": {
-            "default": "./dist/cdn/index.js",
-            "types": "./dist/cdn/index.d.js",
+            "default": "dist/cdn-index.js",
+            "types": "dist/index.d.ts",
+            "import": "dist/index.mjs",
+            "require": "dist/index.cjs",
             "browser": {
-                "import": "./dist/cdn/index.js",
-                "browser_default": "./dist/cdn/index-iife.js",
-                "umd": "./dist/cdn/index-umd.js"
+                "import": "dist/cdn-index.js",
+                "default": "dist/cdn-index-iife.js",
+                "umd": "dist/cdn-index-umd.js",
+                "types": "dist/cdn-index.d.ts"
             }
+        },
+        "node": {
+            "default": "dist/node.js",
+            "types": "dist/node.d.ts",
+            "import": "dist/node.mjs",
+            "require": "dist/node.cjs"
         }
     },
     "main": "./dist/index.js",
     "types": "types/index.d.ts",
     "module": "./dist/index.mjs",
     "commonjs": "./dist/index.cjs",
-    "umd:main": "./dist/cdn/index-umd.js",
-    "cdn": "./dist/cdn/index-iife.js",
+    "umd:main": "./dist/cdn-index-umd.min.js",
+    "cdn": "./dist/cdn-index-iife.min.js",
     "keywords": [
         "typescript",
         "js",
