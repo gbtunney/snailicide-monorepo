@@ -182,15 +182,14 @@ const getOutputObj = (
     )
 
     const export_object = {
-        [export_key]: expandedExportTypes.reduce<Record<string, string>>(
-            (acc, value: ExpandedExportType) => {
-                return {
-                    ...acc,
-                    [value.export_type]: path.relative('.', value.file), //processTranscriptionSlice(value)
-                }
-            },
-            {},
-        ),
+        [getExportKey(export_key)]: expandedExportTypes.reduce<
+            Record<string, string>
+        >((acc, value: ExpandedExportType) => {
+            return {
+                ...acc,
+                [value.export_type]: path.relative('.', value.file), //processTranscriptionSlice(value)
+            }
+        }, {}),
     }
 
     const config = {

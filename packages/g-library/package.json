@@ -81,7 +81,7 @@
         "docs:dev": "nodemon --exec 'jsdoc -c ./jsdoc.json -t ./node_modules/better-docs' --watch ./src",
         "\n========== PUBLISH >> ==========": "",
         "release": "pnpm prerelease && pnpm publish --access public --report-summary --no-git-checks",
-        "test:release": "cross-var pnpm publish --access public --report-summary --no-git-checks --registry $npm_package_config_publish_private",
+        "test:release": "pnpm prerelease && cross-var pnpm publish --access public --report-summary --no-git-checks --registry $npm_package_config_publish_private",
         "TODO": "TODO: Fix wierd bug that breaks jsdoc ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL not sure if pnpm or jsdoc",
         "prerelease": "pnpm clean && pnpm docs:build || pnpm build  && pnpm fix && pnpm check && pnpm test && pnpm run release:archive",
         "release:archive": "mkdir -p ./releases &&  pnpm exec npm pack --pack-destination='./releases'",
