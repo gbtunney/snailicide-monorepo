@@ -1,11 +1,3 @@
-/**
- * Semver
- *
- * @see {@link https://regex101.com/r/vkijKf/1/|regex101: build, test, and debug regex: Semver}
- */
-export const semver =
-    /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$/gm
-
 /** Name field field in package.json */
 export const validPackageName =
     /^(@[a-z0-9-~][a-z0-9-._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/

@@ -24,6 +24,19 @@ export const getRegExpFromStrings = (
 }
 
 /**
+ * Return a file extension if it is within the character count
+ *
+ * @function fileExtension
+ * @param {number} [min=2] - Minimum characters in the file extension. Default
+ *   is `2`
+ * @param {number} [max=8] - Minimum characters in the file extension. Default
+ *   is `8`
+ * @returns {RegExp}
+ */
+export const fileExtension = (min: number = 2, max: number = 8) =>
+    new RegExp(`\.[a-z]{${min},${max}$`)
+
+/**
  * Turn a string or strings into a regexp that checks the start
  *
  * @function getRegExpStartOfString
