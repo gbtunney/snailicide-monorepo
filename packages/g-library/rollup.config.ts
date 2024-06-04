@@ -43,6 +43,7 @@ type ExportType =
     | 'import'
     | 'default'
     | 'browser_default'
+    | 'browser_types'
     | 'browser_import'
     | 'browser_umd'
 const export_key_lookup: Record<ExportType, KeyData> = {
@@ -70,6 +71,11 @@ const export_key_lookup: Record<ExportType, KeyData> = {
         extension: '-iife.js',
         internal_format: 'iife',
         module_format: 'iife',
+    },
+    browser_types: {
+        extension: '.d.ts',
+        internal_format: 'es',
+        module_format: 'typescript',
     },
     browser_import: {
         extension: '.js',
@@ -223,9 +229,15 @@ const getOutputObj = (
                     : []),
                 mainOutputObject,
             ]
+            console.log(
+                'regexp',
+                new RegExp(/types/, 'g').test(value.export_type),
+            )
             return [
                 ...acc,
-                ...(value.export_type !== 'types' ? newOutputArray : []),
+                ...(new RegExp(/types/, 'g').test(value.export_type) === false
+                    ? newOutputArray
+                    : []),
             ]
         }, []),
     }
@@ -237,7 +249,6 @@ const getOutputObj = (
 
 const CDN_PLUGINS_LIST = [
     ts({
-        browserslist: false,
         tsconfig: (resolvedConfig) => ({
             ...resolvedConfig,
             declaration: true,
@@ -304,7 +315,7 @@ const outputObjectsArr = [
                 'browser_import',
                 'browser_default',
                 'browser_umd',
-                'types',
+                'browser_types',
             ],
             out_file_name_override: 'cdn-index',
             export_key: '*',
@@ -328,5 +339,5 @@ const result = outputObjectsArr.reduce<Record<string, {}>>((acc, value) => {
     const obj = value.exportObj
     return deepmerge(acc, value.exportObj)
 }, {})
-console.log('IMPORTS OBJECT', JSON.stringify(result))
+console.log('IMPORTS OBJECT', JSON.stringify(result, undefined, 4))
 export default CONFIG

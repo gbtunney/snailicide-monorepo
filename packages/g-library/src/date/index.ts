@@ -71,3 +71,5 @@ export const getTimestampDuration = (
         ),
         format,
     )
+
+export default formatIsoDate

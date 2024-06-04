@@ -34,11 +34,11 @@ export const wrapSchema = <T extends z.Schema<any>>(schema: T): T => {
  * @param {Schema} schema - Zod schema to use
  * @returns {unknown} Z.infer<typeof schema>
  */
-export const getZodData = <Schema = z.ZodSchema>(
-    value: Schema extends z.ZodSchema ? z.infer<Schema> : never,
-    schema: Schema extends z.ZodSchema ? Schema : never,
-): z.infer<typeof schema> => {
-    return tg_Zod(value, schema) ? schema.parse(value) : undefined
+export const parseZodData = <S extends z.ZodSchema>(
+    value: unknown,
+    schema: S,
+): z.infer<S> | undefined => {
+    return isZodParsable<S>(value, schema) ? schema.parse(value) : undefined
 }
 
 /**
@@ -63,20 +63,27 @@ export const getZodData = <Schema = z.ZodSchema>(
  * @param {Schema} schema - Zod schema to use
  * @returns {boolean}
  */
-export const tg_Zod = <Type = unknown, Schema = z.ZodSchema>(
-    value: Type,
-    schema: Schema extends z.ZodSchema ? Schema : never,
-): value is z.infer<typeof schema> => {
+export const isZodParsable = <S extends z.ZodSchema>(
+    value: unknown,
+    schema: S,
+): value is z.infer<S> => {
     return schema.safeParse(value).success
 }
 
 export const parseFactory =
     <T extends z.ZodTypeAny>(schema: T) =>
-    (data: unknown): z.infer<T> => {
-        try {
+    (data: unknown): z.infer<T> | undefined => {
+        if (isZodParsable<T>(data, schema)) {
             return schema.parse(data)
-        } catch (err) {
-            // handle error
-            throw new Error()
         }
+        return undefined
     }
+
+export const zodHelpers = {
+    schemaForType,
+    wrapSchema,
+    isZodParsable,
+    parseZodData,
+    parseFactory,
+}
+export default zodHelpers

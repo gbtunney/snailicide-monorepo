@@ -37,52 +37,44 @@ export const basePackage = z.object({
         .optional(),
 })
 
+export const packageStandardSchema = (
+    base_schema: z.AnyZodObject = basePackage,
+): typeof base_schema => {
+    return wrapSchema<z.AnyZodObject>(base_schema)
+}
 type BasePackage = z.infer<typeof basePackage>
 
-export const parseNPMPackage = <
-    S extends z.AnyZodObject,
-    BS extends z.AnyZodObject,
->(
+export const parseNPMPackage = <S extends z.AnyZodObject>(
     value: unknown,
-    schema: S,
+    schema: S | undefined = undefined,
     base_schema: z.AnyZodObject = basePackage, //as z.AnyZodObject
-): z.infer<Merge<S, BS>> | undefined => {
-    const _schema = wrapSchema<z.AnyZodObject>(base_schema).merge(
-        wrapSchema<S>(schema),
-    )
-    if (_schema.safeParse(value).success) {
-        return _schema.parse(value)
+): z.infer<Merge<typeof base_schema, S>> | undefined => {
+    if (schema !== undefined) {
+        const _schema = wrapSchema<z.AnyZodObject>(base_schema).merge(
+            wrapSchema<S>(schema),
+        )
+        if (isNPMPackage<typeof _schema>(value, _schema)) {
+            return _schema.parse(value)
+        }
+    }
+    if (isNPMPackage<typeof base_schema>(value, base_schema)) {
+        return base_schema.parse(value)
     }
     return undefined
 }
 
-export const tg_NPMPackageCustom = <Schema extends z.ZodTypeAny>(
-    schema: Schema,
-    value: unknown,
-): value is z.infer<Schema> => {
-    //  : value is z.infer<base.merge(schema)>
-    return schema.safeParse(value).success
-}
-
-export const isNPMPackageCustom = <
-    T extends z.input<typeof basePackage>,
-    Schema extends z.ZodObject<any>,
->(
-    value: T,
-    schema: Schema,
-    base: typeof basePackage = basePackage,
-) => {
-    const newSchema = base.merge(schema)
-    return tg_NPMPackageCustom<typeof newSchema>(newSchema, value)
-}
-
 export const isNPMPackage = <S extends z.AnyZodObject>(
     value: unknown,
-    schema: undefined | S = undefined, // wrapSchema<z.AnyZodObject>(basePackage)
-): value is z.infer<S> => {
-    if (schema === undefined) {
-        return wrapSchema<z.AnyZodObject>(basePackage).safeParse(value).success
-    } else return wrapSchema<S>(schema).safeParse(value).success
+    schema: S | undefined = undefined,
+    base_schema: z.AnyZodObject = basePackage, //as z.AnyZodObject
+): value is z.infer<Merge<typeof base_schema, S>> | undefined => {
+    if (schema !== undefined) {
+        const _schema = wrapSchema<z.AnyZodObject>(base_schema).merge(
+            wrapSchema<S>(schema),
+        )
+        return _schema.safeParse(value).success
+    }
+    return wrapSchema<z.AnyZodObject>(base_schema).safeParse(value).success
 }
 
 export namespace NPMPackage {

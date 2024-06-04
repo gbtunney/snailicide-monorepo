@@ -1,9 +1,18 @@
-export {
+import {
     prettyPrintJSON,
     safeSerializeJson,
     safeDeserializeJson,
 } from './json.js'
 
 export { merge as deepmerge } from 'ts-deepmerge'
-export { flatten, unflatten } from 'flat'
+import { flatten, unflatten } from 'flat'
 export type { FlattenOptions, UnflattenOptions } from 'flat'
+
+export const objectUtils = {
+    prettyPrintJSON,
+    safeSerializeJson,
+    safeDeserializeJson,
+    flatten,
+    unflatten,
+}
+export default objectUtils

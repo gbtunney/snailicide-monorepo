@@ -22,15 +22,20 @@ export type {
 } from './types/index.js'
 
 /* * STRING UTILITIES * */
-export * as regexp from './regexp/index.js'
+export { regexp } from './regexp/index.js'
 export { stringUtils } from './string/index.js'
 
 export { numeric } from './number/index.js'
 
-export * as dateUtils from './date/index.js'
-
-export * as zodUtils from './zod_helpers/index.js'
+export { htmlUtils } from './browser/index.js'
+export { zodHelpers } from './zod_helpers/index.js'
 /* * JSON & OBJECT UTILS * */
-export * as objectUtils from './object/index.js'
+export { objectUtils } from './object/index.js'
 
-export * as colorUtils from './color/index.js'
+import * as _dateUtils from './date/index.js'
+import * as _colorUtils from './color/index.js'
+
+export const dateUtils: typeof _dateUtils = _dateUtils
+export const colorUtils: typeof _colorUtils = _colorUtils
+
+export { deepmerge } from './object/index.js'

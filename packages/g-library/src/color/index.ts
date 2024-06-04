@@ -2,7 +2,7 @@ import * as chroma from 'chroma.ts'
 import type { Chromable, Color, ColorFormat, Scale, ColorMode } from 'chroma.ts'
 import { repeat } from 'ramda'
 import { tg } from './../typeguard/index.js'
-import { tg_isCSSColorSpecial } from './css.js'
+import { isCSSColorSpecial } from './../browser/css.js'
 
 type HSL = [number, number, number]
 /**
@@ -68,7 +68,7 @@ export const analogous = (color: Chromable, results = 6, slices = 30) => {
 export const getChromaColor = (
     color: Chromable,
     format?: chroma.ColorFormat,
-) => {
+): ChromaColorPalatte | undefined => {
     if (!validate(color)) return undefined
 
     const chroma_color = chroma.color(color) //(validate(color)) ? chroma.color(color) : undefined
@@ -94,7 +94,7 @@ const chromaColorBrighten = (
     value: string | undefined,
     amount: number,
 ): Color | undefined => {
-    if (tg.isUndefined(value) || tg_isCSSColorSpecial(value)) return undefined
+    if (tg.isUndefined(value) || isCSSColorSpecial(value)) return undefined
     if (tg.isNotUndefined<string>(value)) {
         if (chroma.color(value)) {
             //TODO:make typegaurd for chroma
@@ -172,4 +172,9 @@ export type ChromaColorPalatte = {
     tetrad: Color[]
     analogous: Color[]
 }
-export * as chroma from 'chroma.ts'
+
+import * as _chroma from 'chroma.ts'
+export const Chroma: typeof _chroma = _chroma
+export default getChromaColor
+export type { Chromable, Color, ColorFormat, Scale, ColorMode } from 'chroma.ts'
+export type { CSSColorSpecialProp } from './../browser/css.js'

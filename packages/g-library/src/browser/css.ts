@@ -8,7 +8,7 @@ export type CSSColorSpecialProp =
     | 'currentColor'
     | 'transparent'
 
-export const tg_isCSSColorSpecial = <T = unknown>(
+export const isCSSColorSpecial = <T = unknown>(
     value: T | CSSColorSpecialProp,
 ): value is CSSColorSpecialProp =>
     value === 'inherit' ||
@@ -17,6 +17,9 @@ export const tg_isCSSColorSpecial = <T = unknown>(
     value === 'unset' ||
     value === 'currentColor' ||
     value === 'transparent'
-export const tg_isNotCSSColorSpecial = <T = unknown>(
+
+export const isNotCSSColorSpecial = <T = unknown>(
     value: T | CSSColorSpecialProp,
 ): value is T => !('inherit' || 'initial' || 'revert' || 'unset')
+
+export default isCSSColorSpecial

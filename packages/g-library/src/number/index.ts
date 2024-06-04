@@ -75,3 +75,5 @@ export const numeric = {
     getIntegerDigitCount,
 }
 export type { Numeric, PossibleNumeric } from './numeric.js'
+
+export default numeric
