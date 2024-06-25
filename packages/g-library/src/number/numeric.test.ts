@@ -1,7 +1,8 @@
+import { describe, expect, test } from 'vitest'
 import { isInteger, isFloat, isBigInt } from 'ramda-adjunct'
 import * as _num from './numeric.js'
 describe('Numeric Module', () => {
-    it('isNumeric, is string/number a number value WITHOUT extraneas characters except whitespace', () => {
+    test('isNumeric, is string/number a number value WITHOUT extraneas characters except whitespace', () => {
         const validTestValues = [
             3444.4,
             BigInt('0o377777777777777777'),
@@ -30,7 +31,7 @@ describe('Numeric Module', () => {
         expect(isBigInt(100)).toEqual(false)
         expect(isFloat(100.00002)).toEqual(true)
     })
-    it('test INVALID isNumeric', () => {
+    test('test INVALID isNumeric', () => {
         const invalidTestValues = [
             '',
             'abc',

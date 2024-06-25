@@ -1,7 +1,9 @@
+import { describe, expect, test } from 'vitest'
+
 import useColorScale, { ColorScaleConfigCollection } from './useColorScale'
 
 describe('useColorScale', () => {
-    it('getColorScale', () => {
+    test('getColorScale', () => {
         const TEST_CONFIG: ColorScaleConfigCollection = {
             'newgumleaf': {
                 default_color: 'afd3c2',

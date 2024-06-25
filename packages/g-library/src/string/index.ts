@@ -24,14 +24,11 @@ export {
 
 import * as StringUtils from './_stringUtils.js'
 import * as StringGen from './_string.js'
-import * as Markdown from './_markdown.js'
 import * as stringTransform from './../transformString/index.js'
 
 export const stringUtils = {
     ...StringUtils,
     ...StringGen,
-    ...Markdown,
-
     ...stringTransform,
 }
 

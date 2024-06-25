@@ -1,3 +1,4 @@
+import { describe, expect, test } from 'vitest'
 import { getImageBase64 } from './encodeBase64.js'
 import {
     getFilePathArr,
@@ -7,7 +8,7 @@ import {
     isFileArray,
 } from './file.path.array.js'
 describe('encodeBase64 getImageBase64', () => {
-    it('returns an encoded string for a file path', () => {
+    test('returns an encoded string for a file path', () => {
         const imageTest = getImageBase64(
             './sample_image/testimage.jpeg',
             'jpeg',
@@ -21,7 +22,7 @@ describe('encodeBase64 getImageBase64', () => {
     })
 })
 describe('getFilePathArr getFilePathObj', () => {
-    it('returns filepath object', () => {
+    test('returns filepath object', () => {
         const filePathObj = getFilePathObj('./sample_image/testimage.jpeg')
         const filePathObj2 = getFilePathObj(
             './sample_image/_badurltestimage.jpeg',
@@ -43,7 +44,7 @@ describe('getFilePathArr getFilePathObj', () => {
         expect(getFilePathArr('./sample_image', true).length).toBe(2)
     })
 
-    it('returns allowed extension types', () => {
+    test('returns allowed extension types', () => {
         expect(getExistingPathType('./sample_image/')).toBe('directory')
         expect(getExistingPathType('./sample_image/*.{jpeg,jpg}')).toBe('glob')
 

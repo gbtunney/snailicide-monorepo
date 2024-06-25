@@ -1,6 +1,7 @@
+import { describe, expect, test } from 'vitest'
 import { getRegExpStartOfString, getRegExpEndOfString } from './index.js'
 describe('unit | isNumberParseable', () => {
-    it('returns `true` for values parseable number', () => {
+    test('returns `true` for values parseable number', () => {
         expect(getRegExpEndOfString(['svg', 'png']).test('myfile.jpg')).toBe(
             false,
         )

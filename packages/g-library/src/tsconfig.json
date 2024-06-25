@@ -2,7 +2,6 @@
     "extends": "@snailicide/build-config/tsconfig-base",
     "compilerOptions": {
         /* Visit https://aka.ms/tsconfig to read more about this file */
-
         /* Language and Environment */
         "target": "ESNext" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
         "composite": true,
@@ -13,7 +12,6 @@
         // Output settings.
         "sourceMap": true,
         "rootDir": ".",
-        "types": ["@types/jest"],
         //"strict": true,
         // Type declaration settings.
         "declaration": true,
@@ -23,6 +21,5 @@
         "allowSyntheticDefaultImports": true,
         "strict": true
     },
-    "exclude": ["**/*.test.ts", "./commanderzod/*"],
     "include": ["**/*.ts", "**/*.cts", "**/*.mts"]
 }

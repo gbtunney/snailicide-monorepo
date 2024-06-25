@@ -1,7 +1,8 @@
 import { batchReplaceAll, replaceAllCharacters } from './_replaceCharacters.js'
+import { describe, expect, test } from 'vitest'
 
 describe('Replace Characters', () => {
-    it('replaceAllCharacters', () => {
+    test('replaceAllCharacters', () => {
         expect(
             replaceAllCharacters({
                 value: '!!hello_am_a_cat',
@@ -11,7 +12,7 @@ describe('Replace Characters', () => {
         ).toBe('----hello--am--a--cat')
     })
 
-    it('BATCH replaceAllCharacters', () => {
+    test('BATCH replaceAllCharacters', () => {
         expect(
             batchReplaceAll({
                 value: ['!!hello_am_a_cat', ' g!llian_t '],

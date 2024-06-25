@@ -1,11 +1,12 @@
+import { describe, expect, test } from 'vitest'
 import { numeric } from './index.js'
 
 describe('Parse number tests, ', () => {
-    it('getIntegerDigitCount:', () => {
+    test('getIntegerDigitCount:', () => {
         expect(numeric.getIntegerDigitCount(31)).toEqual(2.0)
         expect(numeric.getIntegerDigitCount(0)).toEqual(0)
     })
-    it('randomIntInRange tests:', () => {
+    test('randomIntInRange tests:', () => {
         const testResult = numeric.randomIntInRange(31, 120)
         expect(testResult).toBeGreaterThanOrEqual(31)
         expect(testResult).toBeLessThanOrEqual(120)

@@ -1,7 +1,8 @@
+import { describe, expect, test } from 'vitest'
 import { Chroma, isChromaColor, validate } from './index.js'
 
 describe('chroma.ts | validate', () => {
-    it('validate function', () => {
+    test('validate function', () => {
         expect(validate('palegrjeen')).toBe(false)
         expect(validate('palegreen')).toBe(true)
 
