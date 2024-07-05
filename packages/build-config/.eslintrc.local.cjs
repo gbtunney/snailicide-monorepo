@@ -3,7 +3,7 @@
 
 /** @file Local package eslint config file */
 const options = require('./dist/.eslintrc.json')
-const merge = require('deepmerge')
+const merge = require('ts-deepmerge')
 module.exports = merge(options, {
     ignorePatterns: ['src/**/*.test.ts'],
     rules: {

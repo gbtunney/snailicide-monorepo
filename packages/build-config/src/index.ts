@@ -12,3 +12,6 @@ export { merge } from 'ts-deepmerge'
 
 /* * VITE CONFIGS * */
 export { vite } from './vite/index.js'
+
+/* * VITEST CONFIG * */
+export { vitest } from './vitest/index.js'
