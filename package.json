@@ -15,12 +15,10 @@
     },
     "scripts": {
         "\n========== COMMIT >> ==========": "",
-        "commit": "pnpm run precommit && pnpm exec git-cz",
-        "cz": "pnpm exec git-cz",
-        "precommit": "pnpm run build:self && pnpm run fix && pnpm run check && pnpm run commit:linted",
-        "commit:linted": "git add $(git diff HEAD --cached --name-only)",
+        "commit": "pnpm exec git-cz",
+        "prepare:all": "pnpm run fix && pnpm run check && pnpm test",
         "\n========== BUILD >> ==========": "",
-        "build": "pnpm run build:self && pnpm -r build",
+                 "build": "pnpm run build:self && pnpm -r build",
         "build:self": "tsc --build",
         "\n========== CODE STYLE >> ==========": "",
         "lint": "cross-var eslint  -c $npm_package_config_eslint_config",
@@ -74,8 +72,8 @@
         }
     },
     "lint-staged": {
-        "*": "prettier --write",
-        "*.{ts,js,cjs,mjs}": "eslint -c .eslintrc.cjs"
+        "*,./.husky/*,./.github/**/*,docs/**/*,*.{sh,ts,js,cjs,mjs,cts,json,yaml,yml,graphql,md}": "prettier --write",
+        "*.{ts,js,cjs,mjs}": "pnpm lint"
     },
     "prettier": "@snailicide/build-config/prettier",
     "config": {
@@ -85,8 +83,8 @@
             "config": "eslint.config.js"
         },
         "prettier": {
-            "extensions": "ts,js,cjs,mjs,cts,json,yaml,yml,graphql,md",
-            "path": "docs/**/*,*"
+            "extensions": "sh,ts,js,cjs,mjs,cts,json,yaml,yml,graphql,md",
+            "path": "*,./.husky/*,./.github/**/*,docs/**/*,*"
         },
         "commitizen": {
             "path": "@commitlint/cz-commitlint"
