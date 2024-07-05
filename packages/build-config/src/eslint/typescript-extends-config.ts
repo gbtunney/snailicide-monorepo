@@ -3,9 +3,10 @@
  * @author Gillian Tunney
  * @see {@link https://www.npmjs.com/package/@typescript-eslint/eslint-plugin | @typescript-eslint/eslint-plugin}
  */
+import type { rules } from '@typescript-eslint/eslint-plugin'
 import type { Linter } from 'eslint'
 
-const options: Linter.BaseConfig = {
+const options: Linter.BaseConfig<typeof rules> = {
     parser: '@typescript-eslint/parser',
     parserOptions: {
         ecmaFeatures: {
@@ -20,7 +21,7 @@ const options: Linter.BaseConfig = {
     ],
     rules: {
         '@typescript-eslint/no-namespace': 'warn',
-        '@typescript-eslint/no-unused-vars': 'error',
+        '@typescript-eslint/no-unused-vars': 'warn',
         //'@typescript-eslint/no-var-requires': 'off',
         '@typescript-eslint/no-explicit-any': 'warn',
         '@typescript-eslint/ban-types': [
@@ -47,14 +48,5 @@ const options: Linter.BaseConfig = {
             },
         ],
     },
-    overrides: [
-        {
-            files: ['*.cjs'],
-            rules: {
-                '@typescript-eslint/no-var-requires': 'off',
-                'no-undef': 'error',
-            },
-        },
-    ],
 }
 export const typeScriptOptions = options

@@ -1,19 +1,17 @@
-import { merge } from 'ts-deepmerge'
-import { baseOptions } from './base.js'
-import { typeScriptOptions } from './typescript.js'
-
 /* * Types * */
 import type { Linter } from 'eslint'
+
+import flatEslintConfig from './baseFlat.js'
+import { typeScriptOptions } from './typescript-extends-config.js'
+
 export type EslintConfig = Linter.BaseConfig
 
-const eslintConfigMerged: EslintConfig = merge(typeScriptOptions, baseOptions)
-const config: EslintConfig = baseOptions
-
 /* * ESLint Namespace * */
-export const EsLint = {
+export const EsLint: {
+    typeScriptOptions: Linter.BaseConfig
+    flatConfig: typeof flatEslintConfig
+} = {
     typeScriptOptions,
-    baseOptions,
-    eslintConfigMerged,
-    config,
+    flatConfig: flatEslintConfig,
 }
 export default EsLint

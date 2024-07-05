@@ -1,12 +1,12 @@
 import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
+import { OutputOptions } from 'rollup'
 import { nodeExternals } from 'rollup-plugin-node-externals'
 import nodePolyfills from 'rollup-plugin-polyfill-node'
-import { OutputOptions } from 'rollup'
 import ts from 'rollup-plugin-ts'
 import shell from 'shelljs'
 
-import { exportJSON, Prettier, EsLint } from './types/index.js'
+import { EsLint, exportJSON, Prettier } from './types/index.js'
 
 /** Comment with library information to be appended in the generated bundles. */
 const banner = `/*
