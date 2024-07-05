@@ -1,11 +1,12 @@
-// @ts-check
-
-import typescript2 from 'rollup-plugin-typescript2'
-import { nodeResolve } from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
+import { nodeExternals } from 'rollup-plugin-node-externals'
+import nodePolyfills from 'rollup-plugin-polyfill-node'
+import { OutputOptions } from 'rollup'
+import ts from 'rollup-plugin-ts'
 import shell from 'shelljs'
-import { Prettier, EsLint, Jest, nodeUtils } from './types/index.js'
+
+import { exportJSON, Prettier, EsLint } from './types/index.js'
 
 /** Comment with library information to be appended in the generated bundles. */
 const banner = `/*
@@ -20,7 +21,7 @@ const banner = `/*
  * @param options
  * @returns
  */
-function createOutputOptions(options) {
+function createOutputOptions(options: OutputOptions) {
     return {
         banner,
         name: 'snailicideBuildConfig',
@@ -39,10 +40,6 @@ const jsonExportConfig = [
         data: EsLint.typeScriptOptions,
         filename: '.eslintrc.json',
     },
-    {
-        data: Jest,
-        filename: 'jest.config.json',
-    },
 ]
 
 const copyTSConfig = () => {
@@ -55,7 +52,7 @@ const rollUp = () => {
     copyTSConfig()
     /* *export config as JSON if FLAGGED using jsonExportConfig * */
     if (jsonExportConfig && jsonExportConfig.length > 0) {
-        nodeUtils.exportJSON(jsonExportConfig, './dist')
+        exportJSON(jsonExportConfig, './dist')
     }
 
     const options = {
@@ -73,20 +70,23 @@ const rollUp = () => {
                 file: './dist/index.mjs',
                 format: 'esm',
             }),
-            createOutputOptions({
-                file: './dist/index.esm.js',
-                format: 'esm',
-            }),
         ],
         plugins: [
-            typescript2({
-                //  clean: true,
-                useTsconfigDeclarationDir: true,
-                tsconfig: './src/tsconfig.json',
+            commonjs(),
+            nodePolyfills(),
+            nodeExternals(),
+
+            ts({
+                tsconfig: (resolvedConfig) => ({
+                    ...resolvedConfig,
+                    declaration: true,
+                    allowJs: false,
+                    sourceMap: false,
+                }),
             }),
             json(),
-            nodeResolve({ preferBuiltins: true }),
-            commonjs(),
+
+            // nodeResolve({ preferBuiltins: true }),
         ],
     }
     return options

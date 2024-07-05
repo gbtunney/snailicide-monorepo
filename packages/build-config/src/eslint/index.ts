@@ -1,4 +1,4 @@
-import merge from 'deepmerge'
+import { merge } from 'ts-deepmerge'
 import { baseOptions } from './base.js'
 import { typeScriptOptions } from './typescript.js'
 
