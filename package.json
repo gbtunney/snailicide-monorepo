@@ -17,6 +17,9 @@
         "\n========== COMMIT >> ==========": "",
         "commit": "pnpm exec git-cz",
         "prepare:all": "pnpm run fix && pnpm run check && pnpm test",
+        "nx:graph": "pnpm nx graph",
+        "nx:affected": "nx affected --target=build",
+        "nx:build": "pnpm exec nx run-many --target=build --all",
         "\n========== BUILD >> ==========": "",
         "build": "pnpm run build:self && pnpm -r build",
         "build:self": "tsc --build",
@@ -61,6 +64,7 @@
         "git-branch-is": "^4.0.0",
         "husky": "^9.0.11",
         "lint-staged": "^15.2.7",
+        "nx": "^19.4.0",
         "prettier": "^3.0.3",
         "typescript": "^5.2.2",
         "verdaccio": "^5.31.0"
