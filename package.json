@@ -28,7 +28,7 @@
         "check:self": "pnpm lint",
         "\n========== FIX >> ==========": "",
         "fix": "pnpm fix:self && pnpm -r fix",
-        "fix:self": "pnpm lint --fix && pnpm prettier --write",
+        "fix:self": "cross-var pnpm lint --fix && cross-var pnpm prettier --write",
         "\n========== CLEAN >> ==========": "",
         "clean": "pnpm run clean:self && pnpm -r clean",
         "clean:self": "tsc --build --clean",
@@ -72,7 +72,8 @@
         }
     },
     "lint-staged": {
-        "{*,./.husky/*,./.github/**/*,docs/**/*,*}.{sh,ts,js,cjs,mjs,cts,json,yaml,yml,graphql,md}": "prettier --write",
+        "{*,./.github/**/*,./docs/**/*,*}.{sh,ts,js,cjs,mjs,cts,json,yaml,yml,graphql,md}": "prettier --write",
+        "./.husky/*": "prettier --write",
         "*.{ts,js,cjs,mjs}": "pnpm lint"
     },
     "prettier": "@snailicide/build-config/prettier",
@@ -84,7 +85,7 @@
         },
         "prettier": {
             "extensions": "sh,ts,js,cjs,mjs,cts,json,yaml,yml,graphql,md",
-            "path": "*,./.husky/*,./.github/**/*,docs/**/*,*"
+            "path": "*,./.husky/**/*,./.github/**/*,./docs/**/*,*"
         },
         "commitizen": {
             "path": "@commitlint/cz-commitlint"
