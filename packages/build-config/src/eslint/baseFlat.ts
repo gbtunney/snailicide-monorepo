@@ -16,8 +16,7 @@ export const base_ignores = [
     '**/node_modules/**',
     '**/dist/**',
     '**/types/**',
-    'packages/g-windi/**/*',
-    'packages/{g-library,cli-template,cli-app}/**/*',
+    'packages/g-library/**/*',
 ]
 
 export const flatEslintConfig = async (): Promise<Config> => {

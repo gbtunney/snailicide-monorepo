@@ -7,7 +7,7 @@ export const jsdocConfig = async (): Promise<Config> => [
         ...(await jsdocPlugin.configs['flat/recommended']),
         rules: {
             'jsdoc/check-tag-names': 'off',
-            'jsdoc/check-param-names': 'off',
+            'jsdoc/check-param-names': 0,
             'jsdoc/require-jsdoc': 'warn',
             'jsdoc/require-param': 0,
             'jsdoc/require-returns': 0,

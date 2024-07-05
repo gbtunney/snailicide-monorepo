@@ -9,17 +9,16 @@ const TEMPLATE_DIRECTORY = boolBaseTemplate
     : `${TEMPLATE_BASE_DIRECTORY}/library`
 
 // @ts-expect-error ddd
-import inquireFilePath from 'inquirer-file-path'
-import { doesFilePathExcist } from './src/template-helpers.js'
 import * as process from 'process'
+import { z } from 'zod'
+
+import { packagePrompts } from './src/package-prompts.js'
 import { getUnscopedPackageName } from './src/package-template-helpers.js'
 import {
-    packageSchema,
-    fileArgsSchema,
     EnumDescriptionPresets,
+    fileArgsSchema,
+    packageSchema,
 } from './src/package-types.js'
-import { packagePrompts } from './src/package-prompts.js'
-import { z } from 'zod'
 
 export const PACKAGE_GENERATOR: PlopGeneratorConfig = {
     description: 'Make New package',
@@ -64,6 +63,9 @@ export const PACKAGE_GENERATOR: PlopGeneratorConfig = {
         return []
     },
 }
+/**
+ *
+ */
 export default function (plop: NodePlopAPI) {
     const args: z.infer<typeof fileArgsSchema> = fileArgsSchema.parse(
         yargs(process.argv).argv,

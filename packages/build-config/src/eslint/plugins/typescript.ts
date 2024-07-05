@@ -8,7 +8,7 @@ export const tsEslintConfig = async (): Promise<Config> => {
         {
             rules: {
                 '@typescript-eslint/no-namespace': 'warn',
-                '@typescript-eslint/no-unused-vars': 'warn',
+                '@typescript-eslint/no-unused-vars': 'off',
                 '@typescript-eslint/no-explicit-any': 'warn',
                 '@typescript-eslint/ban-types': [
                     'error',
