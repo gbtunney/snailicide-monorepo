@@ -19,4 +19,10 @@ export const tg_isCSSColorSpecial = <T = unknown>(
     value === 'transparent'
 export const tg_isNotCSSColorSpecial = <T = unknown>(
     value: T | CSSColorSpecialProp,
-): value is T => !('inherit' || 'initial' || 'revert' || 'unset')
+): value is T =>
+    !(
+        value === 'inherit' ||
+        value === 'initial' ||
+        value === 'revert' ||
+        value === 'unset'
+    )

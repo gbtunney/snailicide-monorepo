@@ -1,7 +1,8 @@
 import * as chroma from 'chroma.ts'
+import { Chromable, Chromable as TChromable } from 'chroma.ts'
 import * as RA from 'ramda-adjunct'
-import { Chromable as TChromable, Chromable } from 'chroma.ts'
-import type { WindiConfig, ThemeColors } from './index.js'
+
+import type { ThemeColors, WindiConfig } from './index.js'
 
 export type ColorScaleConfig = {
     scale: [] | TChromable[]
