@@ -147,3 +147,4 @@ examples
 apps
 docs/private
 .env
+!eslint.config.js
