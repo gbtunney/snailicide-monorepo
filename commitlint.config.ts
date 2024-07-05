@@ -4,6 +4,8 @@
  * @see [commitlint - Lint commit messages](https://commitlint.js.org/#/)
  */
 import type { UserConfig } from '@commitlint/types'
+
+type Hello = any
 const Configuration: UserConfig = {
     extends: ['@commitlint/config-conventional'],
     rules: {
