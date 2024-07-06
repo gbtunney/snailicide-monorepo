@@ -23,7 +23,7 @@
         "./eslint": "./dist/.eslintrc.json",
         "./prettier": "./dist/.prettierrc.json"
     },
-    "main": "./types/index.js",
+    "main": "./dist/index.js",
     "types": "./types/index.d.ts",
     "scripts": {
         "\n========== BUILD >> ==========": "",
@@ -38,8 +38,6 @@
         "\n========== CODE STYLE >> ==========": "",
         "lint": "cross-var eslint \"{$npm_package_config_eslint_path}.{$npm_package_config_eslint_extensions}\" --ignore-path .gitignore -c $npm_package_config_eslint_config",
         "prettier": "cross-var prettier {$npm_package_config_prettier_path}.{$npm_package_config_prettier_extensions} --ignore-path ./.gitignore",
-        "\n========== CHECK >> ==========": "",
-        "check": " ",
         "\n========== FIX >> ==========": "",
         "fix": "pnpm prettier --write",
         "\n========== CLEAN >> ==========": "",
