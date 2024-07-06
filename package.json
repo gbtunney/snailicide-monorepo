@@ -64,7 +64,7 @@
         "git-branch-is": "^4.0.0",
         "husky": "^9.0.11",
         "lint-staged": "^15.2.7",
-        "nx": "^19.4.0",
+        "nx": "19.4.1",
         "prettier": "^3.0.3",
         "typescript": "^5.2.2",
         "verdaccio": "^5.31.0"
@@ -74,11 +74,6 @@
             "pre-push": "./commands/pre-push $HUSKY_GIT_STDIN",
             "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
         }
-    },
-    "lint-staged": {
-        "{*,./.github/**/*,./docs/**/*,*}.{sh,ts,js,cjs,mjs,cts,json,yaml,yml,graphql,md}": "prettier --write",
-        "./.husky/*": "prettier --write",
-        "*.{ts,js,cjs,mjs}": "pnpm lint"
     },
     "prettier": "@snailicide/build-config/prettier",
     "config": {

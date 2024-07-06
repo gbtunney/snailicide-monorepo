@@ -148,3 +148,8 @@ apps
 docs/private
 .env
 !eslint.config.js
+
+
+
+.nx/cache
+.nx/workspace-data
