@@ -1,12 +1,22 @@
-# <h1 align="center">Welcome to @snailicide/cli-app👋</h1>
+# @snailicide/cli-app 🐌
+
+<p align="center">
+	<img alt="Version" src="https://img.shields.io/npm/v/@snailicide/cli-app"/>
+	<a href="#" target="_blank">
+		<img alt="License: MIT" src="https://img.shields.io/npm/l/@snailicide/cli-app"/>
+	</a>
+	<a href="#" target="_blank">
+		<img alt="Typescript" height="20px" src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white"/>
+	</a>
+</p>
 
 _Node Cli App Boilerplate with yargs, zod, chalk_
 
-#### Repository
+### Repository
 
 [snailicide-monorepo](https://github.com/gbtunney/snailicide-monorepo.git)
 
-#### Author
+### Author
 
 👤 **Gillian Tunney**
 
@@ -15,7 +25,7 @@ _Node Cli App Boilerplate with yargs, zod, chalk_
 
 > Important! Suggested package manager is [pnpm](https://pnpm.io)
 
-## @snailicide/cli-app
+## @snailicide/cli-app 🐌
 
 ---
 

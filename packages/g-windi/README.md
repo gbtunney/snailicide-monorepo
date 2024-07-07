@@ -1,25 +1,32 @@
-<h1 align="center">Welcome to @snailicide/g-library👋</h1>
-<p>
-  <img alt="Version" src="https://img.shields.io/badge/version-0.0.1-blue.svg?cacheSeconds=2592000" />
-  <a href="#" target="_blank">
-    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
-  </a>
+# @snailicide/g-windi 🐌
+
+<p align="center">
+	<img alt="Version" src="https://img.shields.io/npm/v/@snailicide/g-windi"/>
+	<a href="#" target="_blank">
+		<img alt="License: MIT" src="https://img.shields.io/npm/l/@snailicide/g-windi"/>
+	</a>
+	<a href="#" target="_blank">
+		<img alt="Typescript" height="20px" src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white"/>
+	</a>
+	<a href="#" target="_blank">
+		<img alt="Typescript" height="20px" src="https://img.shields.io/badge/vuejs-%2335495e.svg?style=for-the-badge&logo=vuedotjs&logoColor=%234FC08D"/>
+	</a>
 </p>
 
-> Function library written in typescript
+_A collection of windiCSS and Vue3 composables_
 
-## Repository
+### Repository
 
 [snailicide-monorepo](https://github.com/gbtunney/snailicide-monorepo.git)
 
-## Author
+### Author
 
 👤 **Gillian Tunney**
 
 -   [github](https://github.com/gbtunney)
 -   [email](mailto:gbtunney@mac.com)
 
-# Snailicide g-windi - a collection of windiCSS Vue3 composables
+## 🐌
 
 ## Installation
 

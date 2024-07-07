@@ -1,9 +1,9 @@
-# Welcome to @snailicide/build-tools 🐌
+# @snailicide/build-tools 🐌
 
 <p align="center">
-	<img alt="Version" src="https://img.shields.io/badge/version-0.0.1-blue.svg?cacheSeconds=2592000"/>
+	<img alt="Version" src="https://img.shields.io/npm/v/@snailicide/build-tools"/>
 	<a href="#" target="_blank">
-		<img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg"/>
+		<img alt="License: MIT" src="https://img.shields.io/npm/l/@snailicide/build-tools"/>
 	</a>
 	<a href="#" target="_blank">
 		<img alt="Typescript" height="20px" src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white"/>
@@ -13,13 +13,13 @@
 	</a>
 </p>
 
-> Rollup Tools and Npm updater
+_Rollup Tools and Npm updater_
 
-## Repository
+### Repository
 
 [snailicide-monorepo](https://github.com/gbtunney/snailicide-monorepo.git)
 
-## Author
+### Author
 
 👤 **Gillian Tunney**
 
