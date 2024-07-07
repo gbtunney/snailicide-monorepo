@@ -23,6 +23,7 @@ import {
     isObjectLike,
     isRegExp,
     isBigInt,
+    isValidNumber,
 } from 'ramda-adjunct'
 export const RA = {
     isFalsy,
@@ -49,4 +50,5 @@ export const RA = {
     isNotPrimitive,
     isRegExp,
     isBigInt,
+    isValidNumber,
 }

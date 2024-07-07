@@ -54,16 +54,28 @@ export const isString = <T extends string>(value: unknown): value is T =>
 export const isNotString = <T = unknown>(value: T | string): value is T =>
     RA.isNotString(value)
 
-export const isInteger = <T extends Primitive>(
-    value: T | number,
-): value is number => RA.isInteger(value)
-export const isNotInteger = <T extends Primitive>(
-    value: T | number,
-): value is T => RA.isNotInteger(value)
+export const isBigInt = <T extends bigint>(value: unknown): value is T => {
+    return RA.isBigInt(value)
+}
 
-export const isPrimitive = <T = unknown>(
-    value: T | Primitive,
-): value is Primitive => RA.isPrimitive(value)
+export const isNumber = <T extends number>(value: unknown): value is T =>
+    RA.isValidNumber(value)
+
+export const isNotNumber = <T extends number, N = T extends number ? never : T>(
+    value: unknown,
+): value is N => !RA.isValidNumber(value)
+
+export const isInteger = <T extends number>(value: unknown): value is T =>
+    RA.isInteger(value)
+export const isNotInteger = <
+    T extends number,
+    N = T extends number ? never : T,
+>(
+    value: unknown,
+): value is N => RA.isNotInteger(value)
+
+export const isPrimitive = <T extends Primitive>(value: unknown): value is T =>
+    RA.isPrimitive(value)
 export const isNotPrimitive = <T = unknown>(value: T | Primitive): value is T =>
     RA.isNotPrimitive(value)
 
@@ -122,9 +134,6 @@ export const isPlainObject = <
 
 export const isRegExp = <T extends RegExp>(value: unknown): value is T => {
     return RA.isRegExp(value)
-}
-export const isBigInt = <T extends bigint>(value: unknown): value is T => {
-    return RA.isBigInt(value)
 }
 
 export const isNotError = <T>(

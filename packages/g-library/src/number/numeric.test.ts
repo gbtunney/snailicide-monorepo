@@ -69,7 +69,7 @@ describe('Numeric Module', () => {
 
         const number_to_test = 22.25
         expect(_num.isNumericFloat(number_to_test)).toEqual(true)
-        const int_to_test = 22.3
+        const int_to_test = 22
         expect(_num.isNumericFloat(int_to_test)).toEqual(false)
 
         expect(

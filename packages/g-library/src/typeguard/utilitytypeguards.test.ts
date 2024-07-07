@@ -4,6 +4,11 @@ import {
     isNonEmptyArray,
     isEmptyObject,
     isNonEmptyObject,
+    isBigInt,
+    isNotNumber,
+    isNumber,
+    isInteger,
+    isPrimitive,
 } from './utility.typeguards.js'
 describe('typeguards', () => {
     test('utility typeguards', () => {
@@ -12,6 +17,29 @@ describe('typeguards', () => {
         const test2 = ['gillian']
         const testObj = { hi: 'gillian' }
         expect(isNonEmptyArray<string[]>(test2)).toBe(true)
+
+        const gbt: string | number | bigint = '2'
+        if (isNotNumber(gbt)) {
+            const testMe: string = gbt
+        }
+
+        if (isPrimitive(gbt)) {
+            const inner: string = gbt
+        }
+
+        const testBigInt = 100000000n
+
+        expect(isBigInt(testBigInt)).toBe(true)
+        expect(isInteger(testBigInt)).toBe(false)
+
+        expect(isPrimitive(gbt)).toBe(true)
+        expect(isPrimitive(test)).toBe(false)
+
+        expect(isNotNumber(gbt)).toBe(true)
+        expect(isNumber('3')).toBe(false)
+
+        expect(isInteger(3.02)).toBe(false)
+        expect(isInteger(3.0)).toBe(true)
 
         // @ts-expect-error should make a ts error
         expect(isNonEmptyArray(testObj)).toBe(false)

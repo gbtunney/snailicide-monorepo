@@ -1,5 +1,4 @@
 import {
-    isBigInt,
     isFinite,
     isFloat,
     isInteger,
@@ -10,8 +9,11 @@ import {
 } from 'ramda-adjunct'
 import { PossibleNumeric, Numeric } from './numeric.js'
 import { removeAllNewlines } from '../string/_stringUtils.js'
-import { getRegExpStartOfString } from '../regexp/stringToRegexp.js'
+import { RA } from '../typeguard/ramdaimports'
 
+export const isBigInt = <T extends bigint>(value: unknown): value is T => {
+    return RA.isBigInt(value)
+}
 ;('possiblr numeric means string|number|bigint ')
 ///dtrict mode does not allow sny extraneous characters except whitespace .
 
@@ -50,7 +52,6 @@ export const isPossibleNumeric = <Type extends PossibleNumeric>(
 
     return isNotNaN(_number) && isFinite(_number)
 }
-
 ;('is numeric means number|bigint ')
 export const isTrueNumeric = <Type extends Numeric>(
     value: unknown,

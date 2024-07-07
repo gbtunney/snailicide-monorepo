@@ -15,11 +15,16 @@ import {
 } from '../string/_stringUtils.js'
 import {
     isBigInt,
+    isNumber,
+    isInteger as tgIsInteger,
     isString as tgIsString,
 } from '../typeguard/utility.typeguards.js'
 import { is } from 'ramda'
+import { PossibleNumeric, Numeric } from './numeric.js'
 
-export const isValidScientificNumber = (value: string | number | bigint) => {
+export const isValidScientificNumber = <T extends PossibleNumeric>(
+    value: unknown,
+): value is T => {
     return scientificNumber.test(value.toString())
 }
 
@@ -39,8 +44,8 @@ export const isValidScientificNumber = (value: string | number | bigint) => {
  * @param {Type} value - Value to test
  * @returns {boolean}
  */
-export const isInteger = (value: number | bigint) => {
-    return R_isInteger(value)
+export const isNumericInteger = <T extends Numeric>(value: T): value is T => {
+    return tgIsInteger<T>(value)
 }
 
 /**
@@ -58,22 +63,15 @@ export const isInteger = (value: number | bigint) => {
  * @param {Type} value - Value to test
  * @returns {boolean}
  */
-export const isNonInteger = (value: number | bigint) => {
+export const isNumericNonInteger = <T extends Numeric>(
+    value: T,
+): value is T => {
     return isFloat(value)
 }
 
-export const isValidNumber = <Type extends number>(
-    value: number | bigint | string,
-): value is Type => {
-    return R_isValidNumber(value)
-}
-export const isValidBigInt = <Type extends bigint>(
-    value: unknown,
-): value is Type => {
-    return R_isBigInt(value)
-}
-const cleanString = (value: string) => trimWhiteSpace(removeAllNewlines(value))
+export const isNumericFloat = isNumericNonInteger
 
+//determines if string can be parsed/cast to numeric
 export const isStringNumeric = <T extends string>(
     value: unknown,
     strictChars: boolean = true,
@@ -86,17 +84,17 @@ export const isStringNumeric = <T extends string>(
     } else return false
 }
 
-export const isPossibleNumeric = (
-    value: number | bigint | string,
-): value is number | bigint =>
-    isBigInt(value) || isValidNumber(value) || isStringNumeric(value)
+export const isNumeric = <T extends Numeric>(value: unknown): value is T =>
+    isBigInt(value) || isNumber(value)
 
-//   || isBigInt(value)|| isValidNumber( value) )
+export const isPossibleNumeric = <T extends PossibleNumeric>(
+    value: unknown,
+): value is T => isBigInt(value) || isNumber(value) || isStringNumeric(value)
 
 export const toStringNumeric = <T extends string>(
     value: T,
     strictChars: boolean = true,
-): bigint | number | undefined => {
+): Numeric | undefined => {
     if (strictChars && isStringNumeric(value, true)) {
         const trimmedValue = cleanString(value)
 
@@ -149,12 +147,4 @@ export const toStringNumeric = <T extends string>(
     return undefined
 }
 
-export const toPossibleNumeric = <T extends string>(
-    value: T,
-): number | bigint | undefined => {
-    if (tgIsString(value) && isStringNumeric(value)) {
-        const str: string = value
-        return toStringNumeric(str)
-    }
-    return undefined
-}
+const cleanString = (value: string) => trimWhiteSpace(removeAllNewlines(value))
