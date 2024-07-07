@@ -15,7 +15,7 @@
     },
     "scripts": {
         "\n========== COMMIT >> ==========": "",
-        "commit": "pnpm exec git-cz",
+        "commit": "pnpm build:self && pnpm exec git-cz",
         "prepare:all": "pnpm run fix && pnpm run check && pnpm test",
         "\n========== NX >> ==========": "",
         "nx:graph": "pnpm nx graph",
