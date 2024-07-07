@@ -1,9 +1,6 @@
 /* * GENERIC TYPEGUARDS * */
 export { tg } from './typeguard/index.js'
 
-/* * NPM UTILS * */
-export * as npm from './npm/index.js'
-
 export type {
     PlainObject,
     Primitive,
@@ -29,6 +26,7 @@ export { numeric } from './number/index.js'
 
 export { htmlUtils } from './browser/index.js'
 export { zodHelpers } from './zod_helpers/index.js'
+
 /* * JSON & OBJECT UTILS * */
 export { objectUtils } from './object/index.js'
 

@@ -9,6 +9,16 @@ export const validPackageName =
  */
 export const packageManager = /(npm|pnpm|yarn)@\d+\.\d+\.\d+(-.+)?/
 
+/**
+ * ScientificNumber
+ *
+ * Removed Nan and Infinity
+ *
+ * @see {@link https://regex101.com/r/oubK67/5}
+ */
+export const scientificNumber =
+    /^([+-]?(?:0(?:[bB][01](?:_?[01]+)*|[oO]?[0-7](?:_?[0-7]+)*|[xX][0-9a-fA-F](?:_?[0-9a-fA-F]+)*)|(?:(?:0|0(?:[0-9](?:_?[0-9]+)*)?[89](?:[0-9](?:_?[0-9]+)*)?|[1-9](?:_?[0-9]+)*)(?:\.(?:[0-9](?:_?[0-9]+)*)?)?|\.[0-9](?:_?[0-9]+)*)(?:[eE][+-]?[0-9](?:_?[0-9]+)*)?)|-?(?:0(?:[bB][01](?:_?[01]+)*|[oO][0-7](?:_?[0-7]+)*|[xX][0-9a-fA-F](?:_?[0-9a-fA-F]+)*)?|[1-9](?:_?[0-9]+)*)n)$/
+
 export const default_trim_characters = [
     '.',
     "'",
@@ -73,7 +83,7 @@ export const whiteSpaceCharacters = [
  * @category GoogleAppScript
  * @see {@link https://regex101.com/r/CYCMEc/1 | regexp101 examples}
  */
-const phoneNumber =
+export const phoneNumber =
     /^((((\+[\d\-.]{1,5})?[ \-.]?\d{3})|(\+[\d\-.]{1,5})?[ \-.]?\((\d{3}\)))?[ \-.]?\d{3}[ \-.]?\d{4}\s?)?$/g
 
 /**
@@ -84,10 +94,5 @@ const phoneNumber =
  * @category GoogleAppScript
  * @see {@link https://regex101.com/r/VFnoSZ/2 | regexp101 examples}
  */
-const zipCode = /^\d{5,6}(?:[-\s]\d{4})?$/gm
+export const zipCode = /^\d{5,6}(?:[-\s]\d{4})?$/gm
 //const streetAddress = /[a-zA-Z\d\s\-\,\#\.\+]+/g
-
-export const googleAppsR = {
-    zipCode,
-    phoneNumber,
-}

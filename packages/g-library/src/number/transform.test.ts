@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest'
 
-describe('transform numeric tests, ', () => {
+describe('numeric typeguard tests, ', () => {
     test('transform: TODO:', () => {
         expect(true).toEqual(true)
     })

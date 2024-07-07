@@ -1,4 +1,6 @@
 import { isNil, isEmpty, isNotEmpty } from 'ramda'
+import { UnknownArray, IsLiteral } from 'type-fest'
+
 import { RA } from './ramdaimports.js'
 import type {
     Falsy,
@@ -11,7 +13,6 @@ import type {
 } from './../types/empty.js'
 import type { Primitive, PlainObject } from './../types/utility.js'
 import { IsArray } from './../types/utility.js'
-import { UnknownArray } from 'type-fest'
 
 //todo: move these to "empty??"
 
@@ -82,25 +83,6 @@ export const isNotNull = <T extends NonNullable<any>>(
 
 export const isNull = (value: unknown): value is null => RA.isNull(value)
 
-export const isMatchRegExp = (value: string, regexp: RegExp): value is string =>
-    regexp.test(value)
-
-/**
- * **Typeguard for Undefined:** narrows to **Nullish** _(null|undefined)_ to
- *
- * @category Typeguard
- * @example
- *     const test_value = 22
- *     if (isNotUndefined(test_value)) {
- *         const value: LiteralToPrimitive<typeof test_value> = test_value
- *     }
- *
- * @template {T}
- * @function isUndefined,
- * @type {Nullish}
- * @param {T | Nullish} value - Value to test
- * @returns {boolean} - Returns true if value is undefined
- */
 export const isUndefined = <T>(value: T | Nullish): value is undefined =>
     isNil(value)
 export const isNotUndefined = <T>(value: unknown): value is T =>
@@ -131,10 +113,31 @@ export const isEmptyObject = <Type extends EmptyObject>(
     value: Type,
 ): value is Type => isEmpty(value)
 //TODO: NOTE WHY IS THIS 'EMPTY'?
-export const isPlainObject = <Type = unknown>(
-    value: Type extends PlainObject | Record<string, unknown> ? Type : never,
-): value is Type extends PlainObject | Record<string, unknown> ? Type : never =>
-    RA.isPlainObject(value)
+
+export const isPlainObject = <
+    Type extends PlainObject | Record<string, unknown>,
+>(
+    value: Type,
+): value is Type => RA.isPlainObject(value)
+
+export const isRegExp = <T extends RegExp>(value: unknown): value is T => {
+    return RA.isRegExp(value)
+}
+export const isBigInt = <T extends bigint>(value: unknown): value is T => {
+    return RA.isBigInt(value)
+}
+
+export const isNotError = <T>(
+    value: T,
+): value is IsLiteral<'ERROR'> extends false ? T : never => {
+    return value !== 'ERROR'
+}
+export const isError = (
+    value: unknown,
+): value is IsLiteral<'ERROR'> extends true ? 'ERROR' : never => {
+    return value === 'ERROR'
+}
+
 //Test case  --
 /*const test_value  = 22 //'   ' //PlainObject = { hhihih:'hjhj'}
 if ( tg_isNotUndefined( test_value) ){

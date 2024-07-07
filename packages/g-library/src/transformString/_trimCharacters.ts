@@ -6,7 +6,7 @@ import type { TrimCharacters, BaseValue, BatchBaseValue } from './type.js'
 import {
     getRegExpStartOfString,
     getRegExpEndOfString,
-} from './../regexp/index.js'
+} from './../regexp/stringToRegexp.js'
 
 const trimCharactersforSinglePattern = function ({
     value,

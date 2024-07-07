@@ -32,7 +32,7 @@ export const safeSerializeJson = <T extends Json.Value>(
 export const safeDeserializeJson = (data: string): Json.Value | undefined => {
     try {
         const json_value = JSON.parse(data)
-        if (isJsonValue(json_value)) return json_value
+        //   if (isJsonValue(json_value)) return json_value
     } catch (e) {
         console.error(e)
     }

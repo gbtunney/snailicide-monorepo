@@ -21,6 +21,8 @@ import {
     isArray,
     isEmptyArray,
     isObjectLike,
+    isRegExp,
+    isBigInt,
 } from 'ramda-adjunct'
 export const RA = {
     isFalsy,
@@ -45,4 +47,6 @@ export const RA = {
     isNotInteger,
     isPrimitive,
     isNotPrimitive,
+    isRegExp,
+    isBigInt,
 }

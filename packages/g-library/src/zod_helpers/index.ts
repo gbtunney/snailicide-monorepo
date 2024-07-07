@@ -1,4 +1,8 @@
-import z from 'zod'
+import z, { ZodEffects, ZodArray, ZodUnion } from 'zod'
+import { ensureArray as R_ensureArray } from 'ramda-adjunct'
+import { isPossibleNumeric } from '../number/validators.js'
+import { isRegExp, isString } from '../typeguard/utility.typeguards.js'
+import { isStringValidRegExp } from '../regexp/validators.js'
 
 export const schemaForType =
     <T>() =>
@@ -40,6 +44,17 @@ export const parseZodData = <S extends z.ZodSchema>(
 ): z.infer<S> | undefined => {
     return isZodParsable<S>(value, schema) ? schema.parse(value) : undefined
 }
+export const resolveRegExpSchema = z
+    .union([z.string(), z.instanceof(RegExp)])
+    .refine((value) => {
+        return isRegExp(value) ? true : isStringValidRegExp(value)
+    }, 'Please provide a valid regular expression.')
+    .transform((value) => {
+        const reg: RegExp =
+            isString(value) && isStringValidRegExp(value)
+                ? new RegExp(value)
+                : value
+    })
 
 /**
  * Guard function to determine if value is parseable according to schema
@@ -78,6 +93,35 @@ export const parseFactory =
         }
         return undefined
     }
+
+export const ensureArray = <T extends z.ZodTypeAny>(
+    schema: T,
+): ZodEffects<ZodUnion<[ZodArray<T, 'many'>, T]>, T['_output'][]> => {
+    const union: ZodEffects<
+        ZodUnion<[ZodArray<T, 'many'>, T]>,
+        T['_output'][]
+    > = z
+        .union([z.array(schema), schema])
+        .transform((value): z.infer<ZodArray<typeof schema, 'many'>> => {
+            //if ( value!==undefined){
+            return R_ensureArray<typeof schema>(value)
+            // }
+        })
+
+    return union
+}
+
+//TODO: finish this
+export const numeric = <T extends z.ZodTypeAny>(schema: T) =>
+    z
+        .union([z.string(), z.number(), z.bigint()])
+        .refine(
+            (value) => isPossibleNumeric(value),
+            'Please enter a valid number|bigint|string',
+        )
+        .transform((value) => {
+            return R_ensureArray<typeof value>(value)
+        })
 
 export const zodHelpers = {
     schemaForType,

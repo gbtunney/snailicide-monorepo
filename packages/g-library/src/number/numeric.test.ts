@@ -58,12 +58,8 @@ describe('Numeric Module', () => {
         invalidTestValues.forEach((value) => {
             expect(_num.isNumeric(value)).toEqual(false)
         })
-        // @ts-expect-error is a string, not number
-        expect(_num.isNumeric<number>('\n\r-100000.0')).toEqual(true)
-        // @ts-expect-error is a bigint, not number
-        expect(_num.isNumeric<number>(BigInt('0o377777777777777777'))).toEqual(
-            true,
-        )
+        expect(_num.isNumeric<number>('false')).toEqual(false)
+        expect(_num.isNumeric(BigInt('0o377777777777777777'))).toEqual(true)
 
         //BigInt(10) 10n is a value
         expect(isInteger(10n)).toEqual(false)
@@ -72,22 +68,62 @@ describe('Numeric Module', () => {
         //todo do parse tests
 
         const number_to_test = 22.25
-        expect(
-            _num.isNumericFloat<typeof number_to_test, true>(number_to_test),
-        ).toEqual(true)
-        const int_to_test = 22.0
+        expect(_num.isNumericFloat(number_to_test)).toEqual(true)
+        const int_to_test = 22.3
         expect(_num.isNumericFloat(int_to_test)).toEqual(false)
 
         expect(
             // @ts-expect-error isNumericFloat with strict turned on to help catch type errors
             _num.isNumericFloat<typeof int_to_test, true>(int_to_test),
         ).toEqual(false)
+        expect(_num.isNumericInteger(int_to_test)).toEqual(true)
         expect(
-            _num.isNumericInteger<typeof int_to_test, true>(int_to_test),
-        ).toEqual(true)
-        expect(
-            // @ts-expect-error isNumericInteger with strict turned on to help catch type errors
-            _num.isNumericInteger<typeof number_to_test, true>(number_to_test),
+            _num.isNumericInteger<typeof number_to_test>(number_to_test),
         ).toEqual(false)
+
+        /*// match:
+08.123e+0_1
+7.123e+0_1
+-0xAbc
++0x00F
+0b0010_1010
+2.
+.2
+0.
+0e0
+500n
+1_1n
+0x0n
+10n
+0x00n
+-1n
+018e1
+01812.1
+08000.
+00009.
+01911.
+
+// error:
+  2
+07.123e+0_1
+2_
+2._2
+0e
+0070e0
+00.
+0111.
+017e1
+017.1
++1n
+00n
+0.n
+.0n
+.n
+_n
+_0n
+0_n
+1e3n
+1ne3
+1ne3n*/
     })
 })

@@ -1,7 +1,12 @@
 import tg_json from './json.typeguards.js'
 import { isZodParsable } from './../zod_helpers/index.js'
 import { isCSSColorSpecial, isNotCSSColorSpecial } from './../browser/css.js'
-import { isNPMPackage } from './../npm/npm.package.js'
+import {
+    isNumeric,
+    isNumericFloat,
+    isNumericInteger,
+} from './../number/numeric.js'
+
 import {
     isFalsy,
     isTruthy,
@@ -28,7 +33,10 @@ import {
     isNullish,
     isNotUndefined,
     isUndefined,
-    isMatchRegExp,
+    isError,
+    isNotError,
+    isRegExp,
+    isBigInt,
 } from './utility.typeguards.js'
 
 export const tg = {
@@ -57,11 +65,16 @@ export const tg = {
     isNullish,
     isNotUndefined,
     isUndefined,
-    isMatchRegExp,
+    isError,
+    isNotError,
+    isRegExp,
+    isBigInt,
     ...tg_json,
     isZodParsable,
     isCSSColorSpecial,
     isNotCSSColorSpecial,
-    isNPMPackage,
+    isNumeric,
+    isNumericInteger,
+    isNumericFloat,
 }
 export default tg

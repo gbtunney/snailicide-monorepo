@@ -26,18 +26,19 @@ export type PossibleNumeric = number | bigint | string
  *
  * @category Numeric
  * @category TypeGuard
- * @template {unknown} Type
- * @function isParsableToNumeric
+ * @template {PossibleNumeric} Type - Must extend PossibleNumeric
+ * @function isNumeric
  * @param {Type} value - Value to test
  * @returns {boolean}
  */
-export const isNumeric = <Type = unknown>(value: Type): value is Type => {
+export const isNumeric = <Type extends PossibleNumeric>(
+    value: unknown,
+): value is Type => {
     return (
         isNotNaN(Number(Number.parseFloat(String(value)))) &&
         isFinite(Number(value))
     )
 }
-
 /**
  * Guard function to determine if value is an exact float (ie not 12 or 12.00)
  *
@@ -49,15 +50,13 @@ export const isNumeric = <Type = unknown>(value: Type): value is Type => {
  *     => true
  *
  * @template {number} Type - Must extend number
- * @template {boolean} strict [ false] enables strict typing of value param as
- *   Float<Type>
  * @function isNumericFloat
- * @param {Type | Float<Type>} value - Value to test
+ * @param {Type} value - Value to test
  * @returns {boolean}
  */
-export const isNumericFloat = <Type extends number, strict = false>(
-    value: strict extends true ? Float<Type> : Type,
-): value is Float<Type> => {
+export const isNumericFloat = <Type extends number>(
+    value: Type,
+): value is Type => {
     return isFloat(value)
 }
 
@@ -69,19 +68,17 @@ export const isNumericFloat = <Type extends number, strict = false>(
  * @category TypeGuard
  * @example
  *     const number_to_test_int = 22.000
- *     isNumericInteger<typeof number_to_test_int, true>(number_to_test_int)
+ *     isNumericInteger(number_to_test_int)
  *     => true
  *
  * @template {number} Type - Must extend number
- * @template {boolean} strict [false] - enables strict typing param using
- *   Integer<Type>
  * @function isNumericInteger
- * @param {Type | Integer<Type>} value - Value to test
+ * @param {Type} value - Value to test
  * @returns {boolean}
  */
-export const isNumericInteger = <Type extends number, strict = false>(
-    value: strict extends true ? Integer<Type> : Type,
-): value is Integer<Type> => {
+export const isNumericInteger = <Type extends number>(
+    value: Type,
+): value is Type => {
     return isInteger(value)
 }
 /**
@@ -100,8 +97,8 @@ export const isNumericInteger = <Type extends number, strict = false>(
  * @param {Type | Float<Type>} value - Value to test
  * @returns {number | undefined}
  */
-export const numericToFloat = <Type extends number, strict = false>(
-    value: strict extends true ? Float<Type> : Type,
+export const numericToFloat = <Type extends number>(
+    value: Type,
 ): number | undefined => {
     return isValidNumber(value) ? parseFloat(value.toString()) : undefined
 }

@@ -1,4 +1,11 @@
-//TODO: MOVE
+/**
+ * Checks if a string contains a number.
+ *
+ * @memberof StringUtils
+ * @function stringContainsNumber
+ * @param {string} value - The string to check.
+ * @returns {boolean} - True if the string contains a number, false otherwise.
+ */
 export const stringContainsNumber = <Type extends string>(
     value: Type,
 ): value is Type => /\d/.test(value)
@@ -7,13 +14,26 @@ export const stringContainsNumber = <Type extends string>(
  * If the length of the string is 1 and the string does not match a letter,
  * return true.
  *
- * @param {string} value - String - The value that will be checked.
+ * @memberof StringUtils
+ * @function stringContainsLetter
+ * @param {string} value - The string to check.
+ * @returns {boolean} - True if the string length is 1 and does not match a
+ *   letter, false otherwise.
  */
 export const stringContainsLetter = <Type extends string>(
     value: Type,
 ): value is Type => value.length === 1 && value.match(/[a-z]/i) === null
 
 export type URL<T extends string> = T
+
+/**
+ * Checks if a string is a valid URL.
+ *
+ * @memberof StringUtils
+ * @function isValidUrl
+ * @param {string} value - The string to check.
+ * @returns {boolean} - True if the string is a valid URL, false otherwise.
+ */
 export const isValidUrl = <Type extends string>(
     value: Type,
 ): value is URL<Type> =>
@@ -24,6 +44,7 @@ export const isValidUrl = <Type extends string>(
 /**
  * Replace a string at an index
  *
+ * @memberof StringUtils
  * @function insert
  * @param {string} value - String to insert the characters into
  * @param {string} [insert_value=''] - String to insert. Default is `''`

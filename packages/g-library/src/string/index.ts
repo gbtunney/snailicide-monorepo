@@ -1,3 +1,12 @@
+/**
+ * GENERAL STRING UTILS
+ *
+ * This file contains utility functions for string manipulation.
+ *
+ * @namespace StringUtils
+ * @see https://github.com/mout/mout/tree/master/src/string
+ */
+
 export {
     lowerCase,
     upperCase,
@@ -20,6 +29,7 @@ export {
     unescapeHtml,
     escapeUnicode,
     escapeRegExp,
+    trimWhiteSpace,
 } from './_stringUtils.js'
 
 import * as StringUtils from './_stringUtils.js'
