@@ -27,8 +27,9 @@
     "types": "./types/index.d.ts",
     "scripts": {
         "\n========== BUILD >> ==========": "",
-        "build": "pnpm build:ts && pnpm build:rollup",
+        "build": "pnpm run build:cp && pnpm build:ts && pnpm build:rollup",
         "build:rollup": "rollup --config ./rollup.config.js",
+        "build:cp": "cp ./src/tsconfig/tsconfig-base.json .",
         "build:ts": "tsc --build",
         "dev": "tsc --build --watch",
         "\n========== PUBLISH >> ==========": "",
