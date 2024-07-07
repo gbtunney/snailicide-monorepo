@@ -1,9 +1,9 @@
-import { ref } from 'vue'
-import { join } from 'ramda'
+import { stringUtils } from '@snailicide/g-library'
 import { useStyleTag, UseStyleTagOptions } from '@vueuse/core'
+import { join } from 'ramda'
+import { ref } from 'vue'
 import Processor from 'windicss'
 import type { Config } from 'windicss/types/interfaces'
-import { stringUtils } from '@snailicide/g-library'
 
 export type windiCSS = typeof useWindiCSS
 export const useWindiCSS = (config: Config = {}) => {

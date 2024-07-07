@@ -1,6 +1,7 @@
-import figlet from 'figlet'
 import chalk from 'chalk'
+import figlet from 'figlet'
 import { z } from 'zod'
+
 import { app_schema } from './schema.js'
 
 type AppOptions = z.output<typeof app_schema>

@@ -1,17 +1,18 @@
+import { stringUtils, tg } from '@snailicide/g-library'
 import chalk from 'chalk'
 import clear from 'clear'
+import * as process from 'process'
 import yargs from 'yargs'
 import { z } from 'zod'
-import * as process from 'process'
-import { stringUtils, tg } from '@snailicide/g-library'
+
 import { doPrintHeader, getHeader } from './header.js'
+import { getZodType, removeAnsi } from './helpers.js'
 import {
     app_schema,
-    unResolvedAppOptions,
     resolveSchema,
     resolveSchemaError,
+    unResolvedAppOptions,
 } from './schema.js'
-import { getZodType, removeAnsi } from './helpers.js'
 
 export type InitFunction<Schema = z.ZodSchema> = (
     value: Schema extends z.ZodSchema ? z.infer<Schema> : never,

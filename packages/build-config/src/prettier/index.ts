@@ -1,5 +1,6 @@
+import { Config, Options } from 'prettier'
+
 import { codeStyleOptions } from './code.style.js'
-import { Options, Config } from 'prettier'
 
 const options: Options = codeStyleOptions
 

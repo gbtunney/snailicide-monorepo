@@ -1,10 +1,11 @@
 import { PromptQuestion } from 'node-plop'
 import { z } from 'zod'
-import type { PackageSchema } from './package-types.js'
+
 import {
     isValidNPMPackageName,
     isValidSemVer,
 } from './package-template-helpers.js'
+import type { PackageSchema } from './package-types.js'
 import {
     EnumDescriptionPresets,
     EnumLicenses,

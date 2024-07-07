@@ -1,6 +1,7 @@
 import { z } from 'zod'
-import type { ZEnum } from './template-helpers.js'
+
 import { validNPMPackageName, validSemVer } from './package-template-helpers.js'
+import type { ZEnum } from './template-helpers.js'
 
 /* * Target populates description with preset values defaults * */
 //readonly [string, ...string[]]

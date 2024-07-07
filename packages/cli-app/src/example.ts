@@ -1,10 +1,11 @@
 import { z } from 'zod'
+
 import { initApp } from './app.js'
 import {
-    BaseArgs,
-    base_schema,
-    unResolvedAppOptions,
     AppAliasOption,
+    base_schema,
+    BaseArgs,
+    unResolvedAppOptions,
 } from './schema.js'
 
 const initFunc = (args: BaseArgs, help: undefined | string) => {

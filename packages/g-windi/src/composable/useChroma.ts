@@ -1,7 +1,8 @@
-import * as chroma from 'chroma.ts'
-import type { Chromable, Color } from 'chroma.ts'
-import { repeat } from 'ramda'
 import { tg } from '@snailicide/g-library'
+import type { Chromable, Color } from 'chroma.ts'
+import * as chroma from 'chroma.ts'
+import { repeat } from 'ramda'
+
 import { tg_isCSSColorSpecial } from './../css.color.special.js'
 
 export type useChroma = typeof useChroma
@@ -95,6 +96,9 @@ export const useChroma = () => {
         return undefined
     }
 
+    /**
+     *
+     */
     function _analogous(color: Chromable, results: number, slices: number) {
         /*results = results || 6;
         slices = slices || 30;
@@ -110,6 +114,9 @@ export const useChroma = () => {
         return ret;*/
     }
 
+    /**
+     *
+     */
     function monochromatic(
         color: Chromable,
         format?: chroma.ColorFormat,
@@ -129,6 +136,9 @@ export const useChroma = () => {
         //reduce function idk???
     }
 
+    /**
+     *
+     */
     function _monochromatic(color: Chromable, results: number) {
         /* results = results || 6;
          var hsv = tinycolor(color).toHsv();

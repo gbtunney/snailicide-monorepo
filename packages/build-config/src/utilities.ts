@@ -1,21 +1,12 @@
 import fs from 'fs'
 
-/* * A COLLECTIOB of esbuild utilities * */
-//todo: move this.
 type JSONExportEntry<T = unknown> = {
     data: T
     filename: string
 }
 export type JSONExportConfig = JSONExportEntry[]
-/* * Collection of NODE UTILS * */
 
-/**
- * ExportJSON
- *
- * @param {JSONExportConfig} config - Configuration array
- * @param {string | undefined} outdir - Outdir
- */
-const exportJSON = (
+export const exportJSON = (
     config: JSONExportConfig,
     outdir: string | undefined = undefined,
 ) => {
@@ -44,9 +35,4 @@ const addFileExtension = (value: string, extension = '.json') => {
         : `${value}${extension}`
 }
 
-export const nodeUtils = {
-    exportJSON,
-    getJSONString,
-    addFileExtension,
-}
-export default nodeUtils
+export default {}

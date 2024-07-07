@@ -5,17 +5,30 @@
  */
 import type { UserConfig } from '@commitlint/types'
 
+type Hello = any
 const Configuration: UserConfig = {
     extends: ['@commitlint/config-conventional'],
     rules: {
-        'scope-empty': [2, 'never'],
-        //'scopeEnumSeparator':"/",
+        'scope-empty': [
+            2,
+            'never',
+            //@ts-expect-error: package error
+            (parsed) => {
+                const { type, scope } = parsed
+                if (type === 'wip') {
+                    return 'always'
+                }
+                return [!!scope, 'scope cannot be empty']
+            },
+        ],
+        // 'scopeEnumSeparator':"/",
         'type-enum': [
             2,
             'always',
             [
                 'feat',
                 'fix',
+                'wip',
                 'build',
                 'chore',
                 'docs',
@@ -76,11 +89,6 @@ const Configuration: UserConfig = {
                             'Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)',
                         title: 'Styles',
                         emoji: '💎',
-                    },
-                    release: {
-                        description: 'Package Release',
-                        title: 'Release',
-                        emoji: '📚',
                     },
                     refactor: {
                         description:
