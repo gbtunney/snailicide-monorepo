@@ -26,20 +26,20 @@
 This library is published in the NPM registry and can be installed using any compatible package manager.
 
 ```sh
-## For pnpm workspace, use the command below.
-pnpm add {{packageName}}@workspace:*
+#pnpm
+pnpm add {{packageName}}
 
-pnpm --filter=[yourGlob] add {{packageName}}@workspace:*
+#yarn
+yarn add {{packageName}}
+
+#npm
+npm install {{packageName}}
 ```
 
-## Build
+## Usage
 
-```sh
-pnpm --filter={{packageName}} build
+```ts
+
 ```
 
-## Tests
-
-```sh
-pnpm --filter={{packageName}} test
-```
+## Helpful Links
