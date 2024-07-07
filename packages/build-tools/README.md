@@ -1,0 +1,72 @@
+<h1 align="center">Welcome to @snailicide/build-tools 🐌</h1>
+<p>
+  <img alt="Version" src="https://img.shields.io/badge/version-0.0.1-blue.svg?cacheSeconds=2592000" />
+  <a href="#" target="_blank">
+    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
+  </a>
+</p>
+
+> Rollup Tools and Npm updater
+
+## Repository
+
+[snailicide-monorepo](https://github.com/gbtunney/snailicide-monorepo.git)
+
+## Author
+
+👤 **Gillian Tunney**
+
+-   [github](https://github.com/gbtunney)
+-   [email](mailto:gbtunney@mac.com)
+
+## 🐌
+
+## Installation
+
+This library is published in the NPM registry and can be installed using any compatible package manager.
+
+```sh
+#pnpm
+pnpm add @snailicide/build-tools
+
+#yarn
+yarn add @snailicide/build-tools
+
+#npm
+npm install @snailicide/build-tools
+```
+
+## Usage
+
+```ts
+/** Rollup.config.ts */
+
+import { RollupOptions } from 'rollup'
+import { rollup } from './types/index.js'
+import pkg from './package.json' assert { type: 'json' }
+
+const PRINT_EXPORTS: boolean = true
+
+const CONFIG_OBJ = rollup.getConfigEntries(
+    {
+        source_dir: './src/',
+        output_dir: './dist/',
+    },
+    [
+        {
+            export_types: ['default', 'import', 'require', 'types'],
+            export_key: '*',
+            library_name: 'gBuildTools',
+        },
+    ],
+    rollup.DEFAULT_PLUGINS_BUNDLED,
+    pkg,
+)
+
+const CONFIG: RollupOptions[] = rollup.getRollupConfig(CONFIG_OBJ)
+rollup.getPackageExports(CONFIG_OBJ, PRINT_EXPORTS)
+
+export default CONFIG
+```
+
+## Helpful Links
