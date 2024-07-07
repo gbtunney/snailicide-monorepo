@@ -17,6 +17,7 @@
         "\n========== COMMIT >> ==========": "",
         "commit": "pnpm exec git-cz",
         "prepare:all": "pnpm run fix && pnpm run check && pnpm test",
+        "\n========== NX >> ==========": "",
         "nx:graph": "pnpm nx graph",
         "nx:affected": "nx affected --target=build",
         "nx:build": "pnpm exec nx run-many --target=build --all",

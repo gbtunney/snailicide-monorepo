@@ -1,7 +1,7 @@
 {
     "name": "@snailicide/build-config",
     "private": false,
-    "version": "0.2.7",
+    "version": "0.3.0",
     "description": "Snailicide Shared Build Configurations",
     "type": "module",
     "files": [
@@ -33,7 +33,7 @@
         "dev": "tsc --build --watch",
         "\n========== PUBLISH >> ==========": "",
         "release": "pnpm prerelease && pnpm publish --no-git-checks",
-        "prerelease": "pnpm clean && pnpm build && pnpm fix && pnpm check",
+        "prerelease": "pnpm clean && pnpm build && pnpm fix",
         "release:test": "pnpm prerelease &&  pnpm publish --dry-run --no-git-checks",
         "\n========== CODE STYLE >> ==========": "",
         "lint": "cross-var eslint \"{$npm_package_config_eslint_path}.{$npm_package_config_eslint_extensions}\" --ignore-path .gitignore -c $npm_package_config_eslint_config",

@@ -1,5 +1,11 @@
 # @snailicide/build-config
 
+## 0.3.0
+
+### Minor Changes
+
+-   eeb96be: eslint 9 upgrade
+
 ## 0.2.7
 
 ### Patch Changes
