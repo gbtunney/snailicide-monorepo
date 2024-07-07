@@ -223,6 +223,15 @@ type OutputObjReturnType = {
     exportObj: Record<string, Record<string, string>>
     config: Omit<RollupOptions, 'plugins'>
 }
+/**
+ * Returns an array of output configurations based on the provided entries.
+ *
+ * @param directoryObj - An object containing the source and output directories.
+ * @param entries - An array of entry configurations.
+ * @param plugins - Optional array of Rollup plugins.
+ * @param package_json - The base package JSON object.
+ * @returns An array of output configurations with plugins.
+ */
 export const getConfigEntries = (
     directoryObj: Pick<EntryConfig, 'source_dir' | 'output_dir'>,
     entries: Omit<EntryConfig, 'source_dir' | 'output_dir'>[],
@@ -273,9 +282,8 @@ export const getRollupConfig = (
 }
 
 export const getPackageExports = (
-    args: (OutputObjReturnType & {
-        plugins: RollupOptions['plugins']
-    })[],
+    args: (OutputObjReturnType & { plugins: RollupOptions['plugins'] })[],
+    print: boolean = false,
 ): JsonValue | undefined => {
     const export_result = args.reduce<Record<string, {}>>((acc, value) => {
         const obj = value.exportObj
@@ -283,6 +291,8 @@ export const getPackageExports = (
     }, {})
     try {
         const json_value: JsonValue = JSON.parse(JSON.stringify(export_result))
+        if (print === true)
+            console.log(JSON.stringify(json_value, undefined, 4))
         return json_value
     } catch (e) {
         console.error(e)

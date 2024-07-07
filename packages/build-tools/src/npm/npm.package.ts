@@ -51,12 +51,17 @@ export const isNPMPackage = <
     value: unknown,
     custom_schema: Schema | undefined = undefined,
     show_error: boolean | 'safe' = false,
+    passthru: boolean = true,
 ): value is PackageJson<Schema, BaseSchema> | undefined => {
     const base_schema = wrapSchema<z.AnyZodObject>(basePackage)
     const mergedSchema =
         custom_schema !== undefined
-            ? base_schema.merge(custom_schema)
-            : base_schema.merge(base_schema)
+            ? passthru === true
+                ? base_schema.merge(custom_schema).passthrough()
+                : base_schema.merge(custom_schema)
+            : passthru === true
+              ? base_schema.merge(base_schema).passthrough()
+              : base_schema.merge(base_schema)
 
     if (show_error === 'safe' && !mergedSchema.safeParse(value).success) {
         console.log(mergedSchema.safeParse(value).error)

@@ -66,7 +66,6 @@ describe('isNPMPackage', () => {
                 })
                 .strict(),
         })
-        //  console.log( "NPM !!!!!!!!!!!" , example_package2.version,parseNPMPackage(example_package2, customSchema))
         expect(isNPMPackage(example_package2, customSchema)).toBe(true)
         expect(isNPMPackage(example_package2, customSchemaStrict)).toBe(false)
 
@@ -79,7 +78,6 @@ describe('isNPMPackage', () => {
         })
         expect(isNPMPackage(example_package, testSchemaScripts)).toEqual(false)
 
-        //bad version
         expect(
             isNPMPackage(
                 { ...example_package2, version: '1.0002.2' },

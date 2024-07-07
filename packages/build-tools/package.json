@@ -37,6 +37,7 @@
         "rollup-plugin-polyfill-node": "^0.13.0",
         "rollup-plugin-ts": "^3.4.5",
         "semver": "^7.6.2",
+        "sort-package-json": "^2.10.0",
         "ts-deepmerge": "^7.0.0",
         "type-fest": "^4.21.0",
         "zod": "^3.23.8"
@@ -47,7 +48,7 @@
         "@types/ramda": "^0.30.1",
         "@types/semver": "^7.5.8",
         "cross-var": "^1.1.0",
-        "rollup-plugin-typescript2": "^0.36.0",
+        "jsdoc": "^4.0.3",
         "ts-node": "^10.9.2",
         "typescript": "^5.5.3",
         "vite": "^5.3.3",
@@ -65,20 +66,16 @@
         "CHANGELOG.md"
     ],
     "exports": {
-        ".": [
-            {
-                "import": "./dist/index.mjs",
-                "types": "./types/index.d.ts",
-                "require": "./dist/index.cjs",
-                "default": "./dist/index.js"
-            },
-            "./dist/index.js"
-        ]
+        ".": {
+            "default": "./dist/index.js",
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.cjs",
+            "types": "./dist/index.d.ts"
+        }
     },
-    "main": "dist/index.js",
-    "types": "types/index.d.ts",
+    "main": "./dist/index.js",
+    "types": "./dist/index.js",
     "prettier": "@snailicide/build-config/prettier",
-    "config": {},
     "homepage": "https://github.com/gbtunney/snailicide-monorepo/tree/main/packages/build-tools",
     "repository": {
         "type": "git",
