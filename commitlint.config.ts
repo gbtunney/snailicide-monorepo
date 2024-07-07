@@ -51,7 +51,7 @@ const Configuration: UserConfig = {
                 'build-tools',
                 'g-windi',
                 'cli-app',
-                'template-cli',
+                'cli-template',
             ],
         ],
     },
