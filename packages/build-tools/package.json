@@ -1,0 +1,91 @@
+{
+    "name": "@snailicide/build-tools",
+    "version": "0.0.1",
+    "description": "Rollup Tools and Npm updater",
+    "private": false,
+    "type": "module",
+    "scripts": {
+        "\n========== BUILD >> ==========": "",
+        "build:bk": "pnpm build:ts && pnpm build:rollup",
+        "build:rollup": "rollup --config ./rollup.config.js",
+        "build:ts": "tsc --build",
+        "\n========== DEV >> ==========": "",
+        "dev": "tsc --build --watch",
+        "\n========== TEST >> ==========": "",
+        "test": "vitest run",
+        "test:watch": "vitest watch",
+        "\n========== PUBLISH >> ==========": "",
+        "release": "pnpm  prerelease && pnpm publish --access public --report-summary --no-git-checks",
+        "prerelease": "pnpm clean && pnpm build && pnpm fix && pnpm check && pnpm test && pnpm run release:archive",
+        "release:archive": "mkdir -p ./releases &&  pnpm exec npm pack --pack-destination='./releases'",
+        "test:release:workflow": "open /Applications/Docker.app && cross-var pnpm exec gh act --workflows  $(git rev-parse --show-toplevel)/workflows/workflow-release-package.yml  --input PACKAGE_NAME='$npm_package_name' --reuse",
+        "\n========== CLEAN >> ==========": "",
+        "clean": "pnpm clean:ts && pnpm clean:build",
+        "clean:ts": "tsc --build --clean",
+        "clean:build": "rm -R -f dist && rm -R -f types && rm -R -f docs"
+    },
+    "dependencies": {
+        "ramda": "^0.29.0",
+        "ramda-adjunct": "^4.1.1",
+        "type-fest": "^4.3.1",
+        "zod": "^3.22.2"
+    },
+    "devDependencies": {
+        "@types/node": "^20.6.2",
+        "@types/ramda": "^0.29.4",
+        "@rollup/plugin-commonjs": "^25.0.4",
+        "@rollup/plugin-json": "^6.0.0",
+        "@rollup/plugin-node-resolve": "^15.2.1",
+        "@rollup/plugin-terser": "^0.4.3",
+        "@snailicide/build-config": "*",
+        "@types/jest": "^29.5.5",
+        "cross-var": "^1.1.0",
+        "eslint": "^8.49.0",
+        "jest": "^29.7.0",
+        "prettier": "^3.0.3",
+        "rollup": "^3.29.2",
+        "rollup-plugin-filesize": "^10.0.0",
+        "rollup-plugin-node-externals": "^6.1.1",
+        "rollup-plugin-polyfill-node": "^0.12.0",
+        "rollup-plugin-typescript2": "^0.35.0",
+        "ts-node": "^10.9.1",
+        "typescript": "^5.2.2",
+        "vite": "^4.4.9"
+    },
+    "keywords": [
+        "rollup",
+        "npm package",
+        "npm",
+        "utilities"
+    ],
+    "files": [
+        "types",
+        "dist",
+        "CHANGELOG.md"
+    ],
+    "exports": {
+        ".": [
+            {
+                "import": "./dist/index.mjs",
+                "types": "./types/index.d.ts",
+                "require": "./dist/index.cjs",
+                "default": "./dist/index.js"
+            },
+            "./dist/index.js"
+        ]
+    },
+    "main": "dist/index.js",
+    "types": "types/index.d.ts",
+    "prettier": "@snailicide/build-config/prettier",
+    "config": {},
+    "homepage": "https://github.com/gbtunney/snailicide-monorepo/tree/main/packages/build-tools",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/gbtunney/snailicide-monorepo.git"
+    },
+    "license": "MIT",
+    "author": {
+        "name": "Gillian Tunney",
+        "email": "gbtunney@mac.com"
+    }
+}

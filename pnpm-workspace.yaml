@@ -1,6 +1,7 @@
 # temporary workspace file (todo: cli app wont compile)
 packages:
     - 'packages/build-config'
+    - 'packages/build-tools'
     - 'packages/g-library'
     - 'packages/g-windi'
     - 'themes/*'

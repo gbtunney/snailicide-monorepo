@@ -48,6 +48,7 @@ const Configuration: UserConfig = {
                 'root',
                 'build-config',
                 'g-library',
+                'build-tools',
                 'g-windi',
                 'cli-app',
                 'template-cli',
