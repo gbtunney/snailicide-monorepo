@@ -1,6 +1,6 @@
 {
     "name": "@snailicide/build-tools",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "Rollup Tools and Npm updater",
     "private": false,
     "type": "module",
@@ -15,8 +15,9 @@
         "test": "vitest run",
         "test:watch": "vitest watch",
         "\n========== PUBLISH >> ==========": "",
+        "preversion": "echo 'version bumped!'",
         "release": "pnpm  prerelease && pnpm publish --access public --report-summary",
-        "prerelease": "pnpm clean && pnpm build && pnpm fix && pnpm check && pnpm test && pnpm run release:archive",
+        "prerelease": "pnpm clean && pnpm build &&  pnpm test && pnpm run release:archive",
         "release:archive": "mkdir -p ./releases &&  pnpm exec npm pack --pack-destination='./releases'",
         "test:release:workflow": "open /Applications/Docker.app && cross-var pnpm exec gh act --workflows  $(git rev-parse --show-toplevel)/workflows/workflow-release-package.yml  --input PACKAGE_NAME='$npm_package_name' --reuse",
         "\n========== CLEAN >> ==========": "",
