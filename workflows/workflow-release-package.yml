@@ -1,34 +1,33 @@
 name: snailicide/release-package
 on:
-  workflow_call:
-    inputs:
-      PACKAGE_NAME:
-        required: true
-        type: string
+    workflow_call:
+        inputs:
+            PACKAGE_NAME:
+                required: true
+                type: string
 jobs:
-  dry-run:
-    runs-on: ubuntu-latest
-    steps:
+    dry-run:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Release Package 🐌
+              run: echo "${{ inputs.PACKAGE_NAME  }}"
 
-      - name: Release Package 🐌
-        run: echo "${{ inputs.PACKAGE_NAME  }}"
+            - name: Checkout 🛎️
+              uses: actions/checkout@v3
 
-      - name: Checkout 🛎️
-        uses: actions/checkout@v3
+            - name: Setup Node.js environment 🛎️
+              uses: actions/setup-node@v3.8.1
+              with:
+                  node-version: '18.7.0'
 
-      - name: Setup Node.js environment 🛎️
-        uses: actions/setup-node@v3.8.1
-        with:
-          node-version: '18.7.0'
+            - name: Install pnpm 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
+              run: |
+                  npm install -g pnpm
+                  pnpm install
+                  node -v
 
-      - name: Install pnpm 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
-        run: |
-          npm install -g pnpm
-          pnpm install
-          node -v
-
-      - name: CUSTOM RELEASE ACTION!  Build G-LIBRARY
-        run: |
-          pnpm --filter=${{ inputs.PACKAGE_NAME }} run prerelease
-          pnpm --filter=${{ inputs.PACKAGE_NAME }} exec ls .
-          pnpm --filter=${{ inputs.PACKAGE_NAME }} exec ls ./docs
+            - name: CUSTOM RELEASE ACTION!  Build G-LIBRARY
+              run: |
+                  pnpm --filter=${{ inputs.PACKAGE_NAME }} run prerelease
+                  pnpm --filter=${{ inputs.PACKAGE_NAME }} exec ls .
+                  pnpm --filter=${{ inputs.PACKAGE_NAME }} exec ls ./docs

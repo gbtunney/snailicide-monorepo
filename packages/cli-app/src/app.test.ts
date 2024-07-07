@@ -1,4 +1,4 @@
-import { node,zod } from '@snailicide/g-library'
+import { node, zod } from '@snailicide/g-library'
 import { z } from 'zod'
 
 import { initApp, InitFunction } from './app.js'

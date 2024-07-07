@@ -17,6 +17,7 @@
         "\n========== COMMIT >> ==========": "",
         "commit": "pnpm exec git-cz",
         "prepare:all": "pnpm run fix && pnpm run check && pnpm test",
+        "\n========== NX >> ==========": "",
         "nx:graph": "pnpm nx graph",
         "nx:affected": "nx affected --target=build",
         "nx:build": "pnpm exec nx run-many --target=build --all",
@@ -30,7 +31,7 @@
         "check": "pnpm check:self",
         "check:self": "pnpm lint",
         "\n========== FIX >> ==========": "",
-        "fix": "pnpm fix:self && pnpm -r fix",
+        "fix": "pnpm fix:self",
         "fix:self": "cross-var pnpm lint --fix && cross-var pnpm prettier --write",
         "\n========== CLEAN >> ==========": "",
         "clean": "pnpm run clean:self && pnpm -r clean",
@@ -83,8 +84,8 @@
             "config": "eslint.config.js"
         },
         "prettier": {
-            "extensions": "sh,ts,js,cjs,mjs,cts,json,yaml,yml,graphql,md",
-            "path": "*,./.husky/**/*,./.github/**/*,./docs/**/*,*"
+            "extensions": "ts,js,cjs,mjs,cts,mts,sh,html,json,yaml,yml,graphql,md",
+            "path": "*,**/*,./.husky/**/*"
         },
         "commitizen": {
             "path": "@commitlint/cz-commitlint"

@@ -1,12 +1,12 @@
+import { describe, expect, test } from 'vitest'
 import { EmptyArray } from './../types/empty.js'
 import {
     isNonEmptyArray,
-    isEmptyArray,
     isEmptyObject,
     isNonEmptyObject,
-} from './utility.typeguards'
+} from './utility.typeguards.js'
 describe('typeguards', () => {
-    it('returns `true` for values parseable number', () => {
+    test('utility typeguards', () => {
         //TODO: PLEASE REWRITE OR RECOVER these tests
         const test: EmptyArray = []
         const test2 = ['gillian']
