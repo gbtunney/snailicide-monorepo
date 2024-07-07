@@ -1,5 +1,7 @@
+import { describe, expect, test } from 'vitest'
+
 describe('unit | isNumberParseable', () => {
-    it('returns `true` for values parseable number', () => {
+    test('returns `true` for values parseable number', () => {
         expect(true).toBe(true)
     })
 })

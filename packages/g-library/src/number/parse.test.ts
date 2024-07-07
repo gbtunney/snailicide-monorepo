@@ -1,8 +1,9 @@
+import { describe, expect, test } from 'vitest'
 import * as _parse from './parse.js'
 import * as _num from './numeric.js'
 
 describe('Parse Module', () => {
-    it('isParsableToNumeric', () => {
+    test('isParsableToNumeric', () => {
         expect(_parse.isParsableToNumeric('\n\r-100000.0')).toEqual(true)
         //demo the difference between these
         const test_value = ' 100000.02px'
@@ -29,7 +30,7 @@ describe('Parse Module', () => {
 })
 /*
 describe('Parse number tests, ', () => {
-    it('returns `number` when parseIntegerType', () => {
+    test('returns `number` when parseIntegerType', () => {
         expect(parseIntegerType(33)).toBe(33)
         expect(parseIntegerType('33px')).toBe(33)
         expect(parseIntegerType('33.33')).toBe(33)
@@ -37,7 +38,7 @@ describe('Parse number tests, ', () => {
         expect(parseIntegerType('  px')).toBe(undefined)
         expect(parseIntegerType(33.333)).toBe(33)
     })
-    it('returns `number` when parseFloatType',() => {
+    test('returns `number` when parseFloatType',() => {
         expect(parseFloatType(33)).toBe(33)
         expect(parseFloatType('33px')).toBe(33)
         expect(parseFloatType('33.02')).toBe(33.02)

@@ -2,9 +2,10 @@ import {
     explodeCSSClassString,
     transformExplodeArray,
 } from './_transformExplodeArray.js'
+import { describe, expect, test } from 'vitest'
 
 describe('transformExplodeArray', () => {
-    it('transformExplodeArray', () => {
+    test('transformExplodeArray', () => {
         expect(
             transformExplodeArray({
                 value: '!!hello_am_a_cat, g!llian_t ',

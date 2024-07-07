@@ -1,3 +1,4 @@
+import { describe, expect, test } from 'vitest'
 import { z } from 'zod'
 import { isNPMPackage, NPMPackage } from './npm.package.js'
 import { omit } from 'ramda'
@@ -43,7 +44,7 @@ const example_package_bad_email = {
 const example_package_bad_desc = omit(['description'], example_package)
 
 describe('isNPMPackage', () => {
-    it('is valid package.json :', () => {
+    test('is valid package.json :', () => {
         const customSchema = z.object({
             name: z.literal('g-libttest'),
             scripts: z.object({

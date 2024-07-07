@@ -1,3 +1,4 @@
+import { describe, expect, test } from 'vitest'
 import {
     msToIsoString,
     getTimestampDuration,
@@ -8,7 +9,7 @@ import {
 } from './index.js'
 
 describe('duration formatting | to human readable', () => {
-    it('unix timestamp to duration', () => {
+    test('unix timestamp to duration', () => {
         const _val = msToIsoString(16045)
         expect(_val).toBe('1970-01-01T00:00:16.045Z')
 

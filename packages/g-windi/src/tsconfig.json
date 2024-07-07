@@ -13,7 +13,6 @@
         // Output settings.
         "sourceMap": true,
         "rootDir": ".",
-        "types": ["@types/jest"],
         // Type declaration settings.
         "declaration": true,
         "declarationDir": "./../types",
