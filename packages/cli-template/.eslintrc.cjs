@@ -3,7 +3,6 @@
 
 /** @file Local package eslint config file */
 
- 
 const options = require('@snailicide/build-config/eslint')
 const merge = require('deepmerge')
 

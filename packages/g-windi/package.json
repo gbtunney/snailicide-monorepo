@@ -58,14 +58,7 @@
         "\n========== CLEAN >> ==========": "",
         "clean": "pnpm clean:ts && pnpm clean:build",
         "clean:ts": "tsc --build --clean",
-        "clean:build": "rm -R -f dist && rm -R -f types && rm -R -f docs",
-        "\n========== CODE STYLE >> ==========": "",
-        "lint": "cross-var eslint \"{$npm_package_config_eslint_path}.{$npm_package_config_eslint_extensions}\" --ignore-path .gitignore -c $npm_package_config_eslint_config",
-        "prettier": "cross-var prettier {$npm_package_config_prettier_path}.{$npm_package_config_prettier_extensions} --ignore-path ./.gitignore",
-        "\n========== CHECK >> ==========": "",
-        "check": "pnpm lint",
-        "\n========== FIX >> ==========": "",
-        "fix": "pnpm prettier --write"
+        "clean:build": "rm -R -f dist && rm -R -f types && rm -R -f docs"
     },
     "homepage": "https://github.com/gbtunney/snailicide-monorepo#readme",
     "bugs": {
@@ -82,18 +75,6 @@
     },
     "directories": {
         "doc": "docs"
-    },
-    "prettier": "@snailicide/build-config/prettier",
-    "config": {
-        "eslint": {
-            "extensions": "ts,js,cjs,mjs",
-            "path": ".es*,*,**/*",
-            "config": ".eslintrc.cjs"
-        },
-        "prettier": {
-            "extensions": "ts,js,cjs,mjs,cts,json,yaml,yml,graphql,md",
-            "path": "*,**/*"
-        }
     },
     "dependencies": {
         "@snailicide/g-library": "workspace:^",

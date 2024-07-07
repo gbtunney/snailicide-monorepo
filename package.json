@@ -31,7 +31,7 @@
         "check": "pnpm check:self",
         "check:self": "pnpm lint",
         "\n========== FIX >> ==========": "",
-        "fix": "pnpm fix:self && pnpm -r fix",
+        "fix": "pnpm fix:self",
         "fix:self": "cross-var pnpm lint --fix && cross-var pnpm prettier --write",
         "\n========== CLEAN >> ==========": "",
         "clean": "pnpm run clean:self && pnpm -r clean",
@@ -84,8 +84,8 @@
             "config": "eslint.config.js"
         },
         "prettier": {
-            "extensions": "sh,ts,js,cjs,mjs,cts,json,yaml,yml,graphql,md",
-            "path": "*,./.husky/**/*,./.changeset/**/*,./.github/**/*,./docs/**/*,*"
+            "extensions": "ts,js,cjs,mjs,cts,mts,sh,html,json,yaml,yml,graphql,md",
+            "path": "*,**/*,./.husky/**/*"
         },
         "commitizen": {
             "path": "@commitlint/cz-commitlint"
