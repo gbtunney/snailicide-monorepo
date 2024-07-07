@@ -8,7 +8,6 @@ const TEMPLATE_DIRECTORY = boolBaseTemplate
     ? `${TEMPLATE_BASE_DIRECTORY}/base`
     : `${TEMPLATE_BASE_DIRECTORY}/library`
 
-// @ts-expect-error ddd
 import * as process from 'process'
 import { z } from 'zod'
 

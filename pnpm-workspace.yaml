@@ -4,4 +4,5 @@ packages:
     - 'packages/build-tools'
     - 'packages/g-library'
     - 'packages/g-windi'
+    - 'packages/cli-template'
     - 'themes/*'
