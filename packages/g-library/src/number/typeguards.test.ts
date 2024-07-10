@@ -1,6 +1,5 @@
 import { describe, expect, test } from 'vitest'
-import { isPossibleNumeric } from './typeguards.js'
-import * as _num from './numeric'
+import { isParsableToNumeric, isPossibleNumeric } from './typeguards.js'
 
 describe('transform numeric tests, ', () => {
     test('transform: TODO:', () => {
@@ -10,6 +9,22 @@ describe('transform numeric tests, ', () => {
         expect(isPossibleNumeric('222px')).toEqual(false)
         expect(isPossibleNumeric('222px', false)).toEqual(true)
         expect(isPossibleNumeric('-100000.0')).toEqual(true)
+
+        expect(true).toEqual(true)
+
+        const value = 'px'
+        expect(isParsableToNumeric(value)).toEqual(false)
+
+        const testValue = ' 200px'
+        expect(isParsableToNumeric(testValue)).toEqual(true)
+        expect(isPossibleNumeric(testValue)).toEqual(false)
+
+        console.log(
+            'isPossibleNumeric',
+            isPossibleNumeric(testValue),
+            'isParsableToNumeric',
+            isParsableToNumeric(testValue),
+        )
 
         const validTestValues = [
             3444.4,
@@ -25,6 +40,7 @@ describe('transform numeric tests, ', () => {
             '+10',
             '144',
             '5',
+            //'22px'
         ]
         validTestValues.forEach((value) => {
             expect(isPossibleNumeric(value)).toEqual(true)

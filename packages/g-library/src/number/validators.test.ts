@@ -2,89 +2,54 @@ import { describe, expect, test } from 'vitest'
 import {
     isStringNumeric,
     isValidScientificNumber,
-    toStringNumeric,
     isNumeric,
-    isPossibleNumeric,
 } from './validators.js'
-
+import { toStringNumeric, toNumeric } from './transform.js'
 import { isNumber, isBigInt } from './../typeguard/utility.typeguards.js'
+import { isParsableToNumeric, isPossibleNumeric } from './typeguards.js'
 
-isNumber
-import {
-    trimWhiteSpace,
-    removeAllNewlines,
-    escapeUnicode,
-    escapeRegExp,
-} from '../string/_stringUtils.js'
-import { PossibleNumeric } from './numeric'
-import {
-    getRegExpStartOfString,
-    stringListToRegexp,
-} from '../regexp/stringToRegexp.js'
-import { isNumber } from '../typeguard/utility.typeguards'
-
-//if ( escapeRegExp) getRegExpStartOfString
-///if its  a valid scientific number
-// if string
-// if new Number is NAN, then it
-//if it ends in 'n' its a bigint ( exampel 0x01n or 2n ) >>> remove n and new BigInt and test its validity
-//if it leads with a +0x or -0x it is an in  can be parsed as integr
-//if parse Int !== parseFloat    then parseFloat
-//if (newNumber === parseInt && parseInt !== parseFloat)    then parseInt
-//if newNumber === parseFloat  parsefloat
-// if (validNumber === false and bigint ===true ) return number
-/// if (validNumber === true and bigint ===false ) return number)
-
-///if string && not valid scientific number  && but contains digits    parseFloat ??
+let LOGGING: boolean = false
 
 const logNumbers = (valueArr: (number | bigint | string)[]) => {
     valueArr.forEach((value) => {
-        console.log(
-            value,
-            'isValidScientificNumber',
-            isValidScientificNumber(value),
-            'isValidNumber',
-            isNumber(value),
-            'isBigInt',
-            isBigInt(value),
-            'isCastableString',
-            isStringNumeric(value),
-            /// "isNonInteger" ,isNonInteger(value)
-        )
+        if (LOGGING) {
+            console.log(
+                value,
+                'isValidScientificNumber',
+                isValidScientificNumber(value),
+                'isValidNumber',
+                isNumber(value),
+                'isBigInt',
+                isBigInt(value),
+                'isCastableString',
+                isStringNumeric(value),
+            )
+        }
     })
 }
 const logStrings = (valueArr: string[]) => {
     valueArr.forEach((value) => {
-        //const value =_value.toString()
-        console.log(
-            value,
-            'logStrings isValidScientificNumber',
-            isValidScientificNumber(value),
-            'toStringNumeric',
-            toStringNumeric(value),
-            typeof toStringNumeric(value),
-
-            //  "isBigInt" ,BigInt(value),
-            ' new Number( value)',
-            new Number(value),
-            'parseInt',
-            parseInt(value),
-            'parseFloat',
-            parseFloat(value),
-
-            //   "isValidNumber" ,isValidNumber(value),
-            // "isInteger" ,isInteger(value),
-            // "isBigInt" ,isBigInt(value),
-            // "isNonInteger" ,isNonInteger(value)
-        )
+        if (LOGGING) {
+            console.log(
+                value,
+                'logStrings isValidScientificNumber',
+                isValidScientificNumber(value),
+                'toStringNumeric',
+                toStringNumeric(value),
+                typeof toStringNumeric(value),
+                ' new Number( value)',
+                new Number(value),
+                'parseInt',
+                parseInt(value),
+                'parseFloat',
+                parseFloat(value),
+            )
+        }
     })
 }
 
 describe('validators', () => {
     test('transform: TODO:', () => {
-        const testJunk = '2px'
-        console.log('toStringNumeric', toStringNumeric(testJunk, false))
-        // match:
         const validNumbers: (string | number | bigint)[] = [
             0xff, //these should be integers
             0xff, //these should be integers
@@ -113,7 +78,6 @@ describe('validators', () => {
             //console.log( "valueeee" , value , "isNumeric", isNumeric(value), "isNumericString",isStringNumeric(value))
         })
 
-        //  logNumbers(validNumbers)
         const validString: string[] = [
             '882812888n',
             '0xff', //these should be integers
@@ -150,13 +114,6 @@ describe('validators', () => {
             expect(!isPossibleNumeric(value) && !isNumeric(value)).toBe(true)
             //console.log( "valueeee" , value , "isNumeric", isNumeric(value), "isNumericString",isStringNumeric(value))
         })
-
-        //isValidScientificNumber
-
-        // logNumbers( validNumbers)
-        // logStrings(validSrer)
-        // getRegExpFromStrings()
-
         //     logStrings(['20.00', '20.02', '88281n2888n'])
 
         //  console.log( "!!!BigInt"  , toStringNumeric("0xFF " ,false) )

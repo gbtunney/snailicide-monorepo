@@ -22,7 +22,7 @@ export type {
 export { regexp } from './regexp/index.js'
 export { stringUtils } from './string/index.js'
 
-export { numeric } from './number/index.js'
+export * as numeric from './number/index.js'
 
 export { htmlUtils } from './browser/index.js'
 export { zodHelpers } from './zod_helpers/index.js'

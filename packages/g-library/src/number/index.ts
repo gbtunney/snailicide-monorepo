@@ -1,7 +1,4 @@
 import type { NonNegativeInteger, Integer, Finite } from 'type-fest'
-import * as parse from './parse.js'
-import * as transform from './transform.js'
-import * as _numeric from './numeric.js'
 
 type IntegerInRange = Finite<ReturnType<typeof parseInt>>
 
@@ -14,7 +11,7 @@ type IntegerInRange = Finite<ReturnType<typeof parseInt>>
  * @param {Integer<Min>} [100] Max
  * @returns {IntegerInRange}
  */
-const randomIntInRange = <Min extends number, Max extends number>(
+export const randomIntInRange = <Min extends number, Max extends number>(
     min: Integer<Min> | 0 = 0,
     max: Integer<Max> | 100 = 100,
 ): IntegerInRange => {
@@ -31,7 +28,7 @@ const randomIntInRange = <Min extends number, Max extends number>(
  * @param {Finite<Multiplier>} multiplier [100] multiplier
  * @returns {number}
  */
-const getNumberRoundedToDecimal = <
+export const getNumberRoundedToDecimal = <
     Value extends number,
     Multiplier extends number,
 >(
@@ -43,7 +40,7 @@ const getNumberRoundedToDecimal = <
 }
 
 /* * @function getRandomNumber * */
-const getRandomNumber = (_multiplier = 100): number =>
+export const getRandomNumber = (_multiplier = 100): number =>
     Math.floor(Math.random() * _multiplier)
 
 /**
@@ -57,7 +54,7 @@ const getRandomNumber = (_multiplier = 100): number =>
  * @param {NonNegativeInteger<Type>} value
  * @returns {number}
  */
-const getIntegerDigitCount = <Type extends number, strict = false>(
+export const getIntegerDigitCount = <Type extends number, strict = false>(
     value: strict extends true ? NonNegativeInteger<Type> : Type,
 ): number => {
     const _integer: number = parseInt(value.toString())
@@ -65,15 +62,32 @@ const getIntegerDigitCount = <Type extends number, strict = false>(
         ? 0
         : parseInt(Math.floor(Math.log(_integer) * Math.LOG10E + 1).toString())
 }
-export const numeric = {
-    ..._numeric,
-    ...transform,
-    ...parse,
-    randomIntInRange,
-    getNumberRoundedToDecimal,
-    getRandomNumber,
-    getIntegerDigitCount,
-}
+
+export {
+    parseToNumeric,
+    parseStringToNumeric,
+    parseToFloat,
+    parseStringToInteger,
+} from './parse.js'
+export {
+    isParsableToNumeric,
+    isPossibleNumeric,
+    isTrueNumeric,
+} from './typeguards.js'
+export {
+    isValidScientificNumber,
+    isNumeric,
+    isStringNumeric,
+    isNumericFloat,
+    isNumericNonInteger,
+    isNumericInteger,
+} from './validators.js'
+export {
+    toNumeric,
+    toStringNumeric,
+    numericToInteger,
+    numericToFloat,
+} from './transform.js'
 export type { Numeric, PossibleNumeric } from './numeric.js'
 
-export default numeric
+export default {}

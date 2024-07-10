@@ -5,8 +5,14 @@ import {
     isNumeric,
     isNumericFloat,
     isNumericInteger,
-} from './../number/numeric.js'
-
+    isValidScientificNumber,
+    isStringNumeric,
+} from './../number/validators.js'
+import {
+    isParsableToNumeric,
+    isTrueNumeric,
+    isPossibleNumeric,
+} from './../number/typeguards.js'
 import * as _tg from './utility.typeguards.js'
 
 export const tg = {
@@ -15,8 +21,14 @@ export const tg = {
     isZodParsable,
     isCSSColorSpecial,
     isNotCSSColorSpecial,
+
+    isPossibleNumeric,
+    isParsableToNumeric,
+    isTrueNumeric,
     isNumeric,
-    isNumericInteger,
     isNumericFloat,
+    isNumericInteger,
+    isValidScientificNumber,
+    isStringNumeric,
 }
 export default tg

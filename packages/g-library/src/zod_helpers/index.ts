@@ -1,8 +1,11 @@
 import z, { ZodEffects, ZodArray, ZodUnion } from 'zod'
-import { ensureArray as R_ensureArray } from 'ramda-adjunct'
-import { isPossibleNumeric } from '../number/validators.js'
+import { isNotString, ensureArray as R_ensureArray } from 'ramda-adjunct'
+import { isPossibleNumeric } from '../number/typeguards.js'
 import { isRegExp, isString } from '../typeguard/utility.typeguards.js'
 import { isStringValidRegExp } from '../regexp/validators.js'
+import { toNumeric } from '../number/transform.js'
+import { Except } from 'type-fest'
+import { PossibleNumeric, Numeric } from '../number/numeric'
 
 export const schemaForType =
     <T>() =>
@@ -103,9 +106,7 @@ export const ensureArray = <T extends z.ZodTypeAny>(
     > = z
         .union([z.array(schema), schema])
         .transform((value): z.infer<ZodArray<typeof schema, 'many'>> => {
-            //if ( value!==undefined){
             return R_ensureArray<typeof schema>(value)
-            // }
         })
 
     return union
@@ -119,8 +120,12 @@ export const numeric = <T extends z.ZodTypeAny>(schema: T) =>
             (value) => isPossibleNumeric(value),
             'Please enter a valid number|bigint|string',
         )
-        .transform((value) => {
-            return R_ensureArray<typeof value>(value)
+        .transform((value): bigint | number | undefined => {
+            const _value: Numeric | undefined = toNumeric<typeof value>(value)
+            if (_value !== undefined && isNotString(_value)) {
+                return _value
+            }
+            return undefined
         })
 
 export const zodHelpers = {

@@ -1,76 +1,71 @@
-import {
-    isFinite,
-    isFloat,
-    isInteger,
-    isNaN,
-    isNotNaN,
-    isString,
-    isValidNumber,
-} from 'ramda-adjunct'
+import { isFinite, isNotNaN, isValidNumber } from 'ramda-adjunct'
 import { PossibleNumeric, Numeric } from './numeric.js'
 import { removeAllNewlines } from '../string/_stringUtils.js'
-import { RA } from '../typeguard/ramdaimports'
+import { isString, isBigInt } from '../typeguard/utility.typeguards.js'
+const LOGGING: boolean = false
 
-export const isBigInt = <T extends bigint>(value: unknown): value is T => {
-    return RA.isBigInt(value)
+export const isParsableToNumeric = <Type extends PossibleNumeric>(
+    value: Type,
+): value is Type => {
+    return isPossibleNumeric(value, false)
 }
-;('possiblr numeric means string|number|bigint ')
-///dtrict mode does not allow sny extraneous characters except whitespace .
 
+///strict mode does not allow sny extraneous characters except whitespace .
+// /if strict mode is false =cleans non digits  , non whitespace character and then validates the number
 export const isPossibleNumeric = <Type extends PossibleNumeric>(
     value: Type,
     strict: boolean = true,
 ): value is Type => {
-    ///string NON strict mode, see if it contains a number
     if (isBigInt(value) || isValidNumber(value)) return true
-    if (isString(value) && /\d/.test(value) && value.toString().length > 0) {
-        ///a string that contains a digit.
-        //if strict mode is false = see ifg it contains a non digit , non whitespace character
-        console.log(
-            'removeAllNewlines(value) ',
-            Number.parseFloat(removeAllNewlines(value)),
-        )
+    if (
+        isString<string>(value) &&
+        /\d/.test(value) &&
+        value.toString().length > 0
+    ) {
+        // hex numbers are always valid
         if (!/^[0x]/.test(value)) {
             if (strict === true && /[a-zA-Z]/.test(removeAllNewlines(value)))
                 return false
         } else {
             return true
         }
+        let _pre: string = value
+        const regex = new RegExp(/([a-z]|[A-Z]|,|\?|$|\$|!|@|#|%|&)/, 'g')
 
-        //console.log("FLOAT IS ",strict,Number.parseFloat(String(value)) , isNotNaN(Number(Number.parseFloat(String(value)))), isFinite(Number(value)))
+        if (strict === false) {
+            const replaced_value = removeAllNewlines(value.toString()).replace(
+                regex,
+                '',
+            )
+            if (replaced_value.length > 0) _pre = replaced_value
+        } else {
+            _pre = removeAllNewlines(value.toString())
+        }
+        const _number =
+            /^[0x]/.test(_pre) &&
+            parseFloat(_pre) === 0 &&
+            parseInt(_pre) > parseFloat(_pre)
+                ? parseInt(_pre)
+                : parseFloat(_pre)
+        if (LOGGING) {
+            console.log(
+                'its ',
+                _number,
+                value,
+                isNotNaN(_number),
+                isFinite(_number),
+            )
+        }
+        return isNotNaN(_number) && isFinite(_number)
     }
-
-    const _pre: string = removeAllNewlines(value.toString())
-
-    const _number =
-        /^[0x]/.test(_pre) &&
-        parseFloat(_pre) === 0 &&
-        parseInt(_pre) > parseFloat(_pre)
-            ? parseInt(_pre)
-            : parseFloat(_pre)
-    console.log('its ', _number, value, isNotNaN(_number), isFinite(_number))
-
-    return isNotNaN(_number) && isFinite(_number)
+    return false
 }
-;('is numeric means number|bigint ')
+
 export const isTrueNumeric = <Type extends Numeric>(
     value: unknown,
-    strict: boolean = true,
 ): value is Type => {
     return (
         isNotNaN(Number(Number.parseFloat(String(value)))) &&
         isFinite(Number(value))
     )
-}
-
-export const isParsableToNumeric = <Type extends PossibleNumeric>(
-    value: unknown,
-): value is Type => {
-    //const regex = new RegExp(/(\?+1)([a-z]|[A-Z]|\$|!|@|#|%|&)+(\d)/ )
-    if (isString(value) && /\d/.test(value) && value.toString().length > 0) {
-        //if string and contains digits
-        //  if (isNaN(Number(Number.parseFloat(String(value))))) return false
-        // else return true
-    } else if (isBigInt(value) || isValidNumber(value)) return true
-    return false
 }
