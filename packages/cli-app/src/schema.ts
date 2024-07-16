@@ -1,4 +1,5 @@
-import { npm, stringUtils, zod } from '@snailicide/g-library'
+import { stringUtils } from '@snailicide/g-library'
+import { zod } from '@snailicide/g-library/node'
 import { z } from 'zod'
 
 export type AppOptions = z.infer<typeof app_schema>
@@ -20,7 +21,7 @@ export const app_schema = z.object({
     version: zod
         .string()
         .default('0.0.0')
-        .refine((value) => npm.isValidSemVer(value), {
+        .refine((value) => stringUtils.isValidSemVer(value), {
             message: 'Version must be a valid semver',
         }),
     alias: zod.record(zod.string()).default({}),

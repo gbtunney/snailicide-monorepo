@@ -1,4 +1,5 @@
-import { node, zod } from '@snailicide/g-library'
+import { node, zod } from '@snailicide/g-library/node'
+import { describe, expect, test } from 'vitest'
 import { z } from 'zod'
 
 import { initApp, InitFunction } from './app.js'
@@ -24,7 +25,7 @@ const initFunc: InitFunction<typeof base_schema> = (args) => {
     return true
 }
 describe('cli-app', () => {
-    it('returns `true` if merged schema is parsable', async () => {
+    test('returns `true` if merged schema is parsable', async () => {
         const test_schema = base_schema.transform(transformFunc)
         const my_custom_schema = base_schema
             .merge(
