@@ -1,6 +1,7 @@
 import { ensureArray } from 'ramda-adjunct'
-import { isStringValidRegExp } from './validators.js'
+
 import { escapeStringRegexp } from './escape.js'
+import { isStringValidRegExp } from './validators.js'
 
 export const stringToRegexp = (
     value: string,
@@ -21,7 +22,7 @@ export const stringToRegexp = (
  * @param {string | string[]} value - String or Array of Strings to be converted
  *   to RegExp, all characters will be escaped
  * @param {Flag} Flag - Regexp flag (like g,m)
- * @returns {RegExp} -
+ * @returns {RegExp} - A joined list
  */
 export const stringListToRegexp = (
     _value: string | string[],
@@ -37,7 +38,7 @@ export const stringListToRegexp = (
  * @param {string | string[]} value - String or Array of Strings to be converted
  *   to RegExp
  * @param {Flag} Flag - Regexp flag (like g,m)
- * @returns {RegExp} -
+ * @returns {RegExp} - Useful regexp
  */
 export const getRegExpTrim = (
     _value: string | string[],
@@ -55,7 +56,7 @@ export const getRegExpTrim = (
  * @param {string | string[]} value - String or Array of Strings to be converted
  *   to RegExp
  * @param {Flag} Flag - Regexp flag (like g,m)
- * @returns {RegExp} -
+ * @returns {RegExp} - Useful regexp
  */
 export const getRegExpStartOfString = (
     _value: string | string[],

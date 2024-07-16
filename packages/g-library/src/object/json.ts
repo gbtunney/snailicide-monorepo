@@ -1,6 +1,7 @@
 import { Jsonifiable } from 'type-fest'
-import { Json } from '../types/utility.js'
+
 import { isJsonValue } from '../typeguard/json.typeguards.js'
+import { Json } from '../types/utility.js'
 
 /**
  * PrettyPrint a JSON object

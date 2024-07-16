@@ -1,7 +1,8 @@
 import { isFinite, isNotNaN, isValidNumber } from 'ramda-adjunct'
-import { PossibleNumeric, Numeric } from './numeric.js'
+
 import { removeAllNewlines } from '../string/_stringUtils.js'
-import { isString, isBigInt } from '../typeguard/utility.typeguards.js'
+import { isBigInt, isString } from '../typeguard/utility.typeguards.js'
+import { Numeric, PossibleNumeric } from './numeric.js'
 const LOGGING: boolean = false
 
 export const isParsableToNumeric = <Type extends PossibleNumeric>(

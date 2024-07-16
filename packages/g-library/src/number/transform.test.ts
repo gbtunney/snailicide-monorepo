@@ -1,8 +1,9 @@
 import { describe, expect, test } from 'vitest'
+
 import { toNumeric } from './transform.js'
 import { isNumeric } from './validators.js'
 
-describe('Numeric Transform, ', () => {
+describe('Numeric Transform,', () => {
     test('test: toNumeric:', () => {
         expect(true).toEqual(true)
         const _testBigInt = toNumeric('1000000n')

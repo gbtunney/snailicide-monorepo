@@ -1,5 +1,5 @@
-import { z } from 'zod'
 import yargs from 'yargs'
+import { z } from 'zod'
 
 export const getYArgs = <T extends z.ZodSchema>(
     schema: T,

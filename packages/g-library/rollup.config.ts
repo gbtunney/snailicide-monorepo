@@ -1,7 +1,7 @@
+import { rollup } from '@snailicide/build-tools'
 import { RollupOptions } from 'rollup'
 
 import pkg from './package.json' assert { type: 'json' }
-import { rollup } from '@snailicide/build-tools'
 
 const PRINT_EXPORTS: boolean = true
 

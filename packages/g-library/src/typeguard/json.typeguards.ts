@@ -4,9 +4,10 @@
  */
 
 import { Jsonifiable } from 'type-fest'
-import { RA } from './ramdaimports.js'
-import { PlainObject, Json } from '../types/utility.js'
+
 import { isNotUndefined } from '../typeguard/utility.typeguards.js'
+import { Json, PlainObject } from '../types/utility.js'
+import { RA } from './ramdaimports.js'
 
 /**
  * Checks if a value is JSON-serializable.

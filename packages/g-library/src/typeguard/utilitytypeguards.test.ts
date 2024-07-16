@@ -1,13 +1,14 @@
 import { describe, expect, test } from 'vitest'
+
 import { EmptyArray } from './../types/empty.js'
 import {
-    isNonEmptyArray,
-    isEmptyObject,
-    isNonEmptyObject,
     isBigInt,
+    isEmptyObject,
+    isInteger,
+    isNonEmptyArray,
+    isNonEmptyObject,
     isNotNumber,
     isNumber,
-    isInteger,
     isPrimitive,
 } from './utility.typeguards.js'
 describe('typeguards', () => {

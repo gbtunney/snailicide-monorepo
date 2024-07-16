@@ -1,6 +1,7 @@
-import { replaceAll } from 'ramda-adjunct'
-import { toLower, toUpper, replace, pipe, trim } from 'ramda'
 import escapeStringRegexp from 'escape-string-regexp'
+import { pipe, replace, toLower, toUpper, trim } from 'ramda'
+import { replaceAll } from 'ramda-adjunct'
+
 import type { RegExpMatchArray } from './../regexp/index.js'
 import { isNotNull } from './../typeguard/utility.typeguards.js'
 

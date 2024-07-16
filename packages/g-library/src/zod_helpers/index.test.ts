@@ -1,6 +1,7 @@
 import { expect, test } from 'vitest'
 import z from 'zod'
-import { isZodParsable, ensureArray, parseFactory } from './index.js'
+
+import { ensureArray } from './index.js'
 
 test('zod helpers', () => {
     expect(true).toBe(true)

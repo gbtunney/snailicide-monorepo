@@ -1,4 +1,4 @@
-import type { NonNegativeInteger, Integer, Finite } from 'type-fest'
+import type { Finite, Integer, NonNegativeInteger } from 'type-fest'
 
 type IntegerInRange = Finite<ReturnType<typeof parseInt>>
 

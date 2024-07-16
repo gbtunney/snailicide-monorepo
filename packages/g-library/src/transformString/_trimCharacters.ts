@@ -1,12 +1,12 @@
 //import * as RA from 'ramda-adjunct'
-import { ensureArray, trimCharsStart, trimCharsEnd } from 'ramda-adjunct'
-
 import { pipe, replace as ramda_replace } from 'ramda'
-import type { TrimCharacters, BaseValue, BatchBaseValue } from './type.js'
+import { ensureArray, trimCharsEnd, trimCharsStart } from 'ramda-adjunct'
+
 import {
-    getRegExpStartOfString,
     getRegExpEndOfString,
+    getRegExpStartOfString,
 } from './../regexp/stringToRegexp.js'
+import type { BaseValue, BatchBaseValue, TrimCharacters } from './type.js'
 
 const trimCharactersforSinglePattern = function ({
     value,

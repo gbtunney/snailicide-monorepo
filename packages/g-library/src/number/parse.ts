@@ -1,11 +1,11 @@
-import { Numeric, PossibleNumeric } from './numeric.js'
-import { isStringNumeric } from './validators.js'
 import {
+    isBigInt,
     isNumber,
     isString,
-    isBigInt,
 } from '../typeguard/utility.typeguards.js'
+import { Numeric, PossibleNumeric } from './numeric.js'
 import { toStringNumeric } from './transform.js'
+import { isStringNumeric } from './validators.js'
 /**
  * All functions WILL REMOVE ALL whitespace,letter and punctuation as long as
  * the final value a valid number This will convert a possible numeric value (ie
@@ -39,8 +39,8 @@ export const parseToNumeric = <T extends PossibleNumeric>(
  * @template {PossibleNumeric} Type - Type must extend a PossibleNumeric
  *   (number|string|bigint)
  * @function parseToNumeric
- * @param {Type} value - Value to parse
- * @returns {number | undefined}
+ * @param {T} value - A value that will need to be replaced soon
+ * @returns {number | undefined} - Parsed value
  */
 export const parseStringToNumeric = <T extends string>(
     value: T,

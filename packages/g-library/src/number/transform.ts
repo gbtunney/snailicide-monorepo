@@ -1,16 +1,16 @@
 import { isNaN } from 'ramda-adjunct'
 import { Integer } from 'type-fest'
 
-import type { Numeric, PossibleNumeric } from './numeric.js'
 import { removeAllNewlines, trimWhiteSpace } from '../string/_stringUtils.js'
-import { isStringNumeric } from './validators.js'
-import { isPossibleNumeric } from './typeguards.js'
 import {
     isBigInt,
     isNumber,
     isString as tgIsString,
 } from '../typeguard/utility.typeguards.js'
+import type { Numeric, PossibleNumeric } from './numeric.js'
 import { parseStringToInteger, parseToFloat } from './parse.js'
+import { isPossibleNumeric } from './typeguards.js'
+import { isStringNumeric } from './validators.js'
 
 export const toStringNumeric = <T extends string>(
     value: T,

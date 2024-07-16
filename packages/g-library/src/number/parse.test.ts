@@ -1,4 +1,5 @@
 import { describe, expect, test } from 'vitest'
+
 import * as _parse from './parse.js'
 import { isParsableToNumeric } from './typeguards.js'
 import { isNumeric } from './validators.js'
@@ -32,25 +33,7 @@ describe('Parse Module', () => {
         // expect(_parse.parseToFloat(busted_value)).toBe(10)
     })
 })
-/*
-describe('Parse number tests, ', () => {
-    test('returns `number` when parseIntegerType', () => {
-        expect(parseIntegerType(33)).toBe(33)
-        expect(parseIntegerType('33px')).toBe(33)
-        expect(parseIntegerType('33.33')).toBe(33)
-        expect(parseIntegerType('33.333px')).toBe(33)
-        expect(parseIntegerType('  px')).toBe(undefined)
-        expect(parseIntegerType(33.333)).toBe(33)
-    })
-    test('returns `number` when parseFloatType',() => {
-        expect(parseFloatType(33)).toBe(33)
-        expect(parseFloatType('33px')).toBe(33)
-        expect(parseFloatType('33.02')).toBe(33.02)
-        expect(parseFloatType('33.25px')).toBe(33.25)
-        expect(parseFloatType('  px')).toBe(undefined)
-        expect(parseFloatType(33)).toBe(33.00)
-    })
-})*/
+
 /*const invalidTestValues = [
             "",
             "abc",

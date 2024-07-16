@@ -1,12 +1,12 @@
 import { isEmpty } from 'ramda'
-import { trimCharacters, batchTrimCharacters } from './_trimCharacters.js'
+
 import {
-    isNotUndefined,
     isArray,
+    isNotUndefined,
     isString,
 } from './../typeguard/utility.typeguards.js'
-import type { TrimCharacters, BaseValue, BatchBaseValue } from './type.js'
-import { Pattern } from './type.js'
+import { batchTrimCharacters, trimCharacters } from './_trimCharacters.js'
+import type { BatchBaseValue, TrimCharacters } from './type.js'
 
 //todo: fix these mangled chars
 export const transformExplodeArray = function ({

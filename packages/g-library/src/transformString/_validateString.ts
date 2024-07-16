@@ -1,16 +1,5 @@
-import { isNotUndefined, isString, isRegExp } from 'ramda-adjunct'
+import { isNotUndefined, isRegExp, isString } from 'ramda-adjunct'
 
-/**
- * Validate String TODO:update tihs.
- *
- * @example
- *     validateString("kitten", ["kit", "hi"], "startsWith"))
- *     => true
- *
- * @param {any} value - String to test
- * @param {array}
- * @param {startsWith | includes | endsWith | eq | contains} - Operation
- */
 type validateOperation =
     | 'startsWith'
     | 'endsWith'
@@ -38,6 +27,17 @@ export const contains: validateFunc = includes
 export const match = (value: string, pattern: RegExp): boolean =>
     pattern.test(value)
 
+/**
+ * Validate String TODO:update tihs.
+ *
+ * @example
+ *     validateString("kitten", ["kit", "hi"], "startsWith"))
+ *     => true
+ *
+ * @param {any} value - String to test
+ * @param {string | RegExp} pattern - Values to compare
+ * @param {startsWith | includes | endsWith | eq | contains} - Validate_op
+ */
 export const validateString = (
     value: string,
     pattern: string | RegExp,

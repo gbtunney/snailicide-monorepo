@@ -1,12 +1,13 @@
+// @ts-expect-error no definitions
+import { format } from 'format'
 import { describe, expect, test } from 'vitest'
+
 import { escapeStringRegexp } from './escape.js'
-import { isValidRegExp } from './validators.js'
 import {
     getRegExpEndOfString,
     getRegExpStartOfString,
 } from './stringToRegexp.js'
-// @ts-expect-error no definitions
-import { format } from 'format'
+import { isValidRegExp } from './validators.js'
 
 describe('Regexp', () => {
     test('Regexp namespace: Test', () => {

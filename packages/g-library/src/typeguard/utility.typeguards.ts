@@ -1,18 +1,18 @@
-import { isNil, isEmpty, isNotEmpty } from 'ramda'
-import { UnknownArray, IsLiteral } from 'type-fest'
+import { isEmpty, isNil, isNotEmpty } from 'ramda'
+import { IsLiteral, UnknownArray } from 'type-fest'
 
-import { RA } from './ramdaimports.js'
 import type {
-    Falsy,
-    NilOrEmpty,
-    NilLike,
-    Nullish,
-    EmptyString,
-    EmptyObject,
     EmptyArray,
+    EmptyObject,
+    EmptyString,
+    Falsy,
+    NilLike,
+    NilOrEmpty,
+    Nullish,
 } from './../types/empty.js'
-import type { Primitive, PlainObject } from './../types/utility.js'
+import type { PlainObject, Primitive } from './../types/utility.js'
 import { IsArray } from './../types/utility.js'
+import { RA } from './ramdaimports.js'
 
 //todo: move these to "empty??"
 

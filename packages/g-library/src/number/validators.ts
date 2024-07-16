@@ -1,12 +1,13 @@
 import { isFloat, isString } from 'ramda-adjunct'
+
+import { removeAllNewlines, trimWhiteSpace } from '../string/_stringUtils.js'
 import {
     isBigInt,
     isInteger as tgIsInteger,
     isNumber,
 } from '../typeguard/utility.typeguards.js'
-import { Numeric, PossibleNumeric } from './numeric.js'
 import { scientificNumber } from './../regexp/dictionary.js'
-import { removeAllNewlines, trimWhiteSpace } from '../string/_stringUtils.js'
+import { Numeric, PossibleNumeric } from './numeric.js'
 
 export const isValidScientificNumber = <T extends PossibleNumeric>(
     value: T,

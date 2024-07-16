@@ -1,11 +1,11 @@
 import { ensureArray, isString, replaceAll } from 'ramda-adjunct'
+
 import type {
-    ReplaceCharacters,
     BaseValue,
     BatchBaseValue,
     Pattern,
+    ReplaceCharacters,
 } from './type.js'
-import { isNonEmptyArray } from './../typeguard/utility.typeguards.js'
 
 const replaceCharactersSinglePattern = ({
     value,

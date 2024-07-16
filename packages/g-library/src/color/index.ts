@@ -1,8 +1,9 @@
+import type { Chromable, Color, ColorFormat } from 'chroma.ts'
 import * as chroma from 'chroma.ts'
-import type { Chromable, Color, ColorFormat, Scale, ColorMode } from 'chroma.ts'
 import { repeat } from 'ramda'
-import { tg } from './../typeguard/index.js'
+
 import { isCSSColorSpecial } from './../browser/css.js'
+import { tg } from './../typeguard/index.js'
 
 /**
  * @see https://en.wikipedia.org/wiki/HSL_and_HSV
@@ -122,6 +123,9 @@ Color1 = BaseColor
 Color2 = ColorFromHSL(Hue(BaseColor) + HueVariation, Saturation(BaseColor), Lightness(BaseColor))
 Color3 = ColorFromHSL(Hue(BaseColor) - HueVariation, Saturation(BaseColor), Lightness(BaseColor))
   */
+/**
+ *
+ */
 function _analogous(color: Chromable, results: number, slices: number) {
     /*results = results || 6;
         slices = slices || 30;
@@ -137,6 +141,9 @@ function _analogous(color: Chromable, results: number, slices: number) {
         return ret;*/
 }
 
+/**
+ *
+ */
 function monochromatic(
     color: Chromable,
     format?: chroma.ColorFormat,
@@ -157,6 +164,9 @@ function monochromatic(
     //reduce function idk???
 }
 
+/**
+ *
+ */
 function _monochromatic(color: Chromable, results: number) {
     /* results = results || 6;
          var hsv = tinycolor(color).toHsv();

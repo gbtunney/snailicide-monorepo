@@ -1,14 +1,15 @@
 import { describe, expect, test } from 'vitest'
+
+import { isBigInt, isNumber } from './../typeguard/utility.typeguards.js'
+import { toStringNumeric } from './transform.js'
+import { isPossibleNumeric } from './typeguards.js'
 import {
+    isNumeric,
     isStringNumeric,
     isValidScientificNumber,
-    isNumeric,
 } from './validators.js'
-import { toStringNumeric, toNumeric } from './transform.js'
-import { isNumber, isBigInt } from './../typeguard/utility.typeguards.js'
-import { isParsableToNumeric, isPossibleNumeric } from './typeguards.js'
 
-let LOGGING: boolean = false
+const LOGGING: boolean = false
 
 const logNumbers = (valueArr: (number | bigint | string)[]) => {
     valueArr.forEach((value) => {

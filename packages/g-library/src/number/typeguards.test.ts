@@ -1,7 +1,8 @@
 import { describe, expect, test } from 'vitest'
+
 import { isParsableToNumeric, isPossibleNumeric } from './typeguards.js'
 
-describe('transform numeric tests, ', () => {
+describe('transform numeric tests,', () => {
     test('transform: TODO:', () => {
         expect(isPossibleNumeric('222')).toEqual(true)
         expect(isPossibleNumeric(' 222  ')).toEqual(true)

@@ -1,13 +1,13 @@
-import { escapeStringRegexp } from './escape.js'
 import * as _lookup from './dictionary.js'
-import { isStringValidRegExp, isValidRegExp } from './validators.js'
+import { escapeStringRegexp } from './escape.js'
 import {
-    stringToRegexp,
     getRegExpEndOfString,
     getRegExpStartOfString,
     getRegExpTrim,
     stringListToRegexp,
+    stringToRegexp,
 } from './stringToRegexp.js'
+import { isStringValidRegExp, isValidRegExp } from './validators.js'
 
 const _match = 'String'.match
 export type RegExpMatchArray = ReturnType<typeof _match>
@@ -25,7 +25,7 @@ export const lookup: typeof _lookup = _lookup
  */
 
 export const fileExtension = (min: number = 2, max: number = 8) =>
-    new RegExp(`\.[a-z]{${min},${max}$`)
+    new RegExp(`.[a-z]{${min},${max}$`)
 
 /* TODO: finish
 export const joinRegexList = (_value: (string ) | (string )[]): RegExp|undefined => {

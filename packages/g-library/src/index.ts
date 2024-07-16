@@ -30,8 +30,8 @@ export { zodHelpers } from './zod_helpers/index.js'
 /* * JSON & OBJECT UTILS * */
 export { objectUtils } from './object/index.js'
 
-import * as _dateUtils from './date/index.js'
 import * as _colorUtils from './color/index.js'
+import * as _dateUtils from './date/index.js'
 
 export const dateUtils: typeof _dateUtils = _dateUtils
 export const colorUtils: typeof _colorUtils = _colorUtils

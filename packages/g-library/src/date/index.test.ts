@@ -1,11 +1,12 @@
 import { describe, expect, test } from 'vitest'
+
 import {
-    msToIsoString,
-    getTimestampDuration,
-    highresTimestamptoISOString,
-    formatISOtoDuration,
     format_duration_basic,
     format_duration_long,
+    formatISOtoDuration,
+    getTimestampDuration,
+    highresTimestamptoISOString,
+    msToIsoString,
 } from './index.js'
 
 describe('duration formatting | to human readable', () => {

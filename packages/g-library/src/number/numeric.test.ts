@@ -1,12 +1,8 @@
+import { isBigInt, isFloat, isInteger } from 'ramda-adjunct'
 import { describe, expect, test } from 'vitest'
-import { isInteger, isFloat, isBigInt } from 'ramda-adjunct'
-import {
-    isNumeric,
-    isNumericFloat,
-    isNumericInteger,
-    isValidScientificNumber,
-} from './validators.js'
+
 import { isPossibleNumeric } from './typeguards.js'
+import { isNumeric, isNumericFloat, isNumericInteger } from './validators.js'
 
 describe('Numeric Module', () => {
     test('isNumeric, is string/number a number value WITHOUT extraneas characters except whitespace', () => {
@@ -40,7 +36,7 @@ describe('Numeric Module', () => {
         expect(isBigInt(100)).toEqual(false)
         expect(isFloat(100.00002)).toEqual(true)
     })
-    test('test INVALID isNumeric', () => {
+    test('INVALID isNumeric', () => {
         const invalidTestValues = [
             '',
             'abc',

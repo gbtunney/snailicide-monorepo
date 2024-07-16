@@ -20,6 +20,12 @@ export const isCSSColorSpecial = <T = unknown>(
 
 export const isNotCSSColorSpecial = <T = unknown>(
     value: T | CSSColorSpecialProp,
-): value is T => !('inherit' || 'initial' || 'revert' || 'unset')
+): value is T =>
+    !(
+        value === 'inherit' ||
+        value === 'initial' ||
+        value === 'revert' ||
+        value === 'unset'
+    )
 
 export default isCSSColorSpecial

@@ -1,11 +1,11 @@
-import z, { ZodEffects, ZodArray, ZodUnion } from 'zod'
-import { isNotString, ensureArray as R_ensureArray } from 'ramda-adjunct'
-import { isPossibleNumeric } from '../number/typeguards.js'
-import { isRegExp, isString } from '../typeguard/utility.typeguards.js'
-import { isStringValidRegExp } from '../regexp/validators.js'
+import { ensureArray as R_ensureArray, isNotString } from 'ramda-adjunct'
+import z, { ZodArray, ZodEffects, ZodUnion } from 'zod'
+
+import { Numeric } from '../number/numeric'
 import { toNumeric } from '../number/transform.js'
-import { Except } from 'type-fest'
-import { PossibleNumeric, Numeric } from '../number/numeric'
+import { isPossibleNumeric } from '../number/typeguards.js'
+import { isStringValidRegExp } from '../regexp/validators.js'
+import { isRegExp, isString } from '../typeguard/utility.typeguards.js'
 
 export const schemaForType =
     <T>() =>
