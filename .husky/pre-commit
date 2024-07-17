@@ -1,11 +1,11 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 # Protect master from accidental commits.
 
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
 PROTECTED_BRANCHES="^(master|main)"
 
-echo -e "===\n>> Latest Pre-commit Hook:: Checking BRANCH: $BRANCH"
+echo -e "===\n>> Pre-commit Hook:: Checking BRANCH: $BRANCH"
 
 if [[ "$BRANCH" =~ $PROTECTED_BRANCHES ]]; then
     echo -e "\n🚫 Commit directly to BRANCH:  $BRANCH is not allowed!\n" && exit 1
