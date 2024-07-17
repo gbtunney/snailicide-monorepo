@@ -1,3 +1,10 @@
+/**
+ * OBJECT UTILS UTILS
+ *
+ * This file contains utility functions for objects *
+ *
+ * @namespace ObjectUtils
+ */
 import {
     prettyPrintJSON,
     safeDeserializeJson,

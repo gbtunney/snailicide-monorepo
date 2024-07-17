@@ -1,5 +1,3 @@
-/** @namespace ObjectUtils */
-
 import { Jsonifiable } from 'type-fest'
 
 import { isJsonValue } from '../typeguard/json.typeguards.js'
