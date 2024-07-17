@@ -46,7 +46,7 @@
         "uninstall:rm": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +",
         "uninstall:lock": "rm -f pnpm-lock.yaml && rm -f packages/**/pnpm-lock.yaml",
         "\n========== LIFECYCLE >> ==========": "",
-        "prepare": "husky install",
+        "prepare": "husky",
         "pre:commit": "lint-staged",
         "postinstall": "pnpm nx:build && pnpm build:self",
         "\n========== WORKFLOW >> ==========": "",
@@ -73,12 +73,6 @@
         "prettier": "^3.0.3",
         "typescript": "^5.2.2",
         "verdaccio": "^5.31.0"
-    },
-    "husky": {
-        "hooks": {
-            "pre-push": "./commands/pre-push $HUSKY_GIT_STDIN",
-            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-        }
     },
     "prettier": "@snailicide/build-config/prettier",
     "config": {
