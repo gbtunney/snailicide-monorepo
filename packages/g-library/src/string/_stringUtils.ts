@@ -414,4 +414,4 @@ export const removeAllNewlines = (value: string): string =>
  * @returns {string} - The string without leading or trailing whitespace.
  */
 export const trimWhiteSpace = (value: string): string =>
-    value.replace(new RegExp(/^\s|\s$/), '')
+    value.replace(new RegExp(/^\s|\s$/, 'g'), '')

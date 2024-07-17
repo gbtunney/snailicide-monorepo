@@ -1,12 +1,6 @@
-import { ensureArray as R_ensureArray, isNotString } from 'ramda-adjunct'
-import z, { ZodArray, ZodEffects, ZodUnion } from 'zod'
+import z from 'zod'
 
-import { Numeric } from '../number/numeric'
-import { toNumeric } from '../number/transform.js'
-import { isPossibleNumeric } from '../number/typeguards.js'
-import { isStringValidRegExp } from '../regexp/validators.js'
-import { isRegExp, isString } from '../typeguard/utility.typeguards.js'
-
+import { ensureArray, numeric, resolveRegExpSchema } from './schemas.js'
 export const schemaForType =
     <T>() =>
     <S extends z.ZodType<T, any, any>>(arg: S) => {
@@ -47,18 +41,6 @@ export const parseZodData = <S extends z.ZodSchema>(
 ): z.infer<S> | undefined => {
     return isZodParsable<S>(value, schema) ? schema.parse(value) : undefined
 }
-export const resolveRegExpSchema = z
-    .union([z.string(), z.instanceof(RegExp)])
-    .refine((value) => {
-        return isRegExp(value) ? true : isStringValidRegExp(value)
-    }, 'Please provide a valid regular expression.')
-    .transform((value) => {
-        const reg: RegExp =
-            isString(value) && isStringValidRegExp(value)
-                ? new RegExp(value)
-                : value
-    })
-
 /**
  * Guard function to determine if value is parseable according to schema
  *
@@ -97,42 +79,14 @@ export const parseFactory =
         return undefined
     }
 
-export const ensureArray = <T extends z.ZodTypeAny>(
-    schema: T,
-): ZodEffects<ZodUnion<[ZodArray<T, 'many'>, T]>, T['_output'][]> => {
-    const union: ZodEffects<
-        ZodUnion<[ZodArray<T, 'many'>, T]>,
-        T['_output'][]
-    > = z
-        .union([z.array(schema), schema])
-        .transform((value): z.infer<ZodArray<typeof schema, 'many'>> => {
-            return R_ensureArray<typeof schema>(value)
-        })
-
-    return union
-}
-
-//TODO: finish this
-export const numeric = <T extends z.ZodTypeAny>(schema: T) =>
-    z
-        .union([z.string(), z.number(), z.bigint()])
-        .refine(
-            (value) => isPossibleNumeric(value),
-            'Please enter a valid number|bigint|string',
-        )
-        .transform((value): bigint | number | undefined => {
-            const _value: Numeric | undefined = toNumeric<typeof value>(value)
-            if (_value !== undefined && isNotString(_value)) {
-                return _value
-            }
-            return undefined
-        })
-
 export const zodHelpers = {
     schemaForType,
     wrapSchema,
     isZodParsable,
     parseZodData,
     parseFactory,
+    ensureArray,
+    numeric,
+    resolveRegExpSchema,
 }
 export default zodHelpers

@@ -16,10 +16,10 @@ describe('Parse Module', () => {
         //jest ignores zeros anyway
         expect(_parse.parseStringToInteger(test_value)).toEqual(100000)
 
-        const test_value_2 = ' 100000.02.22px'
+        const test_value_2 = ' 100000.0222px'
         expect(isNumeric(test_value_2)).toEqual(false)
         expect(isParsableToNumeric(test_value_2)).toEqual(true)
-        expect(_parse.parseToFloat(test_value_2)).toBe(100000.02)
+        expect(_parse.parseToFloat(test_value_2)).toBe(100000.0222)
         expect(_parse.parseStringToInteger(test_value_2)).toBe(100000)
         expect(_parse.parseStringToInteger(test_value_2)).toBe(100000.0)
 

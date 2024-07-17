@@ -29,7 +29,6 @@ export const toStringNumeric = <T extends string>(
                 /[n]$/.test(trimmedValue) &&
                 /[n]/.test(trimmedValue.replace(/[n]$/, '')) === false
             ) {
-                console.log('BIG INT!!!!', trimmedValue)
                 //if ( /[n]/.test(  trimmedValue.replace(/[n]$/ , ""))  ===  false ) {
                 //if it ends in 'n' its a bigint ( exampel 0x01n or 2n ) >>> remove n and new BigInt and test its validity
                 return BigInt(trimmedValue.replace(/[n]$/, ''))

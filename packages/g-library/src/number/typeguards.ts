@@ -1,8 +1,9 @@
 import { isFinite, isNotNaN, isValidNumber } from 'ramda-adjunct'
 
-import { removeAllNewlines } from '../string/_stringUtils.js'
+import { removeAllNewlines, trimWhiteSpace } from '../string/_stringUtils.js'
 import { isBigInt, isString } from '../typeguard/utility.typeguards.js'
 import { Numeric, PossibleNumeric } from './numeric.js'
+import { isStringNumeric } from './validators'
 const LOGGING: boolean = false
 
 export const isParsableToNumeric = <Type extends PossibleNumeric>(
@@ -18,46 +19,17 @@ export const isPossibleNumeric = <Type extends PossibleNumeric>(
     strict: boolean = true,
 ): value is Type => {
     if (isBigInt(value) || isValidNumber(value)) return true
-    if (
-        isString<string>(value) &&
-        /\d/.test(value) &&
-        value.toString().length > 0
-    ) {
-        // hex numbers are always valid
-        if (!/^[0x]/.test(value)) {
-            if (strict === true && /[a-zA-Z]/.test(removeAllNewlines(value)))
-                return false
-        } else {
-            return true
-        }
-        let _pre: string = value
+    if (isString<string>(value) && value.toString().length > 0) {
+        let _pre: string = cleanString(value)
+
         const regex = new RegExp(/([a-z]|[A-Z]|,|\?|$|\$|!|@|#|%|&)/, 'g')
 
         if (strict === false) {
-            const replaced_value = removeAllNewlines(value.toString()).replace(
-                regex,
-                '',
-            )
+            const replaced_value = _pre.replace(regex, '')
             if (replaced_value.length > 0) _pre = replaced_value
-        } else {
-            _pre = removeAllNewlines(value.toString())
         }
-        const _number =
-            /^[0x]/.test(_pre) &&
-            parseFloat(_pre) === 0 &&
-            parseInt(_pre) > parseFloat(_pre)
-                ? parseInt(_pre)
-                : parseFloat(_pre)
-        if (LOGGING) {
-            console.log(
-                'its ',
-                _number,
-                value,
-                isNotNaN(_number),
-                isFinite(_number),
-            )
-        }
-        return isNotNaN(_number) && isFinite(_number)
+
+        return isStringNumeric(_pre)
     }
     return false
 }
@@ -70,3 +42,4 @@ export const isTrueNumeric = <Type extends Numeric>(
         isFinite(Number(value))
     )
 }
+const cleanString = (value: string) => trimWhiteSpace(removeAllNewlines(value))

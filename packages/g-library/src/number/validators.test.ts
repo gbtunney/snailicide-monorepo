@@ -96,6 +96,11 @@ describe('validators', () => {
             '+10',
             '3.4028236692093846346e+38',
             '0x01n',
+            '0e0',
+            '08.123e+0_1',
+            '018e1',
+            '01812.1',
+            '08000',
         ]
 
         validString.forEach((value) => {
@@ -107,22 +112,11 @@ describe('validators', () => {
             //console.log( "valueeee" , value , "isNumeric", isNumeric(value), "isNumericString",isStringNumeric(value))
         })
 
-        //octal literals??
-
-        // error:
         const invalidNumbers: (number | bigint)[] = [/* '+1n'*/ NaN, Infinity]
         invalidNumbers.forEach((value) => {
             expect(!isPossibleNumeric(value) && !isNumeric(value)).toBe(true)
             //console.log( "valueeee" , value , "isNumeric", isNumeric(value), "isNumericString",isStringNumeric(value))
         })
-        //     logStrings(['20.00', '20.02', '88281n2888n'])
-
-        //  console.log( "!!!BigInt"  , toStringNumeric("0xFF " ,false) )
-        //logStrings(validSrer)
-
-        // console.log("BIG INT " , "isValidNumber" , typeof new Number( "20.00").valueOf() )
-        const validStrings = ['0e0', '08.123e+0_1', '018e1', '01812.1', '08000']
-
         const invalidStrings = [
             '07.123e+0_1',
             '2_',
@@ -145,7 +139,8 @@ describe('validators', () => {
                     !isNumeric(value) &&
                     !isStringNumeric(value),
             ).toBe(true)
-            //console.log( "valueeee" , value , "isNumeric", isNumeric(value), "isNumericString",isStringNumeric(value))
+            /*console.log( "valueeee" , value ,"isPossibleNumeric",isPossibleNumeric(value
+            ), "isNumeric", isNumeric(value), "isNumericString",isStringNumeric(value))*/
         })
     })
 })
