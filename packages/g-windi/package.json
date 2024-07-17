@@ -1,6 +1,6 @@
 {
     "name": "@snailicide/g-windi",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description": "Function library for windicss",
     "private": false,
     "type": "module",
