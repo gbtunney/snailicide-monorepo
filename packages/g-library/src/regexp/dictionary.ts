@@ -10,10 +10,7 @@ export const validPackageName =
 export const packageManager = /(npm|pnpm|yarn)@\d+\.\d+\.\d+(-.+)?/
 
 /**
- * ScientificNumber
- *
- * Removed Nan and Infinity
- *
+ * @category SCIENCE Removed Nan and Infinity
  * @see {@link https://regex101.com/r/oubK67/5}
  */
 export const scientificNumber =

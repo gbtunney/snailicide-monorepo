@@ -1,5 +1,13 @@
 import z from 'zod'
 
+/**
+ * Zod Helpers
+ *
+ * This file contains utility functions for zod *
+ *
+ * @category Zod
+ * @namespace ZodHelpers
+ */
 import { ensureArray, numeric, resolveRegExpSchema } from './schemas.js'
 export const schemaForType =
     <T>() =>
