@@ -5,6 +5,6 @@ const FLAT_CONFIG = await EsLint.flatConfig()
 export default [
     ...FLAT_CONFIG,
     {
-        ignores: ['packages/g-library/**/*'],
+        ignores: ['packages/**/docs/**/*'],
     },
 ]

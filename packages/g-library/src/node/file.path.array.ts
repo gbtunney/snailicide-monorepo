@@ -1,7 +1,7 @@
-import { globSync } from 'glob'
-import path from 'path'
 import fs from 'fs'
+import { globSync } from 'glob'
 import _isGlob from 'is-glob'
+import path from 'path'
 import { isString } from 'ramda-adjunct'
 
 export type FilePath = {

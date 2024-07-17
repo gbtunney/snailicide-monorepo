@@ -1,55 +1,53 @@
-<h1 align="center">Welcome to @snailicide/g-library👋</h1>
-<p>
-  <img alt="Version" src="https://img.shields.io/badge/version-0.0.1-blue.svg?cacheSeconds=2592000" />
-  <a href="#" target="_blank">
-    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
-  </a>
+# @snailicide/g-library 🐌
+
+<p align="center">
+	<img alt="Version" src="https://img.shields.io/npm/v/@snailicide/g-library"/>
+	<a href="#" target="_blank">
+		<img alt="License: MIT" src="https://img.shields.io/npm/l/@snailicide/g-library"/>
+	</a>
+	<a href="#" target="_blank">
+		<img alt="Typescript" height="20px" src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white"/>
+	</a>
 </p>
 
-> Function library written in typescript
+_Function library written in typescript_
 
-## Repository
+### Repository
 
 [snailicide-monorepo](https://github.com/gbtunney/snailicide-monorepo.git)
 
-## Docs
-
--   http://gilliantunney.com/docs-snailicide/
-
-## Author
+### Author
 
 👤 **Gillian Tunney**
 
 -   [github](https://github.com/gbtunney)
 -   [email](mailto:gbtunney@mac.com)
 
-# Snailicide g library
+### Documentation
+
+-   [@snailicide/g-library docs](http://gilliantunney.com/docs-snailicide/)
+
+## 🐌
 
 ## Installation
 
 This library is published in the NPM registry and can be installed using any compatible package manager.
 
 ```sh
-## For pnpm workspace, use the command below.
-pnpm add @snailicide/g-library@workspace:*
+#pnpm
+pnpm add @snailicide/g-library
 
-pnpm --filter=[yourGlob] add @snailicide/g-library@workspace:*
+#yarn
+yarn add @snailicide/g-library
+
+#npm
+npm install @snailicide/g-library
 ```
 
-## Build
+### Helpful Links
 
-```sh
-pnpm --filter=@snailicide/g-library build
-```
-
-## Tests
-
-```sh
-pnpm --filter=@snailicide/g-library test
-```
-
-## TODO:
-
-[ ] jsdocPrintWidth look at this variable for line breaks
-
-[ ] fix mjs file and iife , repubblish [ ] add new functions with date..
+-   [Ramda](https://ramdajs.com/docs/)
+-   [Ramda Adjunct](https://char0n.github.io/ramda-adjunct/5.0.1/)
+-   [Zod](https://zod.dev/)
+-   [Moment.js](https://momentjs.com/docs/)
+-   [type-fest](https://github.com/sindresorhus/type-fest)

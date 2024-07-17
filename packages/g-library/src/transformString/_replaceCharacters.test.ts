@@ -1,5 +1,6 @@
-import { batchReplaceAll, replaceAllCharacters } from './_replaceCharacters.js'
 import { describe, expect, test } from 'vitest'
+
+import { batchReplaceAll, replaceAllCharacters } from './_replaceCharacters.js'
 
 describe('Replace Characters', () => {
     test('replaceAllCharacters', () => {

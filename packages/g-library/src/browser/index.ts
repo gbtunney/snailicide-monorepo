@@ -1,7 +1,7 @@
+import { isCSSColorSpecial, isNotCSSColorSpecial } from './css.js'
 import { getHTMLElementFromString } from './html.js'
 import { styledConsoleLog } from './logging.js'
-import { renderMarkdown, renderInlineMarkdown } from './markdown.js'
-import { isCSSColorSpecial, isNotCSSColorSpecial } from './css.js'
+import { renderInlineMarkdown, renderMarkdown } from './markdown.js'
 
 export const htmlUtils = {
     styledConsoleLog,

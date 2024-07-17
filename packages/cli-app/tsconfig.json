@@ -4,14 +4,13 @@
         "target": "ESNext",
         "lib": ["ESNext", "DOM"],
         "composite": true,
-        "noEmit": true,
         "module": "ESNext",
-        "rootDir": ".",
         "allowSyntheticDefaultImports": true,
-
-        "types": ["@types/node", "@types/jest", "jest", "node"]
+        "rootDir": ".",
+        "types": ["node"],
+        "moduleResolution": "bundler"
     },
     "exclude": ["./node_modules"],
-    "include": ["./**/*.test.ts"],
+    "include": ["./*.ts", "package.json"],
     "references": [{ "path": "./src" }]
 }

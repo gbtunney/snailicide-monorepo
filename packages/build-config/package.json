@@ -27,8 +27,9 @@
     "types": "./types/index.d.ts",
     "scripts": {
         "\n========== BUILD >> ==========": "",
-        "build": "pnpm build:ts && pnpm build:rollup",
+        "build": "pnpm run build:cp && pnpm build:ts && pnpm build:rollup",
         "build:rollup": "rollup --config ./rollup.config.js",
+        "build:cp": "cp ./src/tsconfig/tsconfig-base.json .",
         "build:ts": "tsc --build",
         "dev": "tsc --build --watch",
         "\n========== PUBLISH >> ==========": "",
@@ -80,7 +81,7 @@
         "ts-deepmerge": "^7.0.0",
         "typescript-eslint": "^7.15.0",
         "vite": "^5.3.3",
-        "vitest": "^1.6.0"
+        "vitest": "^2.0.3"
     },
     "peerDependencies": {
         "eslint": "9.x",
@@ -92,6 +93,7 @@
         "@rollup/plugin-commonjs": "^26.0.1",
         "@rollup/plugin-json": "^6.1.0",
         "@rollup/plugin-node-resolve": "^15.2.3",
+        "@types/eslint": "^8.56.10",
         "@types/node": "^20.6.2",
         "@types/shelljs": "^0.8.12",
         "cross-var": "^1.1.0",

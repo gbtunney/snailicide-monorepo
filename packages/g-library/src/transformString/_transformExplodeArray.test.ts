@@ -1,8 +1,6 @@
-import {
-    explodeCSSClassString,
-    transformExplodeArray,
-} from './_transformExplodeArray.js'
 import { describe, expect, test } from 'vitest'
+
+import { transformExplodeArray } from './_transformExplodeArray.js'
 
 describe('transformExplodeArray', () => {
     test('transformExplodeArray', () => {

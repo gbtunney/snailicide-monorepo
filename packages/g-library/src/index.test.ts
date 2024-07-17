@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest'
 
-test('returns `true` for values parseable number', () => {
+test('Printf formatting', () => {
     expect(true).toBe(true)
 })
 

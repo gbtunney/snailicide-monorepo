@@ -1,7 +1,7 @@
 import {
     prettyPrintJSON,
-    safeSerializeJson,
     safeDeserializeJson,
+    safeSerializeJson,
 } from './json.js'
 
 export { merge as deepmerge } from 'ts-deepmerge'

@@ -1,5 +1,14 @@
 import z from 'zod'
 
+/**
+ * Zod Helpers
+ *
+ * This file contains utility functions for zod *
+ *
+ * @category Zod
+ * @namespace ZodHelpers
+ */
+import { ensureArray, numeric, resolveRegExpSchema } from './schemas.js'
 export const schemaForType =
     <T>() =>
     <S extends z.ZodType<T, any, any>>(arg: S) => {
@@ -40,7 +49,6 @@ export const parseZodData = <S extends z.ZodSchema>(
 ): z.infer<S> | undefined => {
     return isZodParsable<S>(value, schema) ? schema.parse(value) : undefined
 }
-
 /**
  * Guard function to determine if value is parseable according to schema
  *
@@ -85,5 +93,8 @@ export const zodHelpers = {
     isZodParsable,
     parseZodData,
     parseFactory,
+    ensureArray,
+    numeric,
+    resolveRegExpSchema,
 }
 export default zodHelpers

@@ -1,10 +1,11 @@
 import { describe, expect, test } from 'vitest'
+
 import { getImageBase64 } from './encodeBase64.js'
 import {
+    getExistingPathType,
     getFilePathArr,
     getFilePathObj,
     isFile,
-    getExistingPathType,
     isFileArray,
 } from './file.path.array.js'
 describe('encodeBase64 getImageBase64', () => {
@@ -37,7 +38,7 @@ describe('getFilePathArr getFilePathObj', () => {
             expect(filePathObj.extname).toEqual('jpeg')
             expect(filePathObj.parentdirname).toEqual('sample_image')
         } else expect(false).toEqual(true)
-        expect(getFilePathObj(filePathGlob)).toBeUndefined
+        //expect(getFilePathObj(filePathGlob)).toBeUndefined
         expect(getFilePathArr(filePathGlob).length).toBeGreaterThan(1)
         expect(getFilePathArr('./sample_image/testimage.jpeg').length).toBe(1)
         expect(getFilePathArr('./sample_image').length).toBe(1)
