@@ -1,5 +1,13 @@
 # @snailicide/g-library@0.2.1
 
+## 0.4.5
+
+### Patch Changes
+
+-   8c088b2: - fixed cli-app compilation, updated dependencies
+    -   added g-library documentation
+    -   g-library new zod schemas and formatters
+
 ## 0.4.4
 
 ### Patch Changes

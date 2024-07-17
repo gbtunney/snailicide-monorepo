@@ -1,5 +1,15 @@
 # @snailicide/cli-app
 
+## 0.0.8
+
+### Patch Changes
+
+-   8c088b2: - fixed cli-app compilation, updated dependencies
+    -   added g-library documentation
+    -   g-library new zod schemas and formatters
+-   Updated dependencies [8c088b2]
+    -   @snailicide/g-library@0.4.5
+
 ## 0.0.7
 
 ### Patch Changes
