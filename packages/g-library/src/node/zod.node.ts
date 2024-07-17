@@ -1,13 +1,14 @@
-import { z } from 'zod'
 import { isString } from 'ramda-adjunct'
+import { z } from 'zod'
+
 import {
-    FileType,
-    FilePath,
-    getFullPath,
-    getFilePathArr,
-    normalizePath,
-    getExistingPathType,
     doesFileExist,
+    FilePath,
+    FileType,
+    getExistingPathType,
+    getFilePathArr,
+    getFullPath,
+    normalizePath,
 } from './../node/file.path.array.js'
 
 /* * CUSTOM ZOD UTILITIES!! * */

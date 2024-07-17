@@ -17,36 +17,19 @@ const CONFIG_OBJ = [
             {
                 export_types: ['default', 'import', 'require', 'types'],
                 export_key: '*',
-                library_name: 'gLibrary',
-            },
-            {
-                export_types: ['default', 'import', 'require', 'types'],
-                export_key: 'node',
-                library_name: 'gLibrary:Node',
+                library_name: 'gCliApp',
             },
         ],
-        rollup.DEFAULT_PLUGINS_BUNDLED,
-        pkg,
-    ),
-    ...rollup.getConfigEntries(
-        directory_paths,
-        [
-            {
-                export_types: [
-                    'browser_import',
-                    'browser_default',
-                    'browser_umd',
-                    'browser_types',
-                ],
-                out_file_name_override: 'cdn-index',
-                export_key: '*',
-                library_name: 'gLibrary',
-                overrides: {
-                    minify: true,
-                },
-            },
-        ],
-        rollup.CDN_PLUGINS_BUNDLED,
+        /* [
+
+           typescript({ compilerOptions: { jsx: 'preserve' } }),
+           rollup.getPluginConfiguration("json")?.plugin_configured,
+           rollup.getPluginConfiguration('commonJS')?.plugin_configured,
+        //
+
+
+      ],*/
+        [...rollup.DEFAULT_PLUGINS_BUNDLED],
         pkg,
     ),
 ]

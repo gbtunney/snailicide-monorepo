@@ -1,8 +1,8 @@
 import { describe, expect, test } from 'vitest'
-import z from 'zod'
-import * as zod from './zod.node.js'
+
 describe('zod custom schemas', () => {
     test('TODO: reenable', () => {
+        expect(true).toBe(true)
         //todo: reenable
         /*  expect(
             zod

@@ -1,28 +1,41 @@
+import type { Chromable, Color, ColorFormat } from 'chroma.ts'
 import * as chroma from 'chroma.ts'
-import type { Chromable, Color, ColorFormat, Scale, ColorMode } from 'chroma.ts'
 import { repeat } from 'ramda'
-import { tg } from './../typeguard/index.js'
-import { isCSSColorSpecial } from './../browser/css.js'
 
-type HSL = [number, number, number]
+import { isCSSColorSpecial } from './../browser/css.js'
+import { tg } from './../typeguard/index.js'
+
 /**
  * @see https://en.wikipedia.org/wiki/HSL_and_HSV
  * [hueDegrees, saturation1, value1]
  */
-
-export const validate = (color: Chromable): boolean => {
+type HueDegrees = number
+type Saturation = number
+type Luminance = number
+type HSL = [HueDegrees, Saturation, Luminance]
+export const validate = (value: Chromable): boolean => {
     try {
-        chroma.color(color)
+        chroma.color(value)
         return true
     } catch (exception) {
         return false
     }
 }
 
-export const isChromaColor = <T extends Chromable>(
-    color: T,
-): color is T extends Chromable ? T : never => {
-    return validate(color)
+export const isValidColor = <Type extends Chromable>(
+    value: Type,
+): value is Type => {
+    return validate(value)
+}
+
+export const getChromaColor = (value: Chromable): Color | undefined =>
+    isValidColor(value) ? chroma.color(value) : undefined
+
+export const getColor = (value: Chromable, format: ColorFormat = 'hsl') => {
+    if (isValidColor(value)) {
+        const testy = chroma.color(value, format)
+    }
+    undefined
 }
 
 const rotateHueFunction = (hue: number, incrementValue: number): number => {
@@ -65,7 +78,7 @@ export const analogous = (color: Chromable, results = 6, slices = 30) => {
     )
 }
 
-export const getChromaColor = (
+/*export const getChromaColor = (
     color: Chromable,
     format?: chroma.ColorFormat,
 ): ChromaColorPalatte | undefined => {
@@ -88,7 +101,7 @@ export const getChromaColor = (
         tetrad: tetrad(chroma_color),
         analogous: analogous(chroma_color),
     }
-}
+}*/
 
 const chromaColorBrighten = (
     value: string | undefined,
@@ -110,6 +123,9 @@ Color1 = BaseColor
 Color2 = ColorFromHSL(Hue(BaseColor) + HueVariation, Saturation(BaseColor), Lightness(BaseColor))
 Color3 = ColorFromHSL(Hue(BaseColor) - HueVariation, Saturation(BaseColor), Lightness(BaseColor))
   */
+/**
+ *
+ */
 function _analogous(color: Chromable, results: number, slices: number) {
     /*results = results || 6;
         slices = slices || 30;
@@ -125,6 +141,9 @@ function _analogous(color: Chromable, results: number, slices: number) {
         return ret;*/
 }
 
+/**
+ *
+ */
 function monochromatic(
     color: Chromable,
     format?: chroma.ColorFormat,
@@ -145,6 +164,9 @@ function monochromatic(
     //reduce function idk???
 }
 
+/**
+ *
+ */
 function _monochromatic(color: Chromable, results: number) {
     /* results = results || 6;
          var hsv = tinycolor(color).toHsv();

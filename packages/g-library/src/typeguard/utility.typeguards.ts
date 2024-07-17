@@ -1,17 +1,18 @@
-import { isNil, isEmpty, isNotEmpty } from 'ramda'
-import { RA } from './ramdaimports.js'
+import { isEmpty, isNil, isNotEmpty } from 'ramda'
+import { IsLiteral, UnknownArray } from 'type-fest'
+
 import type {
-    Falsy,
-    NilOrEmpty,
-    NilLike,
-    Nullish,
-    EmptyString,
-    EmptyObject,
     EmptyArray,
+    EmptyObject,
+    EmptyString,
+    Falsy,
+    NilLike,
+    NilOrEmpty,
+    Nullish,
 } from './../types/empty.js'
-import type { Primitive, PlainObject } from './../types/utility.js'
+import type { PlainObject, Primitive } from './../types/utility.js'
 import { IsArray } from './../types/utility.js'
-import { UnknownArray } from 'type-fest'
+import { RA } from './ramdaimports.js'
 
 //todo: move these to "empty??"
 
@@ -53,16 +54,28 @@ export const isString = <T extends string>(value: unknown): value is T =>
 export const isNotString = <T = unknown>(value: T | string): value is T =>
     RA.isNotString(value)
 
-export const isInteger = <T extends Primitive>(
-    value: T | number,
-): value is number => RA.isInteger(value)
-export const isNotInteger = <T extends Primitive>(
-    value: T | number,
-): value is T => RA.isNotInteger(value)
+export const isBigInt = <T extends bigint>(value: unknown): value is T => {
+    return RA.isBigInt(value)
+}
 
-export const isPrimitive = <T = unknown>(
-    value: T | Primitive,
-): value is Primitive => RA.isPrimitive(value)
+export const isNumber = <T extends number>(value: unknown): value is T =>
+    RA.isValidNumber(value)
+
+export const isNotNumber = <T extends number, N = T extends number ? never : T>(
+    value: unknown,
+): value is N => !RA.isValidNumber(value)
+
+export const isInteger = <T extends number>(value: unknown): value is T =>
+    RA.isInteger(value)
+export const isNotInteger = <
+    T extends number,
+    N = T extends number ? never : T,
+>(
+    value: unknown,
+): value is N => RA.isNotInteger(value)
+
+export const isPrimitive = <T extends Primitive>(value: unknown): value is T =>
+    RA.isPrimitive(value)
 export const isNotPrimitive = <T = unknown>(value: T | Primitive): value is T =>
     RA.isNotPrimitive(value)
 
@@ -82,25 +95,6 @@ export const isNotNull = <T extends NonNullable<any>>(
 
 export const isNull = (value: unknown): value is null => RA.isNull(value)
 
-export const isMatchRegExp = (value: string, regexp: RegExp): value is string =>
-    regexp.test(value)
-
-/**
- * **Typeguard for Undefined:** narrows to **Nullish** _(null|undefined)_ to
- *
- * @category Typeguard
- * @example
- *     const test_value = 22
- *     if (isNotUndefined(test_value)) {
- *         const value: LiteralToPrimitive<typeof test_value> = test_value
- *     }
- *
- * @template {T}
- * @function isUndefined,
- * @type {Nullish}
- * @param {T | Nullish} value - Value to test
- * @returns {boolean} - Returns true if value is undefined
- */
 export const isUndefined = <T>(value: T | Nullish): value is undefined =>
     isNil(value)
 export const isNotUndefined = <T>(value: unknown): value is T =>
@@ -131,10 +125,28 @@ export const isEmptyObject = <Type extends EmptyObject>(
     value: Type,
 ): value is Type => isEmpty(value)
 //TODO: NOTE WHY IS THIS 'EMPTY'?
-export const isPlainObject = <Type = unknown>(
-    value: Type extends PlainObject | Record<string, unknown> ? Type : never,
-): value is Type extends PlainObject | Record<string, unknown> ? Type : never =>
-    RA.isPlainObject(value)
+
+export const isPlainObject = <
+    Type extends PlainObject | Record<string, unknown>,
+>(
+    value: Type,
+): value is Type => RA.isPlainObject(value)
+
+export const isRegExp = <T extends RegExp>(value: unknown): value is T => {
+    return RA.isRegExp(value)
+}
+
+export const isNotError = <T>(
+    value: T,
+): value is IsLiteral<'ERROR'> extends false ? T : never => {
+    return value !== 'ERROR'
+}
+export const isError = (
+    value: unknown,
+): value is IsLiteral<'ERROR'> extends true ? 'ERROR' : never => {
+    return value === 'ERROR'
+}
+
 //Test case  --
 /*const test_value  = 22 //'   ' //PlainObject = { hhihih:'hjhj'}
 if ( tg_isNotUndefined( test_value) ){
