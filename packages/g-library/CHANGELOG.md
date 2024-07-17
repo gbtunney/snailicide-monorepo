@@ -1,5 +1,11 @@
 # @snailicide/g-library@0.2.1
 
+## 0.4.6
+
+### Patch Changes
+
+-   bef28f2: fixed the missing files :(
+
 ## 0.4.5
 
 ### Patch Changes
