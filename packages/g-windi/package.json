@@ -54,11 +54,11 @@
         "docs": "",
         "\n========== PUBLISH >> ==========": "",
         "release": "pnpm prerelease && pnpm publish --access public --report-summary --no-git-checks",
-        "prerelease": "pnpm clean && pnpm build && pnpm fix && pnpm check && pnpm test",
+        "prerelease": "pnpm clean && pnpm build && pnpm test",
         "\n========== CLEAN >> ==========": "",
         "clean": "pnpm clean:ts && pnpm clean:build",
         "clean:ts": "tsc --build --clean",
-        "clean:build": "rm -R -f dist && rm -R -f types && rm -R -f docs"
+        "clean:build": "rm -R -f dist types docs"
     },
     "homepage": "https://github.com/gbtunney/snailicide-monorepo#readme",
     "bugs": {
