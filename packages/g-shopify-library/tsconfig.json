@@ -1,0 +1,17 @@
+{
+    "extends": "@snailicide/build-config/tsconfig-base",
+    "compilerOptions": {
+        "target": "ESNext",
+        "lib": ["ESNext", "ES2020", "DOM"],
+        "composite": true,
+        "module": "ESNext",
+        "rootDir": ".",
+        "sourceMap": false,
+        "types": ["node"],
+        "moduleResolution": "bundler"
+    },
+    "exclude": ["./src/**/*.ts"],
+    "files": ["./package.json"],
+    "include": ["./*.ts"],
+    "references": [{ "path": "./src" }]
+}

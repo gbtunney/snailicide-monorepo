@@ -52,6 +52,7 @@ const Configuration: UserConfig = {
                 'g-windi',
                 'cli-app',
                 'cli-template',
+                'g-shopify-library',
             ],
         ],
     },
