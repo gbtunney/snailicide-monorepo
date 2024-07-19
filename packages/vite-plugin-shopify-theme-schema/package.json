@@ -12,9 +12,10 @@
     "files": [
         "types",
         "dist",
-        "example_theme_config",
         "CHANGELOG.md",
-        "vite.config.ts"
+        "vite.config.ts",
+        "example_theme_config/**/*.ts",
+        "!example_theme_config/**/*.d.ts"
     ],
     "exports": {
         ".": {
