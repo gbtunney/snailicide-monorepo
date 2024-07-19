@@ -1,5 +1,8 @@
-import { Setting, SettingsMapped } from '@snailicide/g-shopify-library'
-import { parseThemeSettingSection } from '@snailicide/g-shopify-library'
+import {
+    parseThemeSettingSection,
+    Setting,
+    SettingsMapped,
+} from '@snailicide/g-shopify-library'
 type TypographySettingsGroup = {
     test_header: Setting<'header'>
     type_header_font: Setting<'font_picker'>

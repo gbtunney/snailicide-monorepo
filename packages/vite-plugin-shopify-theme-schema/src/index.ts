@@ -9,7 +9,13 @@ export type {
     ShopifyThemeSchemaOptions,
     ResolvedShopifyThemeSchemaOptions,
     resolveOptions,
-} from './options'
+} from './options.js'
+
+import {
+    ResolvedShopifyThemeSchemaOptions,
+    resolveOptions,
+    ShopifyThemeSchemaOptions,
+} from './options.js'
 
 export default function shopifyModules(
     options: ShopifyThemeSchemaOptions = {},
