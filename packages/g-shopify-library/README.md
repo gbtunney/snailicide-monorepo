@@ -1,45 +1,53 @@
-# 🐌Welcome to @snailicide/g-shopify-library🐌
+# @snailicide/g-shopify-library 🐌
 
-| [npm](https://www.npmjs.com/package/@snailicide/g-shopify-library) | [GitHub](https://github.com/gbtunney/shopify-monorepo/tree/main/packages/g-shopify-library) |
-
-<p>
-  <img alt="Version" src="https://img.shields.io/badge/version-0.2.0-blue.svg?cacheSeconds=2592000" />
-  <a href="#" target="_blank">
-    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
-  </a>
+<p align="center">
+	<img alt="Version" src="https://img.shields.io/npm/v/@snailicide/g-shopify-library"/>
+	<a href="#" target="_blank">
+		<img alt="License: MIT" src="https://img.shields.io/npm/l/@snailicide/g-shopify-library"/>
+	</a>
+	<a href="#" target="_blank">
+		<img alt="Typescript" height="20px" src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white"/>
+	</a>
+	<a href="#" target="_blank">
+		<img alt="RollupJS" height="20px" src="https://img.shields.io/badge/RollupJS-ef3335?style=for-the-badge&logo=rollup.js&logoColor=white"/>
+	</a>
 </p>
+
+_This plugin enables Shopify theme developers to structure their code into "module" folders which keep Liquid template files (snippets and sections) organized together with their corresponding JS or CSS, while retaining the standard file structure of Shopify themes. Please see [Inspiration](#inspiration) section for more info and backstory!_
+
+### Repository
+
+[snailicide-monorepo](https://github.com/gbtunney/snailicide-monorepo.git)
+
+### Author
+
+👤 **Gillian Tunney**
+
+-   [github](https://github.com/gbtunney)
+-   [email](mailto:gbtunney@mac.com)
+
+## 🐌
 
 > Collections of types and utilities for working with Shopify
 
 -   [🐌Welcome to @snailicide/g-shopify-library🐌](#welcome-to--snailicide-g-shopify-library--)
-    -   [Author](#author)
     -   [Features](#features)
     -   [Examples](#examples)
-        -   [Install](#install)
-        -   [Build](#build)
-        -   [Tests](#tests)
+    -   [Installation](#installation)
     -   [Helpful Links](#helpful-links)
     -   [To-Do](#to-do)
     -   [Bugs](#bugs)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
-## Author
-
-👤 **Gillian Tunney** | [github](https://github.com/gbtunney) | [email](mailto:gbtunney@mac.com) |
-
 ## Features
 
 -   Generic functions for Storefront API, Shopify MediaURLs, etc
 -   Section Schema types and validators (using zod)
 
-## Examples
-
-See **@snailicide/vite-plugin-shopify-liquid-modules** for an usage example of using the [validators](./../vite-plugin-shopify-liquid-modules/example_modules/gbt-curator/schema.ts) and [types](./../vite-plugin-shopify-liquid-modules/example_modules/gbt-curator/settings.ts).
-
 ## Usage
 
-### Install
+### Installation
 
 This library is published in the NPM registry and can be installed using any compatible package manager.
 
@@ -52,26 +60,6 @@ yarn add @snailicide/g-shopify-library -D
 
 # pnp
 pnpm add @snailicide/g-shopify-library -D
-```
-
-For pnpm workspace:
-
-```sh
-pnpm add @snailicide/g-shopify-library@workspace:*
-
-pnpm --filter=[yourGlob] add @snailicide/g-shopify-library@workspace:*
-```
-
-### Build
-
-```sh
-pnpm --filter=@snailicide/g-shopify-library build
-```
-
-### Tests
-
-```sh
-pnpm --filter=@snailicide/g-shopify-library test
 ```
 
 ## Helpful Links

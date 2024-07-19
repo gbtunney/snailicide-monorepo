@@ -22,27 +22,96 @@ _Provides repository with base configurations that can be extended in new packag
     -   **ESLint Base**: [.eslintrc.ts](./.eslintrc.ts)
     -   **Prettier**: [prettier.config.js](./prettier.config.js)
 
-## Commands
+## Installation
 
--   Install
+```sh
+#pnpm
+pnpm add @snailicide/build-config -D
 
-```shell
-$ pnpm add @snailicide/build-config -D
+#yarn
+yarn add @snailicide/build-config -D
+
+#npm
+npm install @snailicide/build-config --development
 ```
 
--   Build & Publish
+## Examples
 
-```shell
-$ pnpm --filter=@snailicide/build-config run build
-$ pnpm --filter=@snailicide/build-config publish --access public
+### Typescript
+
+```json5
+/* tsconfig.json */
+
+{
+    extends: '@snailicide/build-config/tsconfig-base',
+    compilerOptions: {
+        outDir: './../types',
+        rootDir: '.',
+        declarationDir: './../types',
+    },
+    exclude: ['**/*.test.ts'],
+    include: ['**/*.ts', '**/*.cts', '**/*.mts'],
+}
+```
+
+### Eslint
+
+```js
+/* eslint.config.js */
+
+import { EsLint } from '@snailicide/build-config'
+
+const FLAT_CONFIG = await EsLint.flatConfig()
+
+export default [
+    ...FLAT_CONFIG,
+    {
+        ignores: ['packages/**/docs/**/*'],
+    },
+]
+```
+
+### Prettier
+
+```json5
+/* include in package.json */
+{
+    prettier: '@snailicide/build-config/prettier',
+}
+```
+
+**_OR_**
+
+```js
+/* prettier.config.cjs */
+
+/* extend the base config */
+const { Prettier, merge } = require('@snailicide/build-config')
+const options = {
+    plugins: ['@shopify/prettier-plugin-liquid'],
+    overrides: [
+        {
+            files: '*.liquid',
+            options: {
+                tabWidth: 2,
+            },
+        },
+    ],
+}
+
+module.exports = merge(Prettier.config, options)
 ```
 
 ## Helpful Links
 
 -   Linting
-    -   [@typescript-eslint/eslint-plugin](https://www.npmjs.com/package/@typescript-eslint/eslint-plugin)
-    -   [eslint-plugin-filenames-simple](https://github.com/epaew/eslint-plugin-filenames-simple/)
-    -   [eslint-import-resolver-typescript](https://www.npmjs.com/package/eslint-import-resolver-typescript)
+    -   [Find and fix problems in your JavaScript code - ESLint - Pluggable JavaScript Linter](https://eslint.org/)
+    -   [Getting Started | typescript-eslint](https://typescript-eslint.io/getting-started/)
+    -   [Linting with Type Information | typescript-eslint](https://typescript-eslint.io/getting-started/typed-linting)
     -   [eslint-plugin-import](https://www.npmjs.com/package/eslint-plugin-import)
 
 > Note: to transpile to (var and no arrow functions use target = ES5
+
+## TODO:
+
+[ ] Implement [Linting with Type Information](https://typescript-eslint.io/getting-started/typed-linting) [ ] naming conventions for exported functions [ ] enforce explicit return types
