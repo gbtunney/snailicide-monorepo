@@ -4,15 +4,16 @@
 
         /* Projects */
         // "incremental": true,                              /* Save .tsbuildinfo files to allow for incremental compilation of projects. */
-        // "composite": true,                                /*   Enable constraints that allow a TypeScript project to be used with project references. */
+        "composite": true /*   Enable constraints that allow a TypeScript project to be used with project references. */,
         // "tsBuildInfoFile": "./.tsbuildinfo",              /* Specify the path to .tsbuildinfo incremental compilation file. */
         // "disableSourceOfProjectReferenceRedirect": true,  /* Disable preferring source files instead of declaration files when referencing composite projects. */
         // "disableSolutionSearching": true,                 /* Opt a project out of multi-project reference checking when editing. */
         // "disableReferencedProjectLoad": true,             /* Reduce the number of projects loaded automatically by TypeScript. */
 
         /* Language and Environment */
-        "target": "ES2018" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
-        // "lib": [],                                        /* Specify a set of bundled library declaration files that describe the target runtime environment. */
+        "target": "ESNext" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
+        "lib": ["ESNext", "ES2020", "DOM"],
+        /* Specify a set of bundled library declaration files that describe the target runtime environment. */
         "jsx": "react" /* Specify what JSX code is generated. */,
         "experimentalDecorators": true /* Enable experimental support for TC39 stage 2 draft decorators. */,
         "emitDecoratorMetadata": true /* Emit design-type metadata for decorated declarations in source files. */,
@@ -23,11 +24,10 @@
         // "noLib": true,                                    /* Disable including any library files, including the default lib.d.ts. */
         // "useDefineForClassFields": true,                  /* Emit ECMAScript-standard-compliant class fields. */
         // "moduleDetection": "auto",                        /* Control what method is used to detect module-format JS files. */
-
         /* Modules */
-        //"module": "commonjs" /* Specify what module code is generated. */,
+        "module": "ESNext" /* Specify what module code is generated. */,
         // "rootDir": "./",                                  /* Specify the root folder within your source files. */
-        "moduleResolution": "node" /* Specify how TypeScript looks up a file from a given module specifier. */,
+        "moduleResolution": "bundler" /* Specify how TypeScript looks up a file from a given module specifier. */,
         // "baseUrl": "./",                                  /* Specify the base directory to resolve non-relative module names. */
         // "paths": {},                                      /* Specify a set of entries that re-map imports to additional lookup locations. */
         // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
@@ -44,10 +44,10 @@
         // "maxNodeModuleJsDepth": 1,                        /* Specify the maximum folder depth used for checking JavaScript files from 'node_modules'. Only applicable with 'allowJs'. */
 
         /* Emit */
-        // "declaration": true,                              /* Generate .d.ts files from TypeScript and JavaScript files in your project. */
-        // "declarationMap": true,                           /* Create sourcemaps for d.ts files. */
+        "declaration": true /* Generate .d.ts files from TypeScript and JavaScript files in your project. */,
+        "declarationMap": true /* Create sourcemaps for d.ts files. */,
         // "emitDeclarationOnly": true,                      /* Only output d.ts files and not JavaScript files. */
-        // "sourceMap": true,                                /* Create source map files for emitted JavaScript files. */
+        "sourceMap": true /* Create source map files for emitted JavaScript files. */,
         // "outFile": "./",                                  /* Specify a file that bundles all outputs into one JavaScript file. If 'declaration' is true, also designates a file that bundles all .d.ts output. */
         // "outDir": "./",                                   /* Specify an output folder for all emitted files. */
         // "removeComments": true,                           /* Disable emitting comments. */
@@ -60,7 +60,7 @@
         // "inlineSourceMap": true,                          /* Include sourcemap files inside the emitted JavaScript. */
         // "inlineSources": true,                            /* Include source code in the sourcemaps inside the emitted JavaScript. */
         // "emitBOM": true,                                  /* Emit a UTF-8 Byte Order Mark (BOM) in the beginning of output files. */
-        // "newLine": "crlf",                                /* Set the newline character for emitting files. */
+        "newLine": "LF" /* Set the newline character for emitting files. */,
         // "stripInternal": true,                            /* Disable emitting declarations that have '@internal' in their JSDoc comments. */
         // "noEmitHelpers": true,                            /* Disable generating custom helper functions like '__extends' in compiled output. */
         // "noEmitOnError": true,                            /* Disable emitting files if any type checking errors are reported. */
