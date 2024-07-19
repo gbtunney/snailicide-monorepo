@@ -11,9 +11,6 @@ import {
     ShopifyLiquidModulesOptions,
 } from './options.js'
 
-const testin: ShopifyLiquidModulesOptions = {
-    //themeRoot: 2,
-}
 /**
  *
  */
@@ -21,7 +18,6 @@ export default function shopifyModules(
     options: ShopifyLiquidModulesOptions = {},
 ): Plugin {
     const resolvedOptions = resolveOptions(options)
-    // let _config: ResolvedConfig
     if (tg.isNotUndefined<ResolvedShopifyLiquidModulesOptions>(resolvedOptions))
         processModules(resolvedOptions)
 
