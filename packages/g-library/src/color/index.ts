@@ -123,9 +123,6 @@ Color1 = BaseColor
 Color2 = ColorFromHSL(Hue(BaseColor) + HueVariation, Saturation(BaseColor), Lightness(BaseColor))
 Color3 = ColorFromHSL(Hue(BaseColor) - HueVariation, Saturation(BaseColor), Lightness(BaseColor))
   */
-/**
- *
- */
 function _analogous(color: Chromable, results: number, slices: number) {
     /*results = results || 6;
         slices = slices || 30;
@@ -141,9 +138,6 @@ function _analogous(color: Chromable, results: number, slices: number) {
         return ret;*/
 }
 
-/**
- *
- */
 function monochromatic(
     color: Chromable,
     format?: chroma.ColorFormat,
@@ -164,9 +158,6 @@ function monochromatic(
     //reduce function idk???
 }
 
-/**
- *
- */
 function _monochromatic(color: Chromable, results: number) {
     /* results = results || 6;
          var hsv = tinycolor(color).toHsv();

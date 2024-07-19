@@ -11,9 +11,6 @@ import {
     ShopifyLiquidModulesOptions,
 } from './options.js'
 
-/**
- *
- */
 export default function shopifyModules(
     options: ShopifyLiquidModulesOptions = {},
 ): Plugin {
