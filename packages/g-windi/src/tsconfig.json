@@ -6,6 +6,5 @@
         "declarationDir": "./../types",
         "moduleResolution": "Node"
     },
-    "exclude": ["**/*.test.ts"],
     "include": ["**/*.ts", "**/*.cts", "**/*.mts"]
 }
