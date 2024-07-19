@@ -1,5 +1,13 @@
 # @snailicide/g-shopify-library
 
+## 0.3.0
+
+### Minor Changes
+
+-   18cacdf: - initial release in new repository snailicide-monorepo
+    -   cleaned up configs
+    -   updated dependencies
+
 ## 0.2.1
 
 ### Patch Changes
