@@ -1,0 +1,12 @@
+# Ignore
+dist
+types
+example_theme
+docs
+example_theme_config/global_settings/*.d.ts
+example_theme_config/global_settings/*.js
+example_theme_config/global_settings/*.d.ts.map
+example_theme_config/global_settings/*.js.map
+
+# Allow
+!src/types

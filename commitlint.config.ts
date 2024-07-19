@@ -54,6 +54,7 @@ const Configuration: UserConfig = {
                 'cli-template',
                 'g-shopify-library',
                 'vite-shopify-modules',
+                'vite-shopify-theme-schema',
             ],
         ],
     },
