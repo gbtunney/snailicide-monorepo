@@ -1,7 +1,7 @@
 {
     "name": "@snailicide/build-config",
     "private": false,
-    "version": "0.3.0",
+    "version": "1.0.0",
     "description": "Snailicide Shared Build Configuration",
     "type": "module",
     "files": [

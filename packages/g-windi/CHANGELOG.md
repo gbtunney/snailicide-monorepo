@@ -1,5 +1,15 @@
 # @snailicide/g-windi
 
+## 0.0.6
+
+### Patch Changes
+
+-   b952b6f: - updated tsconfig base properties
+    -   added eslint import-extensions
+    -   updated dependencies
+-   Updated dependencies [b952b6f]
+    -   @snailicide/g-library@0.4.7
+
 ## 0.0.5
 
 ### Patch Changes
