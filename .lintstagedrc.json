@@ -1,5 +1,5 @@
 {
+    "*.{ts,js,cjs,mjs}": "pnpm lint --fix",
     "{*,**/*,./.husky/**/*}.{ts,js,cjs,mjs,cts,mts,sh,html,json,yaml,yml,graphql,md}": "prettier --write",
-    "./.husky/*": "prettier --write",
-    "*.{ts,js,cjs,mjs}": "pnpm lint --fix"
+    "./.husky/*": "prettier --write"
 }
