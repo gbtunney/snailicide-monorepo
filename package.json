@@ -30,13 +30,13 @@
         "build:self": "tsc --build",
         "\n========== CODE STYLE >> ==========": "",
         "lint": "cross-var eslint  -c $npm_package_config_eslint_config",
-        "prettier": "cross-var prettier {$npm_package_config_prettier_path}.{$npm_package_config_prettier_extensions} --ignore-path ./.gitignore",
+        "prettier": "cross-var prettier {*,**/*}.{ts,js,cjs,mjs,cts,mts,sh,html,json,yaml,yml,graphql,md} ./.husky/* --ignore-path ./.gitignore --write",
         "\n========== CHECK >> ==========": "",
         "check": "pnpm check:self",
         "check:self": "pnpm lint",
         "\n========== FIX >> ==========": "",
         "fix": "pnpm fix:self",
-        "fix:self": "cross-var pnpm lint --fix && cross-var pnpm prettier --write",
+        "fix:self": "pnpm lint --fix &&  pnpm prettier --write",
         "\n========== CLEAN >> ==========": "",
         "clean": "pnpm run clean:self && pnpm -r clean",
         "clean:self": "tsc --build --clean",
@@ -69,7 +69,7 @@
         "git-branch-is": "^4.0.0",
         "husky": "^9.0.11",
         "lint-staged": "^15.2.7",
-        "nx": "19.4.4",
+        "nx": "19.5.1",
         "prettier": "^3.0.3",
         "typescript": "^5.2.2",
         "verdaccio": "^5.31.0"
@@ -80,10 +80,6 @@
             "extensions": "ts,js,cjs,mjs",
             "path": "*",
             "config": "eslint.config.js"
-        },
-        "prettier": {
-            "extensions": "ts,js,cjs,mjs,cts,mts,sh,html,json,yaml,yml,graphql,md",
-            "path": "*,**/*,./.husky/**/*"
         },
         "commitizen": {
             "path": "@commitlint/cz-commitlint"

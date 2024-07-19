@@ -4,6 +4,7 @@ import globals from 'globals'
 import type { Config } from 'typescript-eslint'
 
 import filenamesConfig from './plugins/filenames.js'
+import importConfig from './plugins/import.js'
 import jsdocConfig from './plugins/jsdoc.js'
 import importSortConfig from './plugins/sort.js'
 import _tsEslintConfig from './plugins/typescript.js'
@@ -36,6 +37,7 @@ export const flatEslintConfig = async (): Promise<Config> => {
         ...(await vitestConfig()),
         ...(await filenamesConfig()),
         ...(await unusedImportsConfig()),
+        ...(await importConfig()),
         {
             files: ['**/*.cjs'],
             rules: {

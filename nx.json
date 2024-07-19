@@ -8,8 +8,8 @@
         }
     },
     "targetDefaults": {
-           "build": {
-                 "dependsOn": ["^build"]
-               }
-          }
+        "build": {
+            "dependsOn": ["^build"]
+        }
+    }
 }

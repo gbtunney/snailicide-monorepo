@@ -1,8 +1,10 @@
-// @ts-expect-error no definitions
-import { vsprintf } from 'format'
+// @ts-expect-error: no definition file
+import format from 'format'
 import z from 'zod'
 
 import { ensureArray } from '../zod_helpers/schemas.js'
+
+const { vsprintf }: typeof format = format
 
 /**
  * Formats a string by replacing placeholders with provided arguments. This

@@ -2,12 +2,12 @@
 import importPlugin from 'eslint-plugin-import'
 import { Config } from 'typescript-eslint'
 
-export const importConfig: Config = [
+export const importConfig = async (): Promise<Config> => [
     {
-        plugins: { ['simple-import-sort']: importPlugin },
+        plugins: { ['import']: importPlugin },
         rules: {
-            // We often use @remarks or other ad-hoc tag names
-            'simple-import-sort/imports': 'error',
+            'import/extensions': ['error', 'ignorePackages'],
+            'import/no-duplicates': 'warn',
         },
     },
 ]

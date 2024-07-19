@@ -31,16 +31,21 @@ export const fsPathArray = (
 export const fsPathExists = (
     exists = true,
     root: string | undefined = undefined,
-    allowedType: FileType | 'any' | FileType[] = 'any',
+    allowedType:
+        | (Exclude<FileType, undefined> | Exclude<FileType, undefined>[])
+        | 'any' = 'any',
 ) => {
-    if (exists === false) {
+    if (!exists) {
         return fsPathTypeExists('none', root)
     }
     return fsPathTypeExists(allowedType, root)
 }
 
 export const fsPathTypeExists = (
-    allowedType: FileType | 'any' | 'none' | FileType[] = 'any',
+    allowedType:
+        | (Exclude<FileType, undefined> | Exclude<FileType, undefined>[])
+        | 'any'
+        | 'none' = 'any',
     root: string | undefined = undefined,
 ) => {
     return fsPath(root).refine(
@@ -64,8 +69,8 @@ export const fsPathTypeExists = (
         (value) => {
             return {
                 message: `File path ${
-                    value ? 'does not ' : 'does'
-                } exist ${allowedType}`,
+                    value ? 'does not' : 'does'
+                } exist (type: ${allowedType})`,
             }
         },
     )
@@ -80,7 +85,7 @@ export const fsPathArrayHasFiles = (
             if (val && val.length > 0 && val[0] !== undefined) {
                 const _possibleDir: FilePath = val[0]
                 if (
-                    getDirectoryFileContents === false &&
+                    !getDirectoryFileContents &&
                     _possibleDir.extname.length <= 0
                 )
                     return false

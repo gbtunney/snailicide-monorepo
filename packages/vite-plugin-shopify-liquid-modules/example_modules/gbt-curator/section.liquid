@@ -1,0 +1,22 @@
+{% if section.settings.curator_heading != null and section.settings.curator_heading != "" %}
+    <h2 class="{{ section.settings.curator_heading_css }}"> {{ section.settings.curator_heading }} </h2>
+{% endif %}
+
+<!-- Place <div> tag where you want the feed to appear -->
+<div id="curator-feed">
+    <a href="https://curator.io" target="_blank" class="crt-logo crt-tag">Powered by Curator.io</a>
+</div><!-- The Javascript can be moved to the end of the html page before the </body> tag -->
+<script type="text/javascript">
+    /* curator-feed */
+    //b84ff30c-2e1b-4e58-a4a8-99740e8d2d84 alternate id to test.
+    (function () {
+        var i, e, d = document, s = "script";
+        i = d.createElement("script");
+        i.async = 1;
+        i.charset = "UTF-8";
+        i.src = "https://cdn.curator.io/published/{{ section.settings.curator_publish_id }}.js";
+        e = d.getElementsByTagName(s)[0];
+        e.parentNode.insertBefore(i, e);
+    })();
+</script>
+{% schema 'schema.js' %}

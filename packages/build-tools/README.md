@@ -34,13 +34,13 @@ This library is published in the NPM registry and can be installed using any com
 
 ```sh
 #pnpm
-pnpm add @snailicide/build-tools
+pnpm add @snailicide/build-tools -D
 
 #yarn
-yarn add @snailicide/build-tools
+yarn add @snailicide/build-tools -D
 
 #npm
-npm install @snailicide/build-tools
+npm install @snailicide/build-tools --development
 ```
 
 ## Usage

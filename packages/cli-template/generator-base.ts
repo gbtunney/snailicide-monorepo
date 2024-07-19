@@ -62,9 +62,6 @@ export const PACKAGE_GENERATOR: PlopGeneratorConfig = {
         return []
     },
 }
-/**
- *
- */
 export default function (plop: NodePlopAPI) {
     const args: z.infer<typeof fileArgsSchema> = fileArgsSchema.parse(
         yargs(process.argv).argv,

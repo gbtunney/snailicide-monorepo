@@ -1,0 +1,11 @@
+{
+    "extends": "@snailicide/build-config/tsconfig-base",
+    "compilerOptions": {
+        "rootDir": ".",
+        "types": ["node"]
+    },
+    "exclude": ["./src/**/*.ts", "vite.config.ts"],
+    "files": ["./package.json"],
+    "include": ["./*.ts"],
+    "references": [{ "path": "./src" }, { "path": "./example_modules" }]
+}

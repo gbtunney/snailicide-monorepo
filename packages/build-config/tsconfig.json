@@ -1,15 +1,7 @@
 {
     "extends": "./src/tsconfig/tsconfig-base.json",
     "compilerOptions": {
-        "target": "ESNext",
-        "lib": ["ESNext", "ES2020", "DOM"],
         "types": ["node"],
-        "composite": true,
-        "module": "ESNext",
-        "resolveJsonModule": true,
-        "allowSyntheticDefaultImports": true,
-        "esModuleInterop": true,
-        "strict": true,
         "moduleResolution": "node"
     },
     "exclude": ["node_modules", "./src/**/*.ts"],
