@@ -1,5 +1,13 @@
 # @snailicide/build-config
 
+## 1.0.0
+
+### Major Changes
+
+-   b952b6f: - updated tsconfig base properties
+    -   added eslint import-extensions
+    -   updated dependencies
+
 ## 0.3.0
 
 ### Minor Changes

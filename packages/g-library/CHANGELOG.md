@@ -1,5 +1,13 @@
 # @snailicide/g-library@0.2.1
 
+## 0.4.7
+
+### Patch Changes
+
+-   b952b6f: - updated tsconfig base properties
+    -   added eslint import-extensions
+    -   updated dependencies
+
 ## 0.4.6
 
 ### Patch Changes
