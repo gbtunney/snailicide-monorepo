@@ -142,6 +142,8 @@ examples
 *.test.js
 *.js
 *.d.ts
+*.d.ts.map
+*.js.map
 .ssh
 examples
 apps

@@ -1,14 +1,8 @@
 {
     "extends": "@snailicide/build-config/tsconfig-base",
     "compilerOptions": {
-        "target": "ESNext",
-        "lib": ["ESNext", "DOM"],
-        "composite": true,
-        "module": "ESNext",
-        "allowSyntheticDefaultImports": true,
         "rootDir": ".",
-        "types": ["node"],
-        "moduleResolution": "bundler"
+        "types": ["node"]
     },
     "exclude": ["./node_modules"],
     "include": ["./*.ts", "package.json"],

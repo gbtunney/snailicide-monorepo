@@ -7,7 +7,8 @@
         "module": "ESNext",
         "rootDir": ".",
         "sourceMap": false,
-        "types": ["node"]
+        "types": ["node"],
+        "moduleResolution": "Node"
     },
     "exclude": ["./src/**/*.ts", "vite.docs.config.ts"],
     "files": ["./package.json"],

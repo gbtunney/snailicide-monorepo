@@ -34,75 +34,47 @@ const processModules = ({
     sections,
     snippets,
 }: ResolvedShopifyLiquidModulesOptions): void => {
-    if (
-        zod.filePath.safeParse(themeRoot).success &&
-        fs.existsSync(themeRoot) &&
-        zod.filePath.safeParse(modulesDir).success &&
-        fs.existsSync(modulesDir)
-    ) {
-        // const outThemePath = zod.filePath.parse(themeRoot)
-        const outSectionsDir = path.resolve(themeRoot, './sections')
-        const outSnippetsDir = path.resolve(themeRoot, './snippets')
+    const outSectionsDir = path.resolve(themeRoot, './sections')
+    const outSnippetsDir = path.resolve(themeRoot, './snippets')
+    shell.mkdir('-p', outSectionsDir, outSnippetsDir)
 
-        shell.mkdir('-p', outSectionsDir, outSnippetsDir)
-
-        const inModulesDir = zod.filePath.parse(modulesDir)
-
-        if (sections.copy) {
-            ///get list of potential modules with section files.
-            const sectionFileArr = node.getFilePathArr(
-                `${inModulesDir}/**/${sections.file_name}.liquid`,
+    if (sections.copy) {
+        ///get list of potential modules with section files.
+        const sectionFileArr = node.getFilePathArr(
+            `${modulesDir}/**/${sections.file_name}.liquid`,
+        )
+        sectionFileArr.forEach((section_file) => {
+            const true_module_name = section_file.parentdirname
+            const module_path = zod.filePath.parse(
+                `${modulesDir}/${true_module_name}`,
             )
-            sectionFileArr.forEach((section_file) => {
-                const true_module_name = section_file.parentdirname
-                const module_path = zod.filePath.parse(
-                    `${inModulesDir}/${true_module_name}`,
-                )
-                //LOAD SECTION FILE TO CHECK
-                const section_file_content = fs.readFileSync(
-                    section_file.absolute,
-                    'utf8',
-                )
-                //  todo:  %dir%
-                const result_path = `${outSectionsDir}/${sections.prefix}${true_module_name}.liquid`
-                const newSection = replaceSchemaTags(
-                    section_file_content,
-                    module_path,
-                    result_path,
-                )
+            //LOAD SECTION FILE TO CHECK
+            const section_file_content = fs.readFileSync(
+                section_file.absolute,
+                'utf8',
+            )
+            //  todo:  %dir%
+            const result_path = `${outSectionsDir}/${sections.prefix}${true_module_name}.liquid`
+            const newSection = replaceSchemaTags(
+                section_file_content,
+                module_path,
+                result_path,
+            )
+        })
+    }
+    if (snippets.copy) {
+        const snippetFileArr = node
+            .getFilePathArr(`${modulesDir}/**/${snippets.file_name}.liquid`)
+            .filter((snippet_file) => {
+                return snippet_file.filename !== sections.file_name
             })
-        }
-        if (snippets.copy) {
-            const snippetFileArr = node
-                .getFilePathArr(
-                    `${inModulesDir}/**/${snippets.file_name}.liquid`,
-                )
-                .filter((snippet_file) => {
-                    return snippet_file.filename !== sections.file_name
-                })
-            snippetFileArr.forEach((file) => {
-                const result_path = path.resolve(
-                    `${outSnippetsDir}/${snippets.prefix}${file.basename}`,
-                )
-                const the_snippet_file = fs.readFileSync(file.absolute, 'utf8')
-                fs.writeFileSync(result_path, the_snippet_file)
-            })
-        }
-    } else {
-        const outThemePath = zod.filePath.parse(themeRoot)
-        const inModulesDir = zod.filePath.parse(modulesDir)
-        if (!fs.existsSync(outThemePath)) {
-            console.warn(
-                'Theme Root does not exist! No files output! ::',
-                outThemePath,
+        snippetFileArr.forEach((file) => {
+            const result_path = path.resolve(
+                `${outSnippetsDir}/${snippets.prefix}${file.basename}`,
             )
-        }
-        if (!fs.existsSync(inModulesDir)) {
-            console.warn(
-                'Module Root does not exist! No files output! ::',
-                inModulesDir,
-            )
-        }
+            const the_snippet_file = fs.readFileSync(file.absolute, 'utf8')
+            fs.writeFileSync(result_path, the_snippet_file)
+        })
     }
 }
 

@@ -3,7 +3,7 @@ import { isFinite, isNotNaN, isValidNumber } from 'ramda-adjunct'
 import { removeAllNewlines, trimWhiteSpace } from '../string/_stringUtils.js'
 import { isBigInt, isString } from '../typeguard/utility.typeguards.js'
 import { Numeric, PossibleNumeric } from './numeric.js'
-import { isStringNumeric } from './validators'
+import { isStringNumeric } from './validators.js'
 const LOGGING: boolean = false
 
 export const isParsableToNumeric = <Type extends PossibleNumeric>(

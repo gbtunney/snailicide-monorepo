@@ -19,7 +19,9 @@
         "declarationMap": true,
         "removeComments": false,
         "allowSyntheticDefaultImports": true,
-        "strict": true
+        "strict": true,
+        "esModuleInterop": true,
+        "moduleResolution": "Node"
     },
     "include": ["**/*.ts", "**/*.cts", "**/*.mts"]
 }
