@@ -1,23 +1,39 @@
-# 🐌 Welcome to @snailicide/vite-plugin-shopify-theme-schema 🐌
+# @snailicide/vite-plugin-shopify-theme-schema 🐌
 
-| [npm](https://www.npmjs.com/package/@snailicide/vite-plugin-shopify-theme-schema) | [GitHub](https://github.com/gbtunney/shopify-monorepo/tree/main/packages/vite-plugin-shopify-theme-schema) |
-
-<p>
-  <img alt="Version" src="https://img.shields.io/badge/version-0.0.1-blue.svg?cacheSeconds=2592000" />
-  <a href="#" target="_blank">
-    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
-  </a>
+<p align="center">
+	<img alt="Version" src="https://img.shields.io/npm/v/@snailicide/vite-plugin-shopify-theme-schema"/>
+	<a href="#" target="_blank">
+		<img alt="License: MIT" src="https://img.shields.io/npm/l/@snailicide/vite-plugin-shopify-theme-schema"/>
+	</a>
+	<a href="#" target="_blank">
+		<img alt="Typescript" height="20px" src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white"/>
+	</a>
+	<a href="#" target="_blank">
+		<img alt="RollupJS" height="20px" src="https://img.shields.io/badge/RollupJS-ef3335?style=for-the-badge&logo=rollup.js&logoColor=white"/>
+	</a>
 </p>
 
-# This plugin adds features to make it easier to manage the JSON schema files for Shopify Theme Settings. Please see [Inspiration](#inspiration) section for more info and backstory!
+This plugin adds features to make it easier to manage the JSON schema files for Shopify Theme Settings. Please see [Inspiration](#inspiration) section for more info and backstory!
 
 > Many thanks to [barrel-shopify](https://github.com/barrel/barrel-shopify) by Barrel NY for readme inspiration.
 
+### Repository
+
+[snailicide-monorepo](https://github.com/gbtunney/snailicide-monorepo.git)
+
+### Author
+
+👤 **Gillian Tunney**
+
+-   [github](https://github.com/gbtunney)
+-   [email](mailto:gbtunney@mac.com)
+
+## 🐌
+
 -   [🐌 Welcome to @snailicide/vite-plugin-shopify-theme-schema 🐌](#welcome-to--snailicide-vite-plugin-shopify-theme-schema---)
-    -   [Author](#author)
     -   [Features](#features)
     -   [Examples](#examples)
-        -   [Build](#build)
+        -   [Installation](#installation)
         -   [Tests](#tests)
     -   [Usage](#usage)
         -   [Options](#options)
@@ -28,10 +44,6 @@
     -   [Bugs](#bugs)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
-
-## Author
-
-👤 **Gillian Tunney** | [github](https://github.com/gbtunney) | [email](mailto:gbtunney@mac.com) |
 
 ## Features
 
@@ -46,31 +58,19 @@
 
 See [**example_theme_config**](./example_theme_config/) folder for usage examples of [validators](./example_theme_config/global_settings/settings_colors.ts) and [types](./example_theme_config/global_settings/settings_typography.ts).
 
-## Install
+### Installation
+
+This library is published in the NPM registry and can be installed using any compatible package manager.
 
 ```sh
+#pnpm
+pnpm add @snailicide/vite-plugin-shopify-theme-schema
+
+#yarn
+yarn add @snailicide/vite-plugin-shopify-theme-schema
+
 #npm
-npm i @snailicide/vite-plugin-shopify-theme-schema -D
-
-# yarn
-yarn add @snailicide/vite-plugin-shopify-theme-schema -D
-
-# pnp
-pnpm add @snailicide/vite-plugin-shopify-theme-schema -D
-```
-
-For pnpm workspace:
-
-```sh
-pnpm add @snailicide/vite-plugin-shopify-theme-schema@workspace:*
-
-pnpm --filter=[yourGlob] add @snailicide/vite-plugin-shopify-theme-schema@workspace:*
-```
-
-### Build
-
-```sh
-pnpm --filter=@snailicide/vite-plugin-shopify-theme-schema build
+npm install @snailicide/vite-plugin-shopify-theme-schema
 ```
 
 ### Tests
@@ -124,7 +124,7 @@ const defaultobj: ShopifyLiquidModulesOptions = {
 
 ### [vite-plugin-shopify-theme-settings](https://github.com/barrel/barrel-shopify/tree/main/packages/vite-plugin-shopify-theme-settings) by Barrel NY
 
-Since i am new vite plugin, i used this as my starting structure and was heavily inspired by the overall concept of the vite-plugin-shopify-theme-settings. I skipped looping thru the json directory and instead used an 'entryPoint' approach.
+Since i am new to vite plugin, i used this as my starting structure and was heavily inspired by the overall concept of the vite-plugin-shopify-theme-settings. I skipped looping thru the json directory and instead used an 'entryPoint' approach.
 
 ## Helpful Links
 

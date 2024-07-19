@@ -44,8 +44,6 @@
         "test:example": "pnpm build:ts && pnpm exec vite build",
         "\n========== PUBLISH >> ==========": "",
         "release": "pnpm prerelease && pnpm publish --access public --report-summary",
-        "test:release": "pnpm prerelease && cross-var pnpm publish --access public --report-summary --no-git-checks --registry $npm_package_config_publish_private",
-        "TODO": "TODO: Fix wierd bug that breaks jsdoc ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL not sure if pnpm or jsdoc",
         "prerelease": "pnpm clean && pnpm docs:build || pnpm test && pnpm build &&  pnpm run release:archive",
         "release:archive": "mkdir -p ./releases &&  pnpm exec npm pack --pack-destination='./releases'",
         "\n========== CLEAN >> ==========": "",
@@ -77,13 +75,13 @@
         "vitest": "^2.0.3"
     },
     "prettier": "@snailicide/build-config/prettier",
-    "homepage": "https://github.com/gbtunney/shopify-monorepo#readme",
+    "homepage": "https://github.com/gbtunney/snailicide-monorepo/tree/main/packages/vite-plugin-shopify-liquid-modules#readme",
     "bugs": {
-        "url": "https://github.com/gbtunney/shopify-monorepo/issues"
+        "url": "https://github.com/gbtunney/snailicide-monorepo/issues"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/gbtunney/shopify-monorepo.git"
+        "url": "git+https://github.com/gbtunney/snailicide-monorepo.git"
     },
     "license": "MIT",
     "author": {

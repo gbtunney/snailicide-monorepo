@@ -1,22 +1,39 @@
-# 🐌 Welcome to @snailicide/vite-plugin-shopify-liquid-modules 🐌
+# @snailicide/vite-plugin-shopify-liquid-modules 🐌
 
-| [npm](https://www.npmjs.com/package/@snailicide/vite-plugin-shopify-liquid-modules) | [GitHub](https://github.com/gbtunney/shopify-monorepo/tree/main/packages/vite-plugin-shopify-liquid-modules) |
-
-<p>
-  <img alt="Version" src="https://img.shields.io/badge/version-0.0.1-blue.svg?cacheSeconds=2592000" />
-  <a href="#" target="_blank">
-    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
-  </a>
+<p align="center">
+	<img alt="Version" src="https://img.shields.io/npm/v/@snailicide/vite-plugin-shopify-liquid-modules"/>
+	<a href="#" target="_blank">
+		<img alt="License: MIT" src="https://img.shields.io/npm/l/@snailicide/vite-plugin-shopify-liquid-modules"/>
+	</a>
+	<a href="#" target="_blank">
+		<img alt="Typescript" height="20px" src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white"/>
+	</a>
+	<a href="#" target="_blank">
+		<img alt="RollupJS" height="20px" src="https://img.shields.io/badge/RollupJS-ef3335?style=for-the-badge&logo=rollup.js&logoColor=white"/>
+	</a>
 </p>
 
-This plugin enables Shopify theme developers to structure their code into "module" folders which keep Liquid template files (snippets and sections) organized together with their corresponding JS or CSS, while retaining the standard file structure of Shopify themes. Please see [Inspiration](#inspiration) section for more info and backstory!
+_This plugin enables Shopify theme developers to structure their code into "module" folders which keep Liquid template files (snippets and sections) organized together with their corresponding JS or CSS, while retaining the standard file structure of Shopify themes. Please see [Inspiration](#inspiration) section for more info and backstory!_
+
+### Repository
+
+[snailicide-monorepo](https://github.com/gbtunney/snailicide-monorepo.git)
+
+### Author
+
+👤 **Gillian Tunney**
+
+-   [github](https://github.com/gbtunney)
+-   [email](mailto:gbtunney@mac.com)
+
+## 🐌
 
 > Many thanks to [barrel-shopify](https://github.com/barrel/barrel-shopify) by Barrel NY for readme inspiration.
 
 -   [🐌 Welcome to @snailicide/vite-plugin-shopify-liquid-modules 🐌](#welcome-to--snailicide-vite-plugin-shopify-liquid-modules---)
     -   [Author](#author)
     -   [Features](#features)
-        -   [Build](#build)
+        -   [Installation](#installation)
         -   [Tests](#tests)
     -   [Usage](#usage)
         -   [Using scripts in module folders](#using-scripts-in-module-folders)
@@ -29,10 +46,6 @@ This plugin enables Shopify theme developers to structure their code into "modul
     -   [Bugs](#bugs)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
-
-## Author
-
-👤 **Gillian Tunney** | [github](https://github.com/gbtunney) | [email](mailto:gbtunney@mac.com) |
 
 ## Features
 
@@ -53,31 +66,19 @@ This plugin enables Shopify theme developers to structure their code into "modul
 
 See [**example_modules**](./example_modules) folder for usage examples of [validators](./example_modules/gbt-curator/schema.ts) and [types](./example_modules/gbt-curator/settings.ts).
 
-## Install
+## Installation
+
+This library is published in the NPM registry and can be installed using any compatible package manager.
 
 ```sh
+#pnpm
+pnpm add @snailicide/vite-plugin-shopify-liquid-modules
+
+#yarn
+yarn add @snailicide/vite-plugin-shopify-liquid-modules
+
 #npm
-npm i @snailicide/vite-plugin-shopify-liquid-modules -D
-
-# yarn
-yarn add @snailicide/vite-plugin-shopify-liquid-modules -D
-
-# pnp
-pnpm add @snailicide/vite-plugin-shopify-liquid-modules -D
-```
-
-For pnpm workspace:
-
-```sh
-pnpm add @snailicide/vite-plugin-shopify-liquid-modules@workspace:*
-
-pnpm --filter=[yourGlob] add @snailicide/vite-plugin-shopify-liquid-modules@workspace:*
-```
-
-### Build
-
-```sh
-pnpm --filter=@snailicide/vite-plugin-shopify-liquid-modules build
+npm install @snailicide/vite-plugin-shopify-liquid-modules
 ```
 
 ### Tests
