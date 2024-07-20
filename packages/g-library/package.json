@@ -41,6 +41,7 @@
     "commonjs": "./dist/index.cjs",
     "umd:main": "./dist/cdn-index-umd.min.js",
     "cdn": "./dist/cdn-index-iife.min.js",
+    "jsdelivr": "https://cdn.jsdelivr.net/npm/@snailicide/g-library",
     "keywords": [
         "typescript",
         "js",
