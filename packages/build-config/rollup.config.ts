@@ -1,11 +1,10 @@
+import { rollup } from '@snailicide/build-tools'
+import { RollupOptions } from 'rollup'
 import shell from 'shelljs'
 
 import _package from './package.json' assert { type: 'json' }
-import {tsConfigBase} from "./types/tsconfig/index.js";
-
-
-
-import {  exportJSON, Prettier } from './types/index.js'
+import { exportJSON, Prettier } from './types/index.js'
+import { tsConfigBase } from './types/tsconfig/index.js'
 
 const JSON_EXPORTS = [
     {
@@ -13,16 +12,10 @@ const JSON_EXPORTS = [
         filename: './dist/.prettierrc.json',
     },
     {
-        data:tsConfigBase,
+        data: tsConfigBase,
         filename: './tsconfig-base.json',
     },
 ] as const
-
-
-
-import { rollup } from '@snailicide/build-tools'
-import { RollupOptions } from 'rollup'
-
 
 const LIBRARY_NAME: string = 'GShopifyLibrary'
 const PRINT_EXPORTS: boolean = false
@@ -32,7 +25,7 @@ const DIRECTORY_PATHS = {
     source_dir: './src/',
 } as const
 
-const rollUp = ()  => {
+const rollUp = () => {
     copyTSConfig()
     /* *export config as JSON if FLAGGED using jsonExportConfig * */
     if (JSON_EXPORTS && JSON_EXPORTS.length > 0) {
@@ -54,8 +47,7 @@ const rollUp = ()  => {
     ]
     rollup.getPackageExports(CONFIG_OBJ, PRINT_EXPORTS)
 
-    const CONFIG: Array<RollupOptions>= rollup.getRollupConfig(CONFIG_OBJ)
-
+    const CONFIG: Array<RollupOptions> = rollup.getRollupConfig(CONFIG_OBJ)
 
     return CONFIG
 }

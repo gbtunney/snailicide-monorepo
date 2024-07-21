@@ -44,10 +44,7 @@ export const namingConventionConfig = async (): Promise<Config> => [
                     modifiers: ['const'],
                     selector: 'variable',
                 },
-                /**
-                 * Enforce that private members are prefixed with an
-                 * underscore
-                 */
+                /** Enforce that private members are prefixed with an underscore */
                 {
                     format: ['camelCase'],
                     leadingUnderscore: 'require',

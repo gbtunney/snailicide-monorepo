@@ -47,12 +47,16 @@ export const tsEslintConfig = async (): Promise<Config> => {
                     'error',
                     'interface',
                 ],
-
-                '@typescript-eslint/explicit-function-return-type': 'error',
                 '@typescript-eslint/no-explicit-any': 'warn',
                 '@typescript-eslint/no-namespace': 'warn',
                 '@typescript-eslint/no-unused-vars': 'off',
                 '@typescript-eslint/prefer-as-const': 'error',
+            },
+        },
+        {
+            files: ['**/src/**/*.ts'],
+            rules: {
+                '@typescript-eslint/explicit-function-return-type': 'error',
             },
         },
     ]

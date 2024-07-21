@@ -2,14 +2,14 @@
 import pluginJs from '@eslint/js'
 import globals from 'globals'
 import type { Config } from 'typescript-eslint'
-import pluginsConfig from "./plugins.js"
 import filenamesConfig from './plugins/filenames.js'
 import importConfig from './plugins/import.js'
 import jsdocConfig from './plugins/jsdoc.js'
 import sortConfig from './plugins/sort.js'
 import _tsEslintConfig from './plugins/typescript.js'
-import { unusedImportsConfig } from './plugins/unusedImports.js'
+import { unusedImportsConfig } from './plugins/unused-imports.js'
 import vitestConfig from './plugins/vitest.js'
+import pluginsConfig from './plugins.js'
 
 export const base_files = ['**/*.{js,mjs,cjs,ts}']
 export const base_ignores = [
@@ -30,15 +30,15 @@ export const flatEslintConfig = async (): Promise<Config> => {
                 globals: { ...globals.browser, ...globals.node },
             },
         },
+        ...(await pluginsConfig()),
         pluginJs.configs.recommended,
-        ...await pluginsConfig(),
         ...(await _tsEslintConfig()),
-        ...(await jsdocConfig()),
+        ...(await importConfig()),
+        ...(await unusedImportsConfig()),
         ...(await sortConfig()),
         ...(await vitestConfig()),
+        ...(await jsdocConfig()),
         ...(await filenamesConfig()),
-        ...(await unusedImportsConfig()),
-        ...(await importConfig()),
         // ...(await namingConventionConfig()),
         {
             files: ['**/*.cjs'],

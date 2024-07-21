@@ -1,13 +1,13 @@
-import type { Config } from 'typescript-eslint'
 export type EslintConfig = Config
-import flatEslintConfig from './baseFlat.js'
 
+import type { Config } from 'typescript-eslint'
+import config from './base.js'
 /* * ESLint Namespace * */
 export const EsLint: {
-    config: typeof flatEslintConfig,
-    flatConfig: typeof flatEslintConfig
+    config: typeof config
+    flatConfig: typeof config
 } = {
-    config: flatEslintConfig,
-    flatConfig: flatEslintConfig,
+    config,
+    flatConfig: config,
 }
 export default EsLint

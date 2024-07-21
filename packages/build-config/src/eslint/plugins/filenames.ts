@@ -1,9 +1,17 @@
-//@ts-expect-error No declaration file or types for this
 import { Config } from 'typescript-eslint'
 
 export const filenamesConfig = async (): Promise<Config> => [
     {
-        //  ...await filenamesPlugin.configs.recommended
+        rules: {
+            'filenames-simple/no-index': 'off',
+            'filenames-simple/pluralize': 'off',
+        },
+    },
+    {
+        files: ['**/src/**/*'],
+        rules: {
+            'filenames-simple/naming-convention': 'error',
+        },
     },
 ]
 

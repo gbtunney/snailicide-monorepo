@@ -1,4 +1,3 @@
-
 import { Config } from 'typescript-eslint'
 
 export const unusedImportsConfig = async (): Promise<Config> => [

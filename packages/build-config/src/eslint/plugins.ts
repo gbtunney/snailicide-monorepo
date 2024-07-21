@@ -1,5 +1,4 @@
-//@ts-expect-error No declaration file or types for this
-import filenamesPlugin from 'eslint-plugin-filenames'
+import simpleFilenamesPlugin from 'eslint-plugin-filenames-simple'
 //@ts-expect-error No declaration file or types for this
 import importPlugin from 'eslint-plugin-import'
 import jsdocPlugin from 'eslint-plugin-jsdoc'
@@ -10,14 +9,15 @@ import unusedImports from 'eslint-plugin-unused-imports'
 import vitestPlugin from 'eslint-plugin-vitest'
 import type { Config } from 'typescript-eslint'
 
-export const pluginsConfig =  async (): Promise<Config> => [
+export const pluginsConfig = async (): Promise<Config> => [
     {
-        plugins: { ['filenames']: filenamesPlugin,
+        plugins: {
+            ['filenames-simple']: simpleFilenamesPlugin,
             ['import']: importPlugin,
             ['jsdoc']: jsdocPlugin,
             ['sort']: sortPlugin,
-[  'unused-imports']: unusedImports,
-            ['vitest']: vitestPlugin
+            ['unused-imports']: unusedImports,
+            ['vitest']: vitestPlugin,
         },
     },
 ]

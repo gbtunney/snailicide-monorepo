@@ -1,8 +1,10 @@
 import vitestPlugin from 'eslint-plugin-vitest'
+import { Config } from 'typescript-eslint'
 
-export const vitestConfig = async () => [
+export const vitestConfig = async (): Promise<Config> => [
     {
-        files: ['**/*.test.ts'], languageOptions: {
+        files: ['**/*.test.ts'],
+        languageOptions: {
             globals: {
                 ...(await vitestPlugin.environments.env.globals),
             },
