@@ -2,11 +2,10 @@
 import pluginJs from '@eslint/js'
 import globals from 'globals'
 import type { Config } from 'typescript-eslint'
-
 import filenamesConfig from './plugins/filenames.js'
 import importConfig from './plugins/import.js'
 import jsdocConfig from './plugins/jsdoc.js'
-import importSortConfig from './plugins/sort.js'
+import sortConfig from './plugins/sort.js'
 import _tsEslintConfig from './plugins/typescript.js'
 import { unusedImportsConfig } from './plugins/unusedImports.js'
 import vitestConfig from './plugins/vitest.js'
@@ -33,17 +32,18 @@ export const flatEslintConfig = async (): Promise<Config> => {
         pluginJs.configs.recommended,
         ...(await _tsEslintConfig()),
         ...(await jsdocConfig()),
-        ...(await importSortConfig()),
+        ...(await sortConfig()),
         ...(await vitestConfig()),
         ...(await filenamesConfig()),
         ...(await unusedImportsConfig()),
         ...(await importConfig()),
+        // ...(await namingConventionConfig()),
         {
             files: ['**/*.cjs'],
             rules: {
+                '@typescript-eslint/no-unused-vars': 'warn',
                 '@typescript-eslint/no-var-requires': 'off',
                 'no-undef': 'error',
-                '@typescript-eslint/no-unused-vars': 'warn',
             },
         },
     ]

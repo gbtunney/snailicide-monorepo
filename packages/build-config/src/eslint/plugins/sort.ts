@@ -1,15 +1,18 @@
-import simpleImportSortPlugin from 'eslint-plugin-simple-import-sort'
+// @ts-expect-error: No declaration file or types for this
+import sortPlugin from 'eslint-plugin-sort'
 import { Config } from 'typescript-eslint'
-
+sortPlugin.configs
 /** @see [How to quickly configure ESLint for import sorting](https://medium.com/@diballesteros/how-to-quickly-configure-eslint-for-import-sorting-3a4017bd4853) */
 export const importSortConfig = async (): Promise<Config> => [
+    sortPlugin.configs['flat/recommended'],
     {
-        plugins: { ['simple-import-sort']: simpleImportSortPlugin },
+        plugins: {
+            ['sort']: sortPlugin,
+        },
         rules: {
-            // We often use @remarks or other ad-hoc tag names
-            //'simple-import-sort/imports': 'error',
+            //   ...sortPlugin.configs["flat/recommended"],
             'import/order': [
-                1,
+                'error',
                 {
                     groups: [
                         'external',
@@ -19,6 +22,15 @@ export const importSortConfig = async (): Promise<Config> => [
                         'parent',
                         'index',
                     ],
+                },
+            ],
+            'sort/exports': [
+                'error',
+                {
+                    caseSensitive: false,
+                    groups: [],
+                    natural: true,
+                    typeOrder: 'preserve',
                 },
             ],
         },
