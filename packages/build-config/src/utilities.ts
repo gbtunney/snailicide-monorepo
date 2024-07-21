@@ -1,13 +1,14 @@
 import fs from 'fs'
+import type {ReadonlyDeep} from 'type-fest';
 
-type JSONExportEntry<T = unknown> = {
-    data: T
-    filename: string
+interface JSONExportEntry<T = unknown> {
+      data: T
+     filename: string
 }
-export type JSONExportConfig = JSONExportEntry[]
+export type JSONExportConfig = Array<JSONExportEntry>
 
 export const exportJSON = (
-    config: JSONExportConfig,
+    config: JSONExportConfig | ReadonlyDeep<JSONExportConfig>,
     outdir: string | undefined = undefined,
 ) => {
     config.forEach((entry) => {

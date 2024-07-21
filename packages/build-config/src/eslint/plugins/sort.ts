@@ -1,16 +1,10 @@
 // @ts-expect-error: No declaration file or types for this
 import sortPlugin from 'eslint-plugin-sort'
 import { Config } from 'typescript-eslint'
-sortPlugin.configs
 /** @see [How to quickly configure ESLint for import sorting](https://medium.com/@diballesteros/how-to-quickly-configure-eslint-for-import-sorting-3a4017bd4853) */
 export const importSortConfig = async (): Promise<Config> => [
     sortPlugin.configs['flat/recommended'],
-    {
-        plugins: {
-            ['sort']: sortPlugin,
-        },
-        rules: {
-            //   ...sortPlugin.configs["flat/recommended"],
+    {rules: {
             'import/order': [
                 'error',
                 {

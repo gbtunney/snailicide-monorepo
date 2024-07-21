@@ -8,10 +8,10 @@ export type { PrettierConfig, PrettierOptions } from './prettier/index.js'
 
 /* *  UTILITIES *  */
 export { exportJSON } from './utilities.js'
-export { merge } from 'ts-deepmerge'
-
 /* * VITE CONFIGS * */
 export { vite } from './vite/index.js'
 
 /* * VITEST CONFIG * */
 export { vitest } from './vitest/index.js'
+
+export { merge } from 'ts-deepmerge'

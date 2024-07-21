@@ -52,11 +52,7 @@ export const tsEslintConfig = async (): Promise<Config> => {
                 '@typescript-eslint/no-explicit-any': 'warn',
                 '@typescript-eslint/no-namespace': 'warn',
                 '@typescript-eslint/no-unused-vars': 'off',
-
-                /** Naming conventions !! */
                 '@typescript-eslint/prefer-as-const': 'error',
-
-                'import/no-default-export': 'error',
             },
         },
     ]
