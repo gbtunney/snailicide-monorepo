@@ -108,6 +108,7 @@ module.exports = merge(Prettier.config, options)
     -   [Find and fix problems in your JavaScript code - ESLint - Pluggable JavaScript Linter](https://eslint.org/)
     -   [Getting Started | typescript-eslint](https://typescript-eslint.io/getting-started/)
     -   [Linting with Type Information | typescript-eslint](https://typescript-eslint.io/getting-started/typed-linting)
+    -   [How to quickly configure ESLint for import sorting | Medium](https://medium.com/@diballesteros/how-to-quickly-configure-eslint-for-import-sorting-3a4017bd4853)
     -   [eslint-plugin-import](https://www.npmjs.com/package/eslint-plugin-import)
 
 > Note: to transpile to (var and no arrow functions use target = ES5

@@ -7,7 +7,6 @@ export const filenamesConfig = async (): Promise<Config> => [
         plugins: { ['filenames']: filenamesPlugin },
         rules: {
             // We often use @remarks or other ad-hoc tag names
-            'simple-import-sort/imports': 'error',
         },
     },
     {
