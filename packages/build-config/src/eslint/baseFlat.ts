@@ -2,6 +2,7 @@
 import pluginJs from '@eslint/js'
 import globals from 'globals'
 import type { Config } from 'typescript-eslint'
+import pluginsConfig from "./plugins.js"
 import filenamesConfig from './plugins/filenames.js'
 import importConfig from './plugins/import.js'
 import jsdocConfig from './plugins/jsdoc.js'
@@ -30,6 +31,7 @@ export const flatEslintConfig = async (): Promise<Config> => {
             },
         },
         pluginJs.configs.recommended,
+        ...await pluginsConfig(),
         ...(await _tsEslintConfig()),
         ...(await jsdocConfig()),
         ...(await sortConfig()),

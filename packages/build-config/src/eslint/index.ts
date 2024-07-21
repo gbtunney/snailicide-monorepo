@@ -1,17 +1,13 @@
-/* * Types * */
-import type { Linter } from 'eslint'
-
+import type { Config } from 'typescript-eslint'
+export type EslintConfig = Config
 import flatEslintConfig from './baseFlat.js'
-import { typeScriptOptions } from './typescript-extends-config.js'
-
-export type EslintConfig = Linter.BaseConfig
 
 /* * ESLint Namespace * */
 export const EsLint: {
-    typeScriptOptions: Linter.BaseConfig
+    config: typeof flatEslintConfig,
     flatConfig: typeof flatEslintConfig
 } = {
-    typeScriptOptions,
+    config: flatEslintConfig,
     flatConfig: flatEslintConfig,
 }
 export default EsLint
