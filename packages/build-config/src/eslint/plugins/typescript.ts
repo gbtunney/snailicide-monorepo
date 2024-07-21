@@ -35,6 +35,10 @@ export const tsEslintConfig = async (): Promise<Config> => {
                 ],
 
                 '@typescript-eslint/explicit-function-return-type': 'error',
+                '@typescript-eslint/array-type': [
+                    'error',
+                    { default: 'generic' },
+                ],
             },
         },
     ]
