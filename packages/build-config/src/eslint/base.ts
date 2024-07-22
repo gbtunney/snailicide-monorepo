@@ -2,44 +2,56 @@
 import pluginJs from '@eslint/js'
 import globals from 'globals'
 import type { Config } from 'typescript-eslint'
-import filenamesConfig from './plugins/filenames.js'
-import importConfig from './plugins/import.js'
-import jsdocConfig from './plugins/jsdoc.js'
-import sortConfig from './plugins/sort.js'
-import _tsEslintConfig from './plugins/typescript.js'
-import { unusedImportsConfig } from './plugins/unused-imports.js'
-import vitestConfig from './plugins/vitest.js'
+import path from 'node:path'
 import pluginsConfig from './plugins.js'
+import { filenamesRules } from './rules/filenames.js'
+import { importRules } from './rules/import.js'
+import { jsdocRules } from './rules/jsdoc.js'
+import { namingConventionRules } from './rules/naming-convention.js'
+import { sortRules } from './rules/sort.js'
+import { typescriptRules } from './rules/typescript.js'
+import { vitestRules } from './rules/vitest.js'
 
-export const base_files = ['**/*.{js,mjs,cjs,ts}']
-export const base_ignores = [
+const base_files = ['**/*.{js,mjs,cjs,ts}']
+const base_ignores = [
     '**/dist/**/*',
     '**/node_modules/**',
     '**/dist/**',
     '**/types/**/*',
     '**/types/**',
+    '**/*.d.ts',
+    'packages/**/*.js',
+    '*.js',
 ]
 
-export const flatEslintConfig = async (): Promise<Config> => {
+export const flatEslintConfig = async (__dirname: string): Promise<Config> => {
     const EslintConfig: Config = [
         { files: base_files },
-
         { ignores: base_ignores },
+        //   ...tsEslint.configs.stylisticTypeChecked,
         {
             languageOptions: {
                 globals: { ...globals.browser, ...globals.node },
+                parserOptions: {
+                    project: [
+                        path.resolve(
+                            `${__dirname}/./packages/*/src/tsconfig.json`,
+                        ),
+                        path.resolve(`${__dirname}/./packages/*/tsconfig.json`),
+                    ],
+                    tsconfigRootDir: __dirname,
+                },
             },
         },
         ...(await pluginsConfig()),
         pluginJs.configs.recommended,
-        ...(await _tsEslintConfig()),
-        ...(await importConfig()),
-        ...(await unusedImportsConfig()),
-        ...(await sortConfig()),
-        ...(await vitestConfig()),
-        ...(await jsdocConfig()),
-        ...(await filenamesConfig()),
-        // ...(await namingConventionConfig()),
+        ...(await typescriptRules()),
+        ...(await importRules()),
+        ...(await sortRules()),
+        ...(await vitestRules()),
+        ...(await jsdocRules()),
+        ...(await filenamesRules()),
+        ...(await namingConventionRules()),
         {
             files: ['**/*.cjs'],
             rules: {

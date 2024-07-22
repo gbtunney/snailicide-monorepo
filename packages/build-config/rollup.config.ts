@@ -9,7 +9,7 @@ const PRINT_EXPORTS: boolean = false
 
 const JSON_EXPORTS = [
     {
-        data: Prettier.config,
+        data: JSON.parse(JSON.stringify(Prettier.config)),
         filename: './dist/.prettierrc.json',
     },
     {
@@ -17,7 +17,6 @@ const JSON_EXPORTS = [
         filename: './tsconfig-base.json',
     },
 ] as const
-
 const DIRECTORY_PATHS = {
     output_dir: './dist/',
     source_dir: './src/',

@@ -8,10 +8,14 @@ import sortPlugin from 'eslint-plugin-sort'
 import unusedImports from 'eslint-plugin-unused-imports'
 import vitestPlugin from 'eslint-plugin-vitest'
 import type { Config } from 'typescript-eslint'
+import tsEslint from 'typescript-eslint'
+
+//['@typescript-eslint']: tsEslint.plugin,
 
 export const pluginsConfig = async (): Promise<Config> => [
     {
         plugins: {
+            ['@typescript-eslint']: tsEslint.plugin,
             ['filenames-simple']: simpleFilenamesPlugin,
             ['import']: importPlugin,
             ['jsdoc']: jsdocPlugin,

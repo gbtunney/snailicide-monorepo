@@ -1,7 +1,7 @@
 import jsdocPlugin from 'eslint-plugin-jsdoc'
 import { Config } from 'typescript-eslint'
 
-export const jsdocConfig = async (): Promise<Config> => [
+export const jsdocRules = async (): Promise<Config> => [
     {
         plugins: { ['jsdoc']: jsdocPlugin },
         ...(await jsdocPlugin.configs['flat/recommended']),
@@ -11,4 +11,3 @@ export const jsdocConfig = async (): Promise<Config> => [
         },
     },
 ]
-export default jsdocConfig

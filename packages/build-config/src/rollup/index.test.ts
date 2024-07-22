@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest'
 
-import { get_banner } from './index.js'
+import { getBanner } from './index.js'
 
 const example_package = {
     author: {
@@ -33,7 +33,7 @@ const example_package_bad = {
 describe('Rolluup Config Test', () => {
     test('BANNER', () => {
         // @ts-expect-error: package error
-        expect(get_banner('hhhhhGTESTLIB', example_package_bad, false)).toBe(
+        expect(getBanner('hhhhhGTESTLIB', example_package_bad, false)).toBe(
             undefined,
         )
 
@@ -43,7 +43,7 @@ describe('Rolluup Config Test', () => {
  * (c) 2024 - Gillian Tunney
  * Description: Description,
  * Github: git+https://github.com/gbtunney/snailicide-monorepo.git`
-        expect(get_banner('hhhhhGTESTLIB', example_package, false)).toContain(
+        expect(getBanner('hhhhhGTESTLIB', example_package, false)).toContain(
             result,
         )
     })

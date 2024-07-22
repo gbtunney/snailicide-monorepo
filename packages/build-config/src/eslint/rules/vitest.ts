@@ -1,7 +1,7 @@
 import vitestPlugin from 'eslint-plugin-vitest'
 import { Config } from 'typescript-eslint'
 
-export const vitestConfig = async (): Promise<Config> => [
+export const vitestRules = async (): Promise<Config> => [
     {
         files: ['**/*.test.ts'],
         languageOptions: {
@@ -20,5 +20,3 @@ export const vitestConfig = async (): Promise<Config> => [
         },
     },
 ]
-
-export default vitestConfig

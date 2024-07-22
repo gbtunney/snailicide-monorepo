@@ -4,9 +4,10 @@ export type { EslintConfig } from './eslint/index.js'
 
 /* * NPM UTILITIES * */
 export { npm } from './npm/index.js'
+export type { BasePackage, PackageJson, PackageJsonInput } from './npm/index.js'
+
 /* * PRETTIER * */
 export { Prettier } from './prettier/index.js'
-
 export type { PrettierConfig, PrettierOptions } from './prettier/index.js'
 
 /* * ROLLUP * */
@@ -26,5 +27,4 @@ export { vite } from './vite/index.js'
 
 /* * VITEST CONFIG * */
 export { vitest } from './vitest/index.js'
-
 export { merge } from 'ts-deepmerge'

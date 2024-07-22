@@ -85,9 +85,7 @@ export const getPluginFunc = <Key extends PluginKey>(
     key: Key,
     config: PluginConfig = PLUGINS_CONFIG,
 ): ConfigPlugin<Key> | undefined => {
-    const guardFunc = <T extends ConfigPlugin<Key>>(
-        __plugin: unknown,
-    ): __plugin is ConfigPlugin<Key> => {
+    const guardFunc = (__plugin: unknown): __plugin is ConfigPlugin<Key> => {
         return __plugin !== undefined
     }
     if (guardFunc(config[key])) {
@@ -100,7 +98,7 @@ const getPluginDefaultOptions = <Key extends PluginKey>(
     key: Key,
     config: PluginsDefaultConfig = DEFAULT_CONFIG,
 ): ConfigOptions<Key> | undefined => {
-    const defaultGuardFunc = <T extends ConfigOptions<Key>>(
+    const defaultGuardFunc = (
         __options: unknown,
     ): __options is ConfigOptions<Key> => {
         return __options !== undefined
@@ -123,12 +121,6 @@ export const getPluginConfiguration = <Key extends PluginKey>(
           plugin_configured: Plugin //todo: make dynamic
       }
     | undefined => {
-    const guardReturnFunc = <T extends ConfigReturn<Key>>(
-        __plugin_return: unknown,
-    ): __plugin_return is ConfigReturn<Key> => {
-        return __plugin_return !== undefined
-    }
-
     const _options =
         options === 'use_default' ? getPluginDefaultOptions(key) : options
 
@@ -150,22 +142,6 @@ export const getPluginConfiguration = <Key extends PluginKey>(
             }
             return RESULT_OBJECT
         }
-    }
-    return undefined
-}
-const getConfiguredPlugin = <Key extends PluginKey>(
-    key: Key,
-    options: ConfigOptions<Key> | 'use_default' = 'use_default',
-): ConfigReturn<Key> | undefined => {
-    const guardReturnFunc = <T extends ConfigReturn<Key>>(
-        __plugin_return: unknown,
-    ): __plugin_return is ConfigReturn<Key> => {
-        return __plugin_return !== undefined
-    }
-    const _pluginResult = getPluginFunc<Key>(key)
-    if (_pluginResult !== undefined) {
-        const plugin: ConfigPlugin<Key> = _pluginResult
-        //const result = plugin( _options)
     }
     return undefined
 }

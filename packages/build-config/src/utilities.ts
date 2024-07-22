@@ -1,11 +1,20 @@
-import type { ReadonlyDeep } from 'type-fest'
+import type {
+    JsonArray,
+    Jsonifiable,
+    JsonObject,
+    ReadonlyDeep,
+} from 'type-fest'
 import fs from 'fs'
 
-interface JSONExportEntry<T = unknown> {
-    data: T
+export interface JSONExportEntry<
+    Type extends Jsonifiable = JsonArray | JsonObject,
+> {
+    data: Type
     filename: string
 }
-export type JSONExportConfig = Array<JSONExportEntry>
+export type JSONExportConfig<
+    Type extends Jsonifiable = JsonArray | JsonObject,
+> = Array<JSONExportEntry<Type>>
 
 export const exportJSON = (
     config: ReadonlyDeep<JSONExportConfig> | JSONExportConfig,
@@ -25,12 +34,12 @@ export const exportJSON = (
         }
         return false
     })
-    const success = successMap.find((value: boolean) => {
+    const hasSuccess = successMap.find((value: boolean) => {
         return value === true
     })
-    return success === true
+    return hasSuccess === true
 }
-const getJSONString = <T = unknown>(value: T, indentSpaces = 4): string =>
+const getJSONString = <Type = unknown>(value: Type, indentSpaces = 4): string =>
     JSON.stringify(JSON.parse(JSON.stringify(value)), undefined, indentSpaces)
 
 const addFileExtension = (value: string, extension = '.json'): string => {

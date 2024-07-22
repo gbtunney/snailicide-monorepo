@@ -3,7 +3,7 @@ import { z } from 'zod'
 
 import { basePackage } from './schema.js'
 
-const wrapSchema = <T extends z.Schema<unknown>>(schema: T): T => {
+const wrapSchema = <Type extends z.Schema<unknown>>(schema: Type): Type => {
     return schema
 }
 

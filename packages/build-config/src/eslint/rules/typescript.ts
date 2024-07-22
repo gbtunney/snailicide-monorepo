@@ -1,6 +1,6 @@
 import type { Config } from 'typescript-eslint'
 import tsEslint from 'typescript-eslint'
-export const tsEslintConfig = async (): Promise<Config> => {
+export const typescriptRules = async (): Promise<Config> => {
     //const eslintRecommended: Config = await (tsEslint.configs.eslintRecommended as Config)
     return [
         ...(await tsEslint.configs.recommended),
@@ -61,5 +61,3 @@ export const tsEslintConfig = async (): Promise<Config> => {
         },
     ]
 }
-
-export default tsEslintConfig

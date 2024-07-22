@@ -15,7 +15,7 @@ import {
 import { getPluginConfiguration, PLUGINS_CONFIG } from './plugins.js'
 import { isNPMPackage, parseNPMPackage } from '../npm/npm.package.js'
 /** Comment with library information to be appended in the generated bundles. */
-export const get_banner = (
+export const getBanner = (
     library_name: string,
     package_json: BasePackage,
     show_error: boolean | 'safe' = true,
@@ -45,7 +45,7 @@ export type ExportType =
     | 'browser_import'
     | 'browser_umd'
 
-export const export_key_lookup: Record<ExportType, KeyData> = {
+export const EXPORT_KEY_LOOKUP: Record<ExportType, KeyData> = {
     browser_default: {
         extension: '-iife.js',
         internal_format: 'iife',
@@ -147,12 +147,12 @@ export const getOutputObj = (
     //return minimal objects so we can get an export map later
     const expandedExportTypes: Array<ExpandedExportType> =
         entry.export_types.map((export_type) => {
-            const _extension = export_key_lookup[export_type].extension
+            const _extension = EXPORT_KEY_LOOKUP[export_type].extension
             const extension =
                 _extension.indexOf('.') === -1 ? `.${_extension}` : _extension
             const file = path.resolve(`${output_dir}/${filename}${extension}`)
             const format: InternalModuleFormat =
-                export_key_lookup[export_type].internal_format
+                EXPORT_KEY_LOOKUP[export_type].internal_format
             const export_key = entry.export_key
             return {
                 export_key,
@@ -235,7 +235,7 @@ export const getConfigEntries = (
     }
 > => {
     return entries.map((entry) => {
-        const _banner = get_banner(entry.library_name, package_json)
+        const _banner = getBanner(entry.library_name, package_json)
 
         const banner: string = _banner !== undefined ? _banner : ''
         const inneroverrides =
@@ -349,7 +349,7 @@ export const CDN_PLUGINS_BUNDLED = [
 export const rollup = {
     CDN_PLUGINS_BUNDLED,
     DEFAULT_PLUGINS_BUNDLED,
-    get_banner,
+    getBanner,
     getConfigEntries,
     getOutputObj,
     getPackageExports,
