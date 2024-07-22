@@ -5,7 +5,7 @@
         // Output settings.
         "rootDir": ".",
         // Type declaration settings.
-        "declarationDir": "./../types",
+        "declarationDir": "./../types"
     },
     "include": ["./**/*.ts", "./**/*.cts", "./**/*.mts"]
 }
