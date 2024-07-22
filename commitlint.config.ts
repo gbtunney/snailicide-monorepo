@@ -5,21 +5,12 @@
  */
 import type { UserConfig } from '@commitlint/types'
 
-type Hello = any
 const Configuration: UserConfig = {
     extends: ['@commitlint/config-conventional'],
     rules: {
         'scope-empty': [
             2,
             'never',
-            //@ts-expect-error: package error
-            (parsed) => {
-                const { type, scope } = parsed
-                if (type === 'wip') {
-                    return 'always'
-                }
-                return [!!scope, 'scope cannot be empty']
-            },
         ],
         // 'scopeEnumSeparator':"/",
         'type-enum': [

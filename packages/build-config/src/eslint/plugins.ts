@@ -10,8 +10,6 @@ import vitestPlugin from 'eslint-plugin-vitest'
 import type { Config } from 'typescript-eslint'
 import tsEslint from 'typescript-eslint'
 
-//['@typescript-eslint']: tsEslint.plugin,
-
 export const pluginsConfig = async (): Promise<Config> => [
     {
         plugins: {
