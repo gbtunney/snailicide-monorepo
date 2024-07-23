@@ -1,4 +1,4 @@
-import { rollup } from '@snailicide/build-tools'
+import { rollup } from '@snailicide/build-config'
 import { RollupOptions } from 'rollup'
 
 import pkg from './package.json' assert { type: 'json' }
@@ -6,8 +6,8 @@ import pkg from './package.json' assert { type: 'json' }
 const PRINT_EXPORTS: boolean = false
 
 const directory_paths = {
-    source_dir: './src/',
     output_dir: './dist/',
+    source_dir: './src/',
 }
 
 const CONFIG_OBJ = [
@@ -15,8 +15,8 @@ const CONFIG_OBJ = [
         directory_paths,
         [
             {
-                export_types: ['default', 'import', 'require', 'types'],
                 export_key: '*',
+                export_types: ['default', 'import', 'require', 'types'],
                 library_name: 'gWindi',
             },
         ],
@@ -25,7 +25,7 @@ const CONFIG_OBJ = [
     ),
 ]
 
-const CONFIG: RollupOptions[] = rollup.getRollupConfig(CONFIG_OBJ)
+const CONFIG: Array<RollupOptions> = rollup.getRollupConfig(CONFIG_OBJ)
 rollup.getPackageExports(CONFIG_OBJ, PRINT_EXPORTS)
 
 export default CONFIG
