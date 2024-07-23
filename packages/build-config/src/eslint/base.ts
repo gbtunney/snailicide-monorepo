@@ -2,7 +2,6 @@
 import pluginJs from '@eslint/js'
 import globals from 'globals'
 import type { Config } from 'typescript-eslint'
-import path from 'node:path'
 import pluginsConfig from './plugins.js'
 import { filenamesRules } from './rules/filenames.js'
 import { importRules } from './rules/import.js'
@@ -33,12 +32,8 @@ export const flatEslintConfig = async (__dirname: string): Promise<Config> => {
             languageOptions: {
                 globals: { ...globals.browser, ...globals.node },
                 parserOptions: {
-                    project: [
-                        path.resolve(
-                            `${__dirname}/./packages/*/src/tsconfig.json`,
-                        ),
-                        path.resolve(`${__dirname}/./packages/*/tsconfig.json`),
-                    ],
+                    project: true,
+                    projectService: true,
                     tsconfigRootDir: __dirname,
                 },
             },
