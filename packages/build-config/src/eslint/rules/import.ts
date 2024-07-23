@@ -1,6 +1,6 @@
 import { Config } from 'typescript-eslint'
 
-export const importRules = async (): Promise<Config> => [
+export const importRules = (): Config => [
     {
         rules: {
             'import/extensions': ['error', 'ignorePackages'],

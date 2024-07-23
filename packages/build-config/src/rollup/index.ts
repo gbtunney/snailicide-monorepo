@@ -3,6 +3,7 @@ import { omit } from 'ramda'
 import { InternalModuleFormat, OutputOptions, RollupOptions } from 'rollup'
 import { merge as deepmerge } from 'ts-deepmerge'
 import { JsonValue } from 'type-fest'
+import type { LiteralUnion } from 'type-fest'
 import path from 'path'
 
 import { BasePackage } from './../npm/index.js'
@@ -24,7 +25,7 @@ export const getBanner = (
         return `/*
  * ${package_json.name} v${package_json.version}
  * Module: ${library_name}
- * (c) ${new Date().getFullYear()} - ${package_json.author.name}
+ * (c) ${new Date().getFullYear().toString()} - ${package_json.author.name}
  * Description: ${package_json.description},
  * Github: ${package_json.repository.url}
  * Released under the ${package_json.license} License.
@@ -88,14 +89,14 @@ export const EXPORT_KEY_LOOKUP: Record<ExportType, KeyData> = {
     },
 }
 
-interface KeyData {
+type KeyData = {
     extension: string
     internal_format: InternalModuleFormat
     module_format: string
 }
 
-export interface EntryConfig {
-    export_key: '.' | '*' | 'main' | string
+export type EntryConfig = {
+    export_key: LiteralUnion<'.' | '*' | 'main', string>
     in_file_name_override?: string | undefined
     out_file_name_override?:
         | string
@@ -138,7 +139,7 @@ export const getOutputObj = (
         entry.overrides !== undefined ? entry.overrides : {}
 
     //expand output objects by export type
-    interface ExpandedExportType {
+    type ExpandedExportType = {
         export_type: ExportType
         file: string
         format: InternalModuleFormat
@@ -148,8 +149,9 @@ export const getOutputObj = (
     const expandedExportTypes: Array<ExpandedExportType> =
         entry.export_types.map((export_type) => {
             const _extension = EXPORT_KEY_LOOKUP[export_type].extension
-            const extension =
-                _extension.indexOf('.') === -1 ? `.${_extension}` : _extension
+            const extension = !_extension.includes('.')
+                ? `.${_extension}`
+                : _extension
             const file = path.resolve(`${output_dir}/${filename}${extension}`)
             const format: InternalModuleFormat =
                 EXPORT_KEY_LOOKUP[export_type].internal_format
@@ -186,8 +188,7 @@ export const getOutputObj = (
                     name: entry.library_name,
                 })
                 const newOutputArray = [
-                    ...(overrides.minify !== undefined &&
-                    overrides.minify === true
+                    ...(overrides.minify !== undefined && overrides.minify
                         ? /** Add minify options here */
                           [
                               createOutputOptions({
@@ -203,8 +204,7 @@ export const getOutputObj = (
                 ]
                 return [
                     ...acc,
-                    ...(new RegExp(/types/, 'g').test(value.export_type) ===
-                    false
+                    ...(!new RegExp(/types/, 'g').test(value.export_type)
                         ? newOutputArray
                         : []),
                 ]
@@ -239,7 +239,7 @@ export const getConfigEntries = (
 
         const banner: string = _banner !== undefined ? _banner : ''
         const inneroverrides =
-            entry.overrides !== undefined && banner !== undefined
+            entry.overrides !== undefined
                 ? {
                       ...entry.overrides,
                       banner,
@@ -277,7 +277,7 @@ export const getRollupConfig = (
     return _CONFIG
 }
 
-interface OutputObjReturnType {
+type OutputObjReturnType = {
     exportObj: Record<string, Record<string, string>>
     config: Omit<RollupOptions, 'plugins'>
 }
@@ -291,8 +291,7 @@ export const getPackageExports = (
     }, {})
     try {
         const json_value: JsonValue = JSON.parse(JSON.stringify(export_result))
-        if (print === true)
-            console.log(JSON.stringify(json_value, undefined, 4))
+        if (print) console.log(JSON.stringify(json_value, undefined, 4))
         return json_value
     } catch (e) {
         console.error(e)

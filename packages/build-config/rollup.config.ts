@@ -25,9 +25,8 @@ const DIRECTORY_PATHS = {
 const rollUp = (): Array<RollupOptions> => {
     ;(() => shell.mkdir('-p', './dist'))()
     /* *export config as JSON if FLAGGED using jsonExportConfig * */
-    if (JSON_EXPORTS && JSON_EXPORTS.length > 0) {
-        exportJSON(JSON_EXPORTS, '.')
-    }
+
+    exportJSON(JSON_EXPORTS, '.')
 
     const CONFIG_OBJ = rollup.getConfigEntries(
         DIRECTORY_PATHS,

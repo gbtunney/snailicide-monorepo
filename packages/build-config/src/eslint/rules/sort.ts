@@ -2,7 +2,7 @@
 import sortPlugin from 'eslint-plugin-sort'
 import type { Config } from 'typescript-eslint'
 /** @see [How to quickly configure ESLint for import sorting](https://medium.com/@diballesteros/how-to-quickly-configure-eslint-for-import-sorting-3a4017bd4853) */
-export const sortRules = async (): Promise<Config> => [
+export const sortRules = (): Config => [
     sortPlugin.configs['flat/recommended'],
     {
         rules: {

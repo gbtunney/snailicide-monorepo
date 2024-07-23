@@ -1,7 +1,5 @@
 import { Config } from 'typescript-eslint'
-export const namingConventionRules = async (
-    error: boolean = true,
-): Promise<Config> => [
+export const namingConventionRules = (error: boolean = true): Config => [
     {
         files: ['**/src/**/*.ts'],
         rules: {

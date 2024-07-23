@@ -1,6 +1,6 @@
 import { Config } from 'typescript-eslint'
 
-export const filenamesRules = async (): Promise<Config> => [
+export const filenamesRules = (): Config => [
     {
         rules: {
             'filenames-simple/no-index': 'off',

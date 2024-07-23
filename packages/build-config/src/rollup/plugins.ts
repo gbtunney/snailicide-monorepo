@@ -14,7 +14,7 @@ type PluginConfig<Type = typeof PLUGINS_CONFIG> = {
         ? Plugin<Type[Property]>
         : never
 }
-export interface PluginConfigExplicit {
+export type PluginConfigExplicit = {
     typescriptTS: Plugin<typeof tsPlugin>
     json: Plugin<typeof jsonPlugin>
     nodePolyfills: Plugin<typeof nodePolyfillsPlugin>

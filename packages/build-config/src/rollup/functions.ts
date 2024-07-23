@@ -1,4 +1,5 @@
 import { OutputOptions } from 'rollup'
+import type { LiteralUnion } from 'type-fest'
 
 export const createOutputOptions = (
     options: Partial<OutputOptions>,
@@ -25,7 +26,7 @@ export const getExportKey = (_export_key: string): string => {
 export const addMinFileExtension = (
     _value: string,
     insert_value: string = '.min',
-): string | 'ERROR' => {
+): LiteralUnion<'ERROR', string> => {
     const insert = (
         value: string,
         replace_value: string = '',

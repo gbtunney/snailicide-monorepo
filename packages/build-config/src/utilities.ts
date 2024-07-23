@@ -6,12 +6,11 @@ import type {
 } from 'type-fest'
 import fs from 'fs'
 
-export interface JSONExportEntry<
-    Type extends Jsonifiable = JsonArray | JsonObject,
-> {
-    data: Type
-    filename: string
-}
+export type JSONExportEntry<Type extends Jsonifiable = JsonArray | JsonObject> =
+    {
+        data: Type
+        filename: string
+    }
 export type JSONExportConfig<
     Type extends Jsonifiable = JsonArray | JsonObject,
 > = Array<JSONExportEntry<Type>>
@@ -35,7 +34,7 @@ export const exportJSON = (
         return false
     })
     const hasSuccess = successMap.find((value: boolean) => {
-        return value === true
+        return value
     })
     return hasSuccess === true
 }
@@ -46,9 +45,7 @@ const addFileExtension = (value: string, extension = '.json'): string => {
     const _extension = String(extension).startsWith('.')
         ? extension
         : `.${extension}`
-    return String(value).endsWith(`${_extension}`)
-        ? value
-        : `${value}${extension}`
+    return String(value).endsWith(_extension) ? value : `${value}${extension}`
 }
 
 export default {}

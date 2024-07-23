@@ -56,10 +56,10 @@ export const isNPMPackage = <
     const base_schema = wrapSchema<z.AnyZodObject>(basePackage)
     const mergedSchema =
         custom_schema !== undefined
-            ? passthru === true
+            ? passthru
                 ? base_schema.merge(custom_schema).passthrough()
                 : base_schema.merge(custom_schema)
-            : passthru === true
+            : passthru
               ? base_schema.merge(base_schema).passthrough()
               : base_schema.merge(base_schema)
 

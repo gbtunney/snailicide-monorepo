@@ -1,9 +1,10 @@
 import type { Config } from 'typescript-eslint'
 import tsEslint from 'typescript-eslint'
-export const typescriptRules = async (): Promise<Config> => {
-    //const eslintRecommended: Config = await (tsEslint.configs.eslintRecommended as Config)
+
+export const typescriptRules = (): Config => {
     return [
-        ...(await tsEslint.configs.recommended),
+        ...tsEslint.configs.recommended,
+        ...tsEslint.configs.strictTypeChecked,
         {
             rules: {
                 '@typescript-eslint/array-type': [
@@ -45,7 +46,7 @@ export const typescriptRules = async (): Promise<Config> => {
                 ],
                 '@typescript-eslint/consistent-type-definitions': [
                     'error',
-                    'interface',
+                    'type',
                 ],
                 '@typescript-eslint/no-explicit-any': 'warn',
                 '@typescript-eslint/no-namespace': 'warn',
@@ -57,6 +58,15 @@ export const typescriptRules = async (): Promise<Config> => {
             files: ['**/src/**/*.ts'],
             rules: {
                 '@typescript-eslint/explicit-function-return-type': 'error',
+            },
+        },
+        {
+            files: ['**/*.ts', '**/*.tsx'],
+
+            rules: {
+                '@typescript-eslint/no-unsafe-assignment': 'warn',
+                '@typescript-eslint/no-unsafe-member-access': 'warn',
+                '@typescript-eslint/no-unsafe-return': 'warn',
             },
         },
     ]
