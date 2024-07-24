@@ -1,5 +1,12 @@
 # @snailicide/build-config
 
+## 1.1.0
+
+### Minor Changes
+
+-   7ec0345: - added typeChecked eslint rules like: naming conventions, better sorting
+    -   fixed wildcard export error in g-library, made compliant with eslint rules
+
 ## 1.0.0
 
 ### Major Changes

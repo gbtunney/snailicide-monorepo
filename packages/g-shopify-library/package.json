@@ -1,6 +1,6 @@
 {
     "name": "@snailicide/g-shopify-library",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "description": "Collections of types and utilities for working with Shopify",
     "private": false,
     "type": "module",
