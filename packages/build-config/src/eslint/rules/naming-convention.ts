@@ -10,6 +10,14 @@ export const namingConventionRules = (error: boolean = true): Config => [
                     modifiers: ['exported', 'const'],
                     selector: ['variable'],
                 },
+
+                {
+                    format: ['snake_case', 'camelCase', 'UPPER_CASE'],
+                    modifiers: ['exported', 'const'],
+                    selector: 'variable',
+                    types: ['string'],
+                },
+
                 {
                     format: ['camelCase'],
                     modifiers: ['exported'],
@@ -19,21 +27,20 @@ export const namingConventionRules = (error: boolean = true): Config => [
                  * Enforce that boolean variables are prefixed with an allowed
                  * verb
                  */
-                {
-                    format: ['StrictPascalCase'],
-                    prefix: ['is', 'should', 'has', 'can', 'did', 'will'],
-                    selector: 'variable',
-                    types: ['boolean'],
-                },
+
                 {
                     format: ['snake_case', 'camelCase'],
                     leadingUnderscore: 'allowSingleOrDouble',
                     selector: 'parameter',
                 },
-
                 {
                     format: ['PascalCase'],
                     selector: 'typeLike',
+                },
+                {
+                    format: ['UPPER_CASE', 'PascalCase'],
+                    modifiers: ['exported'],
+                    selector: 'typeAlias',
                 },
                 {
                     // prefixed with T or K regex: '^(T|K)([A-Z]|[a-z]){2,}'
@@ -86,6 +93,23 @@ export const namingConventionRules = (error: boolean = true): Config => [
                     format: ['strictCamelCase', 'PascalCase', 'UPPER_CASE'],
                     modifiers: ['exported', 'const'],
                     selector: ['variable'],
+                },
+                {
+                    format: ['StrictPascalCase'],
+                    leadingUnderscore: 'allowSingleOrDouble',
+                    prefix: [
+                        'is',
+                        'should',
+                        'has',
+                        'can',
+                        'does',
+                        'do',
+                        'did',
+                        'use',
+                        'will',
+                    ],
+                    selector: 'parameter',
+                    types: ['boolean'],
                 },
             ],
         },

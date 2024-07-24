@@ -2,6 +2,7 @@
 import pluginJs from '@eslint/js'
 import globals from 'globals'
 import type { Config } from 'typescript-eslint'
+import tseslint from 'typescript-eslint'
 import pluginsConfig from './plugins.js'
 import { filenamesRules } from './rules/filenames.js'
 import { importRules } from './rules/import.js'
@@ -55,6 +56,10 @@ export const flatEslintConfig = async (__dirname: string): Promise<Config> => {
                 'no-undef': 'error',
             },
         },
+        ...tseslint.config({
+            extends: [tseslint.configs.disableTypeChecked],
+            files: ['**/*.mjs', '**/*.cjs', "'**/*.js'"],
+        }),
     ]
     return EslintConfig
 }
