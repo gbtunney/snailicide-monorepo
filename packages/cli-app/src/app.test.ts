@@ -26,6 +26,8 @@ const initFunc: InitFunction<typeof base_schema> = (args) => {
 }
 describe('cli-app', () => {
     test('returns `true` if merged schema is parsable', async () => {
+        console.log('THIS IS A THING', 'hi')
+
         const test_schema = base_schema.transform(transformFunc)
         const my_custom_schema = base_schema
             .merge(

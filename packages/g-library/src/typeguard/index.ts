@@ -14,7 +14,6 @@ import {
 import { isZodParsable } from './../zod_helpers/index.js'
 import tgJson from './json.typeguards.js'
 import * as _tg from './utility.typeguards.js'
-import { isValidColor } from '../color/chroma-utils.js'
 
 export const tg = {
     ..._tg,
@@ -28,7 +27,6 @@ export const tg = {
     isPossibleNumeric,
     isStringNumeric,
     isTrueNumeric,
-    isValidColor,
     isValidScientificNumber,
     isZodParsable,
 }
