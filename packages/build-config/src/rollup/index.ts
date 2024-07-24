@@ -13,7 +13,11 @@ import {
     getExportKey,
     getOutfileName,
 } from './functions.js'
-import { getPluginConfiguration, PLUGINS_CONFIG } from './plugins.js'
+import {
+    CDN_PLUGINS_BUNDLED,
+    DEFAULT_PLUGINS_BUNDLED,
+    getPluginsConfiguration,
+} from './plugins.js'
 import { isNPMPackage, parseNPMPackage } from '../npm/npm.package.js'
 /** Comment with library information to be appended in the generated bundles. */
 export const getBanner = (
@@ -299,52 +303,6 @@ export const getPackageExports = (
     }
 }
 
-export const DEFAULT_PLUGINS_BUNDLED = [
-    getPluginConfiguration('typescriptTS')?.plugin_configured,
-    getPluginConfiguration('json')?.plugin_configured,
-    getPluginConfiguration('nodePolyfills')?.plugin_configured,
-    getPluginConfiguration('nodeExternals')?.plugin_configured,
-    getPluginConfiguration('nodeResolve')?.plugin_configured,
-    getPluginConfiguration('commonJS')?.plugin_configured,
-]
-
-/*
-
-const CDN_PLUGINS_LIST = [
-    ts({
-        tsconfig: (resolvedConfig) => ({
-            ...resolvedConfig,
-            declaration: true,
-            allowJs: false,
-            sourceMap: true,
-        }) /!* Plugin options *!/,
-    }),
-    json(),
-    //nodePolyfills(),
-    // nodeExternals({ }),
-    nodeResolve({ browser: true }), // so Rollup can find `ms`
-    commonjs({ requireReturnsDefault: 'auto' }), // <---- this solves default issue), // so Rollup can convert `ms` to an ES modulefilesize(),
-]
-*/
-
-export const CDN_PLUGINS_BUNDLED = [
-    getPluginConfiguration('typescriptTS')?.plugin_configured,
-    getPluginConfiguration('json')?.plugin_configured,
-    //  getPluginConfiguration('nodePolyfills')?.plugin_configured,
-    /* getPluginConfiguration('nodeExternals')?.plugin({
-         deps: false,
-     }),*/
-    getPluginConfiguration('nodeResolve')?.plugin({ browser: true }),
-    getPluginConfiguration('commonJS')?.plugin_configured,
-]
-
-/* getPluginConfiguration('typescriptTS')?.plugin_configured,
-    getPluginConfiguration('json')?.plugin_configured,
-    getPluginConfiguration('nodePolyfills')?.plugin_configured,
-    getPluginConfiguration('nodeExternals')?.plugin_configured,
-    getPluginConfiguration('nodeResolve')?.plugin_configured,
-    getPluginConfiguration('commonJS')?.plugin_configured,
-*/
 export const rollup = {
     CDN_PLUGINS_BUNDLED,
     DEFAULT_PLUGINS_BUNDLED,
@@ -352,15 +310,14 @@ export const rollup = {
     getConfigEntries,
     getOutputObj,
     getPackageExports,
-    getPluginConfiguration,
+    getPluginsConfiguration,
     getRollupConfig,
-    PLUGINS_CONFIG,
 }
 export default rollup
 
-export {
-    getPluginConfiguration,
-    PLUGINS_CONFIG,
-    PRECONFIGURED_PLUGINS,
+export { getPluginsConfiguration } from './plugins.js'
+export type {
+    ConfigOptions,
+    PluginKey,
+    PluginsConfiguration,
 } from './plugins.js'
-export type { ConfigOptions, ConfigPlugin } from './plugins.js'

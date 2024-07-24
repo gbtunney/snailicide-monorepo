@@ -37,7 +37,7 @@ const rollUp = (): Array<RollupOptions> => {
                 library_name: LIBRARY_NAME,
             },
         ],
-        rollup.DEFAULT_PLUGINS_BUNDLED,
+        rollup.getPluginsConfiguration(),
         _package,
     )
     rollup.getPackageExports(CONFIG_OBJ, PRINT_EXPORTS)

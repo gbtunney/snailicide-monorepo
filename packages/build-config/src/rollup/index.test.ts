@@ -7,6 +7,7 @@ const example_package = {
         email: 'gbtunney@mac.com',
         name: 'Gillian Tunney',
     },
+
     description: 'Description',
     license: 'MIT',
     main: 'index.js',

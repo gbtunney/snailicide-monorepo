@@ -2,28 +2,13 @@ import commonjsPlugin from '@rollup/plugin-commonjs'
 import jsonPlugin from '@rollup/plugin-json'
 import { nodeResolve as nodeResolvePlugin } from '@rollup/plugin-node-resolve'
 import terserPlugin from '@rollup/plugin-terser'
+import { isNotBoolean } from 'ramda-adjunct'
 import { Plugin } from 'rollup'
 import { nodeExternals as nodeExternalsPlugin } from 'rollup-plugin-node-externals'
 import nodePolyfillsPlugin from 'rollup-plugin-polyfill-node'
 import tsPlugin from 'rollup-plugin-ts'
 
-type CommonJSOptions = Parameters<typeof commonjsPlugin>[0]
-
-type PluginConfig<Type = typeof PLUGINS_CONFIG> = {
-    [Property in keyof Type]: Type[Property] extends Plugin
-        ? Plugin<Type[Property]>
-        : never
-}
-export type PluginConfigExplicit = {
-    typescriptTS: Plugin<typeof tsPlugin>
-    json: Plugin<typeof jsonPlugin>
-    nodePolyfills: Plugin<typeof nodePolyfillsPlugin>
-    nodeResolve: Plugin<typeof nodeResolvePlugin>
-    nodeExternals: Plugin<typeof nodeExternalsPlugin>
-    commonJS: Plugin<typeof commonjsPlugin>
-    terser: Plugin<typeof terserPlugin>
-}
-export const PLUGINS_CONFIG = {
+const PLUGINS_CONFIG = {
     commonJS: commonjsPlugin,
     json: jsonPlugin,
     nodeExternals: nodeExternalsPlugin,
@@ -32,15 +17,6 @@ export const PLUGINS_CONFIG = {
     terser: terserPlugin,
     typescriptTS: tsPlugin,
 } as const
-
-type PluginsConfigWDefaults<Type = typeof PLUGINS_CONFIG> = {
-    [Property in keyof Type]: Type[Property] extends Plugin<Type[Property]>
-        ? {
-              plugin: Plugin<Type[Property]>
-              // default?:   Parameters<Type[Property]>[0]
-          }
-        : never
-}
 
 type PluginsDefaultConfig<Type = typeof PLUGINS_CONFIG> = {
     [Property in keyof Type]?: Property extends PluginKey
@@ -70,9 +46,9 @@ export type ConfigPlugin<Key extends PluginKey> = (typeof PLUGINS_CONFIG)[Key]
 export type ConfigOptions<Key extends PluginKey> = Parameters<
     ConfigPlugin<Key>
 >[0]
-export type ConfigReturn<Key extends PluginKey> = ReturnType<ConfigPlugin<Key>>
+type ConfigReturn<Key extends PluginKey> = ReturnType<ConfigPlugin<Key>>
 
-export const PRECONFIGURED_PLUGINS = {
+const PRECONFIGURED_PLUGINS = {
     commonJS: PLUGINS_CONFIG.commonJS(DEFAULT_CONFIG.commonJS),
     json: PLUGINS_CONFIG.json(DEFAULT_CONFIG.json),
     nodeExternals: PLUGINS_CONFIG.nodeExternals(DEFAULT_CONFIG.nodeExternals),
@@ -80,68 +56,57 @@ export const PRECONFIGURED_PLUGINS = {
     nodeResolve: PLUGINS_CONFIG.nodeResolve(DEFAULT_CONFIG.nodeResolve),
     terser: PLUGINS_CONFIG.terser(DEFAULT_CONFIG.terser),
     typescriptTS: PLUGINS_CONFIG.typescriptTS(DEFAULT_CONFIG.typescriptTS),
+} as const
+
+export type PluginsConfiguration = {
+    [Property in PluginKey]?: Property extends PluginKey
+        ? ConfigOptions<Property> | boolean
+        : never
 }
-export const getPluginFunc = <Key extends PluginKey>(
-    key: Key,
-    config: PluginConfig = PLUGINS_CONFIG,
-): ConfigPlugin<Key> | undefined => {
-    const guardFunc = (__plugin: unknown): __plugin is ConfigPlugin<Key> => {
-        return __plugin !== undefined
-    }
-    if (guardFunc(config[key])) {
-        const result: ConfigPlugin<Key> = config[key]
-        return result
-    }
-    return undefined
+/* eslint-disable sort/object-properties */
+export const basePluginConfig: PluginsConfiguration = {
+    typescriptTS: true,
+    json: true,
+    nodePolyfills: true,
+    nodeExternals: true,
+    nodeResolve: true,
+    commonJS: true,
+    terser: false,
 }
-const getPluginDefaultOptions = <Key extends PluginKey>(
+
+export const getPlugin = <Key extends PluginKey>(
     key: Key,
-    config: PluginsDefaultConfig = DEFAULT_CONFIG,
-): ConfigOptions<Key> | undefined => {
-    const defaultGuardFunc = (
-        __options: unknown,
-    ): __options is ConfigOptions<Key> => {
-        return __options !== undefined
-    }
-    if (defaultGuardFunc(config[key])) {
-        const result: ConfigOptions<Key> = config[key]
-        return result
+    value: ConfigOptions<Key> | boolean,
+): Plugin | undefined => {
+    if (isNotBoolean(value)) {
+        // @ts-expect-error: this is busted
+        return PLUGINS_CONFIG[key](value)
+    } else if (value === true) {
+        return PRECONFIGURED_PLUGINS[key]
     }
     return undefined
 }
 
-//THIS IS A WRAPPER THAT CHECKS THE TYPE.
-export const getPluginConfiguration = <Key extends PluginKey>(
-    key: Key,
-    options: ConfigOptions<Key> | 'use_default' = 'use_default',
-):
-    | {
-          plugin: ConfigPlugin<Key>
-          options: ConfigOptions<Key>
-          plugin_configured: Plugin //todo: make dynamic
-      }
-    | undefined => {
-    const _options =
-        options === 'use_default' ? getPluginDefaultOptions(key) : options
-
-    const plugin_configured = PRECONFIGURED_PLUGINS[key] //TODO: give it a type ConfigReturn
-    if (_options !== undefined) {
-        const __options: ConfigOptions<Key> = _options
-        const _pluginResult = getPluginFunc(key)
-        if (_pluginResult !== undefined) {
-            const plugin: ConfigPlugin<Key> = _pluginResult
-
-            const RESULT_OBJECT: {
-                plugin: ConfigPlugin<Key>
-                options: ConfigOptions<Key>
-                plugin_configured: Plugin
-            } = {
-                options: __options,
-                plugin,
-                plugin_configured,
-            }
-            return RESULT_OBJECT
-        }
-    }
-    return undefined
+export const getPluginsConfiguration = <Type extends PluginsConfiguration>(
+    config: Type | undefined = undefined,
+    _default = basePluginConfig,
+): Array<Plugin> => {
+    const _config: PluginsConfiguration =
+        config !== undefined ? config : _default
+    const merged: PluginsConfiguration = { ..._default, ...config }
+    const result: Array<Plugin> = Object.entries(merged)
+        .map(([key, value]) => getPlugin(key as PluginKey, value))
+        .filter((plugin) => plugin) as Array<Plugin>
+    return result
 }
+export const getPluginNames = (plugins: Array<Plugin>): Array<string> => {
+    return plugins.map((plugin) => plugin.name)
+}
+
+export const DEFAULT_PLUGINS_BUNDLED = getPluginsConfiguration(basePluginConfig)
+
+export const CDN_PLUGINS_BUNDLED = getPluginsConfiguration({
+    nodePolyfills: false,
+    nodeExternals: false,
+    nodeResolve: { browser: true },
+})

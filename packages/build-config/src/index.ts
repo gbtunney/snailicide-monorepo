@@ -14,9 +14,9 @@ export type { PrettierConfig, PrettierOptions } from './prettier/index.js'
 export { rollup } from './rollup/index.js'
 export type {
     ConfigOptions,
-    ConfigPlugin,
     EntryConfig,
     ExportType,
+    PluginKey,
 } from './rollup/index.js'
 
 /* *  UTILITIES *  */
