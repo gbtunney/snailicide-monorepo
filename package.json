@@ -30,7 +30,7 @@
         "build:self": "tsc --build",
         "\n========== CODE STYLE >> ==========": "",
         "lint": "cross-var eslint  -c $npm_package_config_eslint_config",
-        "prettier": "cross-var prettier {*,**/*}.{ts,js,cjs,mjs,cts,mts,sh,html,json,yaml,yml,graphql,md} ./.husky/* --ignore-path ./.gitignore --write",
+        "prettier": "cross-var prettier {*,**/*}.{ts,js,cjs,mjs,cts,mts,sh,html,json,yaml,yml,graphql,md} ./.husky/* --ignore-path ./.gitignore --no-error-on-unmatched-pattern --write",
         "\n========== CHECK >> ==========": "",
         "check": "pnpm check:self",
         "check:self": "pnpm lint",

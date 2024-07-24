@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vitest'
 
-import type { Setting, SettingsMapped } from './index.js'
 import { parseThemeSettingSection } from './theme.js'
+import type { Setting, SettingsMapped } from './index.js'
 
 describe('zod', () => {
     test('zod', () => {
@@ -32,78 +32,78 @@ describe('zod', () => {
 
         const color_setting: SettingsMapped<GlobalColorSettingsGroup> = [
             {
-                type: 'header',
                 content: 't:settings_schema.colors.settings.header__1.content',
+                type: 'header',
             },
             {
-                type: 'color',
-                id: 'colors_solid_button_labels',
                 default: '#FFFFFF',
-                label: 't:settings_schema.colors.settings.colors_solid_button_labels.label',
+                id: 'colors_solid_button_labels',
                 info: 't:settings_schema.colors.settings.colors_solid_button_labels.info',
+                label: 't:settings_schema.colors.settings.colors_solid_button_labels.label',
+                type: 'color',
             },
             {
-                type: 'color',
-                id: 'colors_accent_1',
                 default: '#121212',
-                label: 't:settings_schema.colors.settings.colors_accent_1.label',
+                id: 'colors_accent_1',
                 info: 't:settings_schema.colors.settings.colors_accent_1.info',
+                label: 't:settings_schema.colors.settings.colors_accent_1.label',
+                type: 'color',
             },
             {
                 id: 'gradient_accent_1',
-                type: 'color_background',
                 label: 't:settings_schema.colors.settings.gradient_accent_1.label',
+                type: 'color_background',
             },
             {
-                type: 'color',
-                id: 'colors_accent_2',
                 default: '#334FB4',
+                id: 'colors_accent_2',
                 label: 't:settings_schema.colors.settings.colors_accent_2.label',
+                type: 'color',
             },
             {
                 id: 'gradient_accent_2',
-                type: 'color_background',
                 label: 't:settings_schema.colors.settings.gradient_accent_2.label',
+                type: 'color_background',
             },
             {
-                type: 'header',
                 content: 't:settings_schema.colors.settings.header__2.content',
+                type: 'header',
             },
             {
-                type: 'color',
+                default: '#121212',
                 id: 'colors_text',
-                default: '#121212',
-                label: 't:settings_schema.colors.settings.colors_text.label',
                 info: 't:settings_schema.colors.settings.colors_text.info',
+                label: 't:settings_schema.colors.settings.colors_text.label',
+                type: 'color',
             },
             {
-                type: 'color',
-                id: 'colors_outline_button_labels',
                 default: '#121212',
-                label: 't:settings_schema.colors.settings.colors_outline_button_labels.label',
+                id: 'colors_outline_button_labels',
                 info: 't:settings_schema.colors.settings.colors_outline_button_labels.info',
+                label: 't:settings_schema.colors.settings.colors_outline_button_labels.label',
+                type: 'color',
             },
             {
-                type: 'color',
-                id: 'colors_background_1',
                 default: '#FFFFFF',
+                id: 'colors_background_1',
                 label: 't:settings_schema.colors.settings.colors_background_1.label',
+                type: 'color',
             },
             {
                 id: 'gradient_background_1',
-                type: 'color_background',
                 label: 't:settings_schema.colors.settings.gradient_background_1.label',
+                type: 'color_background',
             },
             {
-                type: 'color',
-                id: 'colors_background_2',
                 default: '#F3F3F3',
+                id: 'colors_background_2',
                 label: 't:settings_schema.colors.settings.colors_background_2.label',
+                type: 'color',
             },
             {
                 id: 'gradient_background_2',
-                type: 'color_background',
                 label: 't:settings_schema.colors.settings.gradient_background_2.label',
+                type: 'color_background',
             },
         ]
         const colors_group = parseThemeSettingSection({
@@ -114,80 +114,80 @@ describe('zod', () => {
             name: 't:settings_schema.colors.name',
             settings: [
                 {
-                    type: 'header',
                     content:
                         't:settings_schema.colors.settings.header__1.content',
-                },
-                {
-                    type: 'color',
-                    default: '#FFFFFF',
-                    label: 't:settings_schema.colors.settings.colors_solid_button_labels.label',
-                    info: 't:settings_schema.colors.settings.colors_solid_button_labels.info',
-                    id: 'colors_solid_button_labels',
-                },
-                {
-                    type: 'color',
-                    default: '#121212',
-                    label: 't:settings_schema.colors.settings.colors_accent_1.label',
-                    info: 't:settings_schema.colors.settings.colors_accent_1.info',
-                    id: 'colors_accent_1',
-                },
-                {
-                    type: 'color_background',
-                    label: 't:settings_schema.colors.settings.gradient_accent_1.label',
-                    id: 'gradient_accent_1',
-                },
-                {
-                    type: 'color',
-                    default: '#334FB4',
-                    label: 't:settings_schema.colors.settings.colors_accent_2.label',
-                    id: 'colors_accent_2',
-                },
-                {
-                    type: 'color_background',
-                    label: 't:settings_schema.colors.settings.gradient_accent_2.label',
-                    id: 'gradient_accent_2',
-                },
-                {
                     type: 'header',
+                },
+                {
+                    default: '#FFFFFF',
+                    id: 'colors_solid_button_labels',
+                    info: 't:settings_schema.colors.settings.colors_solid_button_labels.info',
+                    label: 't:settings_schema.colors.settings.colors_solid_button_labels.label',
+                    type: 'color',
+                },
+                {
+                    default: '#121212',
+                    id: 'colors_accent_1',
+                    info: 't:settings_schema.colors.settings.colors_accent_1.info',
+                    label: 't:settings_schema.colors.settings.colors_accent_1.label',
+                    type: 'color',
+                },
+                {
+                    id: 'gradient_accent_1',
+                    label: 't:settings_schema.colors.settings.gradient_accent_1.label',
+                    type: 'color_background',
+                },
+                {
+                    default: '#334FB4',
+                    id: 'colors_accent_2',
+                    label: 't:settings_schema.colors.settings.colors_accent_2.label',
+                    type: 'color',
+                },
+                {
+                    id: 'gradient_accent_2',
+                    label: 't:settings_schema.colors.settings.gradient_accent_2.label',
+                    type: 'color_background',
+                },
+                {
                     content:
                         't:settings_schema.colors.settings.header__2.content',
+                    type: 'header',
                 },
                 {
-                    type: 'color',
                     default: '#121212',
-                    label: 't:settings_schema.colors.settings.colors_text.label',
-                    info: 't:settings_schema.colors.settings.colors_text.info',
                     id: 'colors_text',
+                    info: 't:settings_schema.colors.settings.colors_text.info',
+                    label: 't:settings_schema.colors.settings.colors_text.label',
+                    type: 'color',
                 },
                 {
-                    type: 'color',
                     default: '#121212',
-                    label: 't:settings_schema.colors.settings.colors_outline_button_labels.label',
-                    info: 't:settings_schema.colors.settings.colors_outline_button_labels.info',
                     id: 'colors_outline_button_labels',
+                    info: 't:settings_schema.colors.settings.colors_outline_button_labels.info',
+                    label: 't:settings_schema.colors.settings.colors_outline_button_labels.label',
+                    type: 'color',
                 },
                 {
-                    type: 'color',
                     default: '#FFFFFF',
-                    label: 't:settings_schema.colors.settings.colors_background_1.label',
                     id: 'colors_background_1',
-                },
-                {
-                    type: 'color_background',
-                    label: 't:settings_schema.colors.settings.gradient_background_1.label',
-                    id: 'gradient_background_1',
-                },
-                {
+                    label: 't:settings_schema.colors.settings.colors_background_1.label',
                     type: 'color',
-                    default: '#F3F3F3',
-                    label: 't:settings_schema.colors.settings.colors_background_2.label',
-                    id: 'colors_background_2',
                 },
                 {
+                    id: 'gradient_background_1',
+                    label: 't:settings_schema.colors.settings.gradient_background_1.label',
                     type: 'color_background',
-                    label: 't:settings_schema.colors.settings.gradient_background_2.label',
+                },
+                {
+                    default: '#F3F3F3',
+                    id: 'colors_background_2',
+                    label: 't:settings_schema.colors.settings.colors_background_2.label',
+                    type: 'color',
+                },
+                {
                     id: 'gradient_background_2',
+                    label: 't:settings_schema.colors.settings.gradient_background_2.label',
+                    type: 'color_background',
                 },
             ],
         })

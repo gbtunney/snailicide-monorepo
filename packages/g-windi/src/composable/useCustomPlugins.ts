@@ -26,27 +26,27 @@ export const useCustomPlugins = () => {
     }
     const gSVGPlugin = (): Plugin => {
         const gSVG = {
+            '.g-svg svg': {
+                display: 'block',
+                height: '100%',
+                width: '100%',
+            },
             '.g-svg-fill svg': {
                 '& path, & g, & rect, & circle': {
                     fill: 'currentColor',
                 },
-            },
-            '.g-svg svg': {
-                display: 'block',
-                width: '100%',
-                height: '100%',
             },
         }
         return usePluginUtilities().pluginFactory(gSVG)
     }
     const misc = (): Plugin => {
         return usePluginUtilities().pluginFactory({
+            '.flex-center': {
+                'align-items': 'center',
+                'justify-content': 'center',
+            },
             '.radius-circle': {
                 'border-radius': '100%',
-            },
-            '.flex-center': {
-                'justify-content': 'center',
-                'align-items': 'center',
             },
             '.reflect-x': {
                 transform: 'scale(-1, 1)',
@@ -74,7 +74,7 @@ export const useCustomPlugins = () => {
     }
     // transformRotatePlugin, gSVGPlugin, bgOpacityPlugin,
     return {
-        plugins(): Plugin[] {
+        plugins(): Array<Plugin> {
             return [
                 transformRotatePlugin(),
                 bgOpacityPlugin(),

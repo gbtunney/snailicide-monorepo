@@ -2,76 +2,76 @@ import { describe, expect, test } from 'vitest'
 
 const example_block = [
     {
-        type: 'icon',
         settings: [
             {
-                id: 'icon_path',
-                type: 'text',
-                label: 'Icon Path or SVG Filename:',
                 default: 'mdi:alert',
+                id: 'icon_path',
                 info: '%ASSET% : For asset_url \nor can take URL or iconify icon with :',
+                label: 'Icon Path or SVG Filename:',
+                type: 'text',
             },
             {
+                default: false,
                 id: 'color_toggle',
-                type: 'checkbox',
-                default: false,
-                label: 'Override color',
                 info: 'Use TAILWIND classes for text-red-500 etc.',
+                label: 'Override color',
+                type: 'checkbox',
             },
             {
-                id: 'preserve_toggle',
-                type: 'checkbox',
                 default: false,
+                id: 'preserve_toggle',
                 //"label": "Preserve Default Colors",
                 info: 'toggle preserve color ',
+                type: 'checkbox',
             },
 
             {
-                id: 'icon_color',
-                type: 'color',
-                label: 'Color',
                 default: '#3d4246',
+                id: 'icon_color',
+                label: 'Color',
+                type: 'color',
             },
             {
                 id: 'css_classes',
-                type: 'text',
                 label: 'Add custom css below',
+                type: 'text',
             },
         ],
+        type: 'icon',
     },
 
     {
-        type: 'text',
         settings: [
             {
                 id: 'heading',
-                type: 'text',
                 label: 'Add custom css below',
+                type: 'text',
             },
             {
-                id: 'text_content',
-                type: 'text',
-                label: 'Icon Path or SVG Filename:',
                 default: 'mdi:alert',
+                id: 'text_content',
                 info: '%ASSET% : For asset_url \nor can take URL or iconify icon with :',
+                label: 'Icon Path or SVG Filename:',
+                type: 'text',
             },
         ],
+        type: 'text',
     },
 ]
 
 const example_section_full = {
-    name: 'RICH TEXT TEST',
-    templates: ['blog'],
+    blocks: example_block,
     class: 'dd',
+    name: 'RICH TEXT TEST',
     settings: [
-        { id: 'bg_color', type: 'color', default: 'white' },
+        { default: 'white', id: 'bg_color', type: 'color' },
         {
+            default: 'black',
             id: 'fg_color',
             type: 'color',
-            default: 'black',
         },
     ],
-    blocks: example_block,
+    templates: ['blog'],
 }
 
 //todo:write tests

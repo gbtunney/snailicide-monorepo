@@ -6,10 +6,11 @@ import {
     getRegExpTrim,
     stringListToRegexp,
     stringToRegexp,
-} from './stringToRegexp.js'
+} from './string-to-regexp.js'
 import { isStringValidRegExp, isValidRegExp } from './validators.js'
 
-const _match = 'String'.match
+/* eslint  @typescript-eslint/unbound-method: "warn" */
+const _match = String().match
 export type RegExpMatchArray = ReturnType<typeof _match>
 export const lookup: typeof _lookup = _lookup
 
@@ -24,8 +25,8 @@ export const lookup: typeof _lookup = _lookup
  * @returns {RegExp}
  */
 
-export const fileExtension = (min: number = 2, max: number = 8) =>
-    new RegExp(`.[a-z]{${min},${max}$`)
+export const fileExtension = (min: number = 2, max: number = 8): RegExp =>
+    new RegExp(`.[a-z]{${min.toString()},${max.toString()}$`)
 
 /* TODO: finish
 export const joinRegexList = (_value: (string ) | (string )[]): RegExp|undefined => {
@@ -50,14 +51,14 @@ export const joinRegexList = (_value: (string ) | (string )[]): RegExp|undefined
 
 export const regexp = {
     escapeStringRegexp,
-    stringToRegexp,
-    stringListToRegexp,
-    getRegExpStartOfString,
+    fileExtension,
     getRegExpEndOfString,
+    getRegExpStartOfString,
     getRegExpTrim,
     isStringValidRegExp,
     isValidRegExp,
-    fileExtension,
     lookup: _lookup,
+    stringListToRegexp,
+    stringToRegexp,
 }
 export default regexp

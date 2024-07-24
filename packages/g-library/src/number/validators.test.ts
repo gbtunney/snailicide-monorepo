@@ -11,7 +11,7 @@ import {
 
 const LOGGING: boolean = false
 
-const logNumbers = (valueArr: (number | bigint | string)[]) => {
+const logNumbers = (valueArr: Array<number | bigint | string>): void => {
     valueArr.forEach((value) => {
         if (LOGGING) {
             console.log(
@@ -28,7 +28,7 @@ const logNumbers = (valueArr: (number | bigint | string)[]) => {
         }
     })
 }
-const logStrings = (valueArr: string[]) => {
+const logStrings = (valueArr: Array<string>): void => {
     valueArr.forEach((value) => {
         if (LOGGING) {
             console.log(
@@ -51,7 +51,7 @@ const logStrings = (valueArr: string[]) => {
 
 describe('validators', () => {
     test('transform: TODO:', () => {
-        const validNumbers: (string | number | bigint)[] = [
+        const validNumbers: Array<string | number | bigint> = [
             0xff, //these should be integers
             0xff, //these should be integers
             7.123e0_1,
@@ -79,7 +79,7 @@ describe('validators', () => {
             //console.log( "valueeee" , value , "isNumeric", isNumeric(value), "isNumericString",isStringNumeric(value))
         })
 
-        const validString: string[] = [
+        const validString: Array<string> = [
             '882812888n',
             '0xff', //these should be integers
             '0xFF', //these should be integers
@@ -112,7 +112,10 @@ describe('validators', () => {
             //console.log( "valueeee" , value , "isNumeric", isNumeric(value), "isNumericString",isStringNumeric(value))
         })
 
-        const invalidNumbers: (number | bigint)[] = [/* '+1n'*/ NaN, Infinity]
+        const invalidNumbers: Array<number | bigint> = [
+            /* '+1n'*/ NaN,
+            Infinity,
+        ]
         invalidNumbers.forEach((value) => {
             expect(!isPossibleNumeric(value) && !isNumeric(value)).toBe(true)
             //console.log( "valueeee" , value , "isNumeric", isNumeric(value), "isNumericString",isStringNumeric(value))

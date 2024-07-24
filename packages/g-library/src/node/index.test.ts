@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest'
 
-import { getImageBase64 } from './encodeBase64.js'
+import { getImageBase64 } from './encode-base64.js'
 import {
     getExistingPathType,
     getFilePathArr,

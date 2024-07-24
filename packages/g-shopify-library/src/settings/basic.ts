@@ -15,45 +15,47 @@ import { select_option, text_base } from './composable.js'
  * @property {z.ZodSchema} rangd
  */
 const basic_settings_schema_map = {
-    text: text_base.extend({
-        type: zod.literal('text'),
-    }),
-    textarea: text_base.extend({
-        type: zod.literal('textarea'),
+    checkbox: zod.object({
+        default: zod.boolean().default(false),
+        type: zod.literal('checkbox'),
     }),
     number: zod.object({
-        type: zod.literal('number'),
         default: zod.number().default(4444),
-        placeholder: zod.string().optional(), //zod.string().optional(),
-    }),
-    checkbox: zod.object({
-        type: zod.literal('checkbox'),
-        default: zod.boolean().default(false),
+        placeholder: zod.string().optional(),
+        type: zod.literal('number'), //zod.string().optional(),
     }),
     radio: zod.object({
-        type: zod.literal('radio'),
-        options: zod.array(select_option), //format?
+        //format?
         /* * default - If unspecified, then the first option is selected using index=0 * */
         default: zod.union([zod.string(), zod.number().default(0)]),
-    }),
-    select: zod.object({
-        //todo: make this dynamic or factory??
-        type: zod.literal('select'),
         options: zod.array(select_option),
-        default: zod.union([zod.string(), zod.number().default(0)]),
-        group: zod.string().optional(), //group?: string /// no other info providewd
+        type: zod.literal('radio'),
     }),
     range: zod.object({
-        type: z.literal('range'),
-        default: z.number(), //required by shopify for range only
+        default: z.number(),
+        //integer idk??
+        max: z.number().default(1000), //required by shopify for range only
         min: z.number().default(0), //integer idk??
-        max: z.number().default(1000), //integer idk??
-        step: z.number().step(1).default(1), //idk? or need constaints?
+        step: z.number().step(1).default(1),
+        type: z.literal('range'), //idk? or need constaints?
         /* * unit - example: "px" * */
         unit: z.union([
             z.enum(['px', '%', 'em', 'rem', 'vh']),
             z.string().default('px'),
         ]),
+    }),
+    select: zod.object({
+        default: zod.union([zod.string(), zod.number().default(0)]),
+        group: zod.string().optional(),
+        options: zod.array(select_option),
+        //todo: make this dynamic or factory??
+        type: zod.literal('select'), //group?: string /// no other info providewd
+    }),
+    text: text_base.extend({
+        type: zod.literal('text'),
+    }),
+    textarea: text_base.extend({
+        type: zod.literal('textarea'),
     }),
 }
 enum BasicSettingsTypesEnum {

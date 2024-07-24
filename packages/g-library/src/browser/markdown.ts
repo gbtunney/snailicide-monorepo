@@ -5,7 +5,7 @@ export const renderMarkdown = (
     _options: MarkdownIt['options'] = {
         html: false,
     },
-) => {
+): string => {
     return MarkdownIt(_options).render(value)
 }
 export const renderInlineMarkdown = (
@@ -13,6 +13,6 @@ export const renderInlineMarkdown = (
     _options: MarkdownIt['options'] = {
         html: true,
     },
-) => {
+): string => {
     return MarkdownIt(_options).renderInline(value)
 }

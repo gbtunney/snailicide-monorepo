@@ -9,10 +9,10 @@ export const getSchema = () => {
     const _settings = curator_settings
 
     const schema: SectionSchema = {
-        name: 'Curator IO',
-        tag: 'section',
-        settings: _settings,
         limit: 100,
+        name: 'Curator IO',
+        settings: _settings,
+        tag: 'section',
         /* presets: [
             {
                 name: 'gbt-curator-io',

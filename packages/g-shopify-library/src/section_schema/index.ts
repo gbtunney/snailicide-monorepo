@@ -6,12 +6,6 @@ import { omit } from 'ramda'
 import type { LocalSchema } from './settings.js'
 import type { SectionSchema } from './settings.schema.js'
 
-export type { SettingTypes, Shared } from './setting.types.js'
-export type { LocalSchema } from './settings.js'
-export type { SectionSchema } from './settings.schema.js'
-export { defineSettings, defineBlocks, defineSchemaPreset } from './settings.js'
-const { capitalizeWords, unCamelCase } = stringUtils
-
 export const defineSchemaSettings = <Type extends LocalSchema.Settings>(
     value: LocalSchema.Settings,
     _prefix: string | undefined = undefined,
@@ -25,9 +19,9 @@ export const defineSchemaSettings = <Type extends LocalSchema.Settings>(
                 _label = capitalizeWords(
                     unCamelCase(
                         stringUtils.replaceCharacters({
-                            value: _id,
                             pattern: ['_', '-'],
                             replacement: ' ',
+                            value: _id,
                         }) as string,
                     ),
                 )
@@ -47,9 +41,9 @@ export const defineSchemaSettings = <Type extends LocalSchema.Settings>(
                 // @ts-expect-error: this is busted idk
                 const newobj: LocalSchema.Setting<typeof _value> = {
                     ..._value,
-                    type: _value,
                     id: _id,
                     label: _label,
+                    type: _value,
                 }
                 return [...accumulator, newobj]
             }
@@ -58,7 +52,6 @@ export const defineSchemaSettings = <Type extends LocalSchema.Settings>(
         [],
     )
 }
-
 export const defineSchemaBlocks = <T extends LocalSchema.Blocks>(
     value: T,
     _prefix: string | undefined = undefined,
@@ -72,9 +65,9 @@ export const defineSchemaBlocks = <T extends LocalSchema.Blocks>(
                 _name = capitalizeWords(
                     unCamelCase(
                         stringUtils.replaceCharacters({
-                            value: _type,
                             pattern: ['_', '-'],
                             replacement: ' ',
+                            value: _type,
                         }) as string,
                     ),
                 )
@@ -92,9 +85,9 @@ export const defineSchemaBlocks = <T extends LocalSchema.Blocks>(
                 ) {
                     const new_block: SectionSchema.Block = {
                         ..._value,
-                        type: _key,
                         name: _name,
                         settings,
+                        type: _key,
                     }
                     return [...accumulator, new_block]
                 }
@@ -104,7 +97,6 @@ export const defineSchemaBlocks = <T extends LocalSchema.Blocks>(
         [],
     )
 }
-
 export const defineSectionSchema = <T extends LocalSchema.Schema>(
     value: T,
     _prefix: string | undefined = undefined,
@@ -135,3 +127,11 @@ export const defineSectionSchema = <T extends LocalSchema.Schema>(
     }
     return _schema
 }
+export type { SettingTypes, Shared } from './setting.types.js'
+const { capitalizeWords, unCamelCase } = stringUtils
+
+export type { LocalSchema } from './settings.js'
+
+export { defineBlocks, defineSchemaPreset, defineSettings } from './settings.js'
+
+export type { SectionSchema } from './settings.schema.js'

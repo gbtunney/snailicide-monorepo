@@ -1,5 +1,4 @@
 import { Config, Options } from 'prettier'
-
 import { codeStyleOptions } from './code.style.js'
 
 const options: Options = codeStyleOptions
@@ -11,8 +10,8 @@ const config: Config = {
 
 /* * Prettier Namespace * */
 export const Prettier = {
-    options,
     config,
+    options,
 }
 /* * Export Types * */
 export type PrettierOptions = Config

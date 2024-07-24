@@ -44,21 +44,24 @@ const pageTypes = z.enum(PAGE_TYPES)
 export type PageTypes = z.infer<typeof pageTypes>
 
 const block_schema = z.object({
-    type: z.string(), //change to literal?
-    name: z.string().optional(), ///dont know if optional
-    limit: zod.number().int().optional(), //todo:might be wrong
+    ///dont know if optional
+    limit: zod.number().int().optional(), //change to literal?
+    name: z.string().optional(), //todo:might be wrong
     settings: getSettingGroupSchema(),
+    type: z.string(),
 })
 export type BlockSchema = z.infer<typeof block_schema>
 const section_schema = z.object({
-    name: z.string(),
-    tag: elementTags.optional(),
-    class: z.string().optional(), //todo: validate??
-    limit: zod.number().int().default(3), //todo:might be wrong
-    templates: z.array(pageTypes).optional(),
-
-    settings: getSettingGroupSchema().optional(),
     blocks: z.array(block_schema).optional(),
+    class: z.string().optional(),
+    //todo: validate??
+    limit: zod.number().int().default(3),
+    name: z.string(),
+    settings: getSettingGroupSchema().optional(),
+
+    tag: elementTags.optional(),
+    //todo:might be wrong
+    templates: z.array(pageTypes).optional(),
 })
 export type SectionSchema = z.infer<typeof section_schema>
 

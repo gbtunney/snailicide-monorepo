@@ -8,8 +8,8 @@ const TEMPLATE_DIRECTORY = boolBaseTemplate
     ? `${TEMPLATE_BASE_DIRECTORY}/base`
     : `${TEMPLATE_BASE_DIRECTORY}/library`
 
-import * as process from 'process'
 import { z } from 'zod'
+import * as process from 'process'
 
 import { packagePrompts } from './src/package-prompts.js'
 import { getUnscopedPackageName } from './src/package-template-helpers.js'
@@ -20,9 +20,7 @@ import {
 } from './src/package-types.js'
 
 export const PACKAGE_GENERATOR: PlopGeneratorConfig = {
-    description: 'Make New package',
-    prompts: packagePrompts,
-    actions: (_data): ActionType[] => {
+    actions: (_data): Array<ActionType> => {
         if (_data !== undefined) {
             const { packageName = undefined, target } = _data
             const packageUnscoped = getUnscopedPackageName(packageName)
@@ -41,19 +39,19 @@ export const PACKAGE_GENERATOR: PlopGeneratorConfig = {
                 packageSchema.safeParse(ParsedDataObject),
             )
 
-            const actions: ActionType[] = [
+            const actions: Array<ActionType> = [
                 {
-                    type: 'addMany',
-                    destination,
                     data: packageSchema.parse(ParsedDataObject),
+                    destination,
                     templateFiles: [`${TEMPLATE_DIRECTORY}/*`],
+                    type: 'addMany',
                 },
                 //for eslint
                 {
-                    type: 'addMany',
-                    destination,
                     data: packageSchema.parse(ParsedDataObject),
+                    destination,
                     templateFiles: [`${TEMPLATE_DIRECTORY}/.*`],
+                    type: 'addMany',
                 },
             ]
 
@@ -61,6 +59,8 @@ export const PACKAGE_GENERATOR: PlopGeneratorConfig = {
         }
         return []
     },
+    description: 'Make New package',
+    prompts: packagePrompts,
 }
 export default function (plop: NodePlopAPI) {
     const args: z.infer<typeof fileArgsSchema> = fileArgsSchema.parse(

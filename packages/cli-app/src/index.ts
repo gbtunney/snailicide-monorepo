@@ -1,15 +1,15 @@
+export default { app, schema }
 export * as app from './app.js'
 export { initApp } from './app.js'
-export * as schema from './schema.js'
 
 import * as app from './app.js'
 import * as schema from './schema.js'
 
-export default { app, schema }
+export * as schema from './schema.js'
 export type {
-    AppOptions,
     AppAliasOption,
-    unResolvedAppOptions,
+    AppOptions,
     ResolvedAppOptions,
+    unResolvedAppOptions,
 } from './schema.js'
 export type { BaseArgs } from './schema.js'

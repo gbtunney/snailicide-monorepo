@@ -9,9 +9,9 @@
  */
 
 import * as stringTransform from './../transformString/index.js'
-import * as StringGen from './_string.js'
-import * as StringUtils from './_stringUtils.js'
-import * as format from './formatStr.js'
+import * as format from './format-str.js'
+import * as StringUtils from './string-utils.js'
+import * as StringGen from './string.js'
 import * as validators from './validators.js'
 
 export const stringUtils = {
@@ -22,5 +22,5 @@ export const stringUtils = {
     ...format,
 }
 
-export type { URL } from './validators.js'
 export default stringUtils
+export type { URL } from './validators.js'

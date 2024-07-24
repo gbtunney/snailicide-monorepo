@@ -3,12 +3,15 @@ import path from 'path'
 
 import { prettyPrintJSON } from './../object/json.js'
 import { Json, Jsonifiable } from './../types/utility.js'
-type JSONExportEntry<T = Json.Value, V = T extends Jsonifiable ? T : never> = {
-    data: V
+type JSONExportEntry<
+    Type = Json.Value,
+    DataType = Type extends Jsonifiable ? Type : never,
+> = {
+    data: DataType
     filename: string
 }
 
-export type JSONExportConfig = JSONExportEntry[]
+export type JSONExportConfig = Array<JSONExportEntry>
 
 /**
  * ExportJSON
@@ -33,7 +36,7 @@ export const exportJSONFile = (
             ? path.resolve(outdir, file_name)
             : path.resolve(file_name)
 
-        const writeFile = (path: string = file_path) => {
+        const writeFile = (path: string = file_path): void => {
             fs.writeFileSync(path, prettyPrintJSON(entry.data))
         }
         if (overwrite === 'ON') {

@@ -1,9 +1,9 @@
 import { stringUtils, tg } from '@snailicide/g-library'
 import chalk from 'chalk'
 import clear from 'clear'
-import * as process from 'process'
 import yargs from 'yargs'
 import { z } from 'zod'
+import * as process from 'process'
 
 import { doPrintHeader, getHeader } from './header.js'
 import { getZodType, removeAnsi } from './helpers.js'
@@ -43,18 +43,18 @@ export const initApp = async <Schema extends z.ZodTypeAny>(
                 return {
                     ...accum,
                     [key]: {
-                        type: getZodType(value as z.ZodTypeAny),
                         // ,TODO: figure this out , all are required w infer required: (value as z.ZodTypeAny).isOptional()
                         describe: (value as z.ZodTypeAny).description
                             ? (value as z.ZodTypeAny).description
                             : stringUtils.capitalizeWords(key),
+                        type: getZodType(value as z.ZodTypeAny),
                     },
                 }
             },
             {},
         )
         /* * PARSE ARRAY KEYS WIP * */
-        let array_keys: string[] = []
+        let array_keys: Array<string> = []
         Object.entries(iterateOptions).forEach(([key, value]) => {
             const schema: Record<string, any> = <Record<string, any>>value
             if (schema && schema['_def'] && schema['_def']['typeName']) {
@@ -113,7 +113,7 @@ export const initApp = async <Schema extends z.ZodTypeAny>(
                 console.log('DEBUG:: RESOLVED ARGUMENTS:: ', resolvedArgs)
             }
             const _help: string = await yargsInstance.getHelp()
-            initFunction(resolvedArgs, `${removeAnsi(_help)}`)
+            initFunction(resolvedArgs, removeAnsi(_help))
             return yargsInstance
         } else {
             yargsInstance.showHelp()

@@ -4,7 +4,7 @@
         "rootDir": ".",
         "types": ["node"]
     },
-    "exclude": ["./src/**/*.ts", "vite.config.ts"],
+    "exclude": ["./src/**/*.ts"],
     "files": ["./package.json"],
     "include": ["./*.ts"],
     "references": [{ "path": "./src" }, { "path": "./example_theme_config" }]

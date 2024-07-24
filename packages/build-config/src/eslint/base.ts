@@ -1,15 +1,67 @@
-/**
- * @file Manages the base configuration for ESLint.
- * @author Gillian Tunney
- * @see {@link https://www.npmjs.com/package/@typescript-eslint/eslint-plugin | @typescript-eslint/eslint-plugin}
- * @see {@link https://github.com/epaew/eslint-plugin-filenames-simple | eslint-plugin-filenames-simple}
- * @see {@link https://www.npmjs.com/package/eslint-import-resolver-typescript | eslint-import-resolver-typescript}
- * @see {@link https://www.npmjs.com/package/eslint-plugin-import | eslint-plugin-import}
- */
-import type { Linter } from 'eslint'
+//@ts-expect-error No declaration file or types for this
+import pluginJs from '@eslint/js'
+import globals from 'globals'
+import type { Config } from 'typescript-eslint'
+import tseslint from 'typescript-eslint'
+import pluginsConfig from './plugins.js'
+import { filenamesRules } from './rules/filenames.js'
+import { importRules } from './rules/import.js'
+import { jsdocRules } from './rules/jsdoc.js'
+import { namingConventionRules } from './rules/naming-convention.js'
+import { sortRules } from './rules/sort.js'
+import { typescriptRules } from './rules/typescript.js'
+import { vitestRules } from './rules/vitest.js'
 
-const options: Linter.BaseConfig = {
-    // root: true,
+const base_files = ['**/*.{js,mjs,cjs,ts}']
+const base_ignores = [
+    '**/dist/**/*',
+    '**/node_modules/**',
+    '**/dist/**',
+    '**/types/**/*',
+    '**/types/**',
+    '**/*.d.ts',
+    'packages/**/*.js',
+    '*.js',
+]
+
+export const flatEslintConfig = async (__dirname: string): Promise<Config> => {
+    const EslintConfig: Config = [
+        { files: base_files },
+        { ignores: base_ignores },
+        //   ...tsEslint.configs.stylisticTypeChecked,
+        {
+            languageOptions: {
+                globals: { ...globals.browser, ...globals.node },
+                parserOptions: {
+                    project: true,
+                    projectService: true,
+                    tsconfigRootDir: __dirname,
+                },
+            },
+        },
+        ...(await pluginsConfig()),
+        pluginJs.configs.recommended,
+        ...(await typescriptRules()),
+        ...(await importRules()),
+        ...(await sortRules()),
+        ...(await vitestRules()),
+        ...(await jsdocRules()),
+        ...(await filenamesRules()),
+        ...(await namingConventionRules()),
+        {
+            files: ['**/*.cjs'],
+            rules: {
+                '@typescript-eslint/no-unused-vars': 'warn',
+                '@typescript-eslint/no-var-requires': 'off',
+                'no-undef': 'error',
+            },
+        },
+        ...tseslint.config({
+            extends: [tseslint.configs.disableTypeChecked],
+            files: ['**/*.mjs', '**/*.cjs', "'**/*.js'"],
+        }),
+    ]
+    return EslintConfig
 }
-export const baseOptions = options
-export default options
+
+export default flatEslintConfig

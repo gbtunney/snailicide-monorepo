@@ -13,67 +13,66 @@ import {
     packageSchemaProps,
 } from './package-types.js'
 
-export const packagePrompts: PromptQuestion[] = [
+export const packagePrompts: Array<PromptQuestion> = [
     {
-        type: 'input',
-        name: 'packageName',
         message:
             'Package name (include @prefix if used) example: @snailicide/g-lib :',
+        name: 'packageName',
+        type: 'input',
         validate: (input: string) =>
             isValidNPMPackageName(input) ||
             'Must enter a valid npm package name',
     },
     {
-        type: 'input',
-        name: 'version',
-        message: 'Version ( semver format) :',
         default: '0.0.1',
+        message: 'Version ( semver format) :',
+        name: 'version',
+        type: 'input',
         validate: (input: string) =>
             isValidSemVer(input) ||
             'Must enter a valid Semver version format. See https://semver.org',
     },
     {
-        type: 'list',
-        name: 'target',
         choices: enumTargetKeys(),
         default: enumTargetKeys()[0],
         message: 'Package target:',
+        name: 'target',
+        type: 'list',
     },
     {
-        type: 'list',
-        name: 'license',
         choices: EnumLicenses,
         default: EnumLicenses[0],
         message: 'License:',
+        name: 'license',
+        type: 'list',
     },
     {
-        type: 'input',
-        name: 'description',
-        message: 'Package description:',
         // no reasonable default for node packages
         default: (answers: Partial<PackageSchema>) => {
             if (answers !== undefined && answers.target !== undefined) {
                 type EnumPresetKeys = keyof typeof EnumDescriptionPresets
-                const _presetKey: EnumPresetKeys =
-                    `${answers.target}` as EnumPresetKeys
+                const _presetKey: EnumPresetKeys = answers.target
                 return z
                     .nativeEnum(EnumDescriptionPresets)
                     .parse(EnumDescriptionPresets[_presetKey])
             }
             return 'Please enter descripton'
         },
+        message: 'Package description:',
+        name: 'description',
+        type: 'input',
     },
     {
-        type: 'input',
-        name: 'author_name',
+        default: 'Gillian Tunney',
         message: 'Author name:',
-        default: 'Gillian Tunney', ///todo: make config obj
+        name: 'author_name',
+        type: 'input', ///todo: make config obj
     },
     {
-        type: 'input',
-        name: 'author_email',
+        default: 'gbtunney@mac.com',
         message: 'Author email:',
-        default: 'gbtunney@mac.com', ///todo: make config obj
+        name: 'author_email',
+        type: 'input', ///todo: make config obj
         validate: (input: unknown) => {
             const parseObj =
                 packageSchemaProps.author_email.isOptional() && input === ''
@@ -83,14 +82,14 @@ export const packagePrompts: PromptQuestion[] = [
         },
     },
     {
-        type: 'input',
-        name: 'repositoryOwner',
+        default: 'gbtunney',
         message: 'Github Username: ',
-        default: 'gbtunney', ///todo: make config obj
+        name: 'repositoryOwner',
+        type: 'input', ///todo: make config obj
     },
     {
-        type: 'input',
-        name: 'repositoryName',
         message: 'Github Repository Name:',
+        name: 'repositoryName',
+        type: 'input',
     },
 ]

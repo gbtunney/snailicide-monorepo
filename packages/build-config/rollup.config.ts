@@ -1,95 +1,48 @@
-import commonjs from '@rollup/plugin-commonjs'
-import json from '@rollup/plugin-json'
-import { OutputOptions } from 'rollup'
-import { nodeExternals } from 'rollup-plugin-node-externals'
-import nodePolyfills from 'rollup-plugin-polyfill-node'
-import ts from 'rollup-plugin-ts'
+import { RollupOptions } from 'rollup'
 import shell from 'shelljs'
+import _package from './package.json' assert { type: 'json' }
+import { exportJSON, Prettier, rollup } from './types/index.js'
+import { tsConfigBase } from './types/tsconfig/index.js'
 
-import { EsLint, exportJSON, Prettier } from './types/index.js'
+const LIBRARY_NAME: string = 'GBBuildConfig'
+const PRINT_EXPORTS: boolean = false
 
-/** Comment with library information to be appended in the generated bundles. */
-const banner = `/*
- * @snailicide/build-config
- * (c) 2022 - Gillian Tunney
- * Released under the MIT License.
- */`
-
-/**
- * Creates an output options object for Rollup.js.
- *
- * @param options
- * @returns
- */
-function createOutputOptions(options: OutputOptions) {
-    return {
-        banner,
-        name: 'snailicideBuildConfig',
-        exports: 'named',
-        sourcemap: true,
-        ...options,
-    }
-}
-
-const jsonExportConfig = [
+const JSON_EXPORTS = [
     {
-        data: Prettier.config,
-        filename: '.prettierrc.json',
+        data: JSON.parse(JSON.stringify(Prettier.config)),
+        filename: './dist/.prettierrc.json',
     },
     {
-        data: EsLint.typeScriptOptions,
-        filename: '.eslintrc.json',
+        data: tsConfigBase,
+        filename: './tsconfig-base.json',
     },
-]
+] as const
+const DIRECTORY_PATHS = {
+    output_dir: './dist/',
+    source_dir: './src/',
+} as const
 
-const copyTSConfig = () => {
-    shell.mkdir('-p', './dist')
-    shell.cp('./src/tsconfig/tsconfig-base.json', '.')
-}
-
-/** @type {import('rollup').RollupOptions} */
-const rollUp = () => {
-    copyTSConfig()
+const rollUp = (): Array<RollupOptions> => {
+    ;(() => shell.mkdir('-p', './dist'))()
     /* *export config as JSON if FLAGGED using jsonExportConfig * */
-    if (jsonExportConfig && jsonExportConfig.length > 0) {
-        exportJSON(jsonExportConfig, './dist')
-    }
 
-    const options = {
-        input: './src/index.ts',
-        output: [
-            createOutputOptions({
-                file: './dist/index.js',
-                format: 'esm',
-            }),
-            createOutputOptions({
-                file: './dist/index.cjs',
-                format: 'commonjs',
-            }),
-            createOutputOptions({
-                file: './dist/index.mjs',
-                format: 'esm',
-            }),
+    exportJSON(JSON_EXPORTS, '.')
+
+    const CONFIG_OBJ = rollup.getConfigEntries(
+        DIRECTORY_PATHS,
+        [
+            {
+                export_key: '*',
+                export_types: ['default', 'import', 'require', 'types'],
+                library_name: LIBRARY_NAME,
+            },
         ],
-        plugins: [
-            commonjs(),
-            nodePolyfills(),
-            nodeExternals(),
+        rollup.getPluginsConfiguration(),
+        _package,
+    )
+    rollup.getPackageExports(CONFIG_OBJ, PRINT_EXPORTS)
 
-            ts({
-                tsconfig: (resolvedConfig) => ({
-                    ...resolvedConfig,
-                    declaration: true,
-                    allowJs: false,
-                    sourceMap: false,
-                }),
-            }),
-            json(),
-
-            // nodeResolve({ preferBuiltins: true }),
-        ],
-    }
-    return options
+    return rollup.getRollupConfig(CONFIG_OBJ)
 }
 
 export default rollUp()

@@ -16,7 +16,7 @@ export const packageManager = /(npm|pnpm|yarn)@\d+\.\d+\.\d+(-.+)?/
 export const scientificNumber =
     /^([+-]?(?:0(?:[bB][01](?:_?[01]+)*|[oO]?[0-7](?:_?[0-7]+)*|[xX][0-9a-fA-F](?:_?[0-9a-fA-F]+)*)|(?:(?:0|0(?:[0-9](?:_?[0-9]+)*)?[89](?:[0-9](?:_?[0-9]+)*)?|[1-9](?:_?[0-9]+)*)(?:\.(?:[0-9](?:_?[0-9]+)*)?)?|\.[0-9](?:_?[0-9]+)*)(?:[eE][+-]?[0-9](?:_?[0-9]+)*)?)|-?(?:0(?:[bB][01](?:_?[01]+)*|[oO][0-7](?:_?[0-7]+)*|[xX][0-9a-fA-F](?:_?[0-9a-fA-F]+)*)?|[1-9](?:_?[0-9]+)*)n)$/
 
-export const default_trim_characters = [
+export const DEFAULT_TRIM_CHARACTERS = [
     '.',
     "'",
     '"',
@@ -28,7 +28,7 @@ export const default_trim_characters = [
     ')',
 ] ///stuff to trim from css classes.
 
-export const newLineChars = [
+export const NEW_LINE_CHARS = [
     /* * Unicode:line feed * */
     '\u000a',
     /* * Unicode:carriage return * */
@@ -44,7 +44,7 @@ export const newLineChars = [
 ]
 
 ///    in Unicode: \u000a or \n, which is a line feed; \u000d or \r, which is a carriage return; \u2028, a line separator; and \u2029, a paragraph separator. In practice though, the regex you posted is suffici
-export const whiteSpaceCharacters = [
+export const WHITE_SPACE_CHARACTERS = [
     ' ',
     '\n',
     '\r',

@@ -5,13 +5,13 @@ import useColorScale, { ColorScaleConfigCollection } from './useColorScale.js'
 describe('useColorScale', () => {
     test('getColorScale', () => {
         const TEST_CONFIG: ColorScaleConfigCollection = {
+            'gradient': {
+                color_count: 9,
+                default_color: 'red',
+                scale: ['yellow', 'red', 'black'],
+            },
             'newgumleaf': {
                 default_color: 'afd3c2',
-            },
-            'gradient': {
-                scale: ['yellow', 'red', 'black'],
-                default_color: 'red',
-                color_count: 9,
             },
             'potter-winkle': {
                 default_color: 'CCCCFF',
@@ -19,14 +19,6 @@ describe('useColorScale', () => {
         }
 
         expect(useColorScale().getColorScale(TEST_CONFIG)).toEqual({
-            'newgumleaf': {
-                '100': '#010101',
-                '200': '#333e39',
-                '300': '#677c72',
-                '400': '#a0c1b1',
-                '500': '#ffffff',
-                'DEFAULT': '#afd3c2',
-            },
             'gradient': {
                 '100': '#fffe00',
                 '200': '#ffd000',
@@ -38,6 +30,14 @@ describe('useColorScale', () => {
                 '800': '#490000',
                 '900': '#010000',
                 'DEFAULT': '#ff0000',
+            },
+            'newgumleaf': {
+                '100': '#010101',
+                '200': '#333e39',
+                '300': '#677c72',
+                '400': '#a0c1b1',
+                '500': '#ffffff',
+                'DEFAULT': '#afd3c2',
             },
             'potter-winkle': {
                 '100': '#010101',

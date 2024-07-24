@@ -14,11 +14,12 @@ export type ThemeInfo = {
 
 const theme_info_schema = z.object({
     name: z.literal('theme_info'),
-    theme_name: z.string(),
-    theme_version: z.string(), //should be semver eventually
+    //should be semver eventually
     theme_author: z.string(),
     theme_documentation_url: z.string().optional(),
+    theme_name: z.string(),
     theme_support_url: z.string().optional(),
+    theme_version: z.string(),
 })
 export type ThemeInfo = z.infer<typeof theme_info_schema>
 

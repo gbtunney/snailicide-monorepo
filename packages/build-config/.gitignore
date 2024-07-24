@@ -1,6 +1,7 @@
 # Ignore
 dist
 types
+docs
 #TODO: figure out where to put these
 .eslintrc.js
 .eslintrc.d.ts

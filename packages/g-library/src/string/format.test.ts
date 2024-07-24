@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest'
 
-import { formatString } from './formatStr.js'
+import { formatString } from './format-str.js'
 
 test('returns `true` for values parseable number', () => {
     expect(

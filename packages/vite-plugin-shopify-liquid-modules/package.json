@@ -38,7 +38,8 @@
         "dev": "tsc --build --watch",
         "dev:rollup": "nodemon --exec 'pnpm build' --watch ./rollup.config.ts ./src",
         "\n========== TEST >> ==========": "",
-        "test": "pnpm test:example",
+        "test": "pnpm test:dir && pnpm test:example",
+        "test:dir": "mkdir -p example_theme",
         "test:run": "vitest run",
         "test:watch": "vitest watch",
         "test:example": "pnpm build:ts && pnpm exec vite build",
@@ -67,7 +68,6 @@
     },
     "devDependencies": {
         "@snailicide/build-config": "workspace:^",
-        "@snailicide/build-tools": "workspace:^",
         "@types/shelljs": "^0.8.15",
         "rollup": "^4.18.0",
         "ts-node": "^10.9.2",

@@ -12,9 +12,9 @@ export const SettingSchemaMap = {
     ...SidebarSettings,
 }
 const baseSchema = z.object({
-    label: z.string().optional(), ///todo: not sure if for shopify
+    id: z.string(), ///todo: not sure if for shopify
     info: z.string().optional(),
-    id: z.string(),
+    label: z.string().optional(),
 })
 export type SettingTypes = keyof typeof SettingSchemaMap
 export type AllSettingTypes = SettingTypes
@@ -41,16 +41,16 @@ export type SettingsMapped<T extends Record<string, Setting>> = Array<
 
 export const getSettingSchema = (id: string | undefined = undefined) => {
     let baseSchemaID = z.object({
-        label: z.string().optional(), ///todo: not sure if for shopify
+        id: z.string(), ///todo: not sure if for shopify
         info: z.string().optional(),
-        id: z.string(),
+        label: z.string().optional(),
     })
 
     if (id !== undefined) {
         baseSchemaID = z.object({
-            label: z.string().optional(), ///todo: not sure if for shopify
+            id: z.string().regex(new RegExp(id)), ///todo: not sure if for shopify
             info: z.string().optional(),
-            id: z.string().regex(new RegExp(id)),
+            label: z.string().optional(),
         })
     }
 

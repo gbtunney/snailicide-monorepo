@@ -2,11 +2,11 @@ import { zod } from '@snailicide/g-library/node'
 import { z } from 'zod'
 
 const plugin_theme_schema = zod.object({
-    themeRoot: zod.fsPathTypeExists('directory').default('./theme'),
-    sourceCodeDir: zod.fsPathTypeExists('directory').default('./src'),
     entryPoints: z.record(z.string()).default({
         'settings_schema.json': 'settings_schema.js',
     }),
+    sourceCodeDir: zod.fsPathTypeExists('directory').default('./src'),
+    themeRoot: zod.fsPathTypeExists('directory').default('./theme'),
 })
 
 export type ShopifyThemeSchemaOptions = z.input<typeof plugin_theme_schema>

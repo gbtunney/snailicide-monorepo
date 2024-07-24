@@ -63,31 +63,31 @@ export const getIntegerDigitCount = <Type extends number, strict = false>(
         : parseInt(Math.floor(Math.log(_integer) * Math.LOG10E + 1).toString())
 }
 
+export default {}
+export type { Numeric, PossibleNumeric } from './numeric.js'
 export {
-    parseToNumeric,
+    parseStringToInteger,
     parseStringToNumeric,
     parseToFloat,
-    parseStringToInteger,
+    parseToNumeric,
 } from './parse.js'
+export {
+    numericToFloat,
+    numericToInteger,
+    toNumeric,
+    toStringNumeric,
+} from './transform.js'
 export {
     isParsableToNumeric,
     isPossibleNumeric,
     isTrueNumeric,
 } from './typeguards.js'
-export {
-    isValidScientificNumber,
-    isNumeric,
-    isStringNumeric,
-    isNumericFloat,
-    isNumericNonInteger,
-    isNumericInteger,
-} from './validators.js'
-export {
-    toNumeric,
-    toStringNumeric,
-    numericToInteger,
-    numericToFloat,
-} from './transform.js'
-export type { Numeric, PossibleNumeric } from './numeric.js'
 
-export default {}
+export {
+    isNumeric,
+    isNumericFloat,
+    isNumericInteger,
+    isNumericNonInteger,
+    isStringNumeric,
+    isValidScientificNumber,
+} from './validators.js'

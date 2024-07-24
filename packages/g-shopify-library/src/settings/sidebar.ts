@@ -8,12 +8,12 @@ import { zod } from '@snailicide/g-library/node'
  */
 export const sidebar_settings_schema_map = {
     header: zod.object({
-        type: zod.literal('header'),
-        content: zod.string(), //todo:maybe a void type?
+        content: zod.string(),
+        type: zod.literal('header'), //todo:maybe a void type?
     }),
     paragraph: zod.object({
-        type: zod.literal('paragraph'),
         content: zod.string(),
+        type: zod.literal('paragraph'),
     }),
 }
 

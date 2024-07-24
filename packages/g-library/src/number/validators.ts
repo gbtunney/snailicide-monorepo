@@ -1,26 +1,26 @@
 import { isFloat, isString } from 'ramda-adjunct'
 
-import { removeAllNewlines, trimWhiteSpace } from '../string/_stringUtils.js'
+import { scientificNumber } from './../regexp/dictionary.js'
+import { Numeric, PossibleNumeric } from './numeric.js'
+import { removeAllNewlines, trimWhiteSpace } from '../string/string-utils.js'
 import {
     isBigInt,
     isInteger as tgIsInteger,
     isNumber,
 } from '../typeguard/utility.typeguards.js'
-import { scientificNumber } from './../regexp/dictionary.js'
-import { Numeric, PossibleNumeric } from './numeric.js'
 
-export const isValidScientificNumber = <T extends PossibleNumeric>(
-    value: T,
-): value is T => {
+export const isValidScientificNumber = <Type extends PossibleNumeric>(
+    value: Type,
+): value is Type => {
     const _value: string = value.toString()
     return scientificNumber.test(_value)
 }
 
 //determines if string can be parsed/cast to numeric
-export const isStringNumeric = <T extends string>(
+export const isStringNumeric = <Type extends string>(
     value: unknown,
     strictChars: boolean = true,
-): value is T => {
+): value is Type => {
     if (isString(value)) {
         const trimmedValue = cleanString(value)
         return strictChars
@@ -29,8 +29,9 @@ export const isStringNumeric = <T extends string>(
     } else return false
 }
 
-export const isNumeric = <T extends Numeric>(value: unknown): value is T =>
-    isBigInt(value) || isNumber(value)
+export const isNumeric = <Type extends Numeric>(
+    value: unknown,
+): value is Type => isBigInt(value) || isNumber(value)
 
 /*
 todo: see if this function is better than the other one?
@@ -55,7 +56,9 @@ export const isPossibleNumeric = <T extends PossibleNumeric>(
  * @param {Type} value - Value to test
  * @returns {boolean}
  */
-export const isNumericInteger = <T extends Numeric>(value: T): value is T => {
+export const isNumericInteger = <Type extends Numeric>(
+    value: Type,
+): value is Type => {
     return tgIsInteger(value)
 }
 
@@ -74,12 +77,12 @@ export const isNumericInteger = <T extends Numeric>(value: T): value is T => {
  * @param {Type} value - Value to test
  * @returns {boolean}
  */
-export const isNumericNonInteger = <T extends Numeric>(
-    value: T,
-): value is T => {
+export const isNumericNonInteger = <Type extends Numeric>(
+    value: Type,
+): value is Type => {
     return isFloat(value)
 }
 
 export const isNumericFloat = isNumericNonInteger
-export const cleanString = (value: string) =>
+export const cleanString = (value: string): string =>
     trimWhiteSpace(removeAllNewlines(value))

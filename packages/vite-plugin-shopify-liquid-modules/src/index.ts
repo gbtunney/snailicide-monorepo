@@ -1,9 +1,9 @@
 import { objectUtils, tg } from '@snailicide/g-library'
 import { node, zod } from '@snailicide/g-library/node'
-import fs from 'fs'
-import path from 'path'
 import shell from 'shelljs'
 import { Plugin } from 'vite'
+import fs from 'fs'
+import path from 'path'
 
 import {
     ResolvedShopifyLiquidModulesOptions,
@@ -23,16 +23,16 @@ export default function shopifyModules(
     }
 }
 export type {
-    ShopifyLiquidModulesOptions,
     ResolvedShopifyLiquidModulesOptions,
     resolveOptions,
+    ShopifyLiquidModulesOptions,
 } from './options.js'
 
 const processModules = ({
     modulesDir,
-    themeRoot,
     sections,
     snippets,
+    themeRoot,
 }: ResolvedShopifyLiquidModulesOptions): void => {
     const outSectionsDir = path.resolve(themeRoot, './sections')
     const outSnippetsDir = path.resolve(themeRoot, './snippets')

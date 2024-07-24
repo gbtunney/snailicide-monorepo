@@ -1,9 +1,9 @@
 import { isFinite, isNotNaN, isValidNumber } from 'ramda-adjunct'
 
-import { removeAllNewlines, trimWhiteSpace } from '../string/_stringUtils.js'
-import { isBigInt, isString } from '../typeguard/utility.typeguards.js'
 import { Numeric, PossibleNumeric } from './numeric.js'
 import { isStringNumeric } from './validators.js'
+import { removeAllNewlines, trimWhiteSpace } from '../string/string-utils.js'
+import { isBigInt, isString } from '../typeguard/utility.typeguards.js'
 const LOGGING: boolean = false
 
 export const isParsableToNumeric = <Type extends PossibleNumeric>(
@@ -24,7 +24,7 @@ export const isPossibleNumeric = <Type extends PossibleNumeric>(
 
         const regex = new RegExp(/([a-z]|[A-Z]|,|\?|$|\$|!|@|#|%|&)/, 'g')
 
-        if (strict === false) {
+        if (!strict) {
             const replaced_value = _pre.replace(regex, '')
             if (replaced_value.length > 0) _pre = replaced_value
         }
@@ -42,4 +42,5 @@ export const isTrueNumeric = <Type extends Numeric>(
         isFinite(Number(value))
     )
 }
-const cleanString = (value: string) => trimWhiteSpace(removeAllNewlines(value))
+const cleanString = (value: string): string =>
+    trimWhiteSpace(removeAllNewlines(value))

@@ -10,13 +10,13 @@ import z from 'zod'
  */
 import { ensureArray, numeric, resolveRegExpSchema } from './schemas.js'
 export const schemaForType =
-    <T>() =>
-    <S extends z.ZodType<T, any, any>>(arg: S) => {
+    <Type>() =>
+    <Schema extends z.ZodType<Type, any, any>>(arg: Schema): Schema => {
         return arg
     }
 
 /** So that it doesnt lose its schema typing after a transform or merge function */
-export const wrapSchema = <T extends z.Schema<any>>(schema: T): T => {
+export const wrapSchema = <Schema extends z.Schema>(schema: Schema): Schema => {
     return schema
 }
 /**
@@ -43,11 +43,13 @@ export const wrapSchema = <T extends z.Schema<any>>(schema: T): T => {
  * @param {Schema} schema - Zod schema to use
  * @returns {unknown} Z.infer<typeof schema>
  */
-export const parseZodData = <S extends z.ZodSchema>(
+export const parseZodData = <Schema extends z.ZodSchema>(
     value: unknown,
-    schema: S,
-): z.infer<S> | undefined => {
-    return isZodParsable<S>(value, schema) ? schema.parse(value) : undefined
+    schema: Schema,
+): z.infer<Schema> | undefined => {
+    return isZodParsable<Schema>(value, schema)
+        ? schema.parse(value)
+        : undefined
 }
 /**
  * Guard function to determine if value is parseable according to schema
@@ -71,10 +73,10 @@ export const parseZodData = <S extends z.ZodSchema>(
  * @param {Schema} schema - Zod schema to use
  * @returns {boolean}
  */
-export const isZodParsable = <S extends z.ZodSchema>(
+export const isZodParsable = <Schema extends z.ZodSchema>(
     value: unknown,
-    schema: S,
-): value is z.infer<S> => {
+    schema: Schema,
+): value is z.infer<Schema> => {
     return schema.safeParse(value).success
 }
 
@@ -88,13 +90,13 @@ export const parseFactory =
     }
 
 export const zodHelpers = {
+    ensureArray,
+    isZodParsable,
+    numeric,
+    parseFactory,
+    parseZodData,
+    resolveRegExpSchema,
     schemaForType,
     wrapSchema,
-    isZodParsable,
-    parseZodData,
-    parseFactory,
-    ensureArray,
-    numeric,
-    resolveRegExpSchema,
 }
 export default zodHelpers

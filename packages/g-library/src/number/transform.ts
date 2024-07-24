@@ -1,19 +1,19 @@
 import { isNaN } from 'ramda-adjunct'
 import { Integer } from 'type-fest'
 
-import { removeAllNewlines, trimWhiteSpace } from '../string/_stringUtils.js'
+import type { Numeric, PossibleNumeric } from './numeric.js'
+import { parseStringToInteger, parseToFloat } from './parse.js'
+import { isPossibleNumeric } from './typeguards.js'
+import { isStringNumeric } from './validators.js'
+import { removeAllNewlines, trimWhiteSpace } from '../string/string-utils.js'
 import {
     isBigInt,
     isNumber,
     isString as tgIsString,
 } from '../typeguard/utility.typeguards.js'
-import type { Numeric, PossibleNumeric } from './numeric.js'
-import { parseStringToInteger, parseToFloat } from './parse.js'
-import { isPossibleNumeric } from './typeguards.js'
-import { isStringNumeric } from './validators.js'
 
-export const toStringNumeric = <T extends string>(
-    value: T,
+export const toStringNumeric = <Type extends string>(
+    value: Type,
     strictChars: boolean = true,
 ): Numeric | undefined => {
     if (strictChars && isStringNumeric(value, true)) {
@@ -27,7 +27,7 @@ export const toStringNumeric = <T extends string>(
         if (isNaN(newNumber)) {
             if (
                 /[n]$/.test(trimmedValue) &&
-                /[n]/.test(trimmedValue.replace(/[n]$/, '')) === false
+                !/[n]/.test(trimmedValue.replace(/[n]$/, ''))
             ) {
                 //if ( /[n]/.test(  trimmedValue.replace(/[n]$/ , ""))  ===  false ) {
                 //if it ends in 'n' its a bigint ( exampel 0x01n or 2n ) >>> remove n and new BigInt and test its validity
@@ -133,8 +133,9 @@ export const numericToFloat = <Type extends Numeric>(
  * @param {Type | Integer<Type>} value - Value to test
  * @returns {number | undefined}
  */
-export const numericToInteger = <Type extends Numeric, strict = false>(
-    value: strict extends true ? Integer<Type> : Type,
+export const numericToInteger = <Type extends Numeric, Strict = false>(
+    value: Strict extends true ? Integer<Type> : Type,
 ): Numeric | undefined => parseStringToInteger(value.toString())
 
-const cleanString = (value: string) => trimWhiteSpace(removeAllNewlines(value))
+const cleanString = (value: string): string =>
+    trimWhiteSpace(removeAllNewlines(value))

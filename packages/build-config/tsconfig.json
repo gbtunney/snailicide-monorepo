@@ -1,11 +1,10 @@
 {
-    "extends": "./src/tsconfig/tsconfig-base.json",
+    "extends": "./tsconfig-local-base.json",
     "compilerOptions": {
-        "types": ["node"],
-        "moduleResolution": "node"
+        "types": ["node"]
     },
     "exclude": ["node_modules", "./src/**/*.ts"],
     "files": ["./package.json"],
-    "include": ["./*.ts"],
+    "include": ["*.ts"],
     "references": [{ "path": "./src" }]
 }

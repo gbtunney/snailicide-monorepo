@@ -1,8 +1,8 @@
 import { describe, expect, test } from 'vitest'
 import z from 'zod'
 
-import { isRegExp } from '../typeguard/utility.typeguards.js'
 import { ensureArray, resolveRegExpSchema } from './schemas.js'
+import { isRegExp } from '../typeguard/utility.typeguards.js'
 
 describe('Zod helpers', () => {
     test('ENSURE ARRAY', () => {

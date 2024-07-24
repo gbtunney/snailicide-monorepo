@@ -4,22 +4,21 @@ import { IsLiteral, UnknownArray } from 'type-fest'
 import type {
     EmptyArray,
     EmptyObject,
-    EmptyString,
     Falsy,
     NilLike,
     NilOrEmpty,
     Nullish,
 } from './../types/empty.js'
 import type { PlainObject, Primitive } from './../types/utility.js'
-import { IsArray } from './../types/utility.js'
 import { RA } from './ramdaimports.js'
 
 //todo: move these to "empty??"
 
 /* * RAMDA MIMICKING TYPEGUARDS!!!!!! * */
-export const isFalsy = <T>(value: T | Falsy): value is Falsy =>
+export const isFalsy = <Type>(value: Type | Falsy): value is Falsy =>
     RA.isFalsy(value)
-export const isTruthy = <T>(value: T | Falsy): value is T => RA.isTruthy(value)
+export const isTruthy = <Type>(value: Type | Falsy): value is Type =>
+    RA.isTruthy(value)
 
 /**
  * Retuns `true` if the value is `null`,`undefined` or an empty string, array,
@@ -38,82 +37,89 @@ export const isTruthy = <T>(value: T | Falsy): value is T => RA.isTruthy(value)
  * @param {T | NilOrEmpty} value - T | NilOrEmpty
  * @returns {boolean}
  */
-export const isNilOrEmpty = <T>(value: T | NilOrEmpty): value is NilOrEmpty =>
-    RA.isNilOrEmpty(value)
+export const isNilOrEmpty = <Type>(
+    value: Type | NilOrEmpty,
+): value is NilOrEmpty => RA.isNilOrEmpty(value)
 
-export const isNotNilOrEmpty = <T>(value: T | NilOrEmpty): value is T =>
-    RA.isNotNilOrEmpty(value)
+export const isNotNilOrEmpty = <Type>(
+    value: Type | NilOrEmpty,
+): value is Type => RA.isNotNilOrEmpty(value)
 
 /* * EMPTY STRING!!!!! * */
-export const isEmptyString = <T = unknown>(
-    value: T | EmptyString,
-): value is EmptyString => RA.isEmptyString(value)
+export const isEmptyString = <Type extends string>(
+    value: Type,
+): value is Type => RA.isEmptyString(value)
 
-export const isString = <T extends string>(value: unknown): value is T =>
+export const isString = <Type extends string>(value: unknown): value is Type =>
     RA.isString(value)
-export const isNotString = <T = unknown>(value: T | string): value is T =>
-    RA.isNotString(value)
+export const isNotString = <Type = unknown>(
+    value: Type | string,
+): value is Type => RA.isNotString(value)
 
-export const isBigInt = <T extends bigint>(value: unknown): value is T => {
+export const isBigInt = <Type extends bigint>(
+    value: unknown,
+): value is Type => {
     return RA.isBigInt(value)
 }
 
-export const isNumber = <T extends number>(value: unknown): value is T =>
+export const isNumber = <Type extends number>(value: unknown): value is Type =>
     RA.isValidNumber(value)
 
-export const isNotNumber = <T extends number, N = T extends number ? never : T>(
-    value: unknown,
-): value is N => !RA.isValidNumber(value)
-
-export const isInteger = <T extends number>(value: unknown): value is T =>
-    RA.isInteger(value)
-export const isNotInteger = <
-    T extends number,
-    N = T extends number ? never : T,
+export const isNotNumber = <
+    Type extends number,
+    TypeNumber = Type extends number ? never : Type,
 >(
     value: unknown,
-): value is N => RA.isNotInteger(value)
+): value is TypeNumber => !RA.isValidNumber(value)
 
-export const isPrimitive = <T extends Primitive>(value: unknown): value is T =>
-    RA.isPrimitive(value)
-export const isNotPrimitive = <T = unknown>(value: T | Primitive): value is T =>
-    RA.isNotPrimitive(value)
-
-export const isNilLike = <T>(value: T | NilLike): value is NilLike =>
-    RA.isEmptyString(value) || isNil(value)
-export const isNotNilLike = <T>(value: T | NilLike): value is T =>
-    !(RA.isEmptyString(value) || isNil(value))
-
-export const isNullish = <T>(value: T | NilLike): value is undefined =>
-    RA.isEmptyString(value) || isNil(value)
-export const isNotNullish = <T>(value: T | NilLike): value is T =>
-    !(RA.isEmptyString(value) || isNil(value))
-
-export const isNotNull = <T extends NonNullable<any>>(
+export const isInteger = <Type extends number>(value: unknown): value is Type =>
+    RA.isInteger(value)
+export const isNotInteger = <
+    Type extends number,
+    TypeNumber = Type extends number ? never : Type,
+>(
     value: unknown,
-): value is T => RA.isNotNull(value)
+): value is TypeNumber => RA.isNotInteger(value)
+
+export const isPrimitive = <Type extends Primitive>(
+    value: unknown,
+): value is Type => RA.isPrimitive(value)
+export const isNotPrimitive = <Type = unknown>(
+    value: Type | Primitive,
+): value is Type => RA.isNotPrimitive(value)
+
+export const isNilLike = <Type>(value: Type | NilLike): value is NilLike =>
+    RA.isEmptyString(value) || isNil(value)
+export const isNotNilLike = <Type>(value: Type | NilLike): value is Type =>
+    !(RA.isEmptyString(value) || isNil(value))
+
+export const isNullish = <Type>(value: Type | NilLike): value is undefined =>
+    RA.isEmptyString(value) || isNil(value)
+export const isNotNullish = <Type>(value: Type | NilLike): value is Type =>
+    !(RA.isEmptyString(value) || isNil(value))
+
+export const isNotNull = <Type extends NonNullable<any>>(
+    value: unknown,
+): value is Type => RA.isNotNull(value)
 
 export const isNull = (value: unknown): value is null => RA.isNull(value)
 
-export const isUndefined = <T>(value: T | Nullish): value is undefined =>
+export const isUndefined = <Type>(value: Type | Nullish): value is undefined =>
     isNil(value)
-export const isNotUndefined = <T>(value: unknown): value is T =>
+export const isNotUndefined = <Type>(value: unknown): value is Type =>
     RA.isNotNil(value)
 
-export const isEmptyArray = <T = unknown>(
-    value: T[] extends any[] ? T[] : never,
-): value is T[] => RA.isEmptyArray(value)
+export const isEmptyArray = <Type extends EmptyArray>(
+    value: unknown,
+): value is Type => RA.isEmptyArray(value)
 
-export const isNonEmptyArray = <T = unknown>(
-    value: T extends EmptyArray ? never : IsArray<T> extends true ? T : never,
-): value is T extends EmptyArray
-    ? never
-    : IsArray<T> extends true
-      ? T
-      : never => RA.isNonEmptyArray(value)
+export const isNonEmptyArray = <Type extends UnknownArray = EmptyArray>(
+    value: Type,
+): value is Type => RA.isNonEmptyArray(value)
 
-export const isArray = <T extends UnknownArray>(value: unknown): value is T =>
-    RA.isArray(value)
+export const isArray = <Type extends UnknownArray>(
+    value: unknown,
+): value is Type => RA.isArray(value)
 
 export const isNonEmptyObject = <
     Type extends PlainObject | Record<string, unknown>,
@@ -132,13 +138,15 @@ export const isPlainObject = <
     value: Type,
 ): value is Type => RA.isPlainObject(value)
 
-export const isRegExp = <T extends RegExp>(value: unknown): value is T => {
+export const isRegExp = <Type extends RegExp>(
+    value: unknown,
+): value is Type => {
     return RA.isRegExp(value)
 }
 
-export const isNotError = <T>(
-    value: T,
-): value is IsLiteral<'ERROR'> extends false ? T : never => {
+export const isNotError = <Type>(
+    value: Type,
+): value is IsLiteral<'ERROR'> extends false ? Type : never => {
     return value !== 'ERROR'
 }
 export const isError = (

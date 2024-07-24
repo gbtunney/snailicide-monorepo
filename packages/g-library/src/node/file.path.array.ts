@@ -1,8 +1,8 @@
-import fs from 'fs'
 import { globSync } from 'glob'
 import _isGlob from 'is-glob'
-import path from 'path'
 import { isString } from 'ramda-adjunct'
+import fs from 'fs'
+import path from 'path'
 
 export type FilePath = {
     basename: string
@@ -11,7 +11,7 @@ export type FilePath = {
     extname: string
     filename: string
     absolute: string
-    dirarray: string[]
+    dirarray: Array<string>
     excists: boolean
 }
 export type FileType = 'directory' | 'file' | 'symlink' | 'glob' | undefined
@@ -30,10 +30,10 @@ export type FileType = 'directory' | 'file' | 'symlink' | 'glob' | undefined
 export const getFilePathArr = (
     value: string,
     getDirectoryFiles = false,
-): FilePath[] => {
+): Array<FilePath> => {
     const filteredArray = (
-        arr: (FilePath | undefined)[],
-    ): arr is FilePath[] => {
+        arr: Array<FilePath | undefined>,
+    ): arr is Array<FilePath> => {
         return !arr.some((_entry) => _entry === undefined)
     }
     const _value =
@@ -88,12 +88,12 @@ export const getExistingPathType = (value: string): FileType => {
 /* * isFile - if the string is a glob, we do not care if it excists or resolves.  * */
 export const isFile = (
     value: string,
-    allowedExtention: string | string[] | undefined = undefined,
-) => {
+    allowedExtention: string | Array<string> | undefined = undefined,
+): boolean => {
     const extention = path.extname(path.resolve(value))
     const result = extention.length > 1
-    if (result === true && allowedExtention === undefined) return true
-    else if (result === true && allowedExtention !== undefined) {
+    if (result && allowedExtention === undefined) return true
+    else if (result && allowedExtention !== undefined) {
         let _inner_result = false
         const ALLOWED = isString(allowedExtention)
             ? [allowedExtention]
@@ -107,7 +107,7 @@ export const isFile = (
     return false
 }
 /* * isDirectory - if the string is a glob, we do not care if it excists or resolves.  * */
-export const isDirectory = (value: string) => {
+export const isDirectory = (value: string): boolean => {
     return !isFile(value)
 }
 /* * isGlob - if the string is a glob, we do not care if it excists or resolves.  * */
@@ -127,18 +127,18 @@ export const getFilePathObj = function (_path: string): FilePath | undefined {
     const dirarray = getDirectoryArr(resolvedPath)
     const parentdirname = getParentDirectory(resolvedPath)
     const result = {
+        absolute: resolvedPath,
         basename: path.basename(resolvedPath),
+        dirarray,
         dirname: path.dirname(resolvedPath),
-        parentdirname,
+        excists: fs.existsSync(resolvedPath),
         extname: getExt(resolvedPath),
         filename: getFilename(resolvedPath),
-        absolute: resolvedPath,
-        dirarray,
-        excists: fs.existsSync(resolvedPath),
+        parentdirname,
     }
     return result
 }
-export const getDirectoryArr = (_path: string): string[] => {
+export const getDirectoryArr = (_path: string): Array<string> => {
     const resolvedPath = path.resolve(_path)
 
     return path
@@ -146,18 +146,21 @@ export const getDirectoryArr = (_path: string): string[] => {
         .split('/')
         .filter((_item) => _item.length > 0)
 }
-export const getParentDirectory = (_path: string) => {
+export const getParentDirectory = (_path: string): string | undefined => {
     const dirarray = getDirectoryArr(_path)
     return dirarray.length > 0 ? dirarray[dirarray.length - 1] : undefined
 }
-export const getFilename = (fullPath: string) =>
+export const getFilename = (fullPath: string): string =>
     path.basename(fullPath, path.extname(fullPath))
-export const getExt = (fullPath: string) =>
+export const getExt = (fullPath: string): string =>
     path.extname(fullPath).replace('.', '')
-export const getFullPath = (_value: string, _root: string | undefined) => {
+export const getFullPath = (
+    _value: string,
+    _root: string | undefined,
+): string => {
     return _root !== undefined ? `${_root}/${_value}` : _value
 }
-export const normalizePath = (value: string) =>
+export const normalizePath = (value: string): string =>
     path.normalize(path.resolve(value))
 
 export const doesFileExist = (path: string): boolean => fs.existsSync(path)

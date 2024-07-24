@@ -20,7 +20,7 @@ export const doPrintHeader = (header: PrintHeader): string => {
 }
 export const getHeader = (options: AppOptions): PrintHeader => {
     const app_title: string = getTitleColor(
-        options.figlet === true && options.name !== undefined
+        options.figlet && options.name !== undefined
             ? figlet.textSync(options.name, {
                   horizontalLayout: 'full',
               })

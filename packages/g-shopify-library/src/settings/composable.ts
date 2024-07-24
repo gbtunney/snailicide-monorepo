@@ -22,6 +22,7 @@ export const text_base = z.object({
  * @property {z.ZodString} label
  */
 export const select_option = z.object({
-    value: z.string(), //todo: maybe format according to case??
-    label: z.string(), //todo:maybe autopopulate using default?
+    //todo: maybe format according to case??
+    label: z.string(),
+    value: z.string(), //todo:maybe autopopulate using default?
 })

@@ -9,7 +9,7 @@ import {
 } from './schema.js'
 
 const initFunc = (args: BaseArgs, help: undefined | string) => {
-    if (args.verbose === true) {
+    if (args.verbose) {
         // console.log('VERBOSE FLAG ::RESOLVED APP ARGS::initFunc: ', args, 'done')
     }
     console.log(help, '\n', 'SUCCESS!! :: all args parsed')
@@ -28,20 +28,21 @@ const myschema = base_schema
     .describe('this is a sample app that is made of fun')
 
 const alias: AppAliasOption<typeof myschema> = {
-    testarr2: 'o',
-    version: 'v',
     help: 'h',
     rootDir: 'r',
+    testarr2: 'o',
+    version: 'v',
 }
 const OPTIONS: unResolvedAppOptions = {
-    name: 'Example App',
+    alias: alias,
     description: 'This is an example to demonstrate use',
-    alias: alias, //code editor error
+    //code editor error
     examples: [
         ['$0 --config "~/config.json"', 'Use custom config'],
         ['$0 --safe', 'Start in safe mode'],
     ],
     hidden: ['testarr'],
+    name: 'Example App',
 }
 
 const initialize = async () => {

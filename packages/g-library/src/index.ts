@@ -1,39 +1,44 @@
+/* * HTML UTILITIES * */
+export { htmlUtils } from './browser/index.js'
+
+/* * COLOR UTILITIES * */
+export { colorUtils } from './color/index.js'
+
+/* * DATE UTILITIES * */
+export { dateUtils } from './date/index.js'
+
+export * as numeric from './number/index.js'
+
+/* * JSON & OBJECT UTILITIES * */
+export { objectUtils } from './object/index.js'
+
+export { deepmerge } from './object/index.js'
+
+/* * REGEXP UTILITIES * */
+export { regexp } from './regexp/index.js'
+
+/* * STRING UTILITIES * */
+export { stringUtils } from './string/index.js'
+
 /* * GENERIC TYPEGUARDS * */
 export { tg } from './typeguard/index.js'
 
 export type {
-    PlainObject,
-    Primitive,
-    PrefixProperties,
-    SuffixProperties,
     DeepPartial,
-    EmptyObject,
     EmptyArray,
+    EmptyObject,
     EmptyString,
     Falsy,
-    NilOrEmpty,
-    NilLike,
-    Nullish,
     Json,
     Jsonifiable,
+    NilLike,
+    NilOrEmpty,
+    Nullish,
+    PlainObject,
+    PrefixProperties,
+    Primitive,
+    SuffixProperties,
 } from './types/index.js'
 
-/* * STRING UTILITIES * */
-export { regexp } from './regexp/index.js'
-export { stringUtils } from './string/index.js'
-
-export * as numeric from './number/index.js'
-
-export { htmlUtils } from './browser/index.js'
+/* * ZOD UTILITIES * */
 export { zodHelpers } from './zod_helpers/index.js'
-
-/* * JSON & OBJECT UTILS * */
-export { objectUtils } from './object/index.js'
-
-import * as _colorUtils from './color/index.js'
-import * as _dateUtils from './date/index.js'
-
-export const dateUtils: typeof _dateUtils = _dateUtils
-export const colorUtils: typeof _colorUtils = _colorUtils
-
-export { deepmerge } from './object/index.js'
