@@ -6,8 +6,8 @@
         "module": "ESNext",
         "rootDir": ".",
         "sourceMap": false,
-        "types": ["node"]
-        //"moduleResolution": "Node"
+        "types": ["node"],
+        "moduleResolution": "Node"
     },
     "exclude": ["./src/**/*.ts"],
     "files": ["./package.json"],
