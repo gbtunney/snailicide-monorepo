@@ -1,5 +1,11 @@
 # @snailicide/cli-app
 
+## 0.0.12
+
+### Patch Changes
+
+-   836da59: added typedoc
+
 ## 0.0.11
 
 ### Patch Changes
