@@ -5,6 +5,6 @@
     },
     "exclude": ["node_modules", "./src/**/*.ts"],
     "files": ["./package.json"],
-    "include": ["rollup.config.ts"],
+    "include": ["*.ts"],
     "references": [{ "path": "./src" }]
 }

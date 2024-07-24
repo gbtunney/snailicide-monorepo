@@ -20,3 +20,9 @@ export type {
     PackageJson,
     PackageJsonInput,
 } from './npm.package.js'
+
+export {
+    isNPMPackage,
+    packageStandardSchema,
+    parseNPMPackage,
+} from './npm.package.js'

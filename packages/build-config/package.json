@@ -31,12 +31,14 @@
         "build:rollup": "rollup --config ./rollup.config.js",
         "build:cp": "cp ./src/tsconfig/tsconfig-base.json .",
         "build:ts": "tsc --build",
-        "dev": "tsc --build --watch",
         "\n========== DEV >> ==========": "",
         "dev": "tsc --build --watch",
         "\n========== TEST >> ==========": "",
         "test": "vitest run",
         "test:watch": "vitest watch",
+        "\n========== DOCS >> ==========": "",
+        "docs:build": "pnpm run build:ts && pnpm exec typedoc",
+        "docs:serve": " vite --config ./vite.docs.config.ts",
         "\n========== PUBLISH >> ==========": "",
         "release": "pnpm prerelease && pnpm publish --access public --show-report-summary",
         "prerelease": "pnpm clean && pnpm build && pnpm fix",
@@ -49,7 +51,7 @@
         "\n========== CLEAN >> ==========": "",
         "clean": "pnpm clean:ts && pnpm clean:build",
         "clean:ts": "tsc --build --clean && rm -R -f tsconfig-base.json",
-        "clean:build": "rm -R -f dist && rm -R -f types"
+        "clean:build": "rm -R -f dist types docs"
     },
     "keywords": [
         "eslint",
@@ -119,6 +121,8 @@
         "rollup": "^4.19.0",
         "shelljs": "^0.8.5",
         "ts-node": "^10.9.1",
+        "typedoc": "^0.26.5",
+        "typedoc-plugin-markdown": "^4.2.2",
         "typescript": "^5.2.2"
     },
     "prettier": "./dist/.prettierrc.json"
