@@ -36,6 +36,7 @@ const DEFAULT_CONFIG: PluginsDefaultConfig = {
             ...resolvedConfig,
             allowJs: false,
             declaration: true,
+            declarationMap: true,
             sourceMap: true,
         }),
     },

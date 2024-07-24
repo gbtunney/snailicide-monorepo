@@ -13,8 +13,8 @@ describe('CONFIG TESTS', () => {
             requireReturnsDefault: 'auto',
         }
 
-        // @ts-expect-error: this SHOULD fail
         const PLUGIN_OPTIONS_TEST2: ConfigOptions<'nodeResolve'> = {
+            // @ts-expect-error: this SHOULD fail
             requireReturnsDefault: 'auto',
         }
 
