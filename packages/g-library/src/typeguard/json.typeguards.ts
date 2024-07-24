@@ -5,9 +5,9 @@
 
 import { Jsonifiable } from 'type-fest'
 
+import { RA } from './ramdaimports.js'
 import { isNotUndefined } from '../typeguard/utility.typeguards.js'
 import { Json, PlainObject } from '../types/utility.js'
-import { RA } from './ramdaimports.js'
 
 /**
  * Checks if a value is JSON-serializable.
@@ -17,9 +17,9 @@ import { RA } from './ramdaimports.js'
  * @param {unknown} value - The value to check.
  * @returns {boolean} - True if the value is JSON-serializable, false otherwise.
  */
-export const isJsonifiable = <T extends Jsonifiable>(
+export const isJsonifiable = <Type extends Jsonifiable>(
     value: unknown,
-): value is T extends Jsonifiable ? T : never => {
+): value is Type extends Jsonifiable ? Type : never => {
     return (
         RA.isObjectLike(value) ||
         RA.isString(value) ||
@@ -38,9 +38,9 @@ export const isJsonifiable = <T extends Jsonifiable>(
  * @returns {boolean} - True if the value is a non-nullable JSON value, false
  *   otherwise.
  */
-export const isJsonValue = <T extends Json.Value>(
-    value: T,
-): value is T extends Json.Value ? T : never => {
+export const isJsonValue = <Type extends Json.Value>(
+    value: Type,
+): value is Type extends Json.Value ? Type : never => {
     return (
         RA.isObjectLike(value) ||
         RA.isString(value) ||
@@ -59,9 +59,9 @@ export const isJsonValue = <T extends Json.Value>(
  * @returns {boolean} - True if the value is an object-like JSON-serializable
  *   value, false otherwise.
  */
-export const isJsonifiableObjectLike = <T extends Json.Object | Json.Array>(
-    value: T,
-): value is T extends Json.Object | Json.Array ? T : never => {
+export const isJsonifiableObjectLike = <Type extends Json.Object | Json.Array>(
+    value: Type,
+): value is Type extends Json.Object | Json.Array ? Type : never => {
     return RA.isObjectLike(value)
 }
 
@@ -74,9 +74,9 @@ export const isJsonifiableObjectLike = <T extends Json.Object | Json.Array>(
  * @returns {boolean} - True if the value is a JSON-serializable object, false
  *   otherwise.
  */
-export const isJsonifiableObject = <T extends PlainObject>(
+export const isJsonifiableObject = <Type extends PlainObject>(
     value: unknown,
-): value is T extends Json.Object ? T : Json.Object => {
+): value is Type extends Json.Object ? Type : Json.Object => {
     return RA.isPlainObject(value)
 }
 
@@ -89,15 +89,15 @@ export const isJsonifiableObject = <T extends PlainObject>(
  * @returns {boolean} - True if the value is a JSON-serializable array, false
  *   otherwise.
  */
-export const isJsonifiableArray = <T extends Json.Array>(
+export const isJsonifiableArray = <Type extends Json.Array>(
     value: unknown,
-): value is T extends Json.Array ? T : never => RA.isArray(value)
+): value is Type extends Json.Array ? Type : never => RA.isArray(value)
 
-export const tg_json = {
+export const tgJson = {
     isJsonifiable,
-    isJsonValue,
-    isJsonifiableObjectLike,
-    isJsonifiableObject,
     isJsonifiableArray,
+    isJsonifiableObject,
+    isJsonifiableObjectLike,
+    isJsonValue,
 }
-export default tg_json
+export default tgJson

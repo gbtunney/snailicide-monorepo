@@ -1,5 +1,6 @@
+/* eslint  @typescript-eslint/explicit-function-return-type: "warn" */
 import { isString } from 'ramda-adjunct'
-import { z } from 'zod'
+import { z, ZodEffects, ZodString } from 'zod'
 
 import {
     doesFileExist,
@@ -12,7 +13,9 @@ import {
 } from './../node/file.path.array.js'
 
 /* * CUSTOM ZOD UTILITIES!! * */
-export const fsPath = (root: string | undefined = undefined) => {
+export const fsPath = (
+    root: string | undefined = undefined,
+): ZodEffects<ZodEffects<ZodString, string>, string> => {
     return z
         .string()
         .transform((value) => getFullPath(value, root))
@@ -22,7 +25,10 @@ export const fsPath = (root: string | undefined = undefined) => {
 export const fsPathArray = (
     root: string | undefined = undefined,
     getDirectoryFileContents = false,
-) => {
+): ZodEffects<
+    ZodEffects<ZodEffects<ZodString, string>, string>,
+    Array<FilePath>
+> => {
     return fsPath(root).transform((value) =>
         getFilePathArr(value, getDirectoryFileContents),
     )
@@ -32,7 +38,7 @@ export const fsPathExists = (
     exists = true,
     root: string | undefined = undefined,
     allowedType:
-        | (Exclude<FileType, undefined> | Exclude<FileType, undefined>[])
+        | (Exclude<FileType, undefined> | Array<Exclude<FileType, undefined>>)
         | 'any' = 'any',
 ) => {
     if (!exists) {
@@ -43,7 +49,7 @@ export const fsPathExists = (
 
 export const fsPathTypeExists = (
     allowedType:
-        | (Exclude<FileType, undefined> | Exclude<FileType, undefined>[])
+        | (Exclude<FileType, undefined> | Array<Exclude<FileType, undefined>>)
         | 'any'
         | 'none' = 'any',
     root: string | undefined = undefined,
@@ -57,7 +63,7 @@ export const fsPathTypeExists = (
                 else if (doesFileExist(value)) _inner_result = true
             } else if (allowedType === 'none') return pathType === undefined
             else {
-                const ALLOWED: FileType[] = isString(allowedType)
+                const ALLOWED: Array<FileType> = isString(allowedType)
                     ? [allowedType]
                     : allowedType
                 ALLOWED.forEach((item) => {
@@ -68,9 +74,10 @@ export const fsPathTypeExists = (
         },
         (value) => {
             return {
-                message: `File path ${
-                    value ? 'does not' : 'does'
-                } exist (type: ${allowedType})`,
+                message: `File path ${(value
+                    ? 'does not'
+                    : 'does'
+                ).toString()} exist (type: ${allowedType.toString()})`,
             }
         },
     )
@@ -81,8 +88,8 @@ export const fsPathArrayHasFiles = (
     root: string | undefined = undefined,
 ) => {
     return fsPathArray(root, getDirectoryFileContents).refine(
-        (val) => {
-            if (val && val.length > 0 && val[0] !== undefined) {
+        (val: Array<FilePath>) => {
+            if (val.length > 0 && val[0] !== undefined) {
                 const _possibleDir: FilePath = val[0]
                 if (
                     !getDirectoryFileContents &&

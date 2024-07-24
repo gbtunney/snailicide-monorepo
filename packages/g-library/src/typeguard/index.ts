@@ -12,23 +12,24 @@ import {
     isValidScientificNumber,
 } from './../number/validators.js'
 import { isZodParsable } from './../zod_helpers/index.js'
-import tg_json from './json.typeguards.js'
+import tgJson from './json.typeguards.js'
 import * as _tg from './utility.typeguards.js'
+import { isValidColor } from '../color/chroma-utils.js'
 
 export const tg = {
     ..._tg,
-    ...tg_json,
-    isZodParsable,
+    ...tgJson,
     isCSSColorSpecial,
     isNotCSSColorSpecial,
-
-    isPossibleNumeric,
-    isParsableToNumeric,
-    isTrueNumeric,
     isNumeric,
     isNumericFloat,
     isNumericInteger,
-    isValidScientificNumber,
+    isParsableToNumeric,
+    isPossibleNumeric,
     isStringNumeric,
+    isTrueNumeric,
+    isValidColor,
+    isValidScientificNumber,
+    isZodParsable,
 }
 export default tg

@@ -5,21 +5,21 @@
  *
  * @namespace ObjectUtils
  */
+import { flatten, unflatten } from 'flat'
 import {
     prettyPrintJSON,
     safeDeserializeJson,
     safeSerializeJson,
 } from './json.js'
 
-export { merge as deepmerge } from 'ts-deepmerge'
-import { flatten, unflatten } from 'flat'
-export type { FlattenOptions, UnflattenOptions } from 'flat'
-
 export const objectUtils = {
-    prettyPrintJSON,
-    safeSerializeJson,
-    safeDeserializeJson,
     flatten,
+    prettyPrintJSON,
+    safeDeserializeJson,
+    safeSerializeJson,
     unflatten,
 }
 export default objectUtils
+
+export type { FlattenOptions, UnflattenOptions } from 'flat'
+export { merge as deepmerge } from 'ts-deepmerge'

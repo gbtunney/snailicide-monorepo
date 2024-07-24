@@ -1,11 +1,11 @@
+import { Numeric, PossibleNumeric } from './numeric.js'
+import { toStringNumeric } from './transform.js'
+import { isStringNumeric } from './validators.js'
 import {
     isBigInt,
     isNumber,
     isString,
 } from '../typeguard/utility.typeguards.js'
-import { Numeric, PossibleNumeric } from './numeric.js'
-import { toStringNumeric } from './transform.js'
-import { isStringNumeric } from './validators.js'
 /**
  * All functions WILL REMOVE ALL whitespace,letter and punctuation as long as
  * the final value a valid number This will convert a possible numeric value (ie
@@ -20,8 +20,8 @@ import { isStringNumeric } from './validators.js'
 export type EmptyString = ''
 /** @typedef {EmptyString} This Is an empty string */
 
-export const parseToNumeric = <T extends PossibleNumeric>(
-    value: T,
+export const parseToNumeric = <Type extends PossibleNumeric>(
+    value: Type,
 ): Numeric | undefined => {
     //|| isNumber(value)
     if (isBigInt<bigint>(value) || isNumber<number>(value)) return value
@@ -42,16 +42,16 @@ export const parseToNumeric = <T extends PossibleNumeric>(
  * @param {T} value - A value that will need to be replaced soon
  * @returns {number | undefined} - Parsed value
  */
-export const parseStringToNumeric = <T extends string>(
-    value: T,
+export const parseStringToNumeric = <Type extends string>(
+    value: Type,
 ): Numeric | undefined => {
     return toStringNumeric(value, false)
 }
 
-export const parseStringToInteger = <T extends string>(
-    value: T,
+export const parseStringToInteger = <Type extends string>(
+    value: Type,
 ): number | undefined => {
-    if (isStringNumeric<T>(value, false)) {
+    if (isStringNumeric<Type>(value, false)) {
         const result = toStringNumeric(value, false)
         return result !== undefined && isNumber<number>(result)
             ? Math.round(result)

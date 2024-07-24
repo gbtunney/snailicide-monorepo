@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest'
 
-import { isValidColor } from './index.js'
+import { isValidColor } from './chroma-utils.js'
 
 describe('chroma.ts', () => {
     test('validate color function', () => {

@@ -7,7 +7,7 @@ import {
     getTimestampDuration,
     highresTimestamptoISOString,
     msToIsoString,
-} from './index.js'
+} from './date.js'
 
 describe('duration formatting | to human readable', () => {
     test('unix timestamp to duration', () => {

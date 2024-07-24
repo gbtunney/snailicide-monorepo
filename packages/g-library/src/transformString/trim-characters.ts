@@ -1,11 +1,11 @@
 import { pipe, replace as ramda_replace } from 'ramda'
 import { ensureArray, trimCharsEnd, trimCharsStart } from 'ramda-adjunct'
 
+import type { BaseValue, BatchBaseValue, TrimCharacters } from './type.js'
 import {
     getRegExpEndOfString,
     getRegExpStartOfString,
-} from './../regexp/stringToRegexp.js'
-import type { BaseValue, BatchBaseValue, TrimCharacters } from './type.js'
+} from '../regexp/string-to-regexp.js'
 
 /**
  * Trims characters from the start and/or end of a string based on the provided
@@ -32,21 +32,21 @@ import type { BaseValue, BatchBaseValue, TrimCharacters } from './type.js'
  * @returns {string} The trimmed string.
  */
 export const trimCharacters = ({
-    value,
+    doTrimEnd = true,
+    doTrimStart = true,
     pattern = ' ',
-    trimStart = true,
-    trimEnd = true,
+    value,
 }: BaseValue & {
-    pattern: string | string[]
+    pattern: string | Array<string>
 } & TrimCharacters): string => {
-    if (!trimStart && !trimEnd) return value
+    if (!doTrimStart && !doTrimEnd) return value
     const patterns = ensureArray(pattern)
     return patterns.reduce<string>((accumulator, pattern_single) => {
         return trimCharactersforSinglePattern({
-            value: accumulator,
+            doTrimEnd,
+            doTrimStart,
             pattern: pattern_single,
-            trimStart,
-            trimEnd,
+            value: accumulator,
         })
     }, value)
 }
@@ -70,28 +70,28 @@ export const trimCharacters = ({
  * @param {string | string[]} [params.pattern=' '] - The pattern(s) to trim from
  *   the string(s). Can be a single string or an array of strings. Default is `'
  *   '`. Default is `' '`
- * @param {boolean} [params.trimStart=true] - Whether to trim characters from
+ * @param {boolean} [params.doTrimStart=true] - Whether to trim characters from
  *   the start of the string(s). Default is `true`
- * @param {boolean} [params.trimEnd=true] - Whether to trim characters from the
- *   end of the string(s). Default is `true`
+ * @param {boolean} [params.doTrimEnd=true] - Whether to trim characters from
+ *   the end of the string(s). Default is `true`
  * @returns {string[]} An array of trimmed strings.
  */
 export const batchTrimCharacters = ({
-    value,
+    doTrimEnd = true,
+    doTrimStart = true,
     pattern = ' ',
-    trimStart = true,
-    trimEnd = true,
+    value,
 }: BatchBaseValue & {
-    pattern: string | string[] //this is different.
-} & TrimCharacters): string[] => {
+    pattern: string | Array<string> //this is different.
+} & TrimCharacters): Array<string> => {
     const _value = ensureArray(value)
 
     return _value.map((single_value) => {
         return trimCharacters({
-            value: single_value,
+            doTrimEnd,
+            doTrimStart,
             pattern,
-            trimStart,
-            trimEnd,
+            value: single_value,
         })
     })
 }
@@ -114,16 +114,16 @@ export const batchTrimCharacters = ({
  * @returns {string} The string with characters trimmed from the start.
  */
 export const trimCharactersStart = ({
-    value,
     pattern = ' ',
+    value,
 }: BaseValue & {
-    pattern: string | string[]
+    pattern: string | Array<string>
 }): string => {
     return trimCharacters({
-        value,
+        doTrimEnd: false,
+        doTrimStart: true,
         pattern,
-        trimStart: true,
-        trimEnd: false,
+        value,
     })
 }
 
@@ -145,30 +145,30 @@ export const trimCharactersStart = ({
  * @returns {string} The string with characters trimmed from the end.
  */
 export const trimCharactersEnd = ({
-    value,
     pattern = ' ',
+    value,
 }: BaseValue & {
-    pattern: string | string[]
+    pattern: string | Array<string>
 }): string => {
     return trimCharacters({
-        value,
+        doTrimEnd: true,
+        doTrimStart: false,
         pattern,
-        trimStart: false,
-        trimEnd: true,
+        value,
     })
 }
 
 const trimCharactersforSinglePattern = function ({
-    value,
+    doTrimEnd = true,
+    doTrimStart = true,
     pattern = ' ',
-    trimStart = true,
-    trimEnd = true,
+    value,
 }: BaseValue & {
     pattern: string //this is different.
 } & TrimCharacters): string {
-    if (!trimStart && !trimEnd) return value
+    if (!doTrimStart && !doTrimEnd) return value
     return [
-        ...(trimStart
+        ...(doTrimStart
             ? [
                   ///if the pattern string is longer than 1 character, use ramda replace instead
                   pattern.length > 1
@@ -176,7 +176,7 @@ const trimCharactersforSinglePattern = function ({
                       : trimCharsStart(pattern),
               ]
             : []),
-        ...(trimEnd
+        ...(doTrimEnd
             ? [
                   pattern.length > 1
                       ? ramda_replace(getRegExpEndOfString(pattern), '')

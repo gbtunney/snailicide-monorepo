@@ -12,7 +12,7 @@ export const insert = (
     value: string,
     insert_value: string = '',
     index: number = 0,
-) => {
+): string => {
     return index > 0
         ? `${value.substring(0, index)}${insert_value}${value.substring(index, value.length)}`
         : value

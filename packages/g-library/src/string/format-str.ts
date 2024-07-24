@@ -24,7 +24,7 @@ const { vsprintf }: typeof format = format
  */
 export const formatString = (
     value: string,
-    args: string | string[],
+    args: string | Array<string>,
 ): string => {
     const _vars = ensureArray(z.string()).parse(args)
     return vsprintf(value, _vars)

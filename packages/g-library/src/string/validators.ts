@@ -1,6 +1,6 @@
 import semvervalid from 'semver/functions/valid.js'
 
-export type URL<T extends string> = T
+export type URL<Type extends string> = Type
 
 /**
  * Checks if a string is a valid URL.

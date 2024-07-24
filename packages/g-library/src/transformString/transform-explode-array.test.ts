@@ -1,39 +1,39 @@
 import { describe, expect, test } from 'vitest'
 
-import { transformExplodeArray } from './_transformExplodeArray.js'
+import { transformExplodeArray } from './transform-explode-array.js'
 
 describe('transformExplodeArray', () => {
     test('transformExplodeArray', () => {
         expect(
             transformExplodeArray({
-                value: '!!hello_am_a_cat, g!llian_t ',
-                trim: { pattern: ['!', ' ', '.', ','] },
                 delimiter: ' ',
+                trim: { pattern: ['!', ' ', '.', ','] },
+                value: '!!hello_am_a_cat, g!llian_t ',
             }),
         ).toStrictEqual(['hello_am_a_cat', 'g!llian_t'])
 
         expect(
             transformExplodeArray({
-                value: ' .bg-red-500 flex text-white',
-                trim: { pattern: [' ', '.'] },
                 delimiter: ' ',
+                trim: { pattern: [' ', '.'] },
+                value: ' .bg-red-500 flex text-white',
             }),
         ).toStrictEqual(['bg-red-500', 'flex', 'text-white'])
 
         expect(
             transformExplodeArray({
-                value: ' .bg-red-500 flex text-white',
-                trim: { pattern: [' ', '.'] },
                 delimiter: ' ',
                 prefix: 'hover:',
+                trim: { pattern: [' ', '.'] },
+                value: ' .bg-red-500 flex text-white',
             }),
         ).toStrictEqual(['hover:bg-red-500', 'hover:flex', 'hover:text-white'])
 
         expect(
             transformExplodeArray({
-                value: [' .bg-red-500 ', 'flex', ' text-white'],
-                trim: { pattern: [' ', '.'] },
                 prefix: 'hover:',
+                trim: { pattern: [' ', '.'] },
+                value: [' .bg-red-500 ', 'flex', ' text-white'],
             }),
         ).toStrictEqual(['hover:bg-red-500', 'hover:flex', 'hover:text-white'])
     })

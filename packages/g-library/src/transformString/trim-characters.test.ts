@@ -1,20 +1,20 @@
 import { describe, expect, test } from 'vitest'
 
-import { trimCharacters } from './_trimCharacters.js'
+import { trimCharacters } from './trim-characters.js'
 describe('trimCharacters', () => {
     test('returns `true` trimCharacters', () => {
-        expect(trimCharacters({ value: '     -7.5', pattern: ' ' })).toBe(
+        expect(trimCharacters({ pattern: ' ', value: '     -7.5' })).toBe(
             '-7.5',
         )
         expect(
-            trimCharacters({ value: '..-7.5', pattern: '..', trimEnd: true }),
+            trimCharacters({ doTrimEnd: true, pattern: '..', value: '..-7.5' }),
         ).toBe('-7.5')
 
         expect(
             trimCharacters({
-                value: '..-7.5...',
+                doTrimEnd: true,
                 pattern: '..',
-                trimEnd: true,
+                value: '..-7.5...',
             }),
         ).toBe('-7.5.')
     })

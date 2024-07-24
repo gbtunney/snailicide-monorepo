@@ -4,7 +4,7 @@ import { escapeStringRegexp } from './escape.js'
 import {
     getRegExpEndOfString,
     getRegExpStartOfString,
-} from './stringToRegexp.js'
+} from './string-to-regexp.js'
 import { isValidRegExp } from './validators.js'
 
 describe('Regexp', () => {

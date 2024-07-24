@@ -14,8 +14,8 @@ import { Json } from '../types/utility.js'
  *   Default is `4`
  * @returns {string} - Formatted string.
  */
-export const prettyPrintJSON = <T extends Jsonifiable>(
-    value: T,
+export const prettyPrintJSON = <Type extends Jsonifiable>(
+    value: Type,
     indentSpaces = 4,
 ): string => {
     return JSON.stringify(
@@ -36,13 +36,14 @@ export const prettyPrintJSON = <T extends Jsonifiable>(
  *   Default is `true`
  * @returns {string} - The serialized JSON string or an error message.
  */
-export const safeSerializeJson = <T extends Json.Value>(
-    data: T,
+export const safeSerializeJson = <Type extends Json.Value>(
+    data: Type,
     prettyPrint: boolean = true,
 ): string =>
-    isJsonValue<T>(data)
-        ? prettyPrintJSON(data, prettyPrint === true ? 4 : 0)
-        : `Error serializing JSON:: ${data}`
+    isJsonValue<Type>(data)
+        ? prettyPrintJSON(data, prettyPrint ? 4 : 0)
+        : /* eslint  @typescript-eslint/restrict-template-expressions:"warn",@typescript-eslint/no-base-to-string:"warn" */
+          `Error serializing JSON:: ${data}`
 
 /**
  * Safely deserializes a JSON string.
@@ -56,7 +57,9 @@ export const safeSerializeJson = <T extends Json.Value>(
 export const safeDeserializeJson = (data: string): Json.Value | undefined => {
     try {
         const json_value = JSON.parse(data)
-        //   if (isJsonValue(json_value)) return json_value
+        if (isJsonValue<Json.Value>(json_value)) {
+            return json_value
+        }
     } catch (e) {
         console.error(e)
     }

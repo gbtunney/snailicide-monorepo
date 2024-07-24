@@ -8,9 +8,9 @@ import type {
 } from './type.js'
 
 const replaceCharactersSinglePattern = ({
-    value,
     pattern = ' ',
     replacement = '',
+    value,
 }: BaseValue & {
     pattern: Pattern
 } & ReplaceCharacters): string => replaceAll(pattern, replacement, value)
@@ -23,18 +23,18 @@ const replaceCharactersSinglePattern = ({
  * @see batchReplaceAll
  */
 export const replaceAllCharacters = ({
-    value,
     pattern = ' ',
     replacement = '',
+    value,
 }: BaseValue & {
-    pattern: Pattern | Pattern[]
+    pattern: Pattern | Array<Pattern>
 } & ReplaceCharacters): string => {
     return ensureArray(pattern).reduce<typeof value>(
         (accumulator: string, _pattern) =>
             replaceCharactersSinglePattern({
                 pattern: _pattern,
-                value: accumulator,
                 replacement,
+                value: accumulator,
             }),
         value,
     )
@@ -50,19 +50,19 @@ export const replaceAllCharacters = ({
  * @see replaceAllCharacters
  */
 export const batchReplaceAll = ({
-    value,
     pattern = ' ',
     replacement = '',
+    value,
 }: BatchBaseValue & {
-    pattern: Pattern | Pattern[]
-} & ReplaceCharacters): string | string[] => {
+    pattern: Pattern | Array<Pattern>
+} & ReplaceCharacters): string | Array<string> => {
     const _value = isString(value) ? ensureArray(value) : value //already an array
 
     const result = _value.map((single_value) => {
         return replaceAllCharacters({
-            value: single_value,
             pattern,
             replacement,
+            value: single_value,
         })
     })
     return isString(value) && result.length > 0 ? (result[0] as string) : result

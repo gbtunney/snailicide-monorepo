@@ -6,8 +6,8 @@ export const formatCurrency = (
 ): string => {
     // if (!isInteger(value)) return value
     return new Intl.NumberFormat('en-US', {
-        style: 'currency',
         currency,
         minimumFractionDigits,
+        style: 'currency',
     }).format(value)
 }

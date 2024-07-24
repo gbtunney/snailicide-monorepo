@@ -4,16 +4,16 @@ import { styledConsoleLog } from './logging.js'
 import { renderInlineMarkdown, renderMarkdown } from './markdown.js'
 
 export const htmlUtils = {
-    styledConsoleLog,
     getHTMLElementFromString,
-    renderMarkdown,
-    renderInlineMarkdown,
     isCSSColorSpecial,
     isNotCSSColorSpecial,
+    renderInlineMarkdown,
+    renderMarkdown,
+    styledConsoleLog,
 }
 export default htmlUtils
 
+export { isCSSColorSpecial, isNotCSSColorSpecial } from './css.js'
 export { getHTMLElementFromString } from './html.js'
 export { styledConsoleLog } from './logging.js'
-export { renderMarkdown, renderInlineMarkdown } from './markdown.js'
-export { isCSSColorSpecial, isNotCSSColorSpecial } from './css.js'
+export { renderInlineMarkdown, renderMarkdown } from './markdown.js'

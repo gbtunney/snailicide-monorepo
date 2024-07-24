@@ -148,7 +148,7 @@ export const sentenceCase = (value: string): string =>
  */
 export const slugify = (value: string, delimiter = '-'): string => {
     const transformFunc = pipe(replaceAccents, removeNonWord, trim, toLower)
-    return replaceAll(' ', delimiter, transformFunc(value) as string)
+    return replaceAll(' ', delimiter, transformFunc(value))
 }
 
 /**
@@ -291,7 +291,7 @@ export const truncate = (
  */
 export const abbreviate = (value: string): string => {
     if (!value.match(/\b([A-Z])/g)) return value
-    const matchArr: RegExpMatchArray | null = value.match(/\b([A-Z])/g)
+    const matchArr: RegExpMatchArray = value.match(/\b([A-Z])/g)
     if (isNotNull<Exclude<RegExpMatchArray, null>>(matchArr)) {
         return matchArr.join('')
     } else {

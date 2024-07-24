@@ -1,7 +1,3 @@
-import { defineConfig } from 'vitest/config'
+import { vitest } from '@snailicide/build-config'
 
-export default defineConfig({
-    test: {
-        exclude: ['node_modules', './types/**/*', './dist/**/*'],
-    },
-})
+export default vitest.config

@@ -1,9 +1,16 @@
-import { ensureArray as R_ensureArray, isNotString } from 'ramda-adjunct'
-import z, { ZodArray, ZodEffects, ZodType, ZodUnion } from 'zod'
+import { ensureArray as R_ensureArray } from 'ramda-adjunct'
+import z, {
+    ZodArray,
+    ZodBigInt,
+    ZodEffects,
+    ZodNumber,
+    ZodString,
+    ZodType,
+    ZodUnion,
+} from 'zod'
 
 import { Numeric } from '../number/numeric.js'
 import { toNumeric } from '../number/transform.js'
-import { isPossibleNumeric } from '../number/typeguards.js'
 import { escapeStringRegexpInvalid } from '../regexp/escape.js'
 import { isRegExp, isString } from '../typeguard/utility.typeguards.js'
 
@@ -26,7 +33,7 @@ export type ZodRegExp = ZodType<RegExp>
  * @returns {z.ZodSchema} A Zod schema that resolves to a RegExp.
  */
 export const resolveRegExpSchema = (
-    escape: boolean = true,
+    doEscape: boolean = true,
 ): z.ZodEffects<
     z.ZodEffects<z.ZodUnion<[z.ZodString, ZodRegExp]>, RegExp, string | RegExp>,
     RegExp,
@@ -44,7 +51,7 @@ export const resolveRegExpSchema = (
         .union([z.string(), z.instanceof(RegExp)])
         .transform((value): RegExp => {
             if (isString<string>(value)) {
-                const _value = escapeStringRegexpInvalid(value, escape)
+                const _value = escapeStringRegexpInvalid(value, doEscape)
                 if (_value !== undefined) {
                     return new RegExp(_value)
                 } else {
@@ -56,10 +63,8 @@ export const resolveRegExpSchema = (
             }
             //return undefined
         })
-        .refine((value) => {
-            return value !== undefined && value.source !== '(?:)'
-                ? isRegExp(value)
-                : false
+        .refine((value: RegExp) => {
+            return value.source !== '(?:)' ? isRegExp(value) : false
         }, 'Please provide a valid regular expression.')
 
     return union
@@ -81,15 +86,15 @@ export const resolveRegExpSchema = (
  * @returns {z.ZodSchema} A Zod schema that ensures the input is treated as an
  *   array.
  */
-export const ensureArray = <T extends z.ZodTypeAny>(
-    schema: T,
-): ZodEffects<ZodUnion<[ZodArray<T, 'many'>, T]>, T['_output'][]> => {
+export const ensureArray = <Type extends z.ZodTypeAny>(
+    schema: Type,
+): ZodEffects<ZodUnion<[ZodArray<Type>, Type]>, Array<Type['_output']>> => {
     const union: ZodEffects<
-        ZodUnion<[ZodArray<T, 'many'>, T]>,
-        T['_output'][]
+        ZodUnion<[ZodArray<Type>, Type]>,
+        Array<Type['_output']>
     > = z
         .union([z.array(schema), schema])
-        .transform((value): z.infer<ZodArray<typeof schema, 'many'>> => {
+        .transform((value): z.infer<ZodArray<typeof schema>> => {
             return R_ensureArray<typeof schema>(value)
         })
 
@@ -117,20 +122,23 @@ export const ensureArray = <T extends z.ZodTypeAny>(
  *   transforms them into either a bigint, a number, or undefined if the input
  *   cannot be converted.
  */
-export const numeric = () => {
-    return z
+export const numeric = (): ZodEffects<
+    ZodEffects<
+        ZodUnion<[ZodString, ZodNumber, ZodBigInt]>,
+        bigint | number | undefined
+    >,
+    bigint | number | undefined,
+    bigint | string | number
+> => {
+    const result = z
         .union([z.string(), z.number(), z.bigint()])
+        .transform((value) => {
+            const _value: Numeric | undefined = toNumeric<typeof value>(value)
+            return _value
+        })
         .refine(
-            (value) => isPossibleNumeric(value),
+            (value) => value === undefined,
             'Please enter a valid number|bigint|string',
         )
-        .transform((value): bigint | number | undefined => {
-            const _value: Numeric | undefined = toNumeric<typeof value>(value)
-            if (_value !== undefined && isNotString(_value)) {
-                return _value
-            }
-            return undefined
-        })
+    return result
 }
-/* TODO : do explicit return type z.ZodEffects<z.ZodUnion<[z.ZodString, z.ZodNumber, z.ZodBigInt]>,
-    bigint | number | undefined>*/

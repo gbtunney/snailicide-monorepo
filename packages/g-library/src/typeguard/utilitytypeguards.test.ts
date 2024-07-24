@@ -17,7 +17,7 @@ describe('typeguards', () => {
         const test: EmptyArray = []
         const test2 = ['gillian']
         const testObj = { hi: 'gillian' }
-        expect(isNonEmptyArray<string[]>(test2)).toBe(true)
+        expect(isNonEmptyArray<Array<string>>(test2)).toBe(true)
 
         const gbt: string | number | bigint = '2'
         if (isNotNumber(gbt)) {

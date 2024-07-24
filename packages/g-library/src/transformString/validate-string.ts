@@ -1,23 +1,27 @@
 import { isNotUndefined, isRegExp, isString } from 'ramda-adjunct'
+import {
+    getRegExpEndOfString,
+    getRegExpStartOfString,
+} from '../regexp/string-to-regexp.js'
 
-export type validateOperation =
+export type ValidateOperation =
     | 'startsWith'
     | 'endsWith'
     | 'includes'
     | 'contains'
     | 'eq'
-    | validateFunc
-export type validateFunc = (value: string, pattern: string) => boolean
+    | ValidateFunc
+export type ValidateFunc = (value: string, pattern: string) => boolean
 
 /**
  * Interface for validation object.
  *
  * @memberof StringUtils
  */
-export interface IValidateObj {
+export type IValidateObj = {
     value: string
     pattern: string | RegExp
-    validate_op?: validateOperation
+    validate_op?: ValidateOperation
 }
 
 /* * Validate functions.  * */
@@ -31,8 +35,11 @@ export interface IValidateObj {
  * @returns {boolean} True if the string starts with the pattern, false
  *   otherwise.
  */
-export const startsWith: validateFunc = (value, pattern) =>
-    value.startsWith(pattern)
+export const startsWith: ValidateFunc = (
+    value: string,
+    pattern: string,
+): boolean =>
+    getRegExpStartOfString(pattern, ['global', 'multiline']).test(value)
 
 /**
  * Checks if the string ends with the given pattern.
@@ -43,8 +50,10 @@ export const startsWith: validateFunc = (value, pattern) =>
  * @param {string} pattern - The pattern to check for.
  * @returns {boolean} True if the string ends with the pattern, false otherwise.
  */
-export const endsWith: validateFunc = (value, pattern) =>
-    value.endsWith(pattern)
+export const endsWith: ValidateFunc = (
+    value: string,
+    pattern: string,
+): boolean => getRegExpEndOfString(pattern, ['global', 'multiline']).test(value)
 
 /**
  * Checks if the string includes the given pattern.
@@ -55,8 +64,8 @@ export const endsWith: validateFunc = (value, pattern) =>
  * @param {string} pattern - The pattern to check for.
  * @returns {boolean} True if the string includes the pattern, false otherwise.
  */
-export const includes: validateFunc = (value, pattern) =>
-    value.includes(pattern)
+export const includes: ValidateFunc = (value, pattern) =>
+    new RegExp(pattern, 'gm').test(value)
 
 /**
  * Checks if the string is equal to the given pattern.
@@ -68,7 +77,7 @@ export const includes: validateFunc = (value, pattern) =>
  * @returns {boolean} True if the string is equal to the pattern, false
  *   otherwise.
  */
-export const eq: validateFunc = (value, pattern) => value === pattern
+export const eq: ValidateFunc = (value, pattern) => value === pattern
 
 /**
  * Alias for includes function.
@@ -76,7 +85,7 @@ export const eq: validateFunc = (value, pattern) => value === pattern
  * @memberof StringUtils
  * @function contains
  */
-export const contains: validateFunc = includes
+export const contains: ValidateFunc = includes
 
 /**
  * Checks if the string matches the given RegExp pattern.
@@ -102,17 +111,17 @@ export const match = (value: string, pattern: RegExp): boolean =>
  * @function validateString
  * @param {string} value - The string to validate.
  * @param {string | RegExp} pattern - The pattern to validate against.
- * @param {validateOperation} [validate_op='eq'] - The validation operation to
+ * @param {ValidateOperation} [validate_op='eq'] - The validation operation to
  *   perform. Default is `'eq'`
  * @returns {boolean} True if the validation passes, false otherwise.
  */
 export const validateString = (
     value: string,
     pattern: string | RegExp,
-    validate_op: validateOperation = 'eq',
+    validate_op: ValidateOperation = 'eq',
 ): boolean => {
     if (isRegExp(pattern)) return match(value, pattern as RegExp)
-    return (validate_op as validateFunc)(value, pattern as string)
+    return (validate_op as ValidateFunc)(value, pattern as string)
 }
 
 /**
@@ -132,21 +141,21 @@ export const validateString = (
  *   false otherwise.
  */
 export const validateStringBatch = (
-    value: string | IValidateObj[],
-    validateObjects?: Omit<IValidateObj, 'value'>[],
+    value: string | Array<IValidateObj>,
+    validateObjects?: Array<Omit<IValidateObj, 'value'>>,
     operation: 'some' | 'every' = 'some',
 ): boolean => {
-    let validateArr: IValidateObj[] = []
+    let validateArr: Array<IValidateObj> = []
     if (isString(value) && isNotUndefined(validateObjects)) {
-        validateArr = (validateObjects as Omit<IValidateObj, 'value'>[]).map(
-            (obj) => {
-                return { ...obj, value }
-            },
-        )
-    } else validateArr = value as IValidateObj[]
-    /*...*/
-    /*...*/
+        validateArr = (
+            validateObjects as Array<Omit<IValidateObj, 'value'>>
+        ).map((obj) => {
+            return { ...obj, value }
+        })
+    } else validateArr = value as Array<IValidateObj>
+
     const _operation =
+        /* eslint  @typescript-eslint/unbound-method: "warn" */
         operation === 'some' ? validateArr.some : validateArr.every
     return _operation((obj) =>
         validateString(obj.value, obj.pattern, obj.validate_op),
