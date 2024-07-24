@@ -10,7 +10,7 @@ export module SectionSchema {
         info?: string
     } & SettingTypes.SettingBase<Type>
 
-    export type Settings = Setting[]
+    export type Settings = Array<Setting>
 
     export type Block = {
         type: string
@@ -19,7 +19,7 @@ export module SectionSchema {
         settings: Settings
     }
 
-    export type Blocks = Block[]
+    export type Blocks = Array<Block>
 
     /* * This is just a loose type for now.   * */
     export type PresetSettings = Record<string, string | boolean | number>
@@ -27,17 +27,17 @@ export module SectionSchema {
     export type Preset = {
         name: string
         settings: PresetSettings
-        blocks: {
+        blocks: Array<{
             type: string
             settings: PresetSettings
-        }[]
+        }>
     }
 
-    export type Presets = Preset[]
+    export type Presets = Array<Preset>
 
     export type Schema = Shared.SchemaBase & {
         settings?: Settings
-        blocks?: Block[]
-        presets?: Preset[]
+        blocks?: Array<Block>
+        presets?: Array<Preset>
     }
 }

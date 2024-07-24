@@ -1,21 +1,9 @@
 import { tg } from '@snailicide/g-library'
 import { node, zod } from '@snailicide/g-library/node'
-import fs from 'fs'
-import path from 'path'
 import shell from 'shelljs'
 import { Plugin, ResolvedConfig } from 'vite'
-
-export type {
-    ShopifyThemeSchemaOptions,
-    ResolvedShopifyThemeSchemaOptions,
-    resolveOptions,
-} from './options.js'
-
-import {
-    ResolvedShopifyThemeSchemaOptions,
-    resolveOptions,
-    ShopifyThemeSchemaOptions,
-} from './options.js'
+import fs from 'fs'
+import path from 'path'
 
 export default function shopifyModules(
     options: ShopifyThemeSchemaOptions = {},
@@ -29,10 +17,22 @@ export default function shopifyModules(
     }
 }
 
+import {
+    ResolvedShopifyThemeSchemaOptions,
+    resolveOptions,
+    ShopifyThemeSchemaOptions,
+} from './options.js'
+
+export type {
+    ResolvedShopifyThemeSchemaOptions,
+    resolveOptions,
+    ShopifyThemeSchemaOptions,
+} from './options.js'
+
 const processModules = ({
-    themeRoot,
-    sourceCodeDir,
     entryPoints,
+    sourceCodeDir,
+    themeRoot,
 }: ResolvedShopifyThemeSchemaOptions): void => {
     const outConfigDir = path.resolve(themeRoot, './config')
     shell.mkdir('-p', outConfigDir)

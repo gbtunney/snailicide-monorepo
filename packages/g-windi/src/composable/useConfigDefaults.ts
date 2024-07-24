@@ -46,10 +46,10 @@ export const useConfigDefaults = () => {
         return colorDefaultPresetFactory(defaultColors)
     }
     return {
-        getMapColorDefaults,
-        defaultColors,
-        windiColorDefaultPreset,
         colorDefaultPresetFactory,
+        defaultColors,
+        getMapColorDefaults,
+        windiColorDefaultPreset,
     }
 }
 

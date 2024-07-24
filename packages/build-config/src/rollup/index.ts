@@ -287,7 +287,7 @@ type OutputObjReturnType = {
 }
 export const getPackageExports = (
     args: Array<OutputObjReturnType & { plugins: RollupOptions['plugins'] }>,
-    print: boolean = false,
+    doPrint: boolean = false,
 ): JsonValue | undefined => {
     const export_result = args.reduce<Record<string, {}>>((acc, value) => {
         const obj = value.exportObj
@@ -295,7 +295,7 @@ export const getPackageExports = (
     }, {})
     try {
         const json_value: JsonValue = JSON.parse(JSON.stringify(export_result))
-        if (print) console.log(JSON.stringify(json_value, undefined, 4))
+        if (doPrint) console.log(JSON.stringify(json_value, undefined, 4))
         return json_value
     } catch (e) {
         console.error(e)

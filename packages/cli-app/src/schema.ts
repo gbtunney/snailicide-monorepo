@@ -14,63 +14,65 @@ export type AppAliasOption<Schema extends z.AnyZodObject | z.ZodEffects<any>> =
     }
 
 export const app_schema = z.object({
+    alias: zod.record(zod.string()).default({}),
+    //todo: allow figlet options
+    clear: z
+        .boolean()
+        .default(true)
+        .describe('Clear the terminal screen if possible.'),
+    description: z.string().optional(),
+    examples: zod
+        .array(zod.tuple([zod.string(), zod.string()]))
+        .default([])
+        .describe('Examples for app cli help'),
+    figlet: z
+        .boolean()
+        .default(true)
+        .describe('Get title using lg ascii text w/FIGfont spec'),
+    hidden: zod
+        .array(zod.string())
+        .default([])
+        .describe('hide a key from the help menu'),
     name: zod
         .string()
         .transform((value) => stringUtils.hyphenate(value).toLowerCase()),
-    description: z.string().optional(),
+    print: zod.boolean().default(true).describe('Print header'),
+    title_color: z
+        .object({
+            //TODO: validate with chroma
+            bg: zod.string().default('#12043A'),
+            fg: zod.string().default('#d104ff'), //TODO: validate with chroma
+        })
+        .default({
+            bg: '#12043A',
+            fg: '#d104ff',
+        }),
     version: zod
         .string()
         .default('0.0.0')
         .refine((value) => stringUtils.isValidSemVer(value), {
             message: 'Version must be a valid semver',
         }),
-    alias: zod.record(zod.string()).default({}),
-    examples: zod
-        .array(zod.tuple([zod.string(), zod.string()]))
-        .default([])
-        .describe('Examples for app cli help'),
-    hidden: zod
-        .array(zod.string())
-        .default([])
-        .describe('hide a key from the help menu'),
-    title_color: z
-        .object({
-            fg: zod.string().default('#d104ff'), //TODO: validate with chroma
-            bg: zod.string().default('#12043A'), //TODO: validate with chroma
-        })
-        .default({
-            fg: '#d104ff',
-            bg: '#12043A',
-        }),
-    figlet: z
-        .boolean()
-        .default(true)
-        .describe('Get title using lg ascii text w/FIGfont spec'), //todo: allow figlet options
-    clear: z
-        .boolean()
-        .default(true)
-        .describe('Clear the terminal screen if possible.'),
-    print: zod.boolean().default(true).describe('Print header'),
 })
 
 export type BaseArgs = z.infer<typeof base_schema>
 export const base_schema = zod.object({
-    rootDir: zod.filePathExists
-        .default('.')
-        .describe('<dir> Set Root Directory'),
-    outFile: zod
-        .string()
-        .default('svg-swatch')
-        .describe('Output file name with no extension'),
+    debug: zod.boolean().default(false).describe('Debug output'),
     outDir: zod
         .string()
         .default('./tests/_output')
         .describe('<dir> Output directory'),
-    debug: zod.boolean().default(false).describe('Debug output'),
+    outFile: zod
+        .string()
+        .default('svg-swatch')
+        .describe('Output file name with no extension'),
+    rootDir: zod.filePathExists
+        .default('.')
+        .describe('<dir> Set Root Directory'),
     verbose: zod.boolean().default(false).describe('Verbose Logging'),
 })
 
-export const tg_ZodSchema = <Schema extends z.ZodSchema<any>>(
+export const tg_ZodSchema = <Schema extends z.ZodSchema>(
     schema: Schema,
     value: unknown,
 ): value is z.infer<Schema> => {
@@ -86,7 +88,7 @@ export const resolveSchema = <Schema extends z.ZodSchema>(
         return schema.parse(value)
     } else {
         const result = schema.safeParse(value)
-        if (!result.success && suppressError === false) {
+        if (!result.success && !suppressError) {
             console.error(JSON.stringify(result.error.format(), undefined, 4))
         }
         return undefined

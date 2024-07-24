@@ -6,8 +6,8 @@ import { initApp, InitFunction } from './app.js'
 import { base_schema, unResolvedAppOptions } from './schema.js'
 
 const OPTIONS: unResolvedAppOptions = {
-    name: 'Unit Test',
     description: 'This is an example to demonstrate use',
+    name: 'Unit Test',
 }
 
 const transformFunc = (value: z.output<typeof base_schema>) => {
@@ -19,7 +19,7 @@ const transformFunc = (value: z.output<typeof base_schema>) => {
 }
 
 const initFunc: InitFunction<typeof base_schema> = (args) => {
-    if (args.verbose === true) {
+    if (args.verbose) {
         console.warn('RESOLVED APP ARGS: ', args)
     }
     return true

@@ -66,18 +66,18 @@ export const useChroma = () => {
         const chroma_color = chroma.color(color)
         const [hue, saturation, lightness] = chroma_color.hsl()
         return {
-            chroma: chroma_color,
-            hue,
-            saturation,
-            lightness,
-            textColor: chroma_color.textColor(),
-            luminance: chroma_color.luminance(),
-            temperature: chroma_color.temperature(),
-            complement: complement(chroma_color),
-            split_complement: split_complement(chroma_color),
-            triad: triad(chroma_color),
-            tetrad: tetrad(chroma_color),
             analogous: analogous(chroma_color),
+            chroma: chroma_color,
+            complement: complement(chroma_color),
+            hue,
+            lightness,
+            luminance: chroma_color.luminance(),
+            saturation,
+            split_complement: split_complement(chroma_color),
+            temperature: chroma_color.temperature(),
+            tetrad: tetrad(chroma_color),
+            textColor: chroma_color.textColor(),
+            triad: triad(chroma_color),
         }
     }
 
@@ -145,16 +145,16 @@ export const useChroma = () => {
     return {
         chroma,
         ...chroma,
-        getChromaColor,
-        validate,
-        rotateHueFunction,
-        complement,
-        triad,
-        tetrad,
-        split_complement,
         analogous,
-        monochromatic,
         chromaColorBrighten,
+        complement,
+        getChromaColor,
+        monochromatic,
+        rotateHueFunction,
+        split_complement,
+        tetrad,
+        triad,
+        validate,
     }
 }
 
@@ -168,10 +168,10 @@ export type ChromaColorPalatte = {
     temperature: number
     //palattes.
     complement: Color
-    split_complement: Color[]
-    triad: Color[]
-    tetrad: Color[]
-    analogous: Color[]
+    split_complement: Array<Color>
+    triad: Array<Color>
+    tetrad: Array<Color>
+    analogous: Array<Color>
 }
 
 export default useChroma

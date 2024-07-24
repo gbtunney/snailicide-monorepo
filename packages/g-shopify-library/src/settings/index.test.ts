@@ -21,52 +21,52 @@ describe('zod', () => {
 
         const test_icon_settings: SettingsMapped<ExampleIconSettings> = [
             {
-                id: 'icon_path',
-                type: 'text',
-                label: 'Icon Path or SVG Filename:',
                 default: 'mdi:alert',
+                id: 'icon_path',
                 info: '%ASSET% : For asset_url \nor can take URL or iconify icon with :',
+                label: 'Icon Path or SVG Filename:',
+                type: 'text',
             },
             {
+                default: false,
                 id: 'color_toggle',
-                type: 'checkbox',
-                default: false,
-                label: 'Override color',
                 info: 'Use TAILWIND classes for text-red-500 etc.',
+                label: 'Override color',
+                type: 'checkbox',
             },
             {
-                id: 'preserve_toggle',
-                type: 'checkbox',
                 default: false,
+                id: 'preserve_toggle',
                 //"label": "Preserve Default Colors",
                 info: 'toggle preserve color ',
+                type: 'checkbox',
             },
 
             {
-                id: 'icon_color',
-                type: 'color',
-                label: 'Color',
                 default: '#3d4246',
+                id: 'icon_color',
+                label: 'Color',
+                type: 'color',
             },
             {
                 id: 'css_classes',
-                type: 'text',
                 label: 'Add custom css below',
+                type: 'text',
             },
         ]
 
         const validateTest = parseSettings(test_icon_settings)
         const test_color_toggle: Setting<'checkbox', 'color_toggle'> = {
-            id: 'color_toggle',
-            type: 'checkbox',
             default: false,
-            label: 'Override color',
+            id: 'color_toggle',
             info: 'Use TAILWIND classes for text-red-500 etc.',
+            label: 'Override color',
+            type: 'checkbox',
         } as const
 
         const test = parseSettings<
             // @ts-expect-error should throw error
-            Setting<'checkbox', 'color_toggle33'>[]
+            Array<Setting<'checkbox', 'color_toggle33'>>
         >([test_color_toggle])
 
         //this is how a section can be declared,typed, etc.
@@ -76,14 +76,14 @@ describe('zod', () => {
         }
         const exampleSectionSettings: SettingsMapped<SectionSettingsExample> = [
             {
+                default: 'white',
                 id: 'bg_color',
                 type: 'color',
-                default: 'white',
             },
             {
+                default: 'black',
                 id: 'fg_color',
                 type: 'color',
-                default: 'black',
             },
         ]
         expect(parseSettings(exampleSectionSettings)).toEqual([
@@ -104,74 +104,75 @@ describe('zod', () => {
         expect(
             parseSingleSetting(
                 {
+                    default: 'black',
                     id: 'fg_color',
                     type: 'color',
-                    default: 'black',
                 },
                 'fg_color',
             ),
         ).toEqual({
+            default: 'black',
             id: 'fg_color',
             type: 'color',
-            default: 'black',
         })
         const obj2: Setting<'text'> = {
-            id: 'hi', //'css_classes',
-            type: 'text',
+            id: 'hi',
             label: 'Add custom css below',
+            //'css_classes',
+            type: 'text',
         }
 
         const test_single_setting: SingleSetting = {
-            type: 'font_picker',
-            id: 'type_body_font',
             default: 'assistant_n4',
-            label: 't:settings_schema.typography.settings.type_body_font.label',
+            id: 'type_body_font',
             info: 't:settings_schema.typography.settings.type_body_font.info',
+            label: 't:settings_schema.typography.settings.type_body_font.label',
+            type: 'font_picker',
         }
         const badSettingsFromDawn = [
             {
-                type: 'header',
                 content:
                     't:settings_schema.typography.settings.header__1.content',
-            },
-            {
-                type: 'font_picker',
-                id: 'type_header_font',
-                default: 'assistant_n4',
-                label: 't:settings_schema.typography.settings.type_header_font.label',
-                info: 't:settings_schema.typography.settings.type_header_font.info',
-            },
-            {
-                type: 'range',
-                id: 'heading_scale',
-                min: 100,
-                max: 150,
-                step: 5,
-                unit: '%',
-                label: 't:settings_schema.typography.settings.heading_scale.label',
-                default: 100,
-            },
-            {
                 type: 'header',
+            },
+            {
+                default: 'assistant_n4',
+                id: 'type_header_font',
+                info: 't:settings_schema.typography.settings.type_header_font.info',
+                label: 't:settings_schema.typography.settings.type_header_font.label',
+                type: 'font_picker',
+            },
+            {
+                default: 100,
+                id: 'heading_scale',
+                label: 't:settings_schema.typography.settings.heading_scale.label',
+                max: 150,
+                min: 100,
+                step: 5,
+                type: 'range',
+                unit: '%',
+            },
+            {
                 content:
                     't:settings_schema.typography.settings.header__2.content',
+                type: 'header',
             },
             {
-                type: 'font_picker',
-                id: 'type_body_font',
                 default: 'assistant_n4',
-                label: 't:settings_schema.typography.settings.type_body_font.label',
+                id: 'type_body_font',
                 info: 't:settings_schema.typography.settings.type_body_font.info',
+                label: 't:settings_schema.typography.settings.type_body_font.label',
+                type: 'font_picker',
             },
             {
-                type: 'range',
+                default: 100,
+                label: 't:settings_schema.typography.settings.body_scale.label',
+                max: 130,
                 //"id": "body_scale",
                 min: 100,
-                max: 130,
                 step: 5,
+                type: 'range',
                 unit: '%',
-                label: 't:settings_schema.typography.settings.body_scale.label',
-                default: 100,
             },
         ]
         expect(parseSettings(badSettingsFromDawn)).toBe(undefined)

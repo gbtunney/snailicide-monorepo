@@ -13,7 +13,7 @@ export const useWindiCSS = (config: Config = {}) => {
         includeNestedHTML = true,
     ) => {
         const classString = join(' ', Array.from(el.classList))
-        const { success, ignored } = processor.value.interpret(classString)
+        const { ignored, success } = processor.value.interpret(classString)
         const { styleSheet } = processor.value.interpret(classString)
         if (includeNestedHTML) {
             const result = compileCSS(el.innerHTML, true)
@@ -24,25 +24,25 @@ export const useWindiCSS = (config: Config = {}) => {
             //ignored = [...ignored, ...html_ignored]
         }
         //const compiled = html_styleSheet.build()\
-        return { success, ignored, styleSheet }
+        return { ignored, styleSheet, success }
     }
     const interpretWindiStyles = (
-        value: string[] | string,
+        value: Array<string> | string,
         config: Config | undefined = undefined,
         logging = true,
     ) => {
         if (config) processor.value = new Processor(config)
 
         const val_replaced = stringUtils.replaceCharacters({
-            value: value.toString(),
             pattern: ['  ', ','],
             replacement: ' ',
+            value: value.toString(),
         }) as string
         const val_trimmed = stringUtils.trimCharacters({
-            value: val_replaced,
             pattern: ['.', "'", '"', '[', ']'],
+            value: val_replaced,
         })
-        const { styleSheet, success, ignored } =
+        const { ignored, styleSheet, success } =
             processor.value.interpret(val_trimmed)
         const styleSheetCompiled: string | undefined = processor.value.validate(
             val_trimmed,
@@ -63,14 +63,14 @@ export const useWindiCSS = (config: Config = {}) => {
             )
         }
         return {
-            styleSheet,
-            success,
             ignored,
+            styleSheet,
             styleSheetCompiled,
+            success,
         }
     }
     const compileCSS = (
-        value: string[] | string,
+        value: Array<string> | string,
         inject: boolean,
         styleTagOptions: UseStyleTagOptions = {},
     ) => {
@@ -85,10 +85,10 @@ export const useWindiCSS = (config: Config = {}) => {
     const masterReg = /\${([\s\S]+?)}/g
 
     return {
-        interpretWindiStyles,
         compileCSS,
         extractStylesFromHTML,
         getClassString,
+        interpretWindiStyles,
         masterReg,
     }
 }

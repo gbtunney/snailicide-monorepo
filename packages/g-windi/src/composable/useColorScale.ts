@@ -5,7 +5,7 @@ import * as RA from 'ramda-adjunct'
 import type { ThemeColors, WindiConfig } from './index.js'
 
 export type ColorScaleConfig = {
-    scale: [] | TChromable[]
+    scale: [] | Array<TChromable>
     default_color?: TChromable //default color
     color_count: number
 }
@@ -18,9 +18,9 @@ export type useColorScale = typeof useColorScale
 export const useColorScale = () => {
     ///private method.
     const _getColorScale = (
-        { scale = [], default_color, color_count = 5 }: ColorScaleConfig = {
-            scale: [],
+        { color_count = 5, default_color, scale = [] }: ColorScaleConfig = {
             color_count: 5,
+            scale: [],
         },
     ) => {
         if (RA.isUndefined(default_color) && RA.isEmptyArray(scale)) return
@@ -59,8 +59,8 @@ export const useColorScale = () => {
                 return {
                     ...accumulator,
                     [key]: _getColorScale({
-                        scale: [],
                         color_count: 5,
+                        scale: [],
                         ...value,
                     }),
                 }

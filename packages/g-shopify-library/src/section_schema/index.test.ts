@@ -21,9 +21,9 @@ describe('Section Schema Settings', () => {
         type testType = LocalSchema.SettingType<'REQUIRED'>['checkbox']
 
         const ttt: testType = {
+            default: true,
             id: 'anid',
-            type: 'checkbox',
-            default: true, //"dd"
+            type: 'checkbox', //"dd"
         }
         type RichTextSettings = {
             bg_color: LocalSchema.Setting<'color'>
@@ -32,67 +32,67 @@ describe('Section Schema Settings', () => {
 
         const test_icon_settings: LocalSchema.SettingSchema<IconSettings> = [
             {
-                id: 'icon_path',
-                type: 'text',
-                label: 'Icon Path or SVG Filename:',
                 default: 'mdi:alert',
+                id: 'icon_path',
                 info: '%ASSET% : For asset_url \nor can take URL or iconify icon with :',
+                label: 'Icon Path or SVG Filename:',
+                type: 'text',
             },
 
             {
-                id: 'color_toggle',
-                type: 'checkbox',
                 default: false,
-                label: 'Override color',
+                id: 'color_toggle',
                 info: 'Use TAILWIND classes for text-red-500 etc.',
+                label: 'Override color',
+                type: 'checkbox',
             },
             {
-                id: 'preserve_toggle',
-                type: 'checkbox',
                 default: false,
+                id: 'preserve_toggle',
                 //"label": "Preserve Default Colors",
                 info: 'toggle preserve color ',
+                type: 'checkbox',
             },
             {
-                id: 'icon_color',
-                type: 'color',
-                label: 'Color',
                 default: '#3d4246',
+                id: 'icon_color',
+                label: 'Color',
+                type: 'color',
             },
             {
                 id: 'css_classes',
-                type: 'text',
                 label: 'Add custom css below',
+                type: 'text',
             },
         ]
 
         const test_icon_settings_obj: IconSettings = {
-            icon_path: {
+            color_toggle: {
+                default: false,
+                info: 'Use TAILWIND classes for text-red-500 etc.',
+                label: 'Override color',
+                type: 'checkbox',
+            },
+            css_classes: {
+                label: 'Add custom css below',
                 type: 'text',
-                label: 'Icon Path or SVG Filename:',
+            },
+            icon_color: {
+                default: '#3d4246',
+                label: 'Color',
+                type: 'color',
+            },
+            icon_path: {
                 default: 'mdi:alert',
                 info: '%ASSET% : For asset_url \nor can take URL or iconify icon with :',
-            },
-            color_toggle: {
-                type: 'checkbox',
-                default: false,
-                label: 'Override color',
-                info: 'Use TAILWIND classes for text-red-500 etc.',
+                label: 'Icon Path or SVG Filename:',
+                type: 'text',
             },
             preserve_toggle: {
-                type: 'checkbox',
                 default: false,
                 //"label": "Preserve Default Colors",
                 info: 'toggle preserve color ',
-            },
-            icon_color: {
-                type: 'color',
-                label: 'Color',
-                default: '#3d4246',
-            },
-            css_classes: {
-                type: 'text',
-                label: 'Add custom css below',
+                type: 'checkbox',
             },
         }
         const test_generic: LocalSchema.SettingSchema<{
@@ -100,16 +100,16 @@ describe('Section Schema Settings', () => {
         }> = [
             {
                 id: 'another_setting',
-                type: 'text',
                 label: 'Add custom css below',
+                type: 'text',
             },
         ]
 
         const test_generic_array: LocalSchema.SettingSchema = [
             {
                 id: 'gillian',
-                type: 'text',
                 label: 'Add custom css below',
+                type: 'text',
             },
         ]
 
@@ -117,15 +117,15 @@ describe('Section Schema Settings', () => {
             [
                 {
                     id: 'heading',
-                    type: 'text',
                     label: 'Add custom css below',
+                    type: 'text',
                 },
                 {
-                    id: 'text_content',
-                    type: 'text',
-                    label: 'Icon Path or SVG Filename:',
                     default: 'mdi:alert',
+                    id: 'text_content',
                     info: '%ASSET% : For asset_url \nor can take URL or iconify icon with :',
+                    label: 'Icon Path or SVG Filename:',
+                    type: 'text',
                 },
             ]
         type RichTextBlocks = {
@@ -134,214 +134,214 @@ describe('Section Schema Settings', () => {
         }
 
         const testblock: LocalSchema.Block<RichTextSettings, 'icon'> = {
-            type: 'icon',
             settings: {
                 bg_color: {
-                    type: 'color',
                     default: 'white',
+                    type: 'color',
                 },
                 fg_color: {
-                    type: 'color',
                     default: 'black',
+                    type: 'color',
                 },
             },
+            type: 'icon',
         }
         const _myblockNEW: LocalSchema.BlockSchema<RichTextBlocks> = [
             {
-                type: 'icon',
                 settings: {
-                    icon_path: {
-                        type: 'text',
-                        label: 'Icon Path or SVG Filename:',
-                        default: 'mdi:alert',
-                        info: '%ASSET% : For asset_url \nor can take URL or iconify icon with :',
-                    },
                     color_toggle: {
-                        type: 'checkbox',
                         default: false,
-                        label: 'Override color',
                         info: 'Use TAILWIND classes for text-red-500 etc.',
-                    },
-                    preserve_toggle: {
+                        label: 'Override color',
                         type: 'checkbox',
-                        default: false,
-                        info: 'toggle preserve color ',
-                    },
-                    icon_color: {
-                        type: 'color',
-                        label: 'Color',
-                        default: '#3d4246',
                     },
                     css_classes: {
-                        type: 'text',
                         label: 'Add custom css below',
-                    },
-                },
-            },
-            {
-                type: 'text',
-                settings: {
-                    heading: {
                         type: 'text',
-                        label: 'Add custom css below',
                     },
-                    text_content: {
-                        type: 'text',
-                        label: 'Icon Path or SVG Filename:',
+                    icon_color: {
+                        default: '#3d4246',
+                        label: 'Color',
+                        type: 'color',
+                    },
+                    icon_path: {
                         default: 'mdi:alert',
                         info: '%ASSET% : For asset_url \nor can take URL or iconify icon with :',
+                        label: 'Icon Path or SVG Filename:',
+                        type: 'text',
+                    },
+                    preserve_toggle: {
+                        default: false,
+                        info: 'toggle preserve color ',
+                        type: 'checkbox',
                     },
                 },
+                type: 'icon',
+            },
+            {
+                settings: {
+                    heading: {
+                        label: 'Add custom css below',
+                        type: 'text',
+                    },
+                    text_content: {
+                        default: 'mdi:alert',
+                        info: '%ASSET% : For asset_url \nor can take URL or iconify icon with :',
+                        label: 'Icon Path or SVG Filename:',
+                        type: 'text',
+                    },
+                },
+                type: 'text',
             },
         ]
         const _myblock: RichTextBlocks = {
             icon: {
-                type: 'icon',
                 settings: {
-                    icon_path: {
+                    color_toggle: {
+                        default: false,
+                        info: 'Use TAILWIND classes for text-red-500 etc.',
+                        label: 'Override color',
+                        type: 'checkbox',
+                    },
+                    css_classes: {
+                        label: 'Add custom css below',
                         type: 'text',
-                        label: 'Icon Path or SVG Filename:',
+                    },
+                    icon_color: {
+                        default: '#3d4246',
+                        label: 'Color',
+                        type: 'color',
+                    },
+                    icon_path: {
                         default: 'mdi:alert',
                         info: '%ASSET% : For asset_url \nor can take URL or iconify icon with :',
-                    },
-                    color_toggle: {
-                        type: 'checkbox',
-                        default: false,
-                        label: 'Override color',
-                        info: 'Use TAILWIND classes for text-red-500 etc.',
+                        label: 'Icon Path or SVG Filename:',
+                        type: 'text',
                     },
                     preserve_toggle: {
-                        type: 'checkbox',
                         default: false,
                         //"label": "Preserve Default Colors",
                         info: 'toggle preserve color ',
-                    },
-                    icon_color: {
-                        type: 'color',
-                        label: 'Color',
-                        default: '#3d4246',
-                    },
-                    css_classes: {
-                        type: 'text',
-                        label: 'Add custom css below',
+                        type: 'checkbox',
                     },
                 },
+                type: 'icon',
             },
             text: {
-                type: 'text',
                 settings: {
                     heading: {
-                        type: 'text',
                         label: 'Add custom css below',
+                        type: 'text',
                     },
                     text_content: {
-                        type: 'text',
-                        label: 'Icon Path or SVG Filename:',
                         default: 'mdi:alert',
                         info: '%ASSET% : For asset_url \nor can take URL or iconify icon with :',
+                        label: 'Icon Path or SVG Filename:',
+                        type: 'text',
                     },
                 },
+                type: 'text',
             },
         }
         const TESTSCHEMA: LocalSchema.Schema<RichTextSettings, RichTextBlocks> =
             {
-                name: 'RICH TEXXT TEST',
-                templates: ['blog'],
-                //  class:"dd",
-                settings: {
-                    bg_color: {
-                        type: 'color',
-                        default: 'white',
-                    },
-                    fg_color: {
-                        type: 'color',
-                        default: 'black',
-                    },
-                },
                 blocks: _myblock,
+                name: 'RICH TEXXT TEST',
                 presets: [
                     {
+                        blocks: [
+                            {
+                                type: 'icon',
+                            },
+                        ],
                         name: 'preset 1',
                         settings: {
                             bg_color: 'orange',
                         },
+                    },
+                    {
                         blocks: [
                             {
                                 type: 'icon',
                             },
                         ],
-                    },
-                    {
                         name: 'preset 5',
                         settings: {
                             bg_color: 'orange',
                         },
-                        blocks: [
-                            {
-                                type: 'icon',
-                            },
-                        ],
                     },
                     {
-                        name: 'preset 2',
                         blocks: [
                             {
-                                type: 'icon',
                                 settings: {
                                     color_toggle: true,
                                 },
+                                type: 'icon',
                             },
                             {
-                                type: 'text',
                                 settings: {
                                     heading: 'heading1',
                                     text_content: 'ffffd',
                                 },
+                                type: 'text',
                             },
                         ],
+                        name: 'preset 2',
                     },
                 ],
+                //  class:"dd",
+                settings: {
+                    bg_color: {
+                        default: 'white',
+                        type: 'color',
+                    },
+                    fg_color: {
+                        default: 'black',
+                        type: 'color',
+                    },
+                },
+                templates: ['blog'],
             }
 
         const presetBlock = {
-            type: 'text',
             settings: {
                 heading: 'heading1',
                 text_content: 'ffffd',
             },
+            type: 'text',
         }
 
         const valuee = defineSchemaPreset(presetBlock.settings, 'test')
         const test2: SectionSchema.Settings = [
-            { type: 'collection', id: 'mycollection', label: 'Mycollection' },
+            { id: 'mycollection', label: 'Mycollection', type: 'collection' },
             {
-                type: 'text',
-                label: 'Icon Path or SVG Filename:',
                 default: 'mdi:alert',
-                info: '%ASSET% : For asset_url \nor can take URL or iconify icon with :',
                 id: 'icon_path',
+                info: '%ASSET% : For asset_url \nor can take URL or iconify icon with :',
+                label: 'Icon Path or SVG Filename:',
+                type: 'text',
             },
             {
-                type: 'checkbox',
                 default: false,
-                label: 'Override color',
-                info: 'Use TAILWIND classes for text-red-500 etc.',
                 id: 'color_toggle',
-            },
-            {
+                info: 'Use TAILWIND classes for text-red-500 etc.',
+                label: 'Override color',
                 type: 'checkbox',
-                default: false,
-                info: 'toggle preserve color ',
-                id: 'preserve_toggle',
-                label: 'Preserve Toggle',
             },
             {
-                type: 'color',
-                label: 'klk',
+                default: false,
+                id: 'preserve_toggle',
+                info: 'toggle preserve color ',
+                label: 'Preserve Toggle',
+                type: 'checkbox',
+            },
+            {
                 default: '#3d4246',
                 id: 'icon_color',
+                label: 'klk',
+                type: 'color',
             },
-            { type: 'color', label: 'Add custom css below', id: 'css_classes' },
+            { id: 'css_classes', label: 'Add custom css below', type: 'color' },
         ]
     })
 })

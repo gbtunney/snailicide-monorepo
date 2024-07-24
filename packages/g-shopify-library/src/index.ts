@@ -1,53 +1,53 @@
 export {
+    isEncodedGID,
+    isGID,
+    isParsableToSID,
+    isSID,
+    shopifyMediaURL,
     toGID,
     toSID,
-    isSID,
-    isGID,
-    isEncodedGID,
-    isParsableToSID,
-    shopifyMediaURL,
 } from './scripts/index.js'
 
+/* * Section Schema & Block Schema * */
+export { parseBlockSchema, parseSectionSchema } from './sections/index.js'
+export type {
+    BlockSchema,
+    ElementTags,
+    PageTypes,
+    SectionSchema,
+} from './sections/index.js'
+
+export type { BasicSettingType } from './settings/basic.js'
 /* * Settings * */
 export {
+    parseSetting,
     parseSettingsGroup,
     parseSingleSetting,
-    parseSetting,
 } from './settings/index.js'
+
 export type {
-    Setting,
-    SettingsMapped,
-    Settings,
-    SettingGroup,
-    SingleSetting,
-    SettingTypes,
     AllSettingTypes,
+    Setting,
+    SettingGroup,
+    Settings,
+    SettingsMapped,
+    SettingTypes,
+    SingleSetting,
 } from './settings/index.js'
+export type { ShopifySettingType } from './settings/shopify.js'
+
+export type { SideBarSettingType } from './settings/sidebar.js'
+
+export type { SpecializedSettingType } from './settings/specialized.js'
 
 /* * Theme Settings * */
 export {
     parseThemeSettings,
     parseThemeSettingSection,
 } from './settings/theme.js'
+
 export type {
-    ThemeInfo,
     GlobalSettingsSchema,
     GlobalSettingsSection,
+    ThemeInfo,
 } from './settings/theme.js'
-
-/* * Section Schema & Block Schema * */
-export { parseSectionSchema, parseBlockSchema } from './sections/index.js'
-export type {
-    ElementTags,
-    PageTypes,
-    BlockSchema,
-    SectionSchema,
-} from './sections/index.js'
-
-export type { BasicSettingType } from './settings/basic.js'
-
-export type { SpecializedSettingType } from './settings/specialized.js'
-
-export type { ShopifySettingType } from './settings/shopify.js'
-
-export type { SideBarSettingType } from './settings/sidebar.js'

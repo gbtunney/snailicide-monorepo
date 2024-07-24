@@ -28,7 +28,7 @@ export module LocalSchema {
     export type Settings = Record<string, Setting>
 
     export type SettingSchema<T = 'default_array'> = T extends 'default_array'
-        ? Setting<SettingTypes.TypeLiterals, string>[]
+        ? Array<Setting<SettingTypes.TypeLiterals, string>>
         : T extends Record<string, Setting>
           ? Array<
                 {
@@ -75,15 +75,16 @@ export module LocalSchema {
             : 'ggg'
         blocks?: _Blocks extends Blocks ? BlockPreset<_Blocks> : {}
     }
-    export type Presets<_Settings = {}, _Blocks = {}> = Preset<
-        _Settings,
-        _Blocks
-    >[]
+    export type Presets<_Settings = {}, _Blocks = {}> = Array<
+        Preset<_Settings, _Blocks>
+    >
 
     export type Schema<_Settings = {}, _Blocks = Blocks> = Shared.SchemaBase & {
         settings?: _Settings extends Settings ? _Settings : never
         blocks?: _Blocks extends Blocks ? _Blocks : never
-        presets: _Settings extends Settings ? Preset<_Settings, _Blocks>[] : []
+        presets: _Settings extends Settings
+            ? Array<Preset<_Settings, _Blocks>>
+            : []
     }
 
     export type ThemeCategory<
@@ -118,10 +119,10 @@ export const defineSettings = (
 
 export const defineBlocks = (
     value: LocalSchema.Blocks,
-    _prefix: string[] | string | undefined = undefined,
+    _prefix: Array<string> | string | undefined = undefined,
 ) => {
-    const prefixArr: string[] | undefined = tg.isNotUndefined<
-        string | string[]
+    const prefixArr: Array<string> | undefined = tg.isNotUndefined<
+        string | Array<string>
     >(_prefix)
         ? RA.ensureArray(_prefix)
         : undefined
@@ -130,7 +131,7 @@ export const defineBlocks = (
             const _type: string = _key
             let newPrefixValue: undefined | string = undefined
             if (tg.isNotUndefined(_value.settings)) {
-                if (tg.isNotUndefined<string[]>(prefixArr)) {
+                if (tg.isNotUndefined<Array<string>>(prefixArr)) {
                     if (prefixArr[index]) {
                         newPrefixValue = prefixArr[index]
                     } else if (prefixArr.length > 0)

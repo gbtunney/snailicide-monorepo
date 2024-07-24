@@ -34,7 +34,7 @@ export module SettingTypes {
     }
     export type Radio = {
         type: 'radio'
-        options: _TSelectOption[]
+        options: Array<_TSelectOption>
         default?: string //If default is unspecified, then the first option is selected by default.
     }
     export type Select = Omit<Radio, 'type'> & {
@@ -305,6 +305,6 @@ export module Shared {
         tag?: ElementTags
         class?: string
         limit?: number // section limit count
-        templates?: PageTypes[]
+        templates?: Array<PageTypes>
     }
 }

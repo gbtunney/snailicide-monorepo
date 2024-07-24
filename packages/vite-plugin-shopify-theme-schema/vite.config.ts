@@ -5,17 +5,17 @@ import vitePluginModule from './src/index.js'
 export default defineConfig({
     base: './',
     build: {
+        emptyOutDir: false,
         minify: false,
         outDir: 'example_theme',
-        emptyOutDir: false,
     },
     plugins: [
         vitePluginModule({
-            themeRoot: './example_theme',
-            sourceCodeDir: './example_theme_config/global_settings',
             entryPoints: {
                 'settings_schema.json': 'settings_schema.js',
             },
+            sourceCodeDir: './example_theme_config/global_settings',
+            themeRoot: './example_theme',
         }),
     ],
 })

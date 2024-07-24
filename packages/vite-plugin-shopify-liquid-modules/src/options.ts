@@ -8,22 +8,25 @@ import { z } from 'zod'
  * @param {string} modulesDir ['./modules'] - description
  */
 const plugin_options_schema = zod.object({
-    themeRoot: zod.fsPathTypeExists('directory').default('./theme'), //zod.filePath.default('./theme'),
+    //zod.filePath.default('./theme'),
     modulesDir: zod.fsPathTypeExists('directory').default('./modules'),
     sections: z
         .object({
-            prefix: zod.string().default('g-'), // todo: 'g-%dir%'
+            // todo: 'g-%dir%'
             copy: zod.boolean().default(false),
             file_name: zod.string().default('section'),
+            prefix: zod.string().default('g-'),
         })
-        .default({ prefix: 'g-', copy: false, file_name: 'section' }),
+        .default({ copy: false, file_name: 'section', prefix: 'g-' }),
     snippets: z
         .object({
-            prefix: zod.string().default('g-'), // todo: 'g-%dir%'
+            // todo: 'g-%dir%'
             copy: zod.boolean().default(false),
             file_name: zod.string().default('*'),
+            prefix: zod.string().default('g-'),
         })
-        .default({ prefix: 'g-', copy: false, file_name: '*' }),
+        .default({ copy: false, file_name: '*', prefix: 'g-' }),
+    themeRoot: zod.fsPathTypeExists('directory').default('./theme'),
 })
 /*
 const resolved_plugin_options_schema = zod.object({
