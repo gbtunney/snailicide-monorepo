@@ -12,4 +12,4 @@ type AppOptions: z.infer<typeof app_schema>;
 
 ## Defined in
 
-[packages/cli-app/src/schema.ts:5](https://github.com/gbtunney/snailicide-monorepo/blob/branch/packages/cli-app/src/schema.ts#L5)
+[packages/cli-app/src/schema.ts:5](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/schema.ts#L5)

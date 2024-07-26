@@ -48,4 +48,4 @@ function initApp<Schema>(
 
 ## Defined in
 
-[packages/cli-app/src/app.ts:21](https://github.com/gbtunney/snailicide-monorepo/blob/branch/packages/cli-app/src/app.ts#L21)
+[packages/cli-app/src/app.ts:21](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app.ts#L21)

@@ -34,4 +34,4 @@ function resolveSchema<Schema>(
 
 ## Defined in
 
-[packages/cli-app/src/schema.ts:82](https://github.com/gbtunney/snailicide-monorepo/blob/branch/packages/cli-app/src/schema.ts#L82)
+[packages/cli-app/src/schema.ts:82](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/schema.ts#L82)

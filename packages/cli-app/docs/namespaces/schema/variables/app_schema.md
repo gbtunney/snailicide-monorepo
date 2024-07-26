@@ -78,17 +78,17 @@ const app_schema: ZodObject<
 
 | Name | Type | Defined in |
 | --- | --- | --- |
-| `alias` | `ZodDefault`\<`ZodRecord`\<`ZodString`, `ZodString`\>\> | [packages/cli-app/src/schema.ts:17](https://github.com/gbtunney/snailicide-monorepo/blob/branch/packages/cli-app/src/schema.ts#L17) |
-| `clear` | `ZodDefault`\<`ZodBoolean`\> | [packages/cli-app/src/schema.ts:19](https://github.com/gbtunney/snailicide-monorepo/blob/branch/packages/cli-app/src/schema.ts#L19) |
-| `description` | `ZodOptional`\<`ZodString`\> | [packages/cli-app/src/schema.ts:23](https://github.com/gbtunney/snailicide-monorepo/blob/branch/packages/cli-app/src/schema.ts#L23) |
-| `examples` | `ZodDefault`\<`ZodArray`\<`ZodTuple`\<[`ZodString`, `ZodString`], `null`\>, `"many"`\>\> | [packages/cli-app/src/schema.ts:24](https://github.com/gbtunney/snailicide-monorepo/blob/branch/packages/cli-app/src/schema.ts#L24) |
-| `figlet` | `ZodDefault`\<`ZodBoolean`\> | [packages/cli-app/src/schema.ts:28](https://github.com/gbtunney/snailicide-monorepo/blob/branch/packages/cli-app/src/schema.ts#L28) |
-| `hidden` | `ZodDefault`\<`ZodArray`\<`ZodString`, `"many"`\>\> | [packages/cli-app/src/schema.ts:32](https://github.com/gbtunney/snailicide-monorepo/blob/branch/packages/cli-app/src/schema.ts#L32) |
-| `name` | `ZodEffects`\<`ZodString`, `string`, `string`\> | [packages/cli-app/src/schema.ts:36](https://github.com/gbtunney/snailicide-monorepo/blob/branch/packages/cli-app/src/schema.ts#L36) |
-| `print` | `ZodDefault`\<`ZodBoolean`\> | [packages/cli-app/src/schema.ts:39](https://github.com/gbtunney/snailicide-monorepo/blob/branch/packages/cli-app/src/schema.ts#L39) |
-| `title_color` | `ZodDefault`\<`ZodObject`\<\{ `bg`: `ZodDefault`\<`ZodString`\>; `fg`: `ZodDefault`\<`ZodString`\>; \}, `"strip"`, `ZodTypeAny`, \{ `bg`: `string`; `fg`: `string`; \}, \{ `bg`: `string`; `fg`: `string`; \}\>\> | [packages/cli-app/src/schema.ts:40](https://github.com/gbtunney/snailicide-monorepo/blob/branch/packages/cli-app/src/schema.ts#L40) |
-| `version` | `ZodEffects`\<`ZodDefault`\<`ZodString`\>, `string`, `undefined` \| `string`\> | [packages/cli-app/src/schema.ts:50](https://github.com/gbtunney/snailicide-monorepo/blob/branch/packages/cli-app/src/schema.ts#L50) |
+| `alias` | `ZodDefault`\<`ZodRecord`\<`ZodString`, `ZodString`\>\> | [packages/cli-app/src/schema.ts:17](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/schema.ts#L17) |
+| `clear` | `ZodDefault`\<`ZodBoolean`\> | [packages/cli-app/src/schema.ts:19](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/schema.ts#L19) |
+| `description` | `ZodOptional`\<`ZodString`\> | [packages/cli-app/src/schema.ts:23](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/schema.ts#L23) |
+| `examples` | `ZodDefault`\<`ZodArray`\<`ZodTuple`\<[`ZodString`, `ZodString`], `null`\>, `"many"`\>\> | [packages/cli-app/src/schema.ts:24](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/schema.ts#L24) |
+| `figlet` | `ZodDefault`\<`ZodBoolean`\> | [packages/cli-app/src/schema.ts:28](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/schema.ts#L28) |
+| `hidden` | `ZodDefault`\<`ZodArray`\<`ZodString`, `"many"`\>\> | [packages/cli-app/src/schema.ts:32](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/schema.ts#L32) |
+| `name` | `ZodEffects`\<`ZodString`, `string`, `string`\> | [packages/cli-app/src/schema.ts:36](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/schema.ts#L36) |
+| `print` | `ZodDefault`\<`ZodBoolean`\> | [packages/cli-app/src/schema.ts:39](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/schema.ts#L39) |
+| `title_color` | `ZodDefault`\<`ZodObject`\<\{ `bg`: `ZodDefault`\<`ZodString`\>; `fg`: `ZodDefault`\<`ZodString`\>; \}, `"strip"`, `ZodTypeAny`, \{ `bg`: `string`; `fg`: `string`; \}, \{ `bg`: `string`; `fg`: `string`; \}\>\> | [packages/cli-app/src/schema.ts:40](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/schema.ts#L40) |
+| `version` | `ZodEffects`\<`ZodDefault`\<`ZodString`\>, `string`, `undefined` \| `string`\> | [packages/cli-app/src/schema.ts:50](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/schema.ts#L50) |
 
 ## Defined in
 
-[packages/cli-app/src/schema.ts:16](https://github.com/gbtunney/snailicide-monorepo/blob/branch/packages/cli-app/src/schema.ts#L16)
+[packages/cli-app/src/schema.ts:16](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/schema.ts#L16)

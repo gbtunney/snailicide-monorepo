@@ -29,4 +29,4 @@ function resolveSchemaError<Schema>(schema, value): undefined | {}
 
 ## Defined in
 
-[packages/cli-app/src/schema.ts:97](https://github.com/gbtunney/snailicide-monorepo/blob/branch/packages/cli-app/src/schema.ts#L97)
+[packages/cli-app/src/schema.ts:97](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/schema.ts#L97)
