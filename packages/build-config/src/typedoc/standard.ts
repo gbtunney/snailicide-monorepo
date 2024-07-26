@@ -22,6 +22,7 @@ export const config = (__dirname: string): undefined | TypedocConfig => {
                 '**/node_modules/**/*',
             ],
             excludeExternals: true,
+            gitRevision: 'master',
         }
         return options
     }
