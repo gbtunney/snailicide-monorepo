@@ -12,4 +12,4 @@ const viTestConfig: UserConfig
 
 ## Defined in
 
-[packages/build-config/src/vitest/index.ts:3](https://github.com/gbtunney/snailicide-monorepo/blob/e6e31fab4b5388ce50c23f623dbfd6064ce1a2f2/packages/build-config/src/vitest/index.ts#L3)
+[packages/build-config/src/vitest/index.ts:6](https://github.com/gbtunney/snailicide-monorepo/blob/000ebd5e5e0a4dc99abffd69e23184713d3a934a/packages/build-config/src/vitest/index.ts#L6)

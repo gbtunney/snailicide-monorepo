@@ -6,6 +6,8 @@
 
 # eslint
 
+Eslint Flat Configuration
+
 ## Index
 
 ### Type Aliases

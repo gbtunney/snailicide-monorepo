@@ -1,4 +1,8 @@
-/* * Collection of Generic Package Utility Types  * */
+/**
+ * Collection of Generic Package Utility Schemas and Typeguards
+ *
+ * @module npm
+ */
 import {
     isNPMPackage,
     packageStandardSchema,

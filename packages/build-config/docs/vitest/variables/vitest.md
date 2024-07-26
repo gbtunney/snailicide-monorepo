@@ -16,8 +16,8 @@ const vitest: {
 
 | Name | Type | Default value | Defined in |
 | --- | --- | --- | --- |
-| `config` | `UserConfig` | viTestConfig | [packages/build-config/src/vitest/index.ts:10](https://github.com/gbtunney/snailicide-monorepo/blob/e6e31fab4b5388ce50c23f623dbfd6064ce1a2f2/packages/build-config/src/vitest/index.ts#L10) |
+| `config` | `UserConfig` | viTestConfig | [packages/build-config/src/vitest/index.ts:13](https://github.com/gbtunney/snailicide-monorepo/blob/000ebd5e5e0a4dc99abffd69e23184713d3a934a/packages/build-config/src/vitest/index.ts#L13) |
 
 ## Defined in
 
-[packages/build-config/src/vitest/index.ts:9](https://github.com/gbtunney/snailicide-monorepo/blob/e6e31fab4b5388ce50c23f623dbfd6064ce1a2f2/packages/build-config/src/vitest/index.ts#L9)
+[packages/build-config/src/vitest/index.ts:12](https://github.com/gbtunney/snailicide-monorepo/blob/000ebd5e5e0a4dc99abffd69e23184713d3a934a/packages/build-config/src/vitest/index.ts#L12)

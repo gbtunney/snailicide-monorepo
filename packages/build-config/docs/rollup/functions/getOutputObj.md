@@ -30,9 +30,9 @@ function getOutputObj(entry): {
 
 | Name | Type | Defined in |
 | --- | --- | --- |
-| `config` | `RollupOptions` | [packages/build-config/src/rollup/index.ts:121](https://github.com/gbtunney/snailicide-monorepo/blob/e6e31fab4b5388ce50c23f623dbfd6064ce1a2f2/packages/build-config/src/rollup/index.ts#L121) |
-| `exportObj` | `Record`\<`string`, `Record`\<`string`, `string`\>\> | [packages/build-config/src/rollup/index.ts:120](https://github.com/gbtunney/snailicide-monorepo/blob/e6e31fab4b5388ce50c23f623dbfd6064ce1a2f2/packages/build-config/src/rollup/index.ts#L120) |
+| `config` | `RollupOptions` | [packages/build-config/src/rollup/index.ts:124](https://github.com/gbtunney/snailicide-monorepo/blob/000ebd5e5e0a4dc99abffd69e23184713d3a934a/packages/build-config/src/rollup/index.ts#L124) |
+| `exportObj` | `Record`\<`string`, `Record`\<`string`, `string`\>\> | [packages/build-config/src/rollup/index.ts:123](https://github.com/gbtunney/snailicide-monorepo/blob/000ebd5e5e0a4dc99abffd69e23184713d3a934a/packages/build-config/src/rollup/index.ts#L123) |
 
 ## Defined in
 
-[packages/build-config/src/rollup/index.ts:116](https://github.com/gbtunney/snailicide-monorepo/blob/e6e31fab4b5388ce50c23f623dbfd6064ce1a2f2/packages/build-config/src/rollup/index.ts#L116)
+[packages/build-config/src/rollup/index.ts:119](https://github.com/gbtunney/snailicide-monorepo/blob/000ebd5e5e0a4dc99abffd69e23184713d3a934a/packages/build-config/src/rollup/index.ts#L119)

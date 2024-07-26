@@ -1,3 +1,8 @@
+/**
+ * Eslint Flat Configuration
+ *
+ * @module eslint
+ */
 export type EslintConfig = Config
 
 import type { Config } from 'typescript-eslint'

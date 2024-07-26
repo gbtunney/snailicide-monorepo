@@ -12,4 +12,4 @@ type PluginsConfiguration: { [Property in PluginKey]?: Property extends PluginKe
 
 ## Defined in
 
-[packages/build-config/src/rollup/plugins.ts:62](https://github.com/gbtunney/snailicide-monorepo/blob/e6e31fab4b5388ce50c23f623dbfd6064ce1a2f2/packages/build-config/src/rollup/plugins.ts#L62)
+[packages/build-config/src/rollup/plugins.ts:62](https://github.com/gbtunney/snailicide-monorepo/blob/000ebd5e5e0a4dc99abffd69e23184713d3a934a/packages/build-config/src/rollup/plugins.ts#L62)

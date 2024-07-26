@@ -18,4 +18,4 @@ type ConfigOptions<Key>: Parameters<ConfigPlugin<Key>>[0];
 
 ## Defined in
 
-[packages/build-config/src/rollup/plugins.ts:47](https://github.com/gbtunney/snailicide-monorepo/blob/e6e31fab4b5388ce50c23f623dbfd6064ce1a2f2/packages/build-config/src/rollup/plugins.ts#L47)
+[packages/build-config/src/rollup/plugins.ts:47](https://github.com/gbtunney/snailicide-monorepo/blob/000ebd5e5e0a4dc99abffd69e23184713d3a934a/packages/build-config/src/rollup/plugins.ts#L47)

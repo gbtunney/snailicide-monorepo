@@ -123,12 +123,12 @@ module.exports = merge(Prettier.config, options)
 
 ## Modules
 
-| Module                         | Description |
-| ------------------------------ | ----------- |
-| [eslint](eslint/README.md)     | -           |
-| [npm](npm/README.md)           | -           |
-| [prettier](prettier/README.md) | -           |
-| [rollup](rollup/README.md)     | -           |
-| [tsconfig](tsconfig/README.md) | -           |
-| [vite](vite/README.md)         | -           |
-| [vitest](vitest/README.md)     | -           |
+| Module | Description |
+| --- | --- |
+| [eslint](eslint/README.md) | Eslint Flat Configuration |
+| [npm](npm/README.md) | Collection of Generic Package Utility Schemas and Typeguards |
+| [prettier](prettier/README.md) | Prettier Configuration |
+| [rollup](rollup/README.md) | Rollup Configuration tools and utilities |
+| [tsconfig](tsconfig/README.md) | - |
+| [vite](vite/README.md) | - |
+| [vitest](vitest/README.md) | Vitest config |

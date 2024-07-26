@@ -37,4 +37,4 @@ Comment with library information to be appended in the generated bundles.
 
 ## Defined in
 
-[packages/build-config/src/rollup/index.ts:23](https://github.com/gbtunney/snailicide-monorepo/blob/e6e31fab4b5388ce50c23f623dbfd6064ce1a2f2/packages/build-config/src/rollup/index.ts#L23)
+[packages/build-config/src/rollup/index.ts:26](https://github.com/gbtunney/snailicide-monorepo/blob/000ebd5e5e0a4dc99abffd69e23184713d3a934a/packages/build-config/src/rollup/index.ts#L26)

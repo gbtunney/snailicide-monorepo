@@ -9,7 +9,6 @@ export type { BasePackage, PackageJson, PackageJsonInput } from './npm/index.js'
 /* * PRETTIER * */
 export { Prettier } from './prettier/index.js'
 export type { PrettierConfig, PrettierOptions } from './prettier/index.js'
-
 /* * ROLLUP * */
 export { rollup } from './rollup/index.js'
 export type {

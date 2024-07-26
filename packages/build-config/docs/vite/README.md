@@ -13,3 +13,9 @@
 | Variable                  | Description |
 | ------------------------- | ----------- |
 | [vite](variables/vite.md) | -           |
+
+### Functions
+
+| Function                                        | Description |
+| ----------------------------------------------- | ----------- |
+| [docServerConfig](functions/docServerConfig.md) | -           |

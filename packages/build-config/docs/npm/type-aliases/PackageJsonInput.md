@@ -19,4 +19,4 @@ type PackageJsonInput<Schema, BaseSchema>: z.input<Merge<BaseSchema, Schema>>;
 
 ## Defined in
 
-[packages/build-config/src/npm/npm.package.ts:20](https://github.com/gbtunney/snailicide-monorepo/blob/e6e31fab4b5388ce50c23f623dbfd6064ce1a2f2/packages/build-config/src/npm/npm.package.ts#L20)
+[packages/build-config/src/npm/npm.package.ts:20](https://github.com/gbtunney/snailicide-monorepo/blob/000ebd5e5e0a4dc99abffd69e23184713d3a934a/packages/build-config/src/npm/npm.package.ts#L20)

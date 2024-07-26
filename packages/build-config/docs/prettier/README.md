@@ -6,6 +6,8 @@
 
 # prettier
 
+Prettier Configuration
+
 ## Index
 
 ### Type Aliases

@@ -44,8 +44,4 @@ export const sortRules = (): Config => [
             'sort/imports': 'off',
         },
     },
-    {
-        'files': ['packages/**/src/../*.ts'],
-        'sort/object-properties': ['off'],
-    },
 ]

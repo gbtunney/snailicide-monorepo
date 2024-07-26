@@ -6,6 +6,8 @@
 
 # vitest
 
+Vitest config
+
 ## Index
 
 ### Variables

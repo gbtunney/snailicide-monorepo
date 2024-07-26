@@ -17,9 +17,9 @@ const Prettier: {
 
 | Name | Type | Defined in |
 | --- | --- | --- |
-| `config` | `Config` | [packages/build-config/src/prettier/index.ts:13](https://github.com/gbtunney/snailicide-monorepo/blob/e6e31fab4b5388ce50c23f623dbfd6064ce1a2f2/packages/build-config/src/prettier/index.ts#L13) |
-| `options` | `Options` | [packages/build-config/src/prettier/index.ts:14](https://github.com/gbtunney/snailicide-monorepo/blob/e6e31fab4b5388ce50c23f623dbfd6064ce1a2f2/packages/build-config/src/prettier/index.ts#L14) |
+| `config` | `Config` | [packages/build-config/src/prettier/index.ts:16](https://github.com/gbtunney/snailicide-monorepo/blob/000ebd5e5e0a4dc99abffd69e23184713d3a934a/packages/build-config/src/prettier/index.ts#L16) |
+| `options` | `Options` | [packages/build-config/src/prettier/index.ts:17](https://github.com/gbtunney/snailicide-monorepo/blob/000ebd5e5e0a4dc99abffd69e23184713d3a934a/packages/build-config/src/prettier/index.ts#L17) |
 
 ## Defined in
 
-[packages/build-config/src/prettier/index.ts:12](https://github.com/gbtunney/snailicide-monorepo/blob/e6e31fab4b5388ce50c23f623dbfd6064ce1a2f2/packages/build-config/src/prettier/index.ts#L12)
+[packages/build-config/src/prettier/index.ts:15](https://github.com/gbtunney/snailicide-monorepo/blob/000ebd5e5e0a4dc99abffd69e23184713d3a934a/packages/build-config/src/prettier/index.ts#L15)

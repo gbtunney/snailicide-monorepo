@@ -6,6 +6,8 @@
 
 # npm
 
+Collection of Generic Package Utility Schemas and Typeguards
+
 ## Index
 
 ### Type Aliases

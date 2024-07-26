@@ -6,6 +6,8 @@
 
 # rollup
 
+Rollup Configuration tools and utilities
+
 ## Index
 
 ### Type Aliases
