@@ -12,4 +12,4 @@ type ResolvedAppOptions: z.output<typeof app_schema>;
 
 ## Defined in
 
-[packages/cli-app/src/schema.ts:7](https://github.com/gbtunney/snailicide-monorepo/blob/branch/packages/cli-app/src/schema.ts#L7)
+[packages/cli-app/src/schema.ts:7](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/schema.ts#L7)

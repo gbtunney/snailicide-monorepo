@@ -29,4 +29,4 @@ function tg_ZodSchema<Schema>(schema, value): value is TypeOf<Schema>
 
 ## Defined in
 
-[packages/cli-app/src/schema.ts:75](https://github.com/gbtunney/snailicide-monorepo/blob/branch/packages/cli-app/src/schema.ts#L75)
+[packages/cli-app/src/schema.ts:75](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/schema.ts#L75)

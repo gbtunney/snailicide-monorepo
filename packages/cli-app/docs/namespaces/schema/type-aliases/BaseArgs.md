@@ -12,4 +12,4 @@ type BaseArgs: z.infer<typeof base_schema>;
 
 ## Defined in
 
-[packages/cli-app/src/schema.ts:58](https://github.com/gbtunney/snailicide-monorepo/blob/branch/packages/cli-app/src/schema.ts#L58)
+[packages/cli-app/src/schema.ts:58](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/schema.ts#L58)
