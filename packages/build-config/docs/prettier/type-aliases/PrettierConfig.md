@@ -12,4 +12,4 @@ type PrettierConfig: Config;
 
 ## Defined in
 
-[packages/build-config/src/prettier/index.ts:21](https://github.com/gbtunney/snailicide-monorepo/blob/000ebd5e5e0a4dc99abffd69e23184713d3a934a/packages/build-config/src/prettier/index.ts#L21)
+[packages/build-config/src/prettier/index.ts:23](https://github.com/gbtunney/snailicide-monorepo/blob/864f9979e97eb579a793bd06e883355f7bea5c52/packages/build-config/src/prettier/index.ts#L23)

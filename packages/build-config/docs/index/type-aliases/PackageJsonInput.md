@@ -2,7 +2,7 @@
 
 ---
 
-[@snailicide/build-config](../../README.md) / [npm](../README.md) / PackageJsonInput
+[@snailicide/build-config](../../README.md) / [index](../README.md) / PackageJsonInput
 
 # Type Alias: PackageJsonInput\<Schema, BaseSchema\>
 
@@ -19,4 +19,4 @@ type PackageJsonInput<Schema, BaseSchema>: z.input<Merge<BaseSchema, Schema>>;
 
 ## Defined in
 
-[packages/build-config/src/npm/npm.package.ts:20](https://github.com/gbtunney/snailicide-monorepo/blob/000ebd5e5e0a4dc99abffd69e23184713d3a934a/packages/build-config/src/npm/npm.package.ts#L20)
+[packages/build-config/src/npm/npm.package.ts:20](https://github.com/gbtunney/snailicide-monorepo/blob/864f9979e97eb579a793bd06e883355f7bea5c52/packages/build-config/src/npm/npm.package.ts#L20)

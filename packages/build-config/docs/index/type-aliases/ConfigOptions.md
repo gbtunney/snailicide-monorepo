@@ -2,7 +2,7 @@
 
 ---
 
-[@snailicide/build-config](../../README.md) / [rollup](../README.md) / ConfigOptions
+[@snailicide/build-config](../../README.md) / [index](../README.md) / ConfigOptions
 
 # Type Alias: ConfigOptions\<Key\>
 
@@ -18,4 +18,4 @@ type ConfigOptions<Key>: Parameters<ConfigPlugin<Key>>[0];
 
 ## Defined in
 
-[packages/build-config/src/rollup/plugins.ts:47](https://github.com/gbtunney/snailicide-monorepo/blob/000ebd5e5e0a4dc99abffd69e23184713d3a934a/packages/build-config/src/rollup/plugins.ts#L47)
+[packages/build-config/src/rollup/plugins.ts:47](https://github.com/gbtunney/snailicide-monorepo/blob/864f9979e97eb579a793bd06e883355f7bea5c52/packages/build-config/src/rollup/plugins.ts#L47)

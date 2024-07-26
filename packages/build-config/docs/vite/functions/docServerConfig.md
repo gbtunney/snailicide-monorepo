@@ -24,4 +24,4 @@ Vite configuration for documentation server\*
 
 ## Defined in
 
-[packages/build-config/src/vite/index.ts:7](https://github.com/gbtunney/snailicide-monorepo/blob/000ebd5e5e0a4dc99abffd69e23184713d3a934a/packages/build-config/src/vite/index.ts#L7)
+[packages/build-config/src/vite/index.ts:9](https://github.com/gbtunney/snailicide-monorepo/blob/864f9979e97eb579a793bd06e883355f7bea5c52/packages/build-config/src/vite/index.ts#L9)

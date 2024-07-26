@@ -14,10 +14,8 @@ Rollup Configuration tools and utilities
 
 | Type alias                                                   | Description |
 | ------------------------------------------------------------ | ----------- |
-| [ConfigOptions](type-aliases/ConfigOptions.md)               | -           |
 | [EntryConfig](type-aliases/EntryConfig.md)                   | -           |
 | [ExportType](type-aliases/ExportType.md)                     | -           |
-| [PluginKey](type-aliases/PluginKey.md)                       | -           |
 | [PluginsConfiguration](type-aliases/PluginsConfiguration.md) | -           |
 
 ### Variables
@@ -39,6 +37,18 @@ Rollup Configuration tools and utilities
 | [getRollupConfig](functions/getRollupConfig.md) | - |
 
 ## References
+
+### ConfigOptions
+
+Re-exports [ConfigOptions](../index/type-aliases/ConfigOptions.md)
+
+---
+
+### PluginKey
+
+Re-exports [PluginKey](../index/type-aliases/PluginKey.md)
+
+---
 
 ### default
 

@@ -17,9 +17,9 @@ const EsLint: {
 
 | Name | Type | Defined in |
 | --- | --- | --- |
-| `config` | _typeof_ `config` | [packages/build-config/src/eslint/index.ts:10](https://github.com/gbtunney/snailicide-monorepo/blob/000ebd5e5e0a4dc99abffd69e23184713d3a934a/packages/build-config/src/eslint/index.ts#L10) |
-| `flatConfig` | _typeof_ `config` | [packages/build-config/src/eslint/index.ts:11](https://github.com/gbtunney/snailicide-monorepo/blob/000ebd5e5e0a4dc99abffd69e23184713d3a934a/packages/build-config/src/eslint/index.ts#L11) |
+| `config` | _typeof_ `config` | [packages/build-config/src/eslint/index.ts:12](https://github.com/gbtunney/snailicide-monorepo/blob/864f9979e97eb579a793bd06e883355f7bea5c52/packages/build-config/src/eslint/index.ts#L12) |
+| `flatConfig` | _typeof_ `config` | [packages/build-config/src/eslint/index.ts:13](https://github.com/gbtunney/snailicide-monorepo/blob/864f9979e97eb579a793bd06e883355f7bea5c52/packages/build-config/src/eslint/index.ts#L13) |
 
 ## Defined in
 
-[packages/build-config/src/eslint/index.ts:9](https://github.com/gbtunney/snailicide-monorepo/blob/000ebd5e5e0a4dc99abffd69e23184713d3a934a/packages/build-config/src/eslint/index.ts#L9)
+[packages/build-config/src/eslint/index.ts:11](https://github.com/gbtunney/snailicide-monorepo/blob/864f9979e97eb579a793bd06e883355f7bea5c52/packages/build-config/src/eslint/index.ts#L11)

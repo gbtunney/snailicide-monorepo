@@ -33,8 +33,8 @@ function parseNPMPackage<Schema, BaseSchema>(
 
 ## Returns
 
-`undefined` \| [`PackageJson`](../type-aliases/PackageJson.md)\<`Schema`, `BaseSchema`\>
+`undefined` \| [`PackageJson`](../../index/type-aliases/PackageJson.md)\<`Schema`, `BaseSchema`\>
 
 ## Defined in
 
-[packages/build-config/src/npm/npm.package.ts:25](https://github.com/gbtunney/snailicide-monorepo/blob/000ebd5e5e0a4dc99abffd69e23184713d3a934a/packages/build-config/src/npm/npm.package.ts#L25)
+[packages/build-config/src/npm/npm.package.ts:25](https://github.com/gbtunney/snailicide-monorepo/blob/864f9979e97eb579a793bd06e883355f7bea5c52/packages/build-config/src/npm/npm.package.ts#L25)

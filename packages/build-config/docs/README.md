@@ -126,9 +126,11 @@ module.exports = merge(Prettier.config, options)
 | Module | Description |
 | --- | --- |
 | [eslint](eslint/README.md) | Eslint Flat Configuration |
+| [index](index/README.md) | - |
 | [npm](npm/README.md) | Collection of Generic Package Utility Schemas and Typeguards |
 | [prettier](prettier/README.md) | Prettier Configuration |
 | [rollup](rollup/README.md) | Rollup Configuration tools and utilities |
 | [tsconfig](tsconfig/README.md) | - |
+| [typedoc](typedoc/README.md) | Typedoc default configurations |
 | [vite](vite/README.md) | - |
 | [vitest](vitest/README.md) | Vitest config |

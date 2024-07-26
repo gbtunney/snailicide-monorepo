@@ -22,4 +22,4 @@ function getRollupConfig(args): RollupOptions[]
 
 ## Defined in
 
-[packages/build-config/src/rollup/index.ts:269](https://github.com/gbtunney/snailicide-monorepo/blob/000ebd5e5e0a4dc99abffd69e23184713d3a934a/packages/build-config/src/rollup/index.ts#L269)
+[packages/build-config/src/rollup/index.ts:271](https://github.com/gbtunney/snailicide-monorepo/blob/864f9979e97eb579a793bd06e883355f7bea5c52/packages/build-config/src/rollup/index.ts#L271)

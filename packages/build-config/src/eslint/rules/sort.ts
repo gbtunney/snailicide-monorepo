@@ -4,7 +4,7 @@ import type { Config } from 'typescript-eslint'
 /** @see [How to quickly configure ESLint for import sorting](https://medium.com/@diballesteros/how-to-quickly-configure-eslint-for-import-sorting-3a4017bd4853) */
 
 export const sortRules = (): Config => [
-    ...sortPlugin.configs['flat/recommended'],
+    sortPlugin.configs['flat/recommended'],
     {
         rules: {
             'import/order': [

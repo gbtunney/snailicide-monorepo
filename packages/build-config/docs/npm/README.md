@@ -10,14 +10,6 @@ Collection of Generic Package Utility Schemas and Typeguards
 
 ## Index
 
-### Type Aliases
-
-| Type alias                                           | Description |
-| ---------------------------------------------------- | ----------- |
-| [BasePackage](type-aliases/BasePackage.md)           | -           |
-| [PackageJson](type-aliases/PackageJson.md)           | -           |
-| [PackageJsonInput](type-aliases/PackageJsonInput.md) | -           |
-
 ### Variables
 
 | Variable                | Description |
@@ -33,6 +25,24 @@ Collection of Generic Package Utility Schemas and Typeguards
 | [parseNPMPackage](functions/parseNPMPackage.md)             | -           |
 
 ## References
+
+### BasePackage
+
+Re-exports [BasePackage](../index/type-aliases/BasePackage.md)
+
+---
+
+### PackageJson
+
+Re-exports [PackageJson](../index/type-aliases/PackageJson.md)
+
+---
+
+### PackageJsonInput
+
+Re-exports [PackageJsonInput](../index/type-aliases/PackageJsonInput.md)
+
+---
 
 ### default
 
