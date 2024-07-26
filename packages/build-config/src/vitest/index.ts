@@ -1,3 +1,8 @@
+/**
+ * Vitest config
+ *
+ * @module vitest
+ */
 import { defineConfig } from 'vitest/config'
 
 export const viTestConfig = defineConfig({

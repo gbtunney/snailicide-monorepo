@@ -1,3 +1,8 @@
+/**
+ * Prettier Configuration
+ *
+ * @module prettier
+ */
 import { Config, Options } from 'prettier'
 import { codeStyleOptions } from './code.style.js'
 

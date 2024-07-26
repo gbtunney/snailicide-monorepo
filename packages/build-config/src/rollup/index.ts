@@ -1,3 +1,8 @@
+/**
+ * Rollup Configuration tools and utilities
+ *
+ * @module rollup
+ */
 import { unflatten } from 'flat'
 import { omit } from 'ramda'
 import { InternalModuleFormat, OutputOptions, RollupOptions } from 'rollup'

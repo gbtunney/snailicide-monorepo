@@ -40,14 +40,23 @@
         "\n========== TEST >> ==========": "",
         "test": "vitest run",
         "test:watch": "vitest watch",
+        "\n========== DOCS >> ==========": "",
+        "docs:build": "pnpm run build:ts && pnpm exec typedoc && pnpm docs:format",
+        "docs:format": "pnpm exec prettier \"$(PWD)/docs\" --write",
         "\n========== PUBLISH >> ==========": "",
         "release": "pnpm prerelease && pnpm publish --access public --report-summary",
-        "prerelease": "pnpm clean && pnpm test && pnpm build &&  pnpm run release:archive",
+        "prerelease": "pnpm clean && pnpm docs:build && pnpm test && pnpm build &&  pnpm run release:archive",
         "release:archive": "mkdir -p ./releases &&  pnpm exec npm pack --pack-destination='./releases'",
+        "\n========== CODE STYLE >> ==========": "",
+        "lint": "pnpm exec eslint -c \"$(git rev-parse --show-toplevel)/eslint.config.js\" .",
+        "\n========== CHECK >> ==========": "",
+        "check": "pnpm lint",
+        "\n========== FIX >> ==========": "",
+        "fix": "pnpm lint --fix",
         "\n========== CLEAN >> ==========": "",
         "clean": "pnpm clean:ts && pnpm clean:build",
         "clean:ts": "tsc --build --clean",
-        "clean:build": "rm -R -f dist types docs"
+        "clean:build": "rm -R -f dist types"
     },
     "dependencies": {
         "@snailicide/g-library": "workspace:^",
@@ -65,14 +74,10 @@
         "@snailicide/build-config": "workspace:^",
         "rollup": "^4.18.0",
         "ts-node": "^10.9.2",
+        "typedoc": "^0.26.5",
         "typedoc-plugin-markdown": "^4.2.2",
         "typescript": "^5.4.5",
         "vitest": "^2.0.3"
-    },
-    "publishConfig": {
-        "access": "public",
-        "git-checks": false,
-        "report-summary": true
     },
     "prettier": "@snailicide/build-config/prettier",
     "homepage": "https://github.com/gbtunney/snailicide-monorepo/tree/main/packages/cli-app",

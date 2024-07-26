@@ -19,8 +19,12 @@ export type {
     PluginKey,
 } from './rollup/index.js'
 
+/** TYPEDOC */
+export { typedoc } from './typedoc/index.js'
+export type { TypedocConfig, TypedocMarkdownConfig } from './typedoc/index.js'
+
 /* *  UTILITIES *  */
-export { exportJSON } from './utilities.js'
+export { exportJSON, isPlainObject, safeDeserializeJSON } from './utilities.js'
 
 /* * VITE CONFIGS * */
 export { vite } from './vite/index.js'

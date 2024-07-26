@@ -1,5 +1,6 @@
 import { RollupOptions } from 'rollup'
 import shell from 'shelljs'
+import type { Jsonify } from 'type-fest'
 import _package from './package.json' assert { type: 'json' }
 import { exportJSON, Prettier, rollup } from './types/index.js'
 import { tsConfigBase } from './types/tsconfig/index.js'
@@ -7,9 +8,11 @@ import { tsConfigBase } from './types/tsconfig/index.js'
 const LIBRARY_NAME: string = 'GBBuildConfig'
 const PRINT_EXPORTS: boolean = false
 
+const prettierConfig: Jsonify<typeof Prettier.config> = Prettier.config
+
 const JSON_EXPORTS = [
     {
-        data: JSON.parse(JSON.stringify(Prettier.config)),
+        data: prettierConfig,
         filename: './dist/.prettierrc.json',
     },
     {
@@ -41,7 +44,6 @@ const rollUp = (): Array<RollupOptions> => {
         _package,
     )
     rollup.getPackageExports(CONFIG_OBJ, PRINT_EXPORTS)
-
     return rollup.getRollupConfig(CONFIG_OBJ)
 }
 
