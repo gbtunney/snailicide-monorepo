@@ -4,6 +4,7 @@ import globals from 'globals'
 import type { Config } from 'typescript-eslint'
 import tseslint from 'typescript-eslint'
 import pluginsConfig from './plugins.js'
+import { eslintCommentRules } from './rules/eslint-comments.js'
 import { filenamesRules } from './rules/filenames.js'
 import { importRules } from './rules/import.js'
 import { jsdocRules } from './rules/jsdoc.js'
@@ -20,8 +21,6 @@ const base_ignores = [
     '**/types/**/*',
     '**/types/**',
     '**/*.d.ts',
-    'packages/**/*.js',
-    '*.js',
 ]
 
 export const flatEslintConfig = async (__dirname: string): Promise<Config> => {
@@ -48,6 +47,8 @@ export const flatEslintConfig = async (__dirname: string): Promise<Config> => {
         ...(await jsdocRules()),
         ...(await filenamesRules()),
         ...(await namingConventionRules()),
+
+        ...(await eslintCommentRules()),
         {
             files: ['**/*.cjs'],
             rules: {
@@ -58,7 +59,7 @@ export const flatEslintConfig = async (__dirname: string): Promise<Config> => {
         },
         ...tseslint.config({
             extends: [tseslint.configs.disableTypeChecked],
-            files: ['**/*.mjs', '**/*.cjs', "'**/*.js'"],
+            files: ['**/*.mjs', '**/*.cjs', '**/*.js'],
         }),
     ]
     return EslintConfig

@@ -5,7 +5,7 @@ const options: Partial<TypeDocOptions> & Partial<PluginOptions> = {
     entryPoints: ['./src/**/index.ts'],
     enumMembersFormat: 'table',
     exclude: ['./src/index.ts', '**/*.test.ts', '/node_modules/**/*'],
-    excludeExternals: true,
+    excludeExternals: false,
     expandObjects: true,
     indexFormat: 'table',
     mergeReadme: true,

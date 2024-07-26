@@ -64,7 +64,7 @@ export type PluginsConfiguration = {
         ? ConfigOptions<Property> | boolean
         : never
 }
-/* eslint-disable sort/object-properties */
+/* eslint sort/object-properties:off */
 export const basePluginConfig: PluginsConfiguration = {
     typescriptTS: true,
     json: true,
