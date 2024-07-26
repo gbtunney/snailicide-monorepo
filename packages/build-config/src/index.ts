@@ -9,6 +9,7 @@ export type { BasePackage, PackageJson, PackageJsonInput } from './npm/index.js'
 /* * PRETTIER * */
 export { Prettier } from './prettier/index.js'
 export type { PrettierConfig, PrettierOptions } from './prettier/index.js'
+
 /* * ROLLUP * */
 export { rollup } from './rollup/index.js'
 export type {
@@ -18,8 +19,12 @@ export type {
     PluginKey,
 } from './rollup/index.js'
 
+/** TYPEDOC */
+export { typedoc } from './typedoc/index.js'
+export type { TypedocConfig, TypedocMarkdownConfig } from './typedoc/index.js'
+
 /* *  UTILITIES *  */
-export { exportJSON } from './utilities.js'
+export { exportJSON, isPlainObject, safeDeserializeJSON } from './utilities.js'
 
 /* * VITE CONFIGS * */
 export { vite } from './vite/index.js'
