@@ -29,4 +29,4 @@ type InitFunction<Schema>: (value, help) => void;
 
 ## Defined in
 
-[packages/cli-app/src/app.ts:17](https://github.com/gbtunney/snailicide-monorepo/blob/e538d73c297e05cfc5c2161039b61c76cd65cf31/packages/cli-app/src/app.ts#L17)
+[packages/cli-app/src/app.ts:17](https://github.com/gbtunney/snailicide-monorepo/blob/branch/packages/cli-app/src/app.ts#L17)
