@@ -1,23 +1,10 @@
 {
-    "extends": "./src/tsconfig/tsconfig-base.json",
+    "extends": "./tsconfig-local-base.json",
     "compilerOptions": {
-        "target": "ESNext",
-        "lib": ["ESNext"],
-        "composite": true,
-        "noEmit": true,
-        "module": "ESNext",
-        "resolveJsonModule": true,
-        "allowSyntheticDefaultImports": true,
-        "esModuleInterop": true,
-        // "declaration": true,
-        "strict": true,
-        "noImplicitAny": false,
-        "moduleResolution": "node"
+        "types": ["node"]
     },
-    "exclude": ["node_modules"],
-    "include": ["./src/**/*.test.ts"],
-    "references": [
-        { "path": "./src" }
-        //{ "path": "./src/tsconfig.node.json" }
-    ]
+    "exclude": ["node_modules", "./src/**/*.ts"],
+    "files": ["./package.json"],
+    "include": ["*.ts"],
+    "references": [{ "path": "./src" }]
 }

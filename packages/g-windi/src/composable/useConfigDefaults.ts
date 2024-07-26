@@ -1,8 +1,9 @@
 import { tg } from '@snailicide/g-library'
 import * as chroma from 'chroma.ts'
 import colors from 'windicss/colors'
-import type { WindiConfig, ThemeColors } from './index.js'
+
 import { tg_isCSSColorSpecial } from './../css.color.special.js'
+import type { ThemeColors, WindiConfig } from './index.js'
 
 export type useConfigDefaults = typeof useConfigDefaults
 export const useConfigDefaults = () => {
@@ -45,10 +46,10 @@ export const useConfigDefaults = () => {
         return colorDefaultPresetFactory(defaultColors)
     }
     return {
-        getMapColorDefaults,
-        defaultColors,
-        windiColorDefaultPreset,
         colorDefaultPresetFactory,
+        defaultColors,
+        getMapColorDefaults,
+        windiColorDefaultPreset,
     }
 }
 

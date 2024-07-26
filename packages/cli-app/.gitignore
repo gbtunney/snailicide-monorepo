@@ -3,6 +3,5 @@ node_modules
 *.js
 *.d.ts
 *.js.map
-/tests/_output
-_temp
 types
+dist

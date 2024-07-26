@@ -140,6 +140,17 @@ examples
 
 #todo: figure out what to do with this
 *.test.js
-
+*.js
+*.d.ts
+*.d.ts.map
+*.js.map
+.ssh
 examples
 apps
+docs/private
+.env
+!eslint.config.js
+.nx/cache
+.nx/workspace-data
+packages/**/docs/**/*
+packages/**/releases/*

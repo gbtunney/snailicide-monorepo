@@ -1,0 +1,7 @@
+{
+    "docwriter.progress.trackClasses": true,
+    "docwriter.progress.trackTypes": true,
+    "docwriter.style": "JSDoc",
+    "docwriter.progress.trackMethods": false,
+    "docwriter.progress.trackFunctions": false
+}

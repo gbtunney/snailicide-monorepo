@@ -1,13 +1,17 @@
 import fs from 'fs'
 import path from 'path'
-import { getJSONString, Jsonifiable, Json } from './../object/json.js'
 
-type JSONExportEntry<T = Json.Value, V = T extends Jsonifiable ? T : never> = {
-    data: V
+import { prettyPrintJSON } from './../object/json.js'
+import { Json, Jsonifiable } from './../types/utility.js'
+type JSONExportEntry<
+    Type = Json.Value,
+    DataType = Type extends Jsonifiable ? Type : never,
+> = {
+    data: DataType
     filename: string
 }
 
-export type JSONExportConfig = JSONExportEntry[]
+export type JSONExportConfig = Array<JSONExportEntry>
 
 /**
  * ExportJSON
@@ -21,7 +25,7 @@ export type JSONExportConfig = JSONExportEntry[]
 export const exportJSONFile = (
     config: JSONExportConfig,
     outdir: string | undefined = undefined,
-    overwrite: 'ON' | 'ERROR' | 'WARN' = 'ON'
+    overwrite: 'ON' | 'ERROR' | 'WARN' = 'ON',
 ): void => {
     config.forEach((entry) => {
         const file_name =
@@ -32,8 +36,8 @@ export const exportJSONFile = (
             ? path.resolve(outdir, file_name)
             : path.resolve(file_name)
 
-        const writeFile = (path: string = file_path) => {
-            fs.writeFileSync(path, getJSONString(entry.data))
+        const writeFile = (path: string = file_path): void => {
+            fs.writeFileSync(path, prettyPrintJSON(entry.data))
         }
         if (overwrite === 'ON') {
             writeFile() ///write the file return success.
@@ -47,7 +51,7 @@ export const exportJSONFile = (
             console.error(
                 `Cannot write ${file_path}, file already excists`,
                 file_path,
-                entry
+                entry,
             )
             ////throw eror??'
             throw new Error(`Cannot write ${file_path}, file already excists`)

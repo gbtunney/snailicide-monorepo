@@ -1,32 +1,26 @@
 /* * NODE UTILITIES * */
-import fs from 'fs'
-import * as filePath from './file.path.array.js'
-import { getImageBase64 } from './encodeBase64.js'
-import { exportJSONFile } from './export.json.file.js'
-import { getYArgs, getArgsObject } from './yargs.js'
+//import { getYArgs, getArgsObject } from './yargs-util.js'
+import { z } from 'zod'
 
+import { getImageBase64 } from './encode-base64.js'
+import { exportJSONFile } from './export.json.file.js'
+import * as filePath from './file.path.array.js'
+import * as zod_fs_schema from './zod.node.js'
+
+export const zod: typeof z & typeof zod_fs_schema = {
+    ...z,
+    ...zod_fs_schema,
+}
 export const node = {
-    getImageBase64,
-    exportJSONFile,
-    getArgsObject,
-    getYArgs,
     ...filePath,
-    /* * Types * */
-    /* * does file excist - works with files and directories
-     * @param { string } path
-     * @returns {boolean}
-     */
-    doesFileExist: (path: string): boolean => fs.existsSync(path),
+    exportJSONFile,
+    getImageBase64,
 }
 export default node
-/* * TYPES * */
-import type { FilePath, FileType } from './file.path.array.js'
-import type { JSONExportConfig } from './export.json.file.js'
-import type { ImageMimeType } from './encodeBase64.js'
 
-export type Node = {
-    FilePath: FilePath
-    FileType: FileType
-    JSONExportConfig: JSONExportConfig
-    ImageMimeType: ImageMimeType
-}
+export type { ImageMimeType } from './encode-base64.js'
+
+export type { JSONExportConfig } from './export.json.file.js'
+
+/* * TYPES * */
+export type { FilePath, FileType } from './file.path.array.js'

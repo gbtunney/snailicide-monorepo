@@ -1,6 +1,7 @@
 /* * usePlugins* */
 import { rangeStep } from 'ramda-adjunct'
 import { DeepNestObject, Plugin } from 'windicss/types/interfaces'
+
 import {
     rangeMapperFunction,
     usePluginUtilities,
@@ -9,7 +10,7 @@ import {
 export const useCustomPlugins = () => {
     const transformRotatePlugin = (): Plugin => {
         const funcRotateCallback: rangeMapperFunction = (
-            _value
+            _value,
         ): DeepNestObject => {
             return {
                 [`.rotate-${_value}`]: {
@@ -19,33 +20,33 @@ export const useCustomPlugins = () => {
         }
         const result: DeepNestObject = usePluginUtilities().rangeMapperCSSinJS(
             rangeStep(360 / 8, -315, 360),
-            funcRotateCallback
+            funcRotateCallback,
         )
         return usePluginUtilities().pluginFactory(result)
     }
     const gSVGPlugin = (): Plugin => {
         const gSVG = {
+            '.g-svg svg': {
+                display: 'block',
+                height: '100%',
+                width: '100%',
+            },
             '.g-svg-fill svg': {
                 '& path, & g, & rect, & circle': {
                     fill: 'currentColor',
                 },
-            },
-            '.g-svg svg': {
-                display: 'block',
-                width: '100%',
-                height: '100%',
             },
         }
         return usePluginUtilities().pluginFactory(gSVG)
     }
     const misc = (): Plugin => {
         return usePluginUtilities().pluginFactory({
+            '.flex-center': {
+                'align-items': 'center',
+                'justify-content': 'center',
+            },
             '.radius-circle': {
                 'border-radius': '100%',
-            },
-            '.flex-center': {
-                'justify-content': 'center',
-                'align-items': 'center',
             },
             '.reflect-x': {
                 transform: 'scale(-1, 1)',
@@ -57,7 +58,7 @@ export const useCustomPlugins = () => {
     }
     const bgOpacityPlugin = (): Plugin => {
         const funcBGCallback: rangeMapperFunction = (
-            _value
+            _value,
         ): DeepNestObject => {
             return {
                 [`bg-opacity-${_value}`]: {
@@ -67,13 +68,13 @@ export const useCustomPlugins = () => {
         }
         const result: DeepNestObject = usePluginUtilities().rangeMapperCSSinJS(
             rangeStep(10, 10, 100),
-            funcBGCallback
+            funcBGCallback,
         )
         return usePluginUtilities().pluginFactory(result)
     }
     // transformRotatePlugin, gSVGPlugin, bgOpacityPlugin,
     return {
-        plugins(): Plugin[] {
+        plugins(): Array<Plugin> {
             return [
                 transformRotatePlugin(),
                 bgOpacityPlugin(),

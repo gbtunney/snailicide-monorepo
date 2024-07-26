@@ -1,19 +1,19 @@
-import { ref } from 'vue'
-import { join } from 'ramda'
+import { stringUtils } from '@snailicide/g-library'
 import { useStyleTag, UseStyleTagOptions } from '@vueuse/core'
+import { join } from 'ramda'
+import { ref } from 'vue'
 import Processor from 'windicss'
 import type { Config } from 'windicss/types/interfaces'
-import { stringTransform } from '@snailicide/g-library'
 
 export type windiCSS = typeof useWindiCSS
 export const useWindiCSS = (config: Config = {}) => {
     const processor = ref(new Processor(config))
     const extractStylesFromHTML = (
         el: HTMLElement,
-        includeNestedHTML = true
+        includeNestedHTML = true,
     ) => {
         const classString = join(' ', Array.from(el.classList))
-        const { success, ignored } = processor.value.interpret(classString)
+        const { ignored, success } = processor.value.interpret(classString)
         const { styleSheet } = processor.value.interpret(classString)
         if (includeNestedHTML) {
             const result = compileCSS(el.innerHTML, true)
@@ -24,28 +24,28 @@ export const useWindiCSS = (config: Config = {}) => {
             //ignored = [...ignored, ...html_ignored]
         }
         //const compiled = html_styleSheet.build()\
-        return { success, ignored, styleSheet }
+        return { ignored, styleSheet, success }
     }
     const interpretWindiStyles = (
-        value: string[] | string,
+        value: Array<string> | string,
         config: Config | undefined = undefined,
-        logging = true
+        logging = true,
     ) => {
         if (config) processor.value = new Processor(config)
 
-        const val_replaced = stringTransform.replaceCharacters({
-            value: value.toString(),
+        const val_replaced = stringUtils.replaceCharacters({
             pattern: ['  ', ','],
             replacement: ' ',
+            value: value.toString(),
         }) as string
-        const val_trimmed = stringTransform.trimCharacters({
-            value: val_replaced,
+        const val_trimmed = stringUtils.trimCharacters({
             pattern: ['.', "'", '"', '[', ']'],
+            value: val_replaced,
         })
-        const { styleSheet, success, ignored } =
+        const { ignored, styleSheet, success } =
             processor.value.interpret(val_trimmed)
         const styleSheetCompiled: string | undefined = processor.value.validate(
-            val_trimmed
+            val_trimmed,
         )
             ? styleSheet.build(false)
             : undefined
@@ -59,20 +59,20 @@ export const useWindiCSS = (config: Config = {}) => {
                 '\nignored::',
                 ignored,
                 '\nstyleSheetCompiled:\n',
-                styleSheetCompiled
+                styleSheetCompiled,
             )
         }
         return {
-            styleSheet,
-            success,
             ignored,
+            styleSheet,
             styleSheetCompiled,
+            success,
         }
     }
     const compileCSS = (
-        value: string[] | string,
+        value: Array<string> | string,
         inject: boolean,
-        styleTagOptions: UseStyleTagOptions = {}
+        styleTagOptions: UseStyleTagOptions = {},
     ) => {
         const { styleSheetCompiled } = interpretWindiStyles(value)
         if (styleSheetCompiled !== undefined) {
@@ -85,10 +85,10 @@ export const useWindiCSS = (config: Config = {}) => {
     const masterReg = /\${([\s\S]+?)}/g
 
     return {
-        interpretWindiStyles,
         compileCSS,
         extractStylesFromHTML,
         getClassString,
+        interpretWindiStyles,
         masterReg,
     }
 }

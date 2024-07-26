@@ -1,46 +1,44 @@
-/* * JSON TYPES and UTILS * */
-export type { Json, Jsonifiable, Jsonify } from './object/json.js'
-export { getJSONString, getJSON } from './object/json.js'
+/* * HTML UTILITIES * */
+export { htmlUtils } from './browser/index.js'
 
-/* * NPM UTILS * */
-export * as npm from './npm/index.js'
+/* * COLOR UTILITIES * */
+export { colorUtils } from './color/index.js'
 
-/* * NODE UTILS MODULE * */
-import type * as NodeModule from './node/index.js'
-export { node } from './node/index.js'
-export type Node = NodeModule
+/* * DATE UTILITIES * */
+export { dateUtils } from './date/index.js'
 
-/* * GENERIC TYPEGUARDS * */
-export * as tg from './typeguard/utility.typeguards.js'
+export * as numeric from './number/index.js'
 
-/* * ZOD * */
-export { zod } from './zod/index.js'
-export { tg_Zod, getZodData } from './zod/index.js'
+/* * JSON & OBJECT UTILITIES * */
+export { objectUtils } from './object/index.js'
 
-export type {
-    PlainObject,
-    Primitive,
-    PrefixProperties,
-    SuffixProperties,
-    DeepPartial,
-} from './types/utility'
+export { deepmerge } from './object/index.js'
 
-export type {
-    EmptyObject,
-    EmptyArray,
-    EmptyString,
-    Falsy,
-    NilOrEmpty,
-    NilLike,
-    Nullish,
-} from './types/empty'
-//todo:reorganize
+/* * REGEXP UTILITIES * */
+export { regexp } from './regexp/index.js'
 
 /* * STRING UTILITIES * */
-export * as regexp from './regexp/index.js'
+export { stringUtils } from './string/index.js'
 
-export * as stringUtils from './string/index.js'
+/* * GENERIC TYPEGUARDS * */
+export { tg } from './typeguard/index.js'
 
-export * as stringTransform from './transformString/index.js'
+export type {
+    DeepPartial,
+    EmptyArray,
+    EmptyObject,
+    EmptyString,
+    Falsy,
+    Json,
+    Jsonifiable,
+    NilLike,
+    NilOrEmpty,
+    Nullish,
+    PlainObject,
+    PrefixProperties,
+    Primitive,
+    SuffixProperties,
+} from './types/index.js'
 
-export { numeric } from './number/index.js'
+/* * ZOD UTILITIES * */
+export { zodHelpers } from './zod_helpers/index.js'

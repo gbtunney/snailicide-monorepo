@@ -1,10 +1,11 @@
 import * as chroma from 'chroma.ts'
+import { Chromable, Chromable as TChromable } from 'chroma.ts'
 import * as RA from 'ramda-adjunct'
-import { Chromable as TChromable, Chromable } from 'chroma.ts'
-import type { WindiConfig, ThemeColors } from './index.js'
+
+import type { ThemeColors, WindiConfig } from './index.js'
 
 export type ColorScaleConfig = {
-    scale: [] | TChromable[]
+    scale: [] | Array<TChromable>
     default_color?: TChromable //default color
     color_count: number
 }
@@ -17,10 +18,10 @@ export type useColorScale = typeof useColorScale
 export const useColorScale = () => {
     ///private method.
     const _getColorScale = (
-        { scale = [], default_color, color_count = 5 }: ColorScaleConfig = {
-            scale: [],
+        { color_count = 5, default_color, scale = [] }: ColorScaleConfig = {
             color_count: 5,
-        }
+            scale: [],
+        },
     ) => {
         if (RA.isUndefined(default_color) && RA.isEmptyArray(scale)) return
         if (RA.isUndefined(default_color) && scale.length > 0)
@@ -47,29 +48,29 @@ export const useColorScale = () => {
                     },
                 }
             },
-            { ['DEFAULT']: chroma.color(default_color as Chromable).hex() }
+            { ['DEFAULT']: chroma.color(default_color as Chromable).hex() },
         )
     }
     const getColorScale = (
-        colorScaleConfig: ColorScaleConfigCollection
+        colorScaleConfig: ColorScaleConfigCollection,
     ): ThemeColors => {
         return Object.entries(colorScaleConfig).reduce(
             (accumulator, [key, value]) => {
                 return {
                     ...accumulator,
                     [key]: _getColorScale({
-                        scale: [],
                         color_count: 5,
+                        scale: [],
                         ...value,
                     }),
                 }
             },
-            {}
+            {},
         )
     }
 
     const colorScalePresetFactory = (
-        colorScaleConfig: ColorScaleConfigCollection
+        colorScaleConfig: ColorScaleConfigCollection,
     ): WindiConfig => {
         return {
             theme: {

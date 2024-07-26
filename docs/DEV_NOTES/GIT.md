@@ -1,6 +1,27 @@
 # GIT NOTES!
 
+-   name: Deploy GitHub Pages site uses: actions/deploy-pages@v1.2.9
+
 -   Commit [Link](https://github.com/gbtunney/gbt-theme-dawn/commit/7035aaa754ba4f99b1ff1f245d9f882ef6951b96)
+
+## Init instructions
+
+-   create a new repository on the command line
+    ```shell
+    echo "# test2" >> README.md
+    git init
+    git add README.md
+    git commit -m "first commit"
+    git branch -M main
+    git remote add origin git@github.com:gbtunney/test2.git
+    git push -u origin main
+    ```
+-   push an existing repository from the command line
+    ```shell
+    git remote add origin git@github.com:gbtunney/test2.git
+    git branch -M main
+    git push -u origin main
+    ```
 
 ## Add package from commit hash
 
@@ -10,18 +31,22 @@ open https://github.com/<user>/<repository>/commit/<commit-hash>
 
 #download git archive (zip | tar.gz)  by branch or hash
 wget https://github.com/<user>/<repository>/archive/<branch-or-commit>.zip
-
+https://github.com/adobe/aio-lib-photoshop-api.tz
 #add as dependency
  pnpm add -w -D git://github.com/gbtunney/gbt-theme-dawn.git#7035aaa754ba4f99b1ff1f245d9f882ef6951b96
 ```
 
-## Test validate branch name
+## STASH CHANGES!!!
 
-```sh
-pnpm exec validate-branch-name -r "^(master|main|dev){1}$|^(feature|fix|hotfix|release)/.+$" -t feature/main
-```
+-   **Stash single file**: `git stash -m "Description of scope" -- <file>`
 
--   DIY lint-staged
+-   **Restore from stash, then delete**: `git stash pop`
+
+-   Files can be stashed with comments. `git stash push -m "Change comment" -- file1.txt`
+
+-   View stash: `git stash list`
+
+-   Creating a Copy of a Stashed File Under a Different Filename `git show stash@{0}:stashed_file.rb > copy_of_stashed_file.rb`
 
 todo: command below fails if file is deleted ( rather than updated )
 

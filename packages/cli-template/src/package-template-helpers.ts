@@ -1,6 +1,5 @@
 // @ts-expect-error no types
 import SemverJS from '@brunorb/semverjs'
-import { z } from 'zod'
 
 export const isValidSemVer = (value: string) =>
     SemverJS.isValid(value) ? true : false

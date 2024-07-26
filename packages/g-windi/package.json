@@ -1,7 +1,7 @@
 {
     "name": "@snailicide/g-windi",
-    "version": "0.0.2",
-    "description": "Function library for windicss",
+    "version": "0.0.7",
+    "description": "Function library for Windicss/UnoCSS and Vue 3",
     "private": false,
     "type": "module",
     "files": [
@@ -12,33 +12,21 @@
         "exampleNodeScript.ts"
     ],
     "exports": {
-        ".": [
-            {
-                "import": "./dist/index.mjs",
-                "types": "./types/index.d.ts",
-                "require": "./dist/index.cjs",
-                "default": "./dist/index.js"
-            },
-            "./dist/index.js"
-        ]
+        ".": {
+            "default": "./dist/index.js",
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.cjs",
+            "types": "./dist/index.d.ts"
+        }
     },
-    "main": "dist/index.js",
-    "types": "types/index.d.ts",
-    "umd:main": "dist/index.umd.js",
-    "jsdelivr": "dist/index.umd.js",
-    "unpkg": "dist/index.umd.js",
-    "module": "dist/index.esm.js",
-    "cdn": "dist/index.umd.js",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "module": "./dist/index.mjs",
+    "commonjs": "./dist/index.cjs",
     "keywords": [
         "typescript",
-        "js",
-        "ts",
-        "javascript",
-        "function library",
-        "type library",
-        "typeguards",
-        "typeguard",
-        "utilities"
+        "windicss",
+        "unocss"
     ],
     "scripts": {
         "\n========== BUILD >> ==========": "",
@@ -47,27 +35,40 @@
         "build:ts": "tsc --build",
         "\n========== DEV >> ==========": "",
         "dev": "tsc --build --watch",
+        "dev:rollup": "nodemon --exec 'pnpm build' --watch ./rollup.config.ts ./src",
         "\n========== TEST >> ==========": "",
-        "test": "jest",
-        "test:watch": "jest --watch",
-        "\n========== DOCS >> ==========": "",
-        "docs": "",
+        "test": "vitest run",
+        "test:watch": "vitest watch",
         "\n========== PUBLISH >> ==========": "",
-        "release": "pnpm prerelease && pnpm publish --access public --report-summary --no-git-checks",
-        "prerelease": "pnpm clean && pnpm build && pnpm fix && pnpm check && pnpm test",
+        "release": "pnpm prerelease && pnpm publish --access public --report-summary",
+        "prerelease": "pnpm clean && pnpm test && pnpm build &&  pnpm run release:archive",
+        "release:archive": "mkdir -p ./releases &&  pnpm exec npm pack --pack-destination='./releases'",
         "\n========== CLEAN >> ==========": "",
         "clean": "pnpm clean:ts && pnpm clean:build",
         "clean:ts": "tsc --build --clean",
-        "clean:build": "rm -R -f dist && rm -R -f types && rm -R -f docs",
-        "\n========== CODE STYLE >> ==========": "",
-        "lint": "cross-var eslint \"{$npm_package_config_eslint_path}.{$npm_package_config_eslint_extensions}\" --ignore-path .gitignore -c $npm_package_config_eslint_config",
-        "prettier": "cross-var prettier {$npm_package_config_prettier_path}.{$npm_package_config_prettier_extensions} --ignore-path ./.gitignore",
-        "\n========== CHECK >> ==========": "",
-        "check": "pnpm lint",
-        "\n========== FIX >> ==========": "",
-        "fix": "pnpm prettier --write"
+        "clean:build": "rm -R -f dist types docs"
     },
-    "homepage": "https://github.com/gbtunney/snailicide-monorepo#readme",
+    "dependencies": {
+        "@snailicide/g-library": "workspace:^",
+        "@types/ramda": "^0.30.1",
+        "@vueuse/core": "^10.4.1",
+        "chroma.ts": "^1.0.10",
+        "ramda": "^0.30.1",
+        "ramda-adjunct": "^5.0.1",
+        "type-fest": "^4.22.0",
+        "vue": "^3.4.32",
+        "windicss": "^3.5.6"
+    },
+    "devDependencies": {
+        "@snailicide/build-config": "workspace:^",
+        "@types/node": "^20.14.11",
+        "prettier": "^3.0.3",
+        "rollup": "^4.18.1",
+        "ts-node": "^10.9.1",
+        "typescript": "^5.2.2",
+        "vitest": "^2.0.3"
+    },
+    "homepage": "https://github.com/gbtunney/snailicide-monorepo/tree/main/packages/g-windi#readme",
     "bugs": {
         "url": "https://github.com/gbtunney/snailicide-monorepo/issues"
     },
@@ -79,54 +80,5 @@
     "author": {
         "name": "Gillian Tunney",
         "email": "gbtunney@mac.com"
-    },
-    "devDependencies": {
-        "@snailicide/g-library": "workspace:^",
-        "@types/jest": "^29.5.1",
-        "@types/node": "^20.1.5",
-        "eslint": "^8.40.0",
-        "jest": "^29.5.0",
-        "jsdoc": "^4.0.2",
-        "prettier": "^2.8.8",
-        "rollup": "^3.21.7",
-        "rollup-plugin-typescript2": "^0.34.1",
-        "ts-jest": "^29.1.0",
-        "ts-jest-resolver": "^2.0.1",
-        "ts-node": "^10.9.1",
-        "typescript": "^5.0.4"
-    },
-    "directories": {
-        "doc": "docs"
-    },
-    "prettier": "@snailicide/build-config/prettier",
-    "config": {
-        "eslint": {
-            "extensions": "ts,js,cjs,mjs",
-            "path": ".es*,*,**/*",
-            "config": ".eslintrc.cjs"
-        },
-        "prettier": {
-            "extensions": "ts,js,cjs,mjs,cts,json,yaml,yml,graphql,md",
-            "path": "*,**/*"
-        }
-    },
-    "dependencies": {
-        "@types/ramda": "^0.29.1",
-        "@vueuse/core": "^10.1.2",
-        "chroma.ts": "^1.0.10",
-        "ramda": "^0.29.0",
-        "ramda-adjunct": "^4.0.0",
-        "type-fest": "^3.10.0",
-        "vue": "^3.3.2",
-        "windicss": "^3.5.6"
-    },
-    "jest": {
-        "preset": "ts-jest",
-        "resolver": "ts-jest-resolver",
-        "testPathIgnorePatterns": [
-            "/node_modules/",
-            "dist",
-            "types"
-        ]
     }
 }

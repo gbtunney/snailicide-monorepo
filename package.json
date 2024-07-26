@@ -3,6 +3,7 @@
     "version": "0.0.1",
     "description": "Snailicide Monorepo",
     "private": true,
+    "type": "module",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/gbtunney/snailicide-monorepo.git"
@@ -13,75 +14,75 @@
         "email": "gbtunney@mac.com"
     },
     "scripts": {
-        "preversion": "git-branch-is development && echo $;",
         "\n========== COMMIT >> ==========": "",
-        "commit": "pnpm run precommit && pnpm exec git-cz",
-        "cz": "pnpm exec git-cz",
-        "precommit": "pnpm run fix && pnpm run check && pnpm run commit:linted",
-        "commit:linted": "git add $(git diff HEAD --cached --name-only)",
+        "commit": "pnpm build:self && pnpm exec git-cz",
+        "prepare:all": "pnpm run fix && pnpm run check && pnpm test",
+        "\n========== NX >> ==========": "",
+        "nx:graph": "pnpm nx graph",
+        "nx:affected": "nx affected --target=build",
+        "nx:build": "pnpm exec nx run-many -t build",
+        "nx:build:all": "pnpm exec nx run-many --target=build --all",
+        "nx:build:config": "pnpm exec nx run @snailicide/build-config:build",
+        "nx:build:tools": "pnpm exec nx run @snailicide/build-tools:build",
+        "nx:reset": "pnpm exec nx reset",
         "\n========== BUILD >> ==========": "",
-        "build": "pnpm -r build",
+        "build": "pnpm run build:self && pnpm -r build",
         "build:self": "tsc --build",
         "\n========== CODE STYLE >> ==========": "",
-        "lint": "cross-var eslint \"$npm_package_config_eslint_path.{$npm_package_config_eslint_extensions}\" -c $npm_package_config_eslint_config",
-        "prettier": "cross-var prettier {$npm_package_config_prettier_path}.{$npm_package_config_prettier_extensions} --ignore-path ./.gitignore",
+        "lint": "cross-var eslint  -c $npm_package_config_eslint_config",
+        "prettier": "cross-var prettier {*,**/*}.{ts,js,cjs,mjs,cts,mts,sh,html,json,yaml,yml,graphql,md} ./.husky/* --ignore-path ./.gitignore --no-error-on-unmatched-pattern --write",
         "\n========== CHECK >> ==========": "",
-        "check": "pnpm check:self && pnpm -r check",
+        "check": "pnpm check:self",
         "check:self": "pnpm lint",
         "\n========== FIX >> ==========": "",
-        "fix": "pnpm fix:self && pnpm -r fix",
-        "fix:self": "pnpm prettier --write",
+        "fix": "pnpm fix:self",
+        "fix:self": "pnpm lint --fix &&  pnpm prettier --write",
         "\n========== CLEAN >> ==========": "",
-        "clean": "pnpm -r clean",
+        "clean": "pnpm run clean:self && pnpm -r clean",
         "clean:self": "tsc --build --clean",
         "\n========== UNINSTALL >> ==========": "",
-        "uninstall": "pnpm run clean && pnpm uninstall:list && pnpm run uninstall:rm && pnpm run uninstall:lock",
+        "uninstall": "pnpm nx:reset && pnpm run clean && pnpm uninstall:list && pnpm run uninstall:rm && pnpm run uninstall:lock",
         "uninstall:list": "find . -name 'node_modules' -type d -prune",
         "uninstall:rm": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +",
         "uninstall:lock": "rm -f pnpm-lock.yaml && rm -f packages/**/pnpm-lock.yaml",
         "\n========== LIFECYCLE >> ==========": "",
-        "post:install": "pnpm run build",
-        "prepare": "husky install",
+        "prepare": "husky",
+        "pre:commit": "lint-staged",
+        "postinstall": "pnpm nx:build && pnpm build:self",
+        "\n========== WORKFLOW >> ==========": "",
+        "workflow:archive": "pnpm install && open /Applications/Docker.app && cross-var pnpm exec gh act --workflows  ./.github/workflows/workflow-build.yml --reuse",
+        "registry:start": "pnpm exec verdaccio",
         "\n========== TEST >> ==========": "",
-        "test": "tsc --build"
+        "test": "pnpm -r test"
     },
     "devDependencies": {
-        "@changesets/cli": "^2.26.1",
-        "@commitlint/cli": "^17.6.3",
-        "@commitlint/config-conventional": "^17.6.3",
-        "@commitlint/cz-commitlint": "^17.5.0",
+        "@changesets/cli": "^2.26.2",
+        "@commitlint/cli": "^19.3.0",
+        "@commitlint/config-conventional": "^19.2.2",
+        "@commitlint/cz-commitlint": "^19.2.0",
+        "@commitlint/types": "^19.0.3",
         "@snailicide/build-config": "workspace:^",
-        "@types/node": "^20.1.5",
+        "@types/node": "^20.6.2",
         "commitizen": "^4.3.0",
         "cross-var": "^1.1.0",
-        "eslint": "^8.40.0",
-        "husky": "^8.0.3",
-        "lint-staged": "^13.2.2",
-        "prettier": "^2.8.8",
-        "typescript": "^5.0.4",
-        "validate-branch-name": "^1.3.0"
+        "eslint": "^9.6.0",
+        "git-branch-is": "^4.0.0",
+        "husky": "^9.0.11",
+        "lint-staged": "^15.2.7",
+        "nx": "19.5.1",
+        "prettier": "^3.0.3",
+        "typescript": "^5.2.2",
+        "verdaccio": "^5.31.0"
     },
     "prettier": "@snailicide/build-config/prettier",
     "config": {
         "eslint": {
             "extensions": "ts,js,cjs,mjs",
             "path": "*",
-            "config": ".eslintrc.cjs"
-        },
-        "prettier": {
-            "extensions": "ts,js,cjs,mjs,cts,json,yaml,yml,graphql,md",
-            "path": "docs/**/*,*"
+            "config": "eslint.config.js"
         },
         "commitizen": {
             "path": "@commitlint/cz-commitlint"
         }
-    },
-    "lint-staged": {
-        "*": "prettier --write",
-        "*.{ts,js,cjs,mjs}": "eslint -c .eslintrc.cjs"
-    },
-    "validate-branch-name": {
-        "pattern": "^(testbranch|development){1}$|^(feature|fix|hotfix|release)/.+$",
-        "errorMsg": "your own error message this sucks"
     }
 }

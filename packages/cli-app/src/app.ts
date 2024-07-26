@@ -1,109 +1,137 @@
+import { stringUtils, tg } from '@snailicide/g-library'
+import chalk from 'chalk'
 import clear from 'clear'
-import { OptionValues, program } from 'commander'
 import yargs from 'yargs'
 import { z } from 'zod'
-import { npm, stringUtils } from '@snailicide/g-library'
+import * as process from 'process'
+
 import { doPrintHeader, getHeader } from './header.js'
-import { resolveSchema } from './schema.js'
+import { getZodType, removeAnsi } from './helpers.js'
+import {
+    app_schema,
+    resolveSchema,
+    resolveSchemaError,
+    unResolvedAppOptions,
+} from './schema.js'
 
-export const appOptionsSchema = z.object({
-    name: z
-        .string()
-        .transform((value) => stringUtils.hyphenate(value).toLowerCase()),
-    description: z.string(),
-    version: z
-        .string()
-        .default('0.0.0')
-        .refine((value) => npm.validSemVer.test(value), {
-            message: 'Version must be a valid semver',
-        }),
-    title_color: z
-        .object({
-            fg: z.string().default('#d104ff'), //TODO: validate with chroma
-            bg: z.string().default('#12043A'), //TODO: validate with chroma
-        })
-        .default({
-            fg: '#d104ff',
-            bg: '#12043A',
-        }),
-    figlet: z
-        .boolean()
-        .default(true)
-        .describe('Get title using lg ascii text w/FIGfont spec'), //todo: allow figlet options
-    clear: z
-        .boolean()
-        .default(true)
-        .describe('Clear the terminal screen if possible.'),
-    print: z.boolean().default(true).describe('Print header'),
-})
-export type AppOptions = z.infer<typeof appOptionsSchema>
-export type UnResolvedAppOptions = z.input<typeof appOptionsSchema>
-export type ResolvedAppOptions = z.output<typeof appOptionsSchema>
-
-export const initApp = <Schema extends z.ZodTypeAny>(
+export type InitFunction<Schema = z.ZodSchema> = (
+    value: Schema extends z.ZodSchema ? z.infer<Schema> : never,
+    help: string | undefined,
+) => void
+export const initApp = async <Schema extends z.ZodTypeAny>(
     schema: Schema,
-    initFunction: (value: z.infer<Schema>) => void,
-    unresolved_options: UnResolvedAppOptions
+    initFunction: InitFunction<Schema>, // ( value: z.infer<Schema> ,help?: string)=> void,
+    unresolved_options: unResolvedAppOptions,
+    argstr = process.argv,
 ) => {
-    const resolved_app_options = resolveSchema(
-        appOptionsSchema,
-        unresolved_options
+    const resolved_app_options = resolveSchema<typeof app_schema>(
+        app_schema,
+        unresolved_options,
     )
-    if (resolved_app_options !== undefined) {
+    if (tg.isNotUndefined<z.output<typeof app_schema>>(resolved_app_options)) {
         const app_options = resolved_app_options
+        const getTypedSchema = <T extends z.ZodTypeAny>(schema: T): T => schema
+
+        /* * Write commander options from zod descriptions * */
+        const option_schema: Schema = getTypedSchema<Schema>(schema)
+        const iterateOptions = option_schema._def.schema
+            ? option_schema._def.schema._def.shape()
+            : option_schema._def.shape()
+
+        const OPTIONS_OBJ = Array.from(Object.entries(iterateOptions)).reduce(
+            (accum, [key, value]) => {
+                return {
+                    ...accum,
+                    [key]: {
+                        // ,TODO: figure this out , all are required w infer required: (value as z.ZodTypeAny).isOptional()
+                        describe: (value as z.ZodTypeAny).description
+                            ? (value as z.ZodTypeAny).description
+                            : stringUtils.capitalizeWords(key),
+                        type: getZodType(value as z.ZodTypeAny),
+                    },
+                }
+            },
+            {},
+        )
+        /* * PARSE ARRAY KEYS WIP * */
+        let array_keys: Array<string> = []
+        Object.entries(iterateOptions).forEach(([key, value]) => {
+            const schema: Record<string, any> = <Record<string, any>>value
+            if (schema && schema['_def'] && schema['_def']['typeName']) {
+                if (schema['_def']['typeName'] === 'ZodArray') {
+                    array_keys = [...array_keys, key]
+                } else if (
+                    schema['_def']['typeName'] === 'ZodDefault' &&
+                    schema['_def']['innerType']['_def']['typeName'] ===
+                        'ZodArray'
+                ) {
+                    array_keys = [...array_keys, key]
+                }
+            }
+        }, {})
+
+        /* * TODO: This function is too long * */
+
+        /* * populate description and header * */
+        const desc = app_options.description
+            ? app_options.description
+            : schema.description
+              ? schema.description
+              : app_options.name
+        const header: string = app_options.print
+            ? doPrintHeader(getHeader(app_options))
+            : `\nWelcome to ${app_options.name}\n${
+                  getHeader(app_options).divider
+              }`
+        const getArgsInstance = (value = process.argv) =>
+            yargs(value)
+                .scriptName(app_options.name)
+                .version(app_options.version)
+                .array(array_keys)
+                .option(OPTIONS_OBJ)
+                .usage(desc)
+                .usage(chalk.bgHex('#727272')('$ $0 [args]'))
+                .alias(app_options.alias)
+                .example(app_options.examples)
+
         if (app_options.clear) clear()
         /* * Print the header if print ==true  * */
-        if (app_options.print) {
-            doPrintHeader(getHeader(app_options))
-        }
-        program
-            .name(app_options.name)
-            .version(app_options.version, '-v,--version', '--version')
-            .description(app_options.description)
-        //hack idk
-        const getTypedSchema = <T extends z.ZodTypeAny>(schema: T): T => schema
-        /* * Write commander options from zod descriptions * */
-        const option_schema = getTypedSchema<typeof schema>(schema)
-        Object.entries(option_schema._def.schema._def.shape()).forEach(
-            ([key, _schema]) => {
-                const schema: Record<string, any> = <Record<string, any>>_schema
-                const description =
-                    schema && schema['description']
-                        ? schema['description']
-                        : stringUtils.capitalizeWords(key)
-                program.option(`--${key}`, description)
-            }
-        )
-        /* * END Write commander options * */
-        program.parse(process.argv)
-        const options: OptionValues = program.opts()
+        console.log(header)
 
-        const getArgsObject = (value = process.argv) => yargs(value).argv
-
+        const yargsInstance = getArgsInstance(argstr)
+        const raw_arguments = yargsInstance.argv
+        app_options.hidden.forEach((_key) => {
+            yargsInstance.hide(_key)
+        })
         const new_option_schema = getTypedSchema<typeof schema>(schema)
-
-        const pendingArgs = resolveSchema(new_option_schema, getArgsObject())
+        const pendingArgs = resolveSchema(new_option_schema, raw_arguments)
 
         if (pendingArgs !== undefined) {
             const resolvedArgs: z.output<typeof new_option_schema> = pendingArgs
-            if (resolvedArgs.debug === true) {
-                console.error('DEBUG:: RAW ARGS: ', getArgsObject())
-                console.error(
-                    'DEBUG:: RESOLVED ARGS:: ',
-                    resolveSchema(option_schema, getArgsObject(), true)
-                )
+            if (resolvedArgs.debug) {
+                console.log('DEBUG:: RAW ARGS: ', raw_arguments)
+                console.log('DEBUG:: RESOLVED ARGUMENTS:: ', resolvedArgs)
             }
-            initFunction(resolvedArgs)
+            const _help: string = await yargsInstance.getHelp()
+            initFunction(resolvedArgs, removeAnsi(_help))
+            return yargsInstance
+        } else {
+            yargsInstance.showHelp()
+            const error = resolveSchemaError(new_option_schema, raw_arguments)
+            /* * TODO: maybe pull debug schema from base schema * */
+            const debug_bool = resolveSchema(
+                z.object({ debug: z.boolean().default(false) }),
+                raw_arguments,
+            )
+            if (debug_bool?.debug === true) {
+                console.error('DEBUG:: RAW ARGS: ', raw_arguments)
+            }
+            if (tg.isNotUndefined(error)) {
+                console.error('\n', JSON.stringify(error, undefined, 4))
+            }
+            return undefined
         }
     }
+    return undefined
 }
-/*
-if (options['help']) {
-    program.outputHelp()
-} else {
-    const getArgsObject = (value = process.argv) => yargs(value).argv
-    const resolvedArgs = resolveOptions(getArgsObject())
-    if (resolvedArgs !== undefined) {
-    }
-}
-*/
+export default initApp

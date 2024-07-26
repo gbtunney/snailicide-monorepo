@@ -1,6 +1,7 @@
 # Ignore
 dist
 types
+node_modules
 #TODO: figure out where to put these
 .eslintrc.js
 .eslintrc.d.ts

@@ -1,0 +1,95 @@
+{
+    "name": "@snailicide/g-shopify-library",
+    "version": "0.3.2",
+    "description": "Collections of types and utilities for working with Shopify",
+    "private": false,
+    "type": "module",
+    "files": [
+        "types",
+        "dist",
+        "CHANGELOG.md"
+    ],
+    "exports": {
+        ".": {
+            "default": "./dist/index.js",
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.cjs",
+            "types": "./dist/index.d.ts"
+        }
+    },
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "module": "./dist/index.mjs",
+    "commonjs": "./dist/index.cjs",
+    "keywords": [
+        "typescript",
+        "js",
+        "ts",
+        "javascript",
+        "shopify",
+        "schema",
+        "utilities"
+    ],
+    "scripts": {
+        "\n========== BUILD >> ==========": "",
+        "build": "pnpm build:ts && pnpm build:rollup",
+        "build:rollup": "rollup --config ./rollup.config.js",
+        "build:ts": "tsc --build",
+        "\n========== DEV >> ==========": "",
+        "dev": "tsc --build --watch",
+        "dev:rollup": "nodemon --exec 'pnpm build' --watch ./rollup.config.ts ./src",
+        "\n========== TEST >> ==========": "",
+        "test": "vitest run",
+        "test:watch": "vitest watch",
+        "test:workflow": "open /Applications/Docker.app && pnpm test:workflow:release",
+        "test:workflow:release": "cross-var pnpm exec gh act --workflows  $(git rev-parse --show-toplevel)/workflows/workflow-release-package.yml  --input PACKAGE_NAME='$npm_package_name' --reuse",
+        "\n========== DOCS >> ==========": "",
+        "docs:build": "pnpm --no-bail exec jsdoc --verbose -c ./jsdoc.json -t ./node_modules/better-docs",
+        "docs:serve": " vite --config ./vite.docs.config.ts",
+        "docs:dev": "nodemon --exec 'jsdoc -c ./jsdoc.json -t ./node_modules/better-docs' --watch ./src",
+        "\n========== PUBLISH >> ==========": "",
+        "release": "pnpm prerelease && pnpm publish --access public --report-summary",
+        "test:release": "pnpm prerelease && cross-var pnpm publish --access public --report-summary --no-git-checks --registry $npm_package_config_publish_private",
+        "TODO": "TODO: Fix wierd bug that breaks jsdoc ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL not sure if pnpm or jsdoc",
+        "prerelease": "pnpm clean && pnpm docs:build || pnpm test && pnpm build &&  pnpm run release:archive",
+        "release:archive": "mkdir -p ./releases &&  pnpm exec npm pack --pack-destination='./releases'",
+        "\n========== DEPLOY >> ==========": "",
+        "deploy": "pnpm prerelease && pnpm deploy:docs",
+        "deploy:docs": "cross-var scp -r $npm_package_config_deploy_docs_local $npm_package_config_deploy_docs_remote",
+        "\n========== CLEAN >> ==========": "",
+        "clean": "pnpm clean:ts && pnpm clean:build",
+        "clean:ts": "tsc --build --clean",
+        "clean:build": "rm -R -f dist types docs"
+    },
+    "dependencies": {
+        "@shopify/admin-graphql-api-utilities": "^2.0.1",
+        "@snailicide/g-library": "workspace:^",
+        "@types/node": "^20.12.12",
+        "@types/ramda": "^0.30.0",
+        "ramda": "^0.30.0",
+        "ramda-adjunct": "^5.0.0",
+        "type-fest": "^4.22.0",
+        "zod": "^3.23.8"
+    },
+    "devDependencies": {
+        "@snailicide/build-config": "workspace:^",
+        "rollup": "^4.18.0",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.4.5",
+        "vitest": "^2.0.3"
+    },
+    "prettier": "@snailicide/build-config/prettier",
+    "homepage": "https://github.com/gbtunney/shopify-monorepo#readme",
+    "bugs": {
+        "url": "https://github.com/gbtunney/shopify-monorepo/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/gbtunney/shopify-monorepo.git"
+    },
+    "license": "MIT",
+    "author": {
+        "name": "Gillian Tunney",
+        "email": "gbtunney@mac.com"
+    }
+}

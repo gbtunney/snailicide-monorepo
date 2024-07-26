@@ -1,44 +1,59 @@
 {
-    "plugins": [
-        "plugins/markdown",
-        "./node_modules/better-docs/typescript",
-        "./node_modules/better-docs/category"
-    ],
-    "recurseDepth": 10,
-    "source": {
-        "include": ["./src"],
-        "includePattern": "\\.(jsx|js|ts|tsx)$",
-        "excludePattern": "(node_modules/|docs|dist|types)"
-    },
     "tags": {
         "allowUnknownTags": ["category", "optional"]
     },
-    "better-docs": {
-        "name": "Snailicide GillianLibrary",
-        "logo": "images/logo.png",
-        "title": "@snailicide/g-Library",
-        "css": "style.css",
-        "trackingCode": "tracking-code-which-will-go-to-the-HEAD",
-        "hideGenerator": false,
-        "navLinks": [
-            {
-                "label": "Github",
-                "href": "https://github.com/SoftwareBrothers/admin-bro"
-            },
-            {
-                "label": "Example Application",
-                "href": "https://admin-bro-example-app-staging.herokuapp.com/admin"
-            }
-        ]
+    "source": {
+        "include": ["./src"],
+        "includePattern": "\\.(jsx|js|ts|tsx)$",
+        "excludePattern": "(node_modules/|docs|dist|types|\\.test\\.)"
+    },
+    "plugins": [
+        "plugins/markdown",
+        "./node_modules/better-docs/typescript",
+        "./node_modules/better-docs/category",
+        "./node_modules/better-docs/typedef-import"
+    ],
+    "recurseDepth": 10,
+    "opts": {
+        "destination": "./docs",
+        //   "template": "better-docs",
+        "recurse": true,
+        //  "readme": "./README.md",
+
+        "template": "node_modules/better-docs",
+        "readme": "README.md",
+        "verbose": true
     },
     "templates": {
         "cleverLinks": true,
         "monospaceLinks": true,
-        "search": true
-    },
-    "opts": {
-        "destination": "./docs",
-        "recurse": true,
-        "readme": "./readme.MD"
+        "search": true,
+        "default": {
+            "staticFiles": {
+                "include": ["CHANGELOG.md" /*"./releases"*/]
+            }
+        },
+        /* this is temporarily deactivated because it makes the package too large
+        "releases": {
+            "staticFiles": {
+                "include": ["./releases"]
+            }
+        },*/
+        "better-docs": {
+            "name": "@snailicide/g-Library",
+            "title": "@snailicide/g-Library: a Utility function library written in typescript by Gillian Tunney",
+            "trackingCode": "tracking-code-which-will-go-to-the-HEAD",
+            "hideGenerator": false,
+            "navLinks": [
+                {
+                    "label": "GITHUB- THIS IS GILLIAN",
+                    "href": "https://github.com/gbtunney/snailicide-monorepo/tree/main/packages/g-library"
+                },
+                {
+                    "label": "NPM",
+                    "href": "https://www.npmjs.com/package/@snailicide/g-library"
+                }
+            ]
+        }
     }
 }

@@ -1,6 +1,6 @@
 /* * usePluginFactory */
-import type { DeepNestObject, Plugin } from 'windicss/types/interfaces'
 import plugin from 'windicss/plugin'
+import type { DeepNestObject, Plugin } from 'windicss/types/interfaces'
 
 export type rangeMapperFunction = (_value: number) => DeepNestObject
 export const usePluginUtilities = () => {
@@ -12,8 +12,8 @@ export const usePluginUtilities = () => {
         })
     }
     const rangeMapperCSSinJS = (
-        values: number[],
-        callback: rangeMapperFunction
+        values: Array<number>,
+        callback: rangeMapperFunction,
     ) => {
         return values.reduce((accumulator: DeepNestObject, value) => {
             return { ...accumulator, ...callback(value) }
