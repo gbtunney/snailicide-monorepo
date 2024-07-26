@@ -31,7 +31,7 @@ export const configMarkdown = (
                 '**/node_modules/**/*',
             ],
             excludeExternals: true,
-
+            gitRevision: 'master',
             /** Typedoc-plugin-markdown options */
             enumMembersFormat: 'table',
             parametersFormat: 'table',

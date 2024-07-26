@@ -17,9 +17,9 @@ const Prettier: {
 
 | Name | Type | Defined in |
 | --- | --- | --- |
-| `config` | `Config` | [packages/build-config/src/prettier/index.ts:18](https://github.com/gbtunney/snailicide-monorepo/blob/864f9979e97eb579a793bd06e883355f7bea5c52/packages/build-config/src/prettier/index.ts#L18) |
-| `options` | `Options` | [packages/build-config/src/prettier/index.ts:19](https://github.com/gbtunney/snailicide-monorepo/blob/864f9979e97eb579a793bd06e883355f7bea5c52/packages/build-config/src/prettier/index.ts#L19) |
+| `config` | `Config` | [packages/build-config/src/prettier/index.ts:18](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/build-config/src/prettier/index.ts#L18) |
+| `options` | `Options` | [packages/build-config/src/prettier/index.ts:19](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/build-config/src/prettier/index.ts#L19) |
 
 ## Defined in
 
-[packages/build-config/src/prettier/index.ts:17](https://github.com/gbtunney/snailicide-monorepo/blob/864f9979e97eb579a793bd06e883355f7bea5c52/packages/build-config/src/prettier/index.ts#L17)
+[packages/build-config/src/prettier/index.ts:17](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/build-config/src/prettier/index.ts#L17)
