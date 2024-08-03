@@ -22,12 +22,13 @@
         "nx:affected": "nx affected --target=build",
         "nx:build": "pnpm exec nx run-many -t build",
         "nx:build:all": "pnpm exec nx run-many --target=build --all",
-        "nx:build:config": "pnpm exec nx run @snailicide/build-config:build",
-        "nx:build:tools": "pnpm exec nx run @snailicide/build-tools:build",
         "nx:reset": "pnpm exec nx reset",
         "\n========== BUILD >> ==========": "",
         "build": "pnpm run build:self && pnpm -r build",
         "build:self": "tsc --build",
+        "\n========== TEST >> ==========": "",
+        "test": "pnpm nx:test",
+        "nx:test": "pnpm exec nx run-many --target=test",
         "\n========== CODE STYLE >> ==========": "",
         "lint": "cross-var eslint  -c $npm_package_config_eslint_config",
         "prettier": "cross-var prettier {*,**/*}.{ts,js,cjs,mjs,cts,mts,sh,html,json,yaml,yml,graphql,md} ./.husky/* --ignore-path ./.gitignore --no-error-on-unmatched-pattern --write",
@@ -51,9 +52,7 @@
         "postinstall": "pnpm nx:build && pnpm build:self",
         "\n========== WORKFLOW >> ==========": "",
         "workflow:archive": "pnpm install && open /Applications/Docker.app && cross-var pnpm exec gh act --workflows  ./.github/workflows/workflow-build.yml --reuse",
-        "registry:start": "pnpm exec verdaccio",
-        "\n========== TEST >> ==========": "",
-        "test": "pnpm -r test"
+        "registry:start": "pnpm exec verdaccio"
     },
     "devDependencies": {
         "@changesets/cli": "^2.27.7",
