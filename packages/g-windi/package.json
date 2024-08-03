@@ -49,7 +49,7 @@
         "clean:build": "rm -R -f dist types docs"
     },
     "dependencies": {
-        "@snailicide/g-library": "workspace:^",
+        "@snailicide/g-library": "workspace:*",
         "@types/ramda": "^0.30.1",
         "@vueuse/core": "^10.4.1",
         "chroma.ts": "^1.0.10",
@@ -60,8 +60,8 @@
         "windicss": "^3.5.6"
     },
     "devDependencies": {
-        "@snailicide/build-config": "workspace:^",
-        "@types/node": "^20.14.11",
+        "@snailicide/build-config": "workspace:*",
+        "@types/node": "^22.1.0",
         "prettier": "^3.0.3",
         "rollup": "^4.18.1",
         "ts-node": "^10.9.1",

@@ -9,5 +9,5 @@
         "rootDir": "."
     },
     "exclude": ["./*.ts"],
-    "files": ["./commitlint.config.ts"]
+    "files": ["./commitlint.config.ts", "./prettier.config.ts"]
 }

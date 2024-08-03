@@ -1,4 +1,4 @@
-import { UserConfig } from 'vite'
+import { defineConfig, UserConfig } from 'vite'
 /**
  * Vite configurations
  *
@@ -7,7 +7,7 @@ import { UserConfig } from 'vite'
 
 /** Vite configuration for documentation server* */
 export const docServerConfig = (port = 5555): UserConfig => {
-    return {
+    return defineConfig({
         base: './',
         publicDir: './docs',
         root: './docs',
@@ -15,7 +15,7 @@ export const docServerConfig = (port = 5555): UserConfig => {
             port: port,
             strictPort: true,
         },
-    }
+    })
 }
 
 export const vite = {

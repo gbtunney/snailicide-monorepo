@@ -92,51 +92,29 @@ const initialize = async () => {
 -   [yargs](https://yargs.js.org/docs/)
 -   [Zod | Documentation](https://zod.dev/)
 
-## References
+## Type Aliases
 
-### AppAliasOption
-
-Re-exports [AppAliasOption](namespaces/schema/type-aliases/AppAliasOption.md)
-
----
-
-### AppOptions
-
-Re-exports [AppOptions](namespaces/schema/type-aliases/AppOptions.md)
-
----
-
-### BaseArgs
-
-Re-exports [BaseArgs](namespaces/schema/type-aliases/BaseArgs.md)
-
----
-
-### ResolvedAppOptions
-
-Re-exports [ResolvedAppOptions](namespaces/schema/type-aliases/ResolvedAppOptions.md)
-
----
-
-### initApp
-
-Re-exports [initApp](namespaces/app/functions/initApp.md)
-
----
-
-### unResolvedAppOptions
-
-Re-exports [unResolvedAppOptions](namespaces/schema/type-aliases/unResolvedAppOptions.md)
-
-## Namespaces
-
-| Namespace                             | Description |
-| ------------------------------------- | ----------- |
-| [app](namespaces/app/README.md)       | -           |
-| [schema](namespaces/schema/README.md) | -           |
+| Type alias | Description |
+| --- | --- |
+| [AppConfig](type-aliases/AppConfig.md) | - |
+| [AppConfigIn](type-aliases/AppConfigIn.md) | - |
+| [AppConfigSchema](type-aliases/AppConfigSchema.md) | - |
+| [AppFlagAliases](type-aliases/AppFlagAliases.md) | This type is used to autocomplete the yargs aliases property. This creates shorthand values for option flags. |
+| [AppHidden](type-aliases/AppHidden.md) | - |
+| [CommonFlagsInput](type-aliases/CommonFlagsInput.md) | - |
+| [CommonFlagsOutput](type-aliases/CommonFlagsOutput.md) | - |
+| [InitSuccessCallback](type-aliases/InitSuccessCallback.md) | - |
+| [WrappedSchema](type-aliases/WrappedSchema.md) | - |
 
 ## Variables
 
-| Variable                        | Description |
-| ------------------------------- | ----------- |
-| [default](variables/default.md) | -           |
+| Variable                                            | Description |
+| --------------------------------------------------- | ----------- |
+| [commonFlagsSchema](variables/commonFlagsSchema.md) | -           |
+
+## Functions
+
+| Function                              | Description |
+| ------------------------------------- | ----------- |
+| [initApp](functions/initApp.md)       | -           |
+| [wrapSchema](functions/wrapSchema.md) | -           |

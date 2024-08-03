@@ -21,13 +21,13 @@ export const typescriptRules = (): Config => {
                         'ts-nocheck': true,
                     },
                 ],
-                '@typescript-eslint/ban-types': [
+                /* TODO: is this deprecated?     '@typescript-eslint/ban-types': [
                     'error',
                     {
                         types: {
-                            /*
+                            /!*
                              * Allow use of '{}' - we use it to define React components with no properties
-                             */
+                             *!/
                             '{}': false,
                             'Boolean':
                                 'Avoid using the `Boolean` type. Did you mean `boolean`?',
@@ -43,13 +43,14 @@ export const typescriptRules = (): Config => {
                                 'Avoid using the `Boolean` type. Did you mean `symbol`?',
                         },
                     },
-                ],
+                ],*/
                 '@typescript-eslint/consistent-type-definitions': [
                     'error',
                     'type',
                 ],
                 '@typescript-eslint/no-explicit-any': 'warn',
                 '@typescript-eslint/no-namespace': 'warn',
+                '@typescript-eslint/no-unnecessary-type-parameters': 'off',
                 '@typescript-eslint/no-unused-vars': 'off',
                 '@typescript-eslint/prefer-as-const': 'error',
             },
