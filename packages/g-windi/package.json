@@ -61,7 +61,7 @@
     },
     "devDependencies": {
         "@snailicide/build-config": "workspace:^",
-        "@types/node": "^20.14.11",
+        "@types/node": "^22.1.0",
         "prettier": "^3.0.3",
         "rollup": "^4.18.1",
         "ts-node": "^10.9.1",
