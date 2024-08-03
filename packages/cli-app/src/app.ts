@@ -3,9 +3,9 @@ import chalk from 'chalk'
 import clear from 'clear'
 import yargs from 'yargs'
 import type { Argv } from 'yargs'
+import yargsInteractive from 'yargs-interactive'
 import { z } from 'zod'
 import * as process from 'process'
-//import  type Yargs from "yargs"
 
 import {
     AppConfig,
@@ -36,6 +36,7 @@ export const initApp = async <
     optionsSchema: AppOptionsSchema,
     config: AppConfigIn<AppOptionsSchema>,
     initFunction: InitSuccessCallback<AppOptionsSchema>, // ( value: z.infer<Schema> ,help?: string)=> void,
+    skip_interactive: boolean = false,
     _yargs: Array<string> = process.argv,
 ): Promise<Argv | undefined> => {
     const resolved_app_config: AppConfig | undefined = resolveAppConfigSchema(
@@ -53,19 +54,12 @@ export const initApp = async <
         const option_schema: AppOptionsSchema =
             wrapSchema<AppOptionsSchema>(optionsSchema)
 
-        /*const iterateOptions = option_schema._def.schema
-            ? option_schema._def.schema._def.shape()
-            : option_schema._def.shape()*/
         const iterateOptions =
             option_schema instanceof z.ZodObject
                 ? option_schema._def.shape() //.keyof().options
                 : option_schema instanceof z.ZodEffects
                   ? option_schema._def.schema._def.shape() //.innerType().shape() //.innerType().keyof().options
                   : []
-
-        /* const iterateOptions2 = option_schema2._def.schema
-            ? option_schema2._def.schema._def.shape()
-            : option_schema2._def.shape()*/
 
         const OPTIONS_OBJ = Array.from(Object.entries(iterateOptions)).reduce(
             (accum, [key, value]) => {
@@ -82,22 +76,8 @@ export const initApp = async <
             },
             {},
         )
-        /* * PARSE ARRAY KEYS WIP * */
-        /*  let array_keys: string[] = []
-                Object.entries(iterateOptions).forEach(([key, value]) => {
-                    const schema: Record<string, z.ZodTypeAny> = <Record<string, z.ZodTypeAny>>value
-                 //   option_schema._def.typeName === "ZodObject"\
 
-                   if (schema instanceof z.ZodArray) {
-                       array_keys = [...array_keys, key]
-
-                   } else if (schema instanceof z.ZodDefault){
-                           array_keys = [...array_keys, key]
-                       }
-
-
-                }, {})*/
-
+        /* * TODO: PARSE ARRAY KEYS WIP * */
         let array_keys: Array<string> = []
         Object.entries(iterateOptions).forEach(([key, value]) => {
             const schema: Record<string, any> = <Record<string, any>>value
@@ -128,7 +108,6 @@ export const initApp = async <
             : `\nWelcome to ${app_config.name}\n${
                   getHeader(app_config).divider
               }`
-
         const getArgsInstance = (
             value = process.argv,
         ): Argv<Record<string, unknown>> => {
@@ -154,15 +133,12 @@ export const initApp = async <
             yargsInstance.hide(_key)
         })
         const new_option_schema = wrapSchema<AppOptionsSchema>(optionsSchema)
-
-        // console.log(raw_arguments)
-
         const pendingArgs = resolveAppOptionsSchema<typeof new_option_schema>(
             new_option_schema,
             raw_arguments,
             true,
         )
-
+        const argSuccess = new_option_schema.safeParse(raw_arguments)
         if (pendingArgs !== undefined) {
             const resolvedArgs: z.output<typeof new_option_schema> = pendingArgs
             if (resolvedArgs['debug']) {
@@ -173,17 +149,40 @@ export const initApp = async <
             initFunction(resolvedArgs, removeAnsi(_help))
             return yargsInstance
         } else {
-            yargsInstance.showHelp()
-            console.error('RAW ARGVS: ', raw_arguments)
-            const debug_bool = resolveAppOptionsSchema(
-                z.object({ debug: z.boolean().default(false) }),
+            const interactive_bool = resolveAppOptionsSchema(
+                z.object({ interactive: z.boolean().default(true) }),
                 raw_arguments,
-                false,
             )
-            return undefined
+            if (skip_interactive) return undefined
+            else {
+                if (interactive_bool !== undefined) {
+                    const options: yargsInteractive.Option = {
+                        errorlist: {
+                            choices: ['HELP', 'SHOW ERROR'],
+                            describe: 'List test',
+                            type: 'list',
+                        },
+                        interactive: { default: interactive_bool.interactive },
+                    }
+                    await yargsInteractive()
+                        .interactive(options)
+                        .then((result) => {
+                            if (result.errorlist === 'SHOW ERROR') {
+                                if (!argSuccess.success) {
+                                    console.log('ERROR ARGS', raw_arguments)
+                                    console.log('ERROR', argSuccess.error)
+                                    return undefined
+                                }
+                            } else if (result.errorlist === 'HELP') {
+                                yargsInstance.showHelp()
+                                return undefined
+                            }
+                            return undefined
+                        })
+                }
+            }
         }
     }
     return undefined
 }
-
 export default initApp

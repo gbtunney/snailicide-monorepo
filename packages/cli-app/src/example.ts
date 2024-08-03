@@ -61,10 +61,12 @@ const initialize = async (): Promise<'SUCCESS' | 'ERROR'> => {
         testme,
         initFunc,
     )
-    if (instance_yargs !== undefined) {
-        // instance_yargs.showHelp()
+    if (instance_yargs === undefined) {
+        process.exit(1)
         return 'ERROR'
     }
+    process.exit(0)
     return 'SUCCESS'
 }
+
 export default initialize()

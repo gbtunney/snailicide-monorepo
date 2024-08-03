@@ -86,6 +86,7 @@ describe('cli-app', () => {
                 commonFlagsSchema,
                 OPTIONS,
                 initFunc,
+                true,
             ),
         ).toBe(undefined)
         expect(
@@ -93,6 +94,7 @@ describe('cli-app', () => {
                 my_merged_schema,
                 OPTIONS,
                 initFuncB,
+                true,
             ),
         ).toBe(undefined)
         // expect(await initApp<typeof newschema>(newschema, OPTIONS, initFunc<typeof newschema>)).toBeDefined()
