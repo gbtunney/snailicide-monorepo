@@ -171,7 +171,7 @@ export const defineSchemaPreset = (
                 if (tg.isNotUndefined<string>(_prefix)) {
                     return { ...accumulator, [`${_prefix}${_key}`]: _value }
                 } else {
-                    return { ...accumulator, [`${_key}`]: _value }
+                    return { ...accumulator, [_key]: _value }
                 }
                 // }
                 // return accumulator

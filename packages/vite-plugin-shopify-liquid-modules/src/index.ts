@@ -2,10 +2,11 @@ import { objectUtils, tg } from '@snailicide/g-library'
 import { node, zod } from '@snailicide/g-library/node'
 import shell from 'shelljs'
 import { Plugin } from 'vite'
+import z from 'zod'
 import fs from 'fs'
 import path from 'path'
-
 import {
+    plugin_options_schema,
     ResolvedShopifyLiquidModulesOptions,
     resolveOptions,
     ShopifyLiquidModulesOptions,
@@ -22,18 +23,20 @@ export default function shopifyModules(
         name: 'vite-plugin-shopify-liquid-modules',
     }
 }
-export type {
-    ResolvedShopifyLiquidModulesOptions,
-    resolveOptions,
-    ShopifyLiquidModulesOptions,
-} from './options.js'
 
-const processModules = ({
-    modulesDir,
-    sections,
-    snippets,
-    themeRoot,
-}: ResolvedShopifyLiquidModulesOptions): void => {
+type PluginSchema = typeof plugin_options_schema
+const _dummy: PluginSchema = plugin_options_schema
+const processModules = <
+    Schema extends z.AnyZodObject = typeof plugin_options_schema,
+>(
+    _value: z.infer<typeof plugin_options_schema>,
+): void => {
+    const {
+        modulesDir,
+        sections,
+        snippets,
+        themeRoot,
+    }: z.infer<typeof plugin_options_schema> = _value
     const outSectionsDir = path.resolve(themeRoot, './sections')
     const outSnippetsDir = path.resolve(themeRoot, './snippets')
     shell.mkdir('-p', outSectionsDir, outSnippetsDir)
@@ -41,7 +44,7 @@ const processModules = ({
     if (sections.copy) {
         ///get list of potential modules with section files.
         const sectionFileArr = node.getFilePathArr(
-            `${modulesDir}/**/${sections.file_name}.liquid`,
+            `${modulesDir.toString()}/**/${sections.file_name.toString()}.liquid`,
         )
         sectionFileArr.forEach((section_file) => {
             const true_module_name = section_file.parentdirname
@@ -54,7 +57,9 @@ const processModules = ({
                 'utf8',
             )
             //  todo:  %dir%
-            const result_path = `${outSectionsDir}/${sections.prefix}${true_module_name}.liquid`
+            const _prefix: string =
+                sections.prefix === undefined ? '' : sections.prefix
+            const result_path = `${outSectionsDir}/${_prefix}${true_module_name}.liquid`
             const newSection = replaceSchemaTags(
                 section_file_content,
                 module_path,
@@ -126,3 +131,9 @@ const replaceSchemaTags = async (
     }
     return
 }
+
+export type {
+    ResolvedShopifyLiquidModulesOptions,
+    resolveOptions,
+    ShopifyLiquidModulesOptions,
+} from './options.js'

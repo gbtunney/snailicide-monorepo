@@ -6,7 +6,7 @@ export type rangeMapperFunction = (_value: number) => DeepNestObject
 export const usePluginUtilities = () => {
     const pluginFactory = (_styles: DeepNestObject): Plugin => {
         //console.log("trying to style", _styles)
-        const styles: DeepNestObject = _styles as DeepNestObject
+        const styles: DeepNestObject = _styles
         return plugin(({ addComponents }) => {
             addComponents(styles)
         })

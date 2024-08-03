@@ -5,8 +5,8 @@ import { ref } from 'vue'
 import Processor from 'windicss'
 import type { Config } from 'windicss/types/interfaces'
 
-export type windiCSS = typeof useWindiCSS
-export const useWindiCSS = (config: Config = {}) => {
+export type windiCSS = typeof useWindiCss
+export const useWindiCss = (config: Config = {}) => {
     const processor = ref(new Processor(config))
     const extractStylesFromHTML = (
         el: HTMLElement,
@@ -92,4 +92,4 @@ export const useWindiCSS = (config: Config = {}) => {
         masterReg,
     }
 }
-export default useWindiCSS
+export default useWindiCss
