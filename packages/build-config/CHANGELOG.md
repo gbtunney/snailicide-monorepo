@@ -1,5 +1,13 @@
 # @snailicide/build-config
 
+## 1.2.0
+
+### Minor Changes
+
+-   1e1828c: - complete refactor of @snailicide/cli-app
+    -   updated dependencies
+    -   add documentation
+
 ## 1.1.0
 
 ### Minor Changes
