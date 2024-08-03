@@ -7,7 +7,12 @@ import { defineConfig } from 'vitest/config'
 
 export const viTestConfig = defineConfig({
     test: {
-        exclude: ['node_modules', './types/**/*', './dist/**/*'],
+        exclude: [
+            'node_modules',
+            './types/**/*',
+            './dist/**/*',
+            './**/*.test.js',
+        ],
     },
 })
 
