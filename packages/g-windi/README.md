@@ -48,4 +48,4 @@ yarn add @snailicide/g-windi
 npm install @snailicide/g-windi
 ```
 
-**TODO**: jsdocPrintWidth look at this variable for line breaks.
+**TODO**: figure out how to change the filenames-simple/naming-convention for composables

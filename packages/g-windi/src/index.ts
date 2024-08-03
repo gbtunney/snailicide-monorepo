@@ -12,13 +12,13 @@ export {
     useConfigDefaults,
     useCustomPlugins,
     usePluginUtilities,
-    useWindiCSS,
+    useWindiCss,
 } from './composable/index.js'
 export type {
     ColorScaleConfig,
     ColorScaleConfigCollection,
-} from './composable/useColorScale.js'
-export type { windiCSS } from './composable/useWindiCSS.js'
+} from './composable/use-color-scale.js'
+export type { windiCSS } from './composable/use-windi-css.js'
 
 export {
     tg_isCSSColorSpecial,

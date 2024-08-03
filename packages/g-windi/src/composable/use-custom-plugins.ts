@@ -5,7 +5,7 @@ import { DeepNestObject, Plugin } from 'windicss/types/interfaces'
 import {
     rangeMapperFunction,
     usePluginUtilities,
-} from './usePluginUtilities.js'
+} from './use-plugin-utilities.js'
 
 export const useCustomPlugins = () => {
     const transformRotatePlugin = (): Plugin => {
@@ -13,8 +13,8 @@ export const useCustomPlugins = () => {
             _value,
         ): DeepNestObject => {
             return {
-                [`.rotate-${_value}`]: {
-                    transform: `rotate(${_value}deg)`,
+                [`.rotate-${_value.toString()}`]: {
+                    transform: `rotate(${_value.toString()}deg)`,
                 },
             }
         }

@@ -7,7 +7,7 @@ import { z } from 'zod'
  * @param {string} themeRoot ['./theme'] - file path to shopify theme root.
  * @param {string} modulesDir ['./modules'] - description
  */
-const plugin_options_schema = zod.object({
+export const plugin_options_schema = zod.object({
     //zod.filePath.default('./theme'),
     modulesDir: zod.fsPathTypeExists('directory').default('./modules'),
     sections: z

@@ -38,11 +38,7 @@ export const isEncodedGID = <Type extends string>(
  * @returns {boolean} True if the string is a valid GID, false otherwise.
  */
 export const isGID = <Type extends string>(value: Type): value is Type => {
-    return stringUtils.validateString(
-        value,
-        'gid://',
-        stringUtils.startsWith,
-    ) === true
+    return stringUtils.validateString(value, 'gid://', stringUtils.startsWith)
         ? true
         : isEncodedGID(value)
           ? stringUtils.validateString(
@@ -186,8 +182,8 @@ export const shopifyMediaURL = (
             _height = tg.isNumber(__height) ? __height : undefined
         }
         if (_height === 0) _height = _width
-        const dimensions = `${tg.isNotUndefined<number>(_width) ? _width : ''}${
-            tg.isNotUndefined<number>(_height) ? `x${_height}` : ''
+        const dimensions = `${tg.isNotUndefined<number>(_width) ? _width.toString() : ''}${
+            tg.isNotUndefined<number>(_height) ? `x${_height.toString()}` : ''
         }`
         let str = dimensions
         if (tg.isNotUndefined(crop)) str = `${str}_crop_${crop}`

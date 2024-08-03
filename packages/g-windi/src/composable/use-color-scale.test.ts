@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest'
 
-import useColorScale, { ColorScaleConfigCollection } from './useColorScale.js'
+import useColorScale, { ColorScaleConfigCollection } from './use-color-scale.js'
 
 describe('useColorScale', () => {
     test('getColorScale', () => {
