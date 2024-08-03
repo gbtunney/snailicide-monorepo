@@ -49,7 +49,7 @@
         "docs:format": "pnpm exec prettier \"$(PWD)/docs\" --write",
         "\n========== PUBLISH >> ==========": "",
         "release": "pnpm prerelease && pnpm publish --access public --report-summary",
-        "prerelease": "pnpm clean && pnpm docs:build && pnpm test && pnpm build &&  pnpm run release:archive",
+        "prerelease": "pnpm clean && pnpm build && pnpm docs:build && pnpm test && pnpm run release:archive",
         "release:archive": "mkdir -p ./releases &&  pnpm exec npm pack --pack-destination='./releases'",
         "\n========== CODE STYLE >> ==========": "",
         "lint": "pnpm exec eslint -c \"$(git rev-parse --show-toplevel)/eslint.config.js\" .",
