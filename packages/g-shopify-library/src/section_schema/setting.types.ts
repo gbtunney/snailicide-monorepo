@@ -1,6 +1,6 @@
 import type { Simplify, StringKeyOf } from 'type-fest'
 
-export module SettingTypes {
+export namespace SettingTypes {
     type _List = {
         //collection and product list
         limit?: number
@@ -207,7 +207,6 @@ export module SettingTypes {
         /* * Basic Setting Input Types * */
         text: Text
         textarea: TextArea
-        // eslint-disable-next-line @typescript-eslint/ban-types
         number: Number
         checkbox: Checkbox
         radio: Radio
@@ -269,7 +268,7 @@ export module SettingTypes {
           : never
 }
 
-export module Shared {
+export namespace Shared {
     export type ElementTags =
         | 'div'
         | 'article'

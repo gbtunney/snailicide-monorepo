@@ -4,8 +4,9 @@ import type { Simplify } from 'type-fest'
 
 import type { SettingTypes, Shared } from './setting.types.js'
 import type { SectionSchema } from './settings.schema.js'
+/* eslint  @typescript-eslint/no-empty-object-type: "off" */
 
-export module LocalSchema {
+export namespace LocalSchema {
     export type Setting<
         Type = SettingTypes.TypeLiterals,
         id = undefined,
