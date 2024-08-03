@@ -154,3 +154,4 @@ docs/private
 .nx/workspace-data
 packages/**/docs/**/*
 packages/**/releases/*
+.history
