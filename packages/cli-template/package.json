@@ -27,7 +27,7 @@
     "license": "ISC",
     "devDependencies": {
         "@brunorb/semverjs": "^1.0.4",
-        "@snailicide/build-config": "workspace:^",
+        "@snailicide/build-config": "workspace:*",
         "@types/node": "^22.1.0",
         "@types/yargs": "^17.0.24",
         "deepmerge": "^4.3.1",

@@ -63,7 +63,7 @@
         "clean:build": "rm -R -f dist types"
     },
     "dependencies": {
-        "@snailicide/g-library": "workspace:^",
+        "@snailicide/g-library": "workspace:*",
         "@types/clear": "^0.1.4",
         "@types/figlet": "^1.5.8",
         "@types/node": "^22.1.0",
@@ -78,7 +78,7 @@
         "zod": "^3.23.8"
     },
     "devDependencies": {
-        "@snailicide/build-config": "workspace:^",
+        "@snailicide/build-config": "workspace:*",
         "@types/shelljs": "^0.8.15",
         "rollup": "^4.19.2",
         "shelljs": "^0.8.5",
