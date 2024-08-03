@@ -1,5 +1,13 @@
 # @snailicide/g-library@0.2.1
 
+## 1.0.1
+
+### Patch Changes
+
+-   1e1828c: - complete refactor of @snailicide/cli-app
+    -   updated dependencies
+    -   add documentation
+
 ## 1.0.0
 
 ### Major Changes
