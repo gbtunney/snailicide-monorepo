@@ -19,6 +19,11 @@ const CONFIG_OBJ = [
                 export_types: ['default', 'import', 'require', 'types'],
                 library_name: 'gCliApp',
             },
+            {
+                export_key: 'example',
+                export_types: ['default', 'import', 'require', 'types'],
+                library_name: 'gCliAppExample',
+            },
         ],
 
         [...rollup.DEFAULT_PLUGINS_BUNDLED],

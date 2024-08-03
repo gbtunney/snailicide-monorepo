@@ -1,15 +1,13 @@
-export default { app, schema }
-export * as app from './app.js'
+export type { InitSuccessCallback } from './app.js'
 export { initApp } from './app.js'
-
-import * as app from './app.js'
-import * as schema from './schema.js'
-
-export * as schema from './schema.js'
 export type {
-    AppAliasOption,
-    AppOptions,
-    ResolvedAppOptions,
-    unResolvedAppOptions,
-} from './schema.js'
-export type { BaseArgs } from './schema.js'
+    AppConfig,
+    AppConfigIn,
+    AppConfigSchema,
+    AppFlagAliases,
+    AppHidden,
+} from './app-config.js'
+export { commonFlagsSchema } from './app-options.js'
+export type { CommonFlagsInput, CommonFlagsOutput } from './app-options.js'
+export { wrapSchema } from './helpers.js'
+export type { WrappedSchema } from './helpers.js'

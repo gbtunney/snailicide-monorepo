@@ -2,41 +2,70 @@ import { stringUtils, tg } from '@snailicide/g-library'
 import chalk from 'chalk'
 import clear from 'clear'
 import yargs from 'yargs'
+import type { Argv } from 'yargs'
 import { z } from 'zod'
 import * as process from 'process'
+//import  type Yargs from "yargs"
 
-import { doPrintHeader, getHeader } from './header.js'
-import { getZodType, removeAnsi } from './helpers.js'
 import {
-    app_schema,
-    resolveSchema,
-    resolveSchemaError,
-    unResolvedAppOptions,
-} from './schema.js'
+    AppConfig,
+    AppConfigIn,
+    appConfigSchema,
+    resolveAppConfigSchema,
+} from './app-config.js'
+import { resolveAppOptionsSchema } from './app-options.js'
+import { doPrintHeader, getHeader } from './header.js'
+import {
+    getZodType,
+    removeAnsi,
+    swapKeysAndValues,
+    wrapSchema,
+} from './helpers.js'
 
-export type InitFunction<Schema = z.ZodSchema> = (
-    value: Schema extends z.ZodSchema ? z.infer<Schema> : never,
-    help: string | undefined,
-) => void
-export const initApp = async <Schema extends z.ZodTypeAny>(
-    schema: Schema,
-    initFunction: InitFunction<Schema>, // ( value: z.infer<Schema> ,help?: string)=> void,
-    unresolved_options: unResolvedAppOptions,
-    argstr = process.argv,
-) => {
-    const resolved_app_options = resolveSchema<typeof app_schema>(
-        app_schema,
-        unresolved_options,
+//change to zodobject
+// Schema extends z.AnyZodObject,
+export type InitSuccessCallback<
+    AppOptionsSchema extends
+        | z.AnyZodObject
+        | z.ZodEffects<z.AnyZodObject> = z.AnyZodObject,
+> = (resolvedFlags: z.infer<AppOptionsSchema>, help: string | undefined) => void
+
+export const initApp = async <
+    AppOptionsSchema extends z.AnyZodObject | z.ZodEffects<z.AnyZodObject>,
+>(
+    optionsSchema: AppOptionsSchema,
+    config: AppConfigIn<AppOptionsSchema>,
+    initFunction: InitSuccessCallback<AppOptionsSchema>, // ( value: z.infer<Schema> ,help?: string)=> void,
+    _yargs: Array<string> = process.argv,
+): Promise<Argv | undefined> => {
+    const resolved_app_config: AppConfig | undefined = resolveAppConfigSchema(
+        config,
+        appConfigSchema,
     )
-    if (tg.isNotUndefined<z.output<typeof app_schema>>(resolved_app_options)) {
-        const app_options = resolved_app_options
-        const getTypedSchema = <T extends z.ZodTypeAny>(schema: T): T => schema
+
+    if (tg.isNotUndefined<AppConfig>(resolved_app_config)) {
+        const app_config: AppConfig = resolved_app_config
+
+        ///Thius is the  APP options parsing.
+        // const getTypedSchema = <T extends (z.AnyZodObject | z.ZodEffects<z.AnyZodObject>)>(schema: T): T => schema
 
         /* * Write commander options from zod descriptions * */
-        const option_schema: Schema = getTypedSchema<Schema>(schema)
-        const iterateOptions = option_schema._def.schema
+        const option_schema: AppOptionsSchema =
+            wrapSchema<AppOptionsSchema>(optionsSchema)
+
+        /*const iterateOptions = option_schema._def.schema
             ? option_schema._def.schema._def.shape()
-            : option_schema._def.shape()
+            : option_schema._def.shape()*/
+        const iterateOptions =
+            option_schema instanceof z.ZodObject
+                ? option_schema._def.shape() //.keyof().options
+                : option_schema instanceof z.ZodEffects
+                  ? option_schema._def.schema._def.shape() //.innerType().shape() //.innerType().keyof().options
+                  : []
+
+        /* const iterateOptions2 = option_schema2._def.schema
+            ? option_schema2._def.schema._def.shape()
+            : option_schema2._def.shape()*/
 
         const OPTIONS_OBJ = Array.from(Object.entries(iterateOptions)).reduce(
             (accum, [key, value]) => {
@@ -54,6 +83,21 @@ export const initApp = async <Schema extends z.ZodTypeAny>(
             {},
         )
         /* * PARSE ARRAY KEYS WIP * */
+        /*  let array_keys: string[] = []
+                Object.entries(iterateOptions).forEach(([key, value]) => {
+                    const schema: Record<string, z.ZodTypeAny> = <Record<string, z.ZodTypeAny>>value
+                 //   option_schema._def.typeName === "ZodObject"\
+
+                   if (schema instanceof z.ZodArray) {
+                       array_keys = [...array_keys, key]
+
+                   } else if (schema instanceof z.ZodDefault){
+                           array_keys = [...array_keys, key]
+                       }
+
+
+                }, {})*/
+
         let array_keys: Array<string> = []
         Object.entries(iterateOptions).forEach(([key, value]) => {
             const schema: Record<string, any> = <Record<string, any>>value
@@ -69,46 +113,59 @@ export const initApp = async <Schema extends z.ZodTypeAny>(
                 }
             }
         }, {})
-
         /* * TODO: This function is too long * */
 
+        const wrapped_app_options = wrapSchema<AppOptionsSchema>(optionsSchema)
+
         /* * populate description and header * */
-        const desc = app_options.description
-            ? app_options.description
-            : schema.description
-              ? schema.description
-              : app_options.name
-        const header: string = app_options.print
-            ? doPrintHeader(getHeader(app_options))
-            : `\nWelcome to ${app_options.name}\n${
-                  getHeader(app_options).divider
+        const desc: string = app_config.description
+            ? app_config.description
+            : wrapped_app_options.description
+              ? wrapped_app_options.description
+              : app_config.name
+        const header: string = app_config.print
+            ? doPrintHeader(getHeader(app_config))
+            : `\nWelcome to ${app_config.name}\n${
+                  getHeader(app_config).divider
               }`
-        const getArgsInstance = (value = process.argv) =>
-            yargs(value)
-                .scriptName(app_options.name)
-                .version(app_options.version)
+
+        const getArgsInstance = (
+            value = process.argv,
+        ): Argv<Record<string, unknown>> => {
+            const yargs_instance: Argv<Record<string, unknown>> = yargs(value)
+            yargs_instance
+                .scriptName(app_config.name)
+                .version(app_config.version)
                 .array(array_keys)
                 .option(OPTIONS_OBJ)
                 .usage(desc)
                 .usage(chalk.bgHex('#727272')('$ $0 [args]'))
-                .alias(app_options.alias)
-                .example(app_options.examples)
-
-        if (app_options.clear) clear()
+                .alias(swapKeysAndValues(app_config.flag_aliases))
+                .example(app_config.examples)
+            return yargs_instance
+        }
+        if (app_config.clear) clear()
         /* * Print the header if print ==true  * */
         console.log(header)
 
-        const yargsInstance = getArgsInstance(argstr)
+        const yargsInstance = getArgsInstance(_yargs)
         const raw_arguments = yargsInstance.argv
-        app_options.hidden.forEach((_key) => {
+        app_config.hidden.forEach((_key) => {
             yargsInstance.hide(_key)
         })
-        const new_option_schema = getTypedSchema<typeof schema>(schema)
-        const pendingArgs = resolveSchema(new_option_schema, raw_arguments)
+        const new_option_schema = wrapSchema<AppOptionsSchema>(optionsSchema)
+
+        // console.log(raw_arguments)
+
+        const pendingArgs = resolveAppOptionsSchema<typeof new_option_schema>(
+            new_option_schema,
+            raw_arguments,
+            true,
+        )
 
         if (pendingArgs !== undefined) {
             const resolvedArgs: z.output<typeof new_option_schema> = pendingArgs
-            if (resolvedArgs.debug) {
+            if (resolvedArgs['debug']) {
                 console.log('DEBUG:: RAW ARGS: ', raw_arguments)
                 console.log('DEBUG:: RESOLVED ARGUMENTS:: ', resolvedArgs)
             }
@@ -117,21 +174,16 @@ export const initApp = async <Schema extends z.ZodTypeAny>(
             return yargsInstance
         } else {
             yargsInstance.showHelp()
-            const error = resolveSchemaError(new_option_schema, raw_arguments)
-            /* * TODO: maybe pull debug schema from base schema * */
-            const debug_bool = resolveSchema(
+            console.error('RAW ARGVS: ', raw_arguments)
+            const debug_bool = resolveAppOptionsSchema(
                 z.object({ debug: z.boolean().default(false) }),
                 raw_arguments,
+                false,
             )
-            if (debug_bool?.debug === true) {
-                console.error('DEBUG:: RAW ARGS: ', raw_arguments)
-            }
-            if (tg.isNotUndefined(error)) {
-                console.error('\n', JSON.stringify(error, undefined, 4))
-            }
             return undefined
         }
     }
     return undefined
 }
+
 export default initApp

@@ -1,9 +1,24 @@
 import { z } from 'zod'
 
+export type ZodObjectSchema = z.AnyZodObject | z.ZodEffects<z.AnyZodObject>
+export type WrappedSchema<Schema extends ZodObjectSchema> =
+    Schema extends ZodObjectSchema ? Schema : never
+export const wrapSchema = <Schema extends ZodObjectSchema>(
+    schema: Schema,
+): Schema => {
+    return schema
+}
+
+export const tgZodSchema = <Schema extends z.ZodSchema<unknown>>(
+    schema: Schema,
+    value: unknown,
+): value is z.infer<Schema> => schema.safeParse(value).success
+
 export const getZodType = (dschema: z.ZodTypeAny): string | undefined => {
     // @ts-expect-error todo: FIX THIS AT some pt
-    if (dschema instanceof z.ZodEffects<any>) {
+    if (dschema instanceof z.ZodEffects<unknown>) {
         if (dschema.innerType() instanceof z.ZodEffects) {
+            //todo: figure out how to type this maybe?
             const _inner = dschema.innerType()
             if (_inner['_def'] && _inner['_def']['schema']) {
                 return getZodType(_inner['_def']['schema']) // recursive ZodEffect
@@ -31,7 +46,7 @@ export const getZodType = (dschema: z.ZodTypeAny): string | undefined => {
     return undefined
 }
 
-const ansiRegex = ({ onlyFirst = false } = {}) => {
+const ansiRegex = ({ onlyFirst = false } = {}): RegExp => {
     const pattern = [
         '[\\u001B\\u009B][[\\]()#;?]*(?:(?:(?:(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]+)*|[a-zA-Z\\d]+(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]*)*)?\\u0007)',
         '(?:(?:\\d{1,4}(?:;\\d{0,4})*)?[\\dA-PR-TZcf-nq-uy=><~]))',
@@ -40,4 +55,19 @@ const ansiRegex = ({ onlyFirst = false } = {}) => {
     return new RegExp(pattern, onlyFirst ? undefined : 'g')
 }
 
-export const removeAnsi = (value: string) => value.replace(ansiRegex(), '')
+export const removeAnsi = (value: string): string =>
+    value.replace(ansiRegex(), '')
+
+export const swapKeysAndValues = (
+    obj: Record<string, string>,
+): Record<string, string> => {
+    const result: Record<string, string> = Array.from(
+        Object.entries(obj),
+    ).reduce<Record<string, string>>((acc, [key, value]) => {
+        return {
+            ...acc,
+            [value]: key,
+        }
+    }, {})
+    return result
+}
