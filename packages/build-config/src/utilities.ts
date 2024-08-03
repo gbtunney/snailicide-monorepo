@@ -55,7 +55,7 @@ const addFileExtension = (value: string, extension = '.json'): string => {
 export type NotAssignableToJson =
     | bigint
     | symbol
-    /* eslint  @typescript-eslint/ban-types: "warn" */
+    /* eslint @typescript-eslint/no-unsafe-function-type:off  */
     | Function
 
 export type JSONCompatible<Type> = unknown extends Type

@@ -294,7 +294,7 @@ export const getPackageExports = (
     args: Array<OutputObjReturnType & { plugins: RollupOptions['plugins'] }>,
     doPrint: boolean = false,
 ): JsonValue | undefined => {
-    const export_result = args.reduce<Record<string, {}>>((acc, value) => {
+    const export_result = args.reduce((acc, value) => {
         const obj = value.exportObj
         return deepmerge(acc, value.exportObj)
     }, {})

@@ -3,9 +3,9 @@
  *
  * @module vitest
  */
-import { defineConfig } from 'vitest/config'
+import { defineConfig, UserConfig } from 'vitest/config'
 
-export const viTestConfig = defineConfig({
+export const viTestConfig: UserConfig = defineConfig({
     test: {
         exclude: [
             'node_modules',
