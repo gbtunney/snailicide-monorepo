@@ -12,10 +12,10 @@
             "dependsOn": ["^build"]
         },
         "test": {
-            "dependsOn": ["^build", "^test"]
+            "dependsOn": ["build", "^test"]
         },
-        "docs": {
-            "dependsOn": ["^build", "^docs:build"]
+        "docs:build": {
+            "dependsOn": ["build", "test", "^docs:build"]
         },
         "prerelease": {
             "dependsOn": ["^prerelease"]

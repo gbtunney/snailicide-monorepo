@@ -35,7 +35,7 @@
         "nx:test": "pnpm exec nx run-many --target=test",
         "\n========== PUBLISH >> ==========": "",
         "release": "pnpm run prerelease && pnpm changeset",
-        "prerelease": "pnpm exec nx run-many -t prebuild",
+        "prerelease": "pnpm run docs:build && pnpm changeset",
         "\n========== CODE STYLE >> ==========": "",
         "lint": "cross-var eslint  -c $npm_package_config_eslint_config",
         "prettier": "cross-var prettier {*,**/*}.{ts,js,cjs,mjs,cts,mts,sh,html,json,yaml,yml,graphql,md} ./.husky/* --ignore-path ./.gitignore --no-error-on-unmatched-pattern --write",
