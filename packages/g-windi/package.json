@@ -1,0 +1,84 @@
+{
+    "name": "@snailicide/g-windi",
+    "version": "0.0.8",
+    "description": "Function library for Windicss/UnoCSS and Vue 3",
+    "private": false,
+    "type": "module",
+    "files": [
+        "docs",
+        "types",
+        "dist",
+        "CHANGELOG.md",
+        "exampleNodeScript.ts"
+    ],
+    "exports": {
+        ".": {
+            "default": "./dist/index.js",
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.cjs",
+            "types": "./dist/index.d.ts"
+        }
+    },
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "module": "./dist/index.mjs",
+    "commonjs": "./dist/index.cjs",
+    "keywords": [
+        "typescript",
+        "windicss",
+        "unocss"
+    ],
+    "scripts": {
+        "\n========== BUILD >> ==========": "",
+        "build": "pnpm build:ts && pnpm build:rollup",
+        "build:rollup": "rollup --config ./rollup.config.js",
+        "build:ts": "tsc --build",
+        "\n========== DEV >> ==========": "",
+        "dev": "tsc --build --watch",
+        "dev:rollup": "nodemon --exec 'pnpm build' --watch ./rollup.config.ts ./src",
+        "\n========== TEST >> ==========": "",
+        "test": "vitest run",
+        "test:watch": "vitest watch",
+        "\n========== PUBLISH >> ==========": "",
+        "release": "pnpm prerelease && pnpm publish --access public --report-summary",
+        "prerelease": "pnpm clean && pnpm test && pnpm build &&  pnpm run release:archive",
+        "release:archive": "mkdir -p ./releases &&  pnpm exec npm pack --pack-destination='./releases'",
+        "\n========== CLEAN >> ==========": "",
+        "clean": "pnpm clean:ts && pnpm clean:build",
+        "clean:ts": "tsc --build --clean",
+        "clean:build": "rm -R -f dist types docs"
+    },
+    "dependencies": {
+        "@snailicide/g-library": "workspace:*",
+        "@types/ramda": "^0.30.1",
+        "@vueuse/core": "^10.4.1",
+        "chroma.ts": "^1.0.10",
+        "ramda": "^0.30.1",
+        "ramda-adjunct": "^5.0.1",
+        "type-fest": "^4.22.0",
+        "vue": "^3.4.32",
+        "windicss": "^3.5.6"
+    },
+    "devDependencies": {
+        "@snailicide/build-config": "workspace:*",
+        "@types/node": "^22.1.0",
+        "prettier": "^3.0.3",
+        "rollup": "^4.18.1",
+        "ts-node": "^10.9.1",
+        "typescript": "^5.2.2",
+        "vitest": "^2.0.3"
+    },
+    "homepage": "https://github.com/gbtunney/snailicide-monorepo/tree/main/packages/g-windi#readme",
+    "bugs": {
+        "url": "https://github.com/gbtunney/snailicide-monorepo/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/gbtunney/snailicide-monorepo.git"
+    },
+    "license": "MIT",
+    "author": {
+        "name": "Gillian Tunney",
+        "email": "gbtunney@mac.com"
+    }
+}

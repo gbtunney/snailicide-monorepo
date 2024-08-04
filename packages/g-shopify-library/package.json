@@ -1,6 +1,6 @@
 {
     "name": "@snailicide/g-shopify-library",
-    "version": "0.0.2",
+    "version": "0.3.3",
     "description": "Collections of types and utilities for working with Shopify",
     "private": false,
     "type": "module",
@@ -10,23 +10,17 @@
         "CHANGELOG.md"
     ],
     "exports": {
-        ".": [
-            {
-                "import": "./dist/index.mjs",
-                "types": "./types/index.d.ts",
-                "require": "./dist/index.cjs",
-                "default": "./dist/index.js"
-            },
-            "./dist/index.js"
-        ]
+        ".": {
+            "default": "./dist/index.js",
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.cjs",
+            "types": "./dist/index.d.ts"
+        }
     },
-    "main": "dist/index.js",
-    "types": "types/index.d.ts",
-    "umd:main": "dist/index.umd.js",
-    "jsdelivr": "dist/index.umd.js",
-    "unpkg": "dist/index.umd.js",
-    "module": "dist/index.esm.js",
-    "cdn": "dist/index.umd.js",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "module": "./dist/index.mjs",
+    "commonjs": "./dist/index.cjs",
     "keywords": [
         "typescript",
         "js",
@@ -43,85 +37,59 @@
         "build:ts": "tsc --build",
         "\n========== DEV >> ==========": "",
         "dev": "tsc --build --watch",
+        "dev:rollup": "nodemon --exec 'pnpm build' --watch ./rollup.config.ts ./src",
         "\n========== TEST >> ==========": "",
-        "test": "jest",
-        "test:watch": "jest --watch",
-        "example": "ts-node --esm ./writeExampleSchema.ts",
+        "test": "vitest run",
+        "test:watch": "vitest watch",
+        "test:workflow": "open /Applications/Docker.app && pnpm test:workflow:release",
+        "test:workflow:release": "cross-var pnpm exec gh act --workflows  $(git rev-parse --show-toplevel)/workflows/workflow-release-package.yml  --input PACKAGE_NAME='$npm_package_name' --reuse",
+        "\n========== DOCS >> ==========": "",
+        "docs:build": "pnpm --no-bail exec jsdoc --verbose -c ./jsdoc.json -t ./node_modules/better-docs",
+        "docs:serve": " vite --config ./vite.docs.config.ts",
+        "docs:dev": "nodemon --exec 'jsdoc -c ./jsdoc.json -t ./node_modules/better-docs' --watch ./src",
         "\n========== PUBLISH >> ==========": "",
-        "release": "pnpm prerelease && pnpm publish --access public --report-summary --no-git-checks",
-        "prerelease": "pnpm clean && pnpm build && pnpm fix && pnpm check && pnpm test",
+        "release": "pnpm prerelease && pnpm publish --access public --report-summary",
+        "test:release": "pnpm prerelease && cross-var pnpm publish --access public --report-summary --no-git-checks --registry $npm_package_config_publish_private",
+        "TODO": "TODO: Fix wierd bug that breaks jsdoc ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL not sure if pnpm or jsdoc",
+        "prerelease": "pnpm clean && pnpm docs:build || pnpm test && pnpm build &&  pnpm run release:archive",
+        "release:archive": "mkdir -p ./releases &&  pnpm exec npm pack --pack-destination='./releases'",
+        "\n========== DEPLOY >> ==========": "",
+        "deploy": "pnpm prerelease && pnpm deploy:docs",
+        "deploy:docs": "cross-var scp -r $npm_package_config_deploy_docs_local $npm_package_config_deploy_docs_remote",
         "\n========== CLEAN >> ==========": "",
         "clean": "pnpm clean:ts && pnpm clean:build",
         "clean:ts": "tsc --build --clean",
-        "clean:build": "rm -R -f dist && rm -R -f types",
-        "\n========== CODE STYLE >> ==========": "",
-        "lint": "cross-var eslint \"{$npm_package_config_eslint_path}.{$npm_package_config_eslint_extensions}\" --ignore-path .gitignore -c $npm_package_config_eslint_config",
-        "prettier": "cross-var prettier {$npm_package_config_prettier_path}.{$npm_package_config_prettier_extensions}",
-        "\n========== CHECK >> ==========": "",
-        "check": "pnpm lint && pnpm prettier --check",
-        "\n========== FIX >> ==========": "",
-        "fix": "pnpm prettier --write"
+        "clean:build": "rm -R -f dist types docs"
     },
-    "homepage": "https://github.com/gbtunney/snailicide-monorepo#readme",
+    "dependencies": {
+        "@shopify/admin-graphql-api-utilities": "^2.0.1",
+        "@snailicide/g-library": "workspace:*",
+        "@types/node": "^22.1.0",
+        "@types/ramda": "^0.30.0",
+        "ramda": "^0.30.0",
+        "ramda-adjunct": "^5.0.0",
+        "type-fest": "^4.22.0",
+        "zod": "^3.23.8"
+    },
+    "devDependencies": {
+        "@snailicide/build-config": "workspace:*",
+        "rollup": "^4.18.0",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.4.5",
+        "vitest": "^2.0.3"
+    },
+    "prettier": "@snailicide/build-config/prettier",
+    "homepage": "https://github.com/gbtunney/shopify-monorepo#readme",
     "bugs": {
-        "url": "https://github.com/gbtunney/snailicide-monorepo/issues"
+        "url": "https://github.com/gbtunney/shopify-monorepo/issues"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/gbtunney/snailicide-monorepo.git"
+        "url": "git+https://github.com/gbtunney/shopify-monorepo.git"
     },
     "license": "MIT",
     "author": {
         "name": "Gillian Tunney",
         "email": "gbtunney@mac.com"
-    },
-    "devDependencies": {
-        "@snailicide/build-config": "workspace:0.2.4",
-        "@types/jest": "^29.2.3",
-        "@types/node": "^18.7.18",
-        "@types/yargs": "^17.0.13",
-        "eslint": "^8.27.0",
-        "expect-type": "^0.15.0",
-        "jest": "^29.3.1",
-        "jsdoc": "^4.0.0",
-        "prettier": "^2.7.1",
-        "rollup": "^3.3.0",
-        "rollup-plugin-terser": "^7.0.2",
-        "rollup-plugin-typescript2": "^0.34.1",
-        "taffydb": "^2.7.3",
-        "ts-jest": "^29.0.3",
-        "ts-jest-resolver": "^2.0.0",
-        "ts-node": "^10.9.1",
-        "typescript": "^4.9.3",
-        "zod": "^3.19.1"
-    },
-    "prettier": "@snailicide/build-config/prettier",
-    "config": {
-        "eslint": {
-            "extensions": "ts,js,cjs,mjs",
-            "path": ".es*,*,**/*",
-            "config": ".eslintrc.cjs"
-        },
-        "prettier": {
-            "extensions": "ts,js,cjs,mjs,cts,json,yaml,yml,graphql,md",
-            "path": "*,**/*"
-        }
-    },
-    "dependencies": {
-        "@shopify/admin-graphql-api-utilities": "^2.0.1",
-        "@snailicide/g-library": "workspace:^0.1.2",
-        "@types/ramda": "^0.28.20",
-        "ramda": "^0.28.0",
-        "ramda-adjunct": "^3.3.0",
-        "type-fest": "^3.1.0"
-    },
-    "jest": {
-        "preset": "ts-jest",
-        "resolver": "ts-jest-resolver",
-        "testPathIgnorePatterns": [
-            "/node_modules/",
-            "dist",
-            "types"
-        ]
     }
 }

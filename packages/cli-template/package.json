@@ -7,7 +7,7 @@
     "private": true,
     "scripts": {
         "\n========== BUILD >> ==========": "",
-        "build": "pnpm clean && pnpm build:ts && pnpm fix && pnpm check",
+        "build": "pnpm build:ts",
         "build:ts": "tsc --build",
         "dev": "tsc --build --watch",
         "\n========== GENERATOR >> ==========": "",
@@ -15,11 +15,7 @@
         "generate:lib": "#todo: reimplement this",
         "\n========== CODE STYLE >> ==========": "",
         "lint": "cross-var eslint \"{$npm_package_config_eslint_path}.{$npm_package_config_eslint_extensions}\" -c $npm_package_config_eslint_config",
-        "prettier": "cross-var prettier {$npm_package_config_prettier_path}.{$npm_package_config_prettier_extensions}",
-        "\n========== CHECK >> ==========": "",
-        "check": "pnpm lint && pnpm prettier --check",
-        "\n========== FIX >> ==========": "",
-        "fix": "pnpm prettier --write",
+        "prettier": "cross-var prettier {$npm_package_config_prettier_path}.{$npm_package_config_prettier_extensions} --ignore-path ./.gitignore",
         "\n========== CLEAN >> ==========": "",
         "clean": "pnpm clean:ts && pnpm clean:generated",
         "clean:ts": "tsc --build --clean",
@@ -31,31 +27,18 @@
     "license": "ISC",
     "devDependencies": {
         "@brunorb/semverjs": "^1.0.4",
-        "@snailicide/build-config": "workspace:^0.2.0",
-        "@types/node": "^18.7.18",
-        "@types/yargs": "^17.0.13",
-        "deepmerge": "^4.2.2",
-        "eslint": "^8.27.0",
+        "@snailicide/build-config": "workspace:*",
+        "@types/node": "^22.1.0",
+        "@types/yargs": "^17.0.24",
+        "deepmerge": "^4.3.1",
         "inquirer-file-path": "^1.0.1",
-        "node-plop": "^0.31.0",
-        "plop": "^3.1.1",
-        "prettier": "^2.7.1",
-        "typescript": "^4.9.3",
-        "yargs": "^17.6.0",
-        "zod": "^3.19.1"
+        "node-plop": "^0.32.0",
+        "plop": "^4.0.0",
+        "typescript": "^5.2.2",
+        "yargs": "^17.7.2",
+        "zod": "^3.22.2"
     },
     "prettier": "@snailicide/build-config/prettier",
-    "config": {
-        "eslint": {
-            "extensions": "ts,js,cjs,mjs",
-            "path": ".es*,*,**/*",
-            "config": ".eslintrc.cjs"
-        },
-        "prettier": {
-            "extensions": "ts,js,cjs,mjs,cts,json,yaml,yml,graphql,md",
-            "path": "*,**/*"
-        }
-    },
     "dependencies": {
         "ts-node": "^10.9.1"
     }

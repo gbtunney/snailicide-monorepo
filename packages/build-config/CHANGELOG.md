@@ -1,5 +1,52 @@
 # @snailicide/build-config
 
+## 1.2.0
+
+### Minor Changes
+
+-   1e1828c: - complete refactor of @snailicide/cli-app
+    -   updated dependencies
+    -   add documentation
+
+## 1.1.0
+
+### Minor Changes
+
+-   7ec0345: - added typeChecked eslint rules like: naming conventions, better sorting
+    -   fixed wildcard export error in g-library, made compliant with eslint rules
+
+## 1.0.0
+
+### Major Changes
+
+-   b952b6f: - updated tsconfig base properties
+    -   added eslint import-extensions
+    -   updated dependencies
+
+## 0.3.0
+
+### Minor Changes
+
+-   eeb96be: eslint 9 upgrade
+
+## 0.2.7
+
+### Patch Changes
+
+-   Fixed bug with vite docserver in build-config (base key) Updated dependencies
+
+## 0.2.6
+
+### Patch Changes
+
+-   fixed large dependency issues
+
+## 0.2.5
+
+### Patch Changes
+
+-   fixed "tsconfig-base" link in package exports
+
 ## 0.2.4
 
 ### Patch Changes

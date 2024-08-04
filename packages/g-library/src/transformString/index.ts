@@ -1,27 +1,25 @@
 /* * TRANSFORM STRING LIBRARY *
  * @author Gillian Tunney */
-export { batchReplaceAll as replaceCharacters } from './_replaceCharacters'
+export { batchReplaceAll as replaceCharacters } from './replace-characters.js'
 
 export {
-    trimCharacters,
+    explodeCSSClassString,
+    transformExplodeArray,
+} from './transform-explode-array.js'
+
+export {
     batchTrimCharacters,
-    trimCharactersStart,
+    trimCharacters,
     trimCharactersEnd,
-    getRegExpMatchStartOfString,
-    getRegExpMatchEndOfString,
-} from './_trimCharacters.js'
-
+    trimCharactersStart,
+} from './trim-characters.js'
 export {
+    contains,
+    endsWith,
+    eq,
+    includes,
+    match,
+    startsWith,
     validateString,
     validateStringBatch,
-    startsWith,
-    endsWith,
-    includes,
-    eq,
-    contains,
-    match,
-} from './_validateString.js'
-export {
-    transformExplodeArray,
-    explodeCSSClassString,
-} from './_transformExplodeArray.js'
+} from './validate-string.js'

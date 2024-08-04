@@ -1,12 +1,13 @@
 {
     "extends": "@snailicide/build-config/tsconfig-base",
     "compilerOptions": {
-        /* Language and Environment */
-        "target": "ESNext" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
-        /* Modules */
-        "module": "ESNext" /* Specify what module code is generated. */,
-        "moduleResolution": "nodenext",
-        "lib": ["ESNext"]
+        "target": "ESNext",
+        "lib": ["ESNext", "DOM"],
+        "composite": true,
+        "module": "ESNext",
+        "types": [""],
+        "rootDir": "."
     },
-    "include": ["*"]
+    "exclude": ["./*.ts"],
+    "files": ["./commitlint.config.ts", "./prettier.config.ts"]
 }

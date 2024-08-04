@@ -1,4 +1,13 @@
 import type { Primitive as tsPrimitive } from 'type-fest'
+import {
+    UnknownArray,
+    Jsonifiable,
+    Jsonify,
+    JsonValue,
+    JsonArray,
+    JsonObject,
+    JsonPrimitive,
+} from 'type-fest'
 
 /* * UTILITY TYPES  * */
 export type PlainObject = {
@@ -6,6 +15,17 @@ export type PlainObject = {
     [y: number]: never
 }
 export type Primitive = tsPrimitive
+
+export type IsArray<T> = T extends UnknownArray ? true : false
+
+export namespace Json {
+    export type Object = JsonObject
+    export type Array = JsonArray
+    export type Primitive = JsonPrimitive
+    export type Value = Exclude<JsonValue, null>
+}
+
+export type { Jsonify, Jsonifiable } from 'type-fest'
 
 /* * DeepPartial UTILITY TYPE * */
 export type DeepPartial<T> = T extends object

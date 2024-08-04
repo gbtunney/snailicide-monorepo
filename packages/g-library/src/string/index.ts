@@ -1,32 +1,26 @@
-export {
-    lowerCase,
-    upperCase,
-    capitalizeWords,
-    camelCase,
-    unCamelCase,
-    properCase,
-    pascalCase,
-    sentenceCase,
-    slugify,
-    hyphenate,
-    unhyphenate,
-    truncate,
-    stripHtmlTags,
-    underscore,
-    removeNonWord,
-    normalizeLineBreaks,
-    replaceAccents,
-    escapeHtml,
-    unescapeHtml,
-    escapeUnicode,
-    escapeRegExp,
-} from './_stringUtils.js'
+/**
+ * GENERAL STRING UTILS
+ *
+ * This file contains utility functions for string manipulation. *
+ *
+ * @category Utility
+ * @category String
+ * @namespace StringUtils
+ */
 
-//todo: rename and move
-export {
-    stringContainsNumber,
-    stringContainsLetter,
-    isValidUrl,
-} from './_string.js'
-export type { URL } from './_string.js'
-export { NEW_LINE_CHARACTERS, WHITE_SPACE_CHARACTERS } from './_stringUtils.js'
+import * as stringTransform from './../transformString/index.js'
+import * as format from './format-str.js'
+import * as StringUtils from './string-utils.js'
+import * as StringGen from './string.js'
+import * as validators from './validators.js'
+
+export const stringUtils = {
+    ...StringUtils,
+    ...StringGen,
+    ...stringTransform,
+    ...validators,
+    ...format,
+}
+
+export default stringUtils
+export type { URL } from './validators.js'

@@ -8,23 +8,19 @@ const TEMPLATE_DIRECTORY = boolBaseTemplate
     ? `${TEMPLATE_BASE_DIRECTORY}/base`
     : `${TEMPLATE_BASE_DIRECTORY}/library`
 
-// @ts-expect-error ddd
-import inquireFilePath from 'inquirer-file-path'
-import { doesFilePathExcist } from './src/template-helpers.js'
+import { z } from 'zod'
 import * as process from 'process'
+
+import { packagePrompts } from './src/package-prompts.js'
 import { getUnscopedPackageName } from './src/package-template-helpers.js'
 import {
-    packageSchema,
-    fileArgsSchema,
     EnumDescriptionPresets,
+    fileArgsSchema,
+    packageSchema,
 } from './src/package-types.js'
-import { packagePrompts } from './src/package-prompts.js'
-import { z } from 'zod'
 
 export const PACKAGE_GENERATOR: PlopGeneratorConfig = {
-    description: 'Make New package',
-    prompts: packagePrompts,
-    actions: (_data): ActionType[] => {
+    actions: (_data): Array<ActionType> => {
         if (_data !== undefined) {
             const { packageName = undefined, target } = _data
             const packageUnscoped = getUnscopedPackageName(packageName)
@@ -40,22 +36,22 @@ export const PACKAGE_GENERATOR: PlopGeneratorConfig = {
                 'DATAAA',
                 _data,
                 'after',
-                packageSchema.safeParse(ParsedDataObject)
+                packageSchema.safeParse(ParsedDataObject),
             )
 
-            const actions: ActionType[] = [
+            const actions: Array<ActionType> = [
                 {
-                    type: 'addMany',
-                    destination,
                     data: packageSchema.parse(ParsedDataObject),
+                    destination,
                     templateFiles: [`${TEMPLATE_DIRECTORY}/*`],
+                    type: 'addMany',
                 },
                 //for eslint
                 {
-                    type: 'addMany',
-                    destination,
                     data: packageSchema.parse(ParsedDataObject),
+                    destination,
                     templateFiles: [`${TEMPLATE_DIRECTORY}/.*`],
+                    type: 'addMany',
                 },
             ]
 
@@ -63,10 +59,12 @@ export const PACKAGE_GENERATOR: PlopGeneratorConfig = {
         }
         return []
     },
+    description: 'Make New package',
+    prompts: packagePrompts,
 }
 export default function (plop: NodePlopAPI) {
     const args: z.infer<typeof fileArgsSchema> = fileArgsSchema.parse(
-        yargs(process.argv).argv
+        yargs(process.argv).argv,
     )
     // console.log('the args are ', args,plop,PACKAGE_GENERATOR)
     const enummm = z

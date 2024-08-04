@@ -1,6 +1,6 @@
 import type { Simplify, StringKeyOf } from 'type-fest'
 
-export module SettingTypes {
+export namespace SettingTypes {
     type _List = {
         //collection and product list
         limit?: number
@@ -34,7 +34,7 @@ export module SettingTypes {
     }
     export type Radio = {
         type: 'radio'
-        options: _TSelectOption[]
+        options: Array<_TSelectOption>
         default?: string //If default is unspecified, then the first option is selected by default.
     }
     export type Select = Omit<Radio, 'type'> & {
@@ -264,11 +264,11 @@ export module SettingTypes {
     export type SettingBase<Type = TypeLiterals> = Type extends keyof All
         ? All[Type]
         : Type extends Union
-        ? All[Type['type']]
-        : never
+          ? All[Type['type']]
+          : never
 }
 
-export module Shared {
+export namespace Shared {
     export type ElementTags =
         | 'div'
         | 'article'
@@ -304,6 +304,6 @@ export module Shared {
         tag?: ElementTags
         class?: string
         limit?: number // section limit count
-        templates?: PageTypes[]
+        templates?: Array<PageTypes>
     }
 }

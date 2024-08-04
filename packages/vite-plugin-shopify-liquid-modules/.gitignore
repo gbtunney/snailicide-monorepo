@@ -1,0 +1,12 @@
+# Ignore
+dist
+types
+example_theme
+docs
+example_modules/**/*.d.ts
+example_modules/**/*.js
+example_modules/**/*.d.ts.map
+example_modules/**/*.js.map
+
+# Allow
+!src/types

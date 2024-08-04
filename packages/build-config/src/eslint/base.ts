@@ -1,69 +1,68 @@
-/**
- * @file Manages the base configuration for ESLint.
- * @author Gillian Tunney
- * @see {@link https://www.npmjs.com/package/@typescript-eslint/eslint-plugin | @typescript-eslint/eslint-plugin}
- * @see {@link https://www.npmjs.com/package/eslint-plugin-prettier | eslint-plugin-prettier}
- * @see {@link https://github.com/epaew/eslint-plugin-filenames-simple | eslint-plugin-filenames-simple}
- * @see {@link https://www.npmjs.com/package/eslint-import-resolver-typescript | eslint-import-resolver-typescript}
- * @see {@link https://www.npmjs.com/package/eslint-plugin-import | eslint-plugin-import}
- */
-import type { Linter } from 'eslint'
+//@ts-expect-error No declaration file or types for this
+import pluginJs from '@eslint/js'
+import globals from 'globals'
+import type { Config } from 'typescript-eslint'
+import tseslint from 'typescript-eslint'
+import pluginsConfig from './plugins.js'
+import { eslintCommentRules } from './rules/eslint-comments.js'
+import { filenamesRules } from './rules/filenames.js'
+import { importRules } from './rules/import.js'
+import { jsdocRules } from './rules/jsdoc.js'
+import { namingConventionRules } from './rules/naming-convention.js'
+import { sortRules } from './rules/sort.js'
+import { typescriptRules } from './rules/typescript.js'
+import { vitestRules } from './rules/vitest.js'
 
-const options: Linter.BaseConfig = {
-    // root: true,
-    parserOptions: {
-        ecmaFeatures: {
-            jsx: true,
-        },
-        ecmaVersion: 2021,
-    },
-    plugins: ['eslint-plugin-import', 'filenames-simple'],
-    extends: [
-        'eslint:recommended',
-        'plugin:import/recommended',
-        'plugin:import/typescript',
-        //"plugin:filenames-simple/recommended"       // for pure ECMAScript/TypeScript project
-        //"plugin:filenames-simple/recommended-react" // for React.js project
-        //"plugin:filenames-simple/recommended-vue"   // for Vue.js project
-    ],
-    rules: {
-        'import/no-unresolved': 'error',
-        'filenames-simple/extension': 'error',
-        'filenames-simple/naming-convention': [
-            'warn',
-            {
-                rule: 'camelCase',
-                excepts: ['.eslintrc.js'],
-            },
-        ],
-        //'@typescript-eslint/no-var-requires': 'off',
-    },
-    settings: {
-        'filenames-simple': {
-            //  allowedExtensions: ['.eslintrc.js'],
-        },
-        /* * I have no idea what this means, i literally copied it from [eslint-import-resolver-typescript - npm](https://www.npmjs.com/package/eslint-import-resolver-typescript) * */
-        'import/extensions': ['.js', '.jsx', '.ts'],
-        'import/parsers': {
-            '@typescript-eslint/parser': ['.ts', '.tsx'],
-        },
-        'import/resolver': {
-            typescript: {
-                alwaysTryTypes: true, // always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`
-                // Multiple tsconfigs (Useful for monorepos)
-                // use a glob pattern
-                project: 'packages/*/tsconfig.json',
-            },
-        },
-    },
-    overrides: [
+const base_files = ['**/*.{js,mjs,cjs,ts}']
+const base_ignores = [
+    '**/dist/**/*',
+    '**/node_modules/**',
+    '**/dist/**',
+    '**/types/**/*',
+    '**/types/**',
+    '**/*.d.ts',
+]
+
+export const flatEslintConfig = async (__dirname: string): Promise<Config> => {
+    const EslintConfig: Config = [
+        { files: base_files },
+        { ignores: base_ignores },
+        //   ...tsEslint.configs.stylisticTypeChecked,
         {
-            files: ['.eslintrc.js', '**/?(*.)+(spec|test).[jt]s?(x)'],
-            rules: {
-                'filenames-simple/naming-convention': 'off',
+            languageOptions: {
+                globals: { ...globals.browser, ...globals.node },
+                parserOptions: {
+                    project: true,
+                    projectService: true,
+                    tsconfigRootDir: __dirname,
+                },
             },
         },
-    ],
+        ...(await pluginsConfig()),
+        pluginJs.configs.recommended,
+        ...(await typescriptRules()),
+        ...(await importRules()),
+        ...(await sortRules()),
+        ...(await vitestRules()),
+        ...(await jsdocRules()),
+        ...(await filenamesRules()),
+        ...(await namingConventionRules()),
+
+        ...(await eslintCommentRules()),
+        {
+            files: ['**/*.cjs'],
+            rules: {
+                '@typescript-eslint/no-unused-vars': 'warn',
+                '@typescript-eslint/no-var-requires': 'off',
+                'no-undef': 'error',
+            },
+        },
+        ...tseslint.config({
+            extends: [tseslint.configs.disableTypeChecked],
+            files: ['**/*.mjs', '**/*.cjs', '**/*.js'],
+        }),
+    ]
+    return EslintConfig
 }
-export const baseOptions = options
-export default options
+
+export default flatEslintConfig

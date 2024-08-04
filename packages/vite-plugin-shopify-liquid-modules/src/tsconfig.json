@@ -1,0 +1,10 @@
+{
+    "extends": "@snailicide/build-config/tsconfig-base",
+    "compilerOptions": {
+        "outDir": "./../types" /* Specify an output folder for all emitted files. */,
+        "rootDir": ".",
+        "declarationDir": "./../types"
+    },
+    "exclude": ["**/*.test.ts"],
+    "include": ["**/*.ts", "**/*.cts", "**/*.mts"]
+}

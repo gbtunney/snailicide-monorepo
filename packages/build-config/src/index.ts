@@ -2,21 +2,33 @@
 export { EsLint } from './eslint/index.js'
 export type { EslintConfig } from './eslint/index.js'
 
+/* * NPM UTILITIES * */
+export { npm } from './npm/index.js'
+export type { BasePackage, PackageJson, PackageJsonInput } from './npm/index.js'
+
 /* * PRETTIER * */
 export { Prettier } from './prettier/index.js'
 export type { PrettierConfig, PrettierOptions } from './prettier/index.js'
-//export default {}
 
-export { Jest } from './jest/index.js'
+/* * ROLLUP * */
+export { rollup } from './rollup/index.js'
+export type {
+    ConfigOptions,
+    EntryConfig,
+    ExportType,
+    PluginKey,
+} from './rollup/index.js'
 
-/* * ESBUILD UTILITIES * */
-export type { JSONExportConfig } from './esbuild/nodeutils.js'
+/** TYPEDOC */
+export { typedoc } from './typedoc/index.js'
+export type { TypedocConfig, TypedocMarkdownConfig } from './typedoc/index.js'
 
-/* * NODE  UTILITIES * todo:move */
-export { nodeUtils } from './esbuild/nodeutils.js'
+/* *  UTILITIES *  */
+export { exportJSON, isPlainObject, safeDeserializeJSON } from './utilities.js'
 
 /* * VITE CONFIGS * */
 export { vite } from './vite/index.js'
 
-import deepmerge from 'deepmerge'
-export const merge = deepmerge
+/* * VITEST CONFIG * */
+export { vitest } from './vitest/index.js'
+export { merge } from 'ts-deepmerge'

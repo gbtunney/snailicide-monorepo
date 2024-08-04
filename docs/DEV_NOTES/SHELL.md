@@ -1,5 +1,13 @@
 # Notes
 
+```shell
+if [ -z "$(git status --untracked-files=no --porcelain)" ]; then
+    # Working directory clean excluding untracked files
+else
+    # Uncommitted changes in tracked files
+fi
+```
+
 ## Echo working directory
 
 ```sh
@@ -31,7 +39,7 @@ const argsSchema = z.object({
     email: z.string().email().optional(),
 })
 const cleaned_args: z.infer<typeof argsSchema> = argsSchema.parse(
-    yargs(process.argv).argv
+    yargs(process.argv).argv,
 )
 ```
 

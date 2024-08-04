@@ -16,7 +16,7 @@ Read the article: [Yarn Workspaces: Organize Your Project’s Codebase Like A Pr
 
 > Important! Suggested package manager is [pnpm](https://pnpm.io)
 
-1. Clone this repository locally `$ git clone git@github.com:gbtunney/snailicide-monorepo.git`
+1. _Clone this repository_ locally `$ git clone git@github.com:gbtunney/snailicide-monorepo.git`
 2. Install the dependencies. Inside the root `$ pnpm install`
 
 ## Commit to repository

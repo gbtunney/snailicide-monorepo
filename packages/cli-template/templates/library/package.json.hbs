@@ -38,7 +38,7 @@
     "scripts": {
         "build": "rollup --config ./rollup.config.js",
         "clean": "rm -R -f dist && rm -R -f types && rm -R -f docs && rm -R -f *.lock && rm -R -f pnpm-lock.yaml",
-        "doc": "typedoc src/index.ts",
+        "doc": "typedoc src/zod.node.ts",
         "lint": "eslint \"*/**/*.{ts,js,json}\"",
         "lint:fix": "eslint \"*/**/*.{ts,js,json}\" --fix",
         "prepublishOnly": "npm run doc && npm run lint && npm run test && npm run build",

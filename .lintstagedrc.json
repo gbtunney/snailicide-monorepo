@@ -1,0 +1,6 @@
+{
+    "*.{ts,cts,mts,js,cjs,mjs}": ["eslint --fix --debug", "prettier --write"],
+    "*.{sh,html,json,yaml,yml,graphql,md}": "prettier --write",
+    ".husky/**/*": "prettier --write",
+    ".gitignore": "prettier --write"
+}

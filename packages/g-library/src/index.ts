@@ -1,45 +1,44 @@
-import { z } from 'zod'
+/* * HTML UTILITIES * */
+export { htmlUtils } from './browser/index.js'
 
-/* * JSON TYPES and UTILS * */
-export type { Json, Jsonifiable, Jsonify } from './object/json.js'
-export { getJSONString, getJSON } from './object/json.js'
+/* * COLOR UTILITIES * */
+export { colorUtils } from './color/index.js'
 
-export { isNPMPackage } from './object/npm.package.js'
-export type { NPMPackage } from './object/npm.package.js'
+/* * DATE UTILITIES * */
+export { dateUtils } from './date/index.js'
 
-/* * NODE UTILS MODULE * */
-import type * as NodeModule from './node/index.js'
-export { node } from './node/index.js'
-export type Node = NodeModule
+export * as numeric from './number/index.js'
 
-/* * GENERIC TYPEGUARDS * */
-export * as tg from './typeguard/utility.typeguards.js'
+/* * JSON & OBJECT UTILITIES * */
+export { objectUtils } from './object/index.js'
 
-/* * ZOD * */
-export const zod = z
+export { deepmerge } from './object/index.js'
 
-export type {
-    PlainObject,
-    Primitive,
-    PrefixProperties,
-    SuffixProperties,
-    DeepPartial,
-} from './types/utility'
-
-export type {
-    EmptyObject,
-    EmptyArray,
-    EmptyString,
-    Falsy,
-    NilOrEmpty,
-    NilLike,
-    Nullish,
-} from './types/empty'
-//todo:reorganize
+/* * REGEXP UTILITIES * */
+export { regexp } from './regexp/index.js'
 
 /* * STRING UTILITIES * */
-export * as stringUtils from './string/index.js'
+export { stringUtils } from './string/index.js'
 
-export * as stringTransform from './transformString/index.js'
+/* * GENERIC TYPEGUARDS * */
+export { tg } from './typeguard/index.js'
 
-export { numeric } from './number/index.js'
+export type {
+    DeepPartial,
+    EmptyArray,
+    EmptyObject,
+    EmptyString,
+    Falsy,
+    Json,
+    Jsonifiable,
+    NilLike,
+    NilOrEmpty,
+    Nullish,
+    PlainObject,
+    PrefixProperties,
+    Primitive,
+    SuffixProperties,
+} from './types/index.js'
+
+/* * ZOD UTILITIES * */
+export { zodHelpers } from './zod_helpers/index.js'

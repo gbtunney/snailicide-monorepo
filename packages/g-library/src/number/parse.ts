@@ -1,12 +1,11 @@
+import { Numeric, PossibleNumeric } from './numeric.js'
+import { toStringNumeric } from './transform.js'
+import { isStringNumeric } from './validators.js'
 import {
     isBigInt,
-    isInteger,
-    isNotNaN,
-    isNaN,
+    isNumber,
     isString,
-    isValidNumber,
-} from 'ramda-adjunct'
-import { PossibleNumeric } from './numeric.js'
+} from '../typeguard/utility.typeguards.js'
 /**
  * All functions WILL REMOVE ALL whitespace,letter and punctuation as long as
  * the final value a valid number This will convert a possible numeric value (ie
@@ -19,29 +18,17 @@ import { PossibleNumeric } from './numeric.js'
  */
 
 export type EmptyString = ''
-
 /** @typedef {EmptyString} This Is an empty string */
 
-/**
- * Guard function to determine if value is parsable (contains)
- *
- * @category Parse
- * @category TypeGuard
- * @template {unknown} Type
- * @function isParsableToNumeric
- * @param {Type} value - Value to test
- * @returns {boolean}
- */
-export const isParsableToNumeric = <Type = unknown>(
-    value: Type
-): value is Type extends PossibleNumeric ? Type : never => {
-    //const regex = new RegExp(/(\?+1)([a-z]|[A-Z]|\$|!|@|#|%|&)+(\d)/ )
-    if (isString(value) && /\d/.test(value) && value.toString().length > 0) {
-        //if string and contains digits
-        if (isNaN(Number(Number.parseFloat(String(value))))) return false
-        else return true
-    } else if (isBigInt(value) || isValidNumber(value)) return true
-    return false
+export const parseToNumeric = <Type extends PossibleNumeric>(
+    value: Type,
+): Numeric | undefined => {
+    //|| isNumber(value)
+    if (isBigInt<bigint>(value) || isNumber<number>(value)) return value
+    if (isString(value)) {
+        return parseStringToNumeric(value)
+    }
+    return undefined
 }
 
 /**
@@ -52,37 +39,23 @@ export const isParsableToNumeric = <Type = unknown>(
  * @template {PossibleNumeric} Type - Type must extend a PossibleNumeric
  *   (number|string|bigint)
  * @function parseToNumeric
- * @param {Type} value - Value to parse
- * @returns {number | undefined}
+ * @param {T} value - A value that will need to be replaced soon
+ * @returns {number | undefined} - Parsed value
  */
-export const parseToNumeric = <Type extends PossibleNumeric>(
-    value: Type
-): number | undefined => {
-    if (isParsableToNumeric<Type>(value)) {
-        const _value: number = parseFloat(value.toString())
-        return isValidNumber(_value) ? _value : undefined
-    }
-    return undefined
+export const parseStringToNumeric = <Type extends string>(
+    value: Type,
+): Numeric | undefined => {
+    return toStringNumeric(value, false)
 }
 
-/**
- * Parse value to Integer if isParseable to numeric. **Will** remove
- * whitespace,letter and punctuation along will additional float values ie 1.02
- * will become 1
- *
- * @category Parse
- * @template {PossibleNumeric} Type - Type must extend a PossibleNumeric
- *   (number|string|bigint)
- * @function parseToInteger
- * @param {Type} value - Value to parse.
- * @returns {number | undefined}
- */
-export const parseToInteger = <Type extends PossibleNumeric>(
-    value: Type
+export const parseStringToInteger = <Type extends string>(
+    value: Type,
 ): number | undefined => {
-    if (isParsableToNumeric<Type>(value)) {
-        const _value: number = parseInt(value.toString())
-        return isInteger(_value) ? _value : undefined
+    if (isStringNumeric<Type>(value, false)) {
+        const result = toStringNumeric(value, false)
+        return result !== undefined && isNumber<number>(result)
+            ? Math.round(result)
+            : undefined
     }
     return undefined
 }

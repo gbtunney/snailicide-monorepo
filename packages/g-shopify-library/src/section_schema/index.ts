@@ -1,39 +1,29 @@
-import { stringUtils, tg } from '@snailicide/g-library'
-const { capitalizeWords, unCamelCase } = stringUtils
+/* * THIS WHOLE THING IS DEPRICATED * */
 
-import { stringTransform } from '@snailicide/g-library'
+import { stringUtils, tg } from '@snailicide/g-library'
 import { omit } from 'ramda'
+
 import type { LocalSchema } from './settings.js'
 import type { SectionSchema } from './settings.schema.js'
 
-export type { SettingTypes, Shared } from './setting.types.js'
-export type { LocalSchema } from './settings.js'
-export type { SectionSchema } from './settings.schema.js'
-export { defineSettings, defineBlocks, defineSchemaPreset } from './settings.js'
-
 export const defineSchemaSettings = <Type extends LocalSchema.Settings>(
-    value: Type,
-    _prefix: string | undefined = undefined
-) => {
-    return Object.entries(value).reduce(
-        (
-            accumulator: SectionSchema.Settings,
-            [_key, _value],
-            currentIndex,
-            array
-        ) => {
+    value: LocalSchema.Settings,
+    _prefix: string | undefined = undefined,
+): SectionSchema.Settings => {
+    return Object.entries(value).reduce<SectionSchema.Settings>(
+        (accumulator: SectionSchema.Settings, [_key, _value]) => {
             let _id: string = _key
             let _label: string | undefined = undefined
 
             if (tg.isUndefined<string>(_value.label)) {
                 _label = capitalizeWords(
                     unCamelCase(
-                        stringTransform.replaceCharacters({
-                            value: _id,
+                        stringUtils.replaceCharacters({
                             pattern: ['_', '-'],
                             replacement: ' ',
-                        }) as string
-                    )
+                            value: _id,
+                        }) as string,
+                    ),
                 )
             } else if (tg.isNotUndefined<string>(_value.label))
                 _label = _value.label
@@ -48,44 +38,45 @@ export const defineSchemaSettings = <Type extends LocalSchema.Settings>(
                 tg.isNotUndefined<string>(_id) &&
                 tg.isNotUndefined<string>(_label)
             ) {
-                const newobj: SectionSchema.Setting = {
+                // @ts-expect-error: this is busted idk
+                const newobj: LocalSchema.Setting<typeof _value> = {
                     ..._value,
                     id: _id,
                     label: _label,
+                    type: _value,
                 }
                 return [...accumulator, newobj]
             }
             return accumulator
         },
-        []
+        [],
     )
 }
-
-export const defineSchemaBlocks = <T = LocalSchema.Blocks>(
-    value: T extends LocalSchema.Blocks ? T : never,
-    _prefix: string | undefined = undefined
-) => {
-    return Object.entries(value).reduce(
-        (accumulator: SectionSchema.Blocks, [_key, _value]) => {
+export const defineSchemaBlocks = <T extends LocalSchema.Blocks>(
+    value: T,
+    _prefix: string | undefined = undefined,
+): SectionSchema.Blocks => {
+    return Object.entries(value).reduce<SectionSchema.Blocks>(
+        (accumulator, [_key, _value]) => {
             const _type: string = _key
             let _name: string | undefined = undefined
 
             if (tg.isUndefined<string>(_value.name)) {
                 _name = capitalizeWords(
                     unCamelCase(
-                        stringTransform.replaceCharacters({
-                            value: _type,
+                        stringUtils.replaceCharacters({
                             pattern: ['_', '-'],
                             replacement: ' ',
-                        }) as string
-                    )
+                            value: _type,
+                        }) as string,
+                    ),
                 )
             } else if (tg.isNotUndefined<string>(_value.name))
                 _name = _value.name
 
             if (
-                tg.isNotUndefined(_value.settings) &&
-                tg.isNonEmptyObject(_value.settings)
+                tg.isNotUndefined<LocalSchema.Settings>(_value.settings) &&
+                tg.isNonEmptyObject<LocalSchema.Settings>(_value.settings)
             ) {
                 const settings = defineSchemaSettings(_value.settings, _prefix)
                 if (
@@ -94,36 +85,53 @@ export const defineSchemaBlocks = <T = LocalSchema.Blocks>(
                 ) {
                     const new_block: SectionSchema.Block = {
                         ..._value,
-                        type: _key,
                         name: _name,
                         settings,
+                        type: _key,
                     }
                     return [...accumulator, new_block]
                 }
             }
             return accumulator
         },
-        []
+        [],
     )
 }
-
 export const defineSectionSchema = <T extends LocalSchema.Schema>(
     value: T,
-    _prefix: string | undefined = undefined
+    _prefix: string | undefined = undefined,
 ): SectionSchema.Schema => {
     const _value: Omit<LocalSchema.Schema, 'settings' | 'blocks' | 'presets'> =
         omit(['settings', 'blocks', 'presets'], value)
 
     const _schema: SectionSchema.Schema = _value
 
-    if (tg.isNotUndefined(value.settings)) {
-        _schema.settings = defineSchemaSettings(value.settings)
+    // tg.isNotUndefined<LocalSchema.Settings>(_value.settings )  && tg.isNonEmptyObject<LocalSchema.Settings>(_value.settings )
+
+    if (
+        tg.isNotUndefined<LocalSchema.Settings>(value.settings) &&
+        tg.isNonEmptyObject<LocalSchema.Settings>(value.settings)
+    ) {
+        const mysetting: LocalSchema.Settings = value.settings
+        _schema.settings = defineSchemaSettings(mysetting)
     }
-    if (tg.isNotUndefined(value.blocks)) {
-        _schema.blocks = defineSchemaBlocks(value.blocks)
+    if (
+        tg.isNotUndefined<LocalSchema.Blocks>(value.blocks) &&
+        tg.isNonEmptyObject<LocalSchema.Blocks>(value.blocks)
+    ) {
+        const _myblocks: LocalSchema.Blocks = value.blocks
+        _schema.blocks = defineSchemaBlocks(_myblocks)
     }
     if (tg.isNotUndefined(value.presets)) {
         // testme.presets =  value.presets//defineSchemaBlocks(value.blocks)
     }
     return _schema
 }
+export type { SettingTypes, Shared } from './setting.types.js'
+const { capitalizeWords, unCamelCase } = stringUtils
+
+export type { LocalSchema } from './settings.js'
+
+export { defineBlocks, defineSchemaPreset, defineSettings } from './settings.js'
+
+export type { SectionSchema } from './settings.schema.js'
