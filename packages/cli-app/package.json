@@ -21,7 +21,7 @@
     "commonjs": "./dist/index.cjs",
     "keywords": [
         "node",
-        "ts-node",
+                   "ts-node",
         "cli",
         "boilerplate",
         "yargs",
