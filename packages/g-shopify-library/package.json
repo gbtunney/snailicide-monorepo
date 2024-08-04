@@ -44,7 +44,7 @@
         "test:workflow": "open /Applications/Docker.app && pnpm test:workflow:release",
         "test:workflow:release": "cross-var pnpm exec gh act --workflows  $(git rev-parse --show-toplevel)/workflows/workflow-release-package.yml  --input PACKAGE_NAME='$npm_package_name' --reuse",
         "\n========== DOCS >> ==========": "",
-        "docs:build": "pnpm --no-bail exec jsdoc --verbose -c ./jsdoc.json -t ./node_modules/better-docs",
+        "docs:build": "echo 'TODO: Replace with typedoc!';",
         "docs:serve": " vite --config ./vite.docs.config.ts",
         "docs:dev": "nodemon --exec 'jsdoc -c ./jsdoc.json -t ./node_modules/better-docs' --watch ./src",
         "\n========== PUBLISH >> ==========": "",
