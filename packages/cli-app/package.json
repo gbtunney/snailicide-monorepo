@@ -46,7 +46,7 @@
         "test:example": "pnpm build && pnpm exec node ./dist/example.js",
         "\n========== DOCS >> ==========": "",
         "docs:build": "pnpm run build:ts && pnpm exec typedoc && pnpm docs:format",
-        "docs:format": "pnpm exec prettier \"$(PWD)/docs\" --write",
+        "docs:format": "pnpm exec prettier \"./docs\" --write",
         "\n========== PUBLISH >> ==========": "",
         "release": "pnpm prerelease && pnpm publish --access public --report-summary",
         "prerelease": "pnpm clean && pnpm build && pnpm docs:build && pnpm test && pnpm run release:archive",
