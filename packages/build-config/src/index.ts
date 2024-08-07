@@ -21,10 +21,15 @@ export type {
     ExportType,
     PluginKey,
 } from './rollup/index.js'
+
 /** TYPEDOC */
 export { typedoc } from './typedoc/index.js'
+export type {
+    MaterialThemeOptions,
+    TypedocConfig,
+    TypedocMarkdownConfig,
+} from './typedoc/index.js'
 
-export type { TypedocConfig, TypedocMarkdownConfig } from './typedoc/index.js'
 /* *  UTILITIES *  */
 export { exportJSON, isPlainObject, safeDeserializeJSON } from './utilities.js'
 
