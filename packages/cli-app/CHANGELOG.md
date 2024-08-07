@@ -1,5 +1,17 @@
 # @snailicide/cli-app
 
+## 0.2.0
+
+### Minor Changes
+
+-   d587221: - refactored cli-app and added documentation
+    -   added parsePackage to cli-app
+    -   added commitlint module to build-config, fixed bug with typedoc module
+
+### Patch Changes
+
+-   @snailicide/g-library@1.0.1
+
 ## 0.1.0
 
 ### Minor Changes
