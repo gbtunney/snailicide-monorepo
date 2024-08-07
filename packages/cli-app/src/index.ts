@@ -1,5 +1,5 @@
 export type { InitSuccessCallback } from './app.js'
-export { initApp } from './app.js'
+export { initApp, initializeApp } from './app.js'
 export type {
     AppConfig,
     AppConfigIn,

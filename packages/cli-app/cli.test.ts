@@ -21,7 +21,7 @@ describe('CLI-app example', () => {
 
     test('good if required  argument present', () => {
         const result = shell.exec(
-            'node ./dist/example.js --interactive false  -o "./dist" ',
+            'node ./dist/example.js  --outDir "./dist" --interactive false  ',
             { silent: true },
         )
         expect(result.code).toBe(0)

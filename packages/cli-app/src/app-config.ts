@@ -2,7 +2,7 @@ import { colorUtils, stringUtils } from '@snailicide/g-library'
 import { zod } from '@snailicide/g-library/node'
 import { Merge } from 'type-fest'
 import { z } from 'zod'
-import { tgZodSchema } from './helpers.js'
+import { tgZodSchema, ZodObjectSchema } from './helpers.js'
 
 const default_aliases: {
     help: string
@@ -15,21 +15,17 @@ const default_aliases: {
  * This type is used to autocomplete the yargs aliases property. This creates
  * shorthand values for option flags.
  */
-export type AppFlagAliases<
-    Schema extends z.AnyZodObject | z.ZodEffects<z.AnyZodObject>,
-> = {
+export type AppFlagAliases<Schema extends ZodObjectSchema> = {
     [Key in keyof z.infer<Schema>]?: string
 }
 
-export type AppHidden<
-    Schema extends z.AnyZodObject | z.ZodEffects<z.AnyZodObject>,
-> = Array<keyof z.infer<Schema>>
+export type AppHidden<Schema extends ZodObjectSchema> = Array<
+    keyof z.infer<Schema>
+>
 export type AppConfigOut = z.infer<typeof appConfigSchema>
 export type AppConfig = AppConfigOut
 
-export type AppConfigIn<
-    Schema extends z.AnyZodObject | z.ZodEffects<z.AnyZodObject>,
-> = z.input<
+export type AppConfigIn<Schema extends ZodObjectSchema> = z.input<
     z.ZodType<
         AppConfig,
         z.ZodTypeDef,
@@ -47,17 +43,16 @@ export type AppConfigIn<
  * used in cli arguments when running the client cli app
  */
 export const appConfigSchema = z.object({
-    //todo: allow figlet options?
     clear: z
         .boolean()
         .default(true)
         .describe('Clear the terminal screen if possible.'),
     description: z.string().optional(),
-    //z.record<z.ZodString,z.ZodString>(zod.string()).default({}),
     examples: z
         .array(zod.tuple([zod.string(), zod.string()]))
         .default([])
         .describe('Examples for app cli help'),
+    //todo: allow figlet options?
     figlet: z
         .boolean()
         .default(true)
@@ -111,7 +106,7 @@ export const appConfigSchema = z.object({
 export type AppConfigSchema = typeof appConfigSchema
 
 export const resolveAppConfigSchema = <
-    AppOptionsSchema extends z.AnyZodObject | z.ZodEffects<z.AnyZodObject>,
+    AppOptionsSchema extends ZodObjectSchema,
 >(
     value: AppConfigIn<AppOptionsSchema>,
     schema: AppConfigSchema, //note : the default parameter errors like: schema:  AppConfigSchema=appConfigSchema

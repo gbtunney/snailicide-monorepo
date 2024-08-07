@@ -9,6 +9,7 @@ import {
     wrapSchema,
 } from './index.js'
 
+/** Define custom schema, wrapper is required to avoid typescript error */
 const custom_schema = z.object({
     testarr: z.number().array().default([]).describe('test array'),
     testarr2: z.string().array().default([]).describe('test array'),
@@ -21,9 +22,11 @@ const my_merged_schema = wrapSchema<typeof commonFlagsSchema>(commonFlagsSchema)
     .describe('this is a sample app that is made of fun')
 
 type MergedSchema = WrappedSchema<typeof my_merged_schema>
-const typedMergedSchema: MergedSchema =
-    wrapSchema<typeof my_merged_schema>(my_merged_schema)
 
+/**
+ * Set the init function which will be called after app is intialized with typed
+ * arguments.
+ */
 const initFunc: InitSuccessCallback<MergedSchema> = <
     Schema extends
         | z.AnyZodObject
@@ -38,7 +41,8 @@ const initFunc: InitSuccessCallback<MergedSchema> = <
     return true
 }
 
-const testme: AppConfigIn<MergedSchema> = {
+/** Example app configuration options */
+const exampleAppConfigOptions: AppConfigIn<MergedSchema> = {
     description: 'This is an example to demonstrate use',
     //code editor error
     examples: [
@@ -55,10 +59,11 @@ const testme: AppConfigIn<MergedSchema> = {
     name: 'Example App',
 }
 
+/** Initialize App */
 const initialize = async (): Promise<'SUCCESS' | 'ERROR'> => {
     const instance_yargs = await initApp<MergedSchema>(
         my_merged_schema,
-        testme,
+        exampleAppConfigOptions,
         initFunc,
     )
     if (instance_yargs === undefined) {
