@@ -1,8 +1,8 @@
-import { stringUtils, tg } from '@snailicide/g-library'
+import { tg } from '@snailicide/g-library'
 import chalk from 'chalk'
 import clear from 'clear'
 import yargs from 'yargs'
-import type { Argv } from 'yargs'
+import type { Argv, Options } from 'yargs'
 import yargsInteractive from 'yargs-interactive'
 import { z } from 'zod'
 import * as process from 'process'
@@ -16,26 +16,56 @@ import {
 import { resolveAppOptionsSchema } from './app-options.js'
 import { doPrintHeader, getHeader } from './header.js'
 import {
-    getZodType,
     removeAnsi,
     swapKeysAndValues,
     wrapSchema,
+    ZodObjectSchema,
 } from './helpers.js'
+import {
+    getArrayKeys,
+    getIterableTopLevelRawShape,
+    getYargAppOptionObject,
+} from './zod-schema.js'
 
-//change to zodobject
-// Schema extends z.AnyZodObject,
+/**
+ * A callback type that is invoked upon successful initialization of the
+ * application.
+ *
+ * @template AppOptionsSchema - The schema for the application options, which
+ *   can be either a Zod object schema or a Zod effects schema.
+ * @param {z.infer<AppOptionsSchema>} resolvedFlags - The resolved and validated
+ *   flags based on the provided schema.
+ * @param {string | undefined} help - The help string, if available, otherwise
+ *   undefined.
+ */
 export type InitSuccessCallback<
     AppOptionsSchema extends
         | z.AnyZodObject
         | z.ZodEffects<z.AnyZodObject> = z.AnyZodObject,
 > = (resolvedFlags: z.infer<AppOptionsSchema>, help: string | undefined) => void
 
-export const initApp = async <
-    AppOptionsSchema extends z.AnyZodObject | z.ZodEffects<z.AnyZodObject>,
->(
+/**
+ * Initializes the application with the provided configuration and options
+ * schema.
+ *
+ * @template AppOptionsSchema - The schema for the application options.
+ * @param {AppOptionsSchema} optionsSchema - The schema for validating the
+ *   application options.
+ * @param {AppConfigIn<AppOptionsSchema>} config - The configuration object for
+ *   the application.
+ * @param {InitSuccessCallback<AppOptionsSchema>} initFunction - The callback
+ *   function to be called upon successful initialization.
+ * @param {boolean} [skip_interactive=false] - Flag to skip interactive prompts.
+ *   Default is `false`
+ * @param {string[]} [_yargs=process.argv] - The command-line arguments to be
+ *   parsed. Default is `process.argv`
+ * @returns {Promise<Argv | undefined>} - Returns a Yargs instance or undefined
+ *   if initialization fails.
+ */
+export const initApp = async <AppOptionsSchema extends ZodObjectSchema>(
     optionsSchema: AppOptionsSchema,
     config: AppConfigIn<AppOptionsSchema>,
-    initFunction: InitSuccessCallback<AppOptionsSchema>, // ( value: z.infer<Schema> ,help?: string)=> void,
+    initFunction: InitSuccessCallback<AppOptionsSchema>,
     skip_interactive: boolean = false,
     _yargs: Array<string> = process.argv,
 ): Promise<Argv | undefined> => {
@@ -46,54 +76,14 @@ export const initApp = async <
 
     if (tg.isNotUndefined<AppConfig>(resolved_app_config)) {
         const app_config: AppConfig = resolved_app_config
-
-        ///Thius is the  APP options parsing.
-        // const getTypedSchema = <T extends (z.AnyZodObject | z.ZodEffects<z.AnyZodObject>)>(schema: T): T => schema
-
-        /* * Write commander options from zod descriptions * */
         const option_schema: AppOptionsSchema =
             wrapSchema<AppOptionsSchema>(optionsSchema)
 
-        const iterateOptions =
-            option_schema instanceof z.ZodObject
-                ? option_schema._def.shape() //.keyof().options
-                : option_schema instanceof z.ZodEffects
-                  ? option_schema._def.schema._def.shape() //.innerType().shape() //.innerType().keyof().options
-                  : []
-
-        const OPTIONS_OBJ = Array.from(Object.entries(iterateOptions)).reduce(
-            (accum, [key, value]) => {
-                return {
-                    ...accum,
-                    [key]: {
-                        // ,TODO: figure this out , all are required w infer required: (value as z.ZodTypeAny).isOptional()
-                        describe: (value as z.ZodTypeAny).description
-                            ? (value as z.ZodTypeAny).description
-                            : stringUtils.capitalizeWords(key),
-                        type: getZodType(value as z.ZodTypeAny),
-                    },
-                }
-            },
-            {},
-        )
-
-        /* * TODO: PARSE ARRAY KEYS WIP * */
-        let array_keys: Array<string> = []
-        Object.entries(iterateOptions).forEach(([key, value]) => {
-            const schema: Record<string, any> = <Record<string, any>>value
-            if (schema && schema['_def'] && schema['_def']['typeName']) {
-                if (schema['_def']['typeName'] === 'ZodArray') {
-                    array_keys = [...array_keys, key]
-                } else if (
-                    schema['_def']['typeName'] === 'ZodDefault' &&
-                    schema['_def']['innerType']['_def']['typeName'] ===
-                        'ZodArray'
-                ) {
-                    array_keys = [...array_keys, key]
-                }
-            }
-        }, {})
-        /* * TODO: This function is too long * */
+        //options data made to fit with yargs
+        const rawShape = getIterableTopLevelRawShape(option_schema)
+        const arrayKeys = getArrayKeys(rawShape)
+        const yargsAppOptionsConfig: Record<string, Options> =
+            getYargAppOptionObject(rawShape)
 
         const wrapped_app_options = wrapSchema<AppOptionsSchema>(optionsSchema)
 
@@ -108,6 +98,8 @@ export const initApp = async <
             : `\nWelcome to ${app_config.name}\n${
                   getHeader(app_config).divider
               }`
+
+        /* * Write commander like options from zod descriptions * */
         const getArgsInstance = (
             value = process.argv,
         ): Argv<Record<string, unknown>> => {
@@ -115,8 +107,8 @@ export const initApp = async <
             yargs_instance
                 .scriptName(app_config.name)
                 .version(app_config.version)
-                .array(array_keys)
-                .option(OPTIONS_OBJ)
+                .array(arrayKeys)
+                .option(yargsAppOptionsConfig)
                 .usage(desc)
                 .usage(chalk.bgHex('#727272')('$ $0 [args]'))
                 .alias(swapKeysAndValues(app_config.flag_aliases))
@@ -185,4 +177,6 @@ export const initApp = async <
     }
     return undefined
 }
+export const initializeApp = initApp
+
 export default initApp

@@ -73,6 +73,7 @@ describe('cli-app', () => {
         // @ts-expect-error: "THIS is the output thing
         const testingtesting: z.infer<MergedSchema> = {
             my_custom_prop: 'hello',
+            outDir: 'hello',
             verbose: true,
         }
 

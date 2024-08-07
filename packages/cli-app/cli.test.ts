@@ -1,6 +1,7 @@
 import shell from 'shelljs'
 import { describe, expect, test } from 'vitest'
-
+import pkg from './package.json'
+import { parsePackageJson } from './types/index.js'
 describe('CLI-app example', () => {
     test('should match example version and not error', () => {
         const result = shell.exec(
@@ -21,7 +22,7 @@ describe('CLI-app example', () => {
 
     test('good if required  argument present', () => {
         const result = shell.exec(
-            'node ./dist/example.js --interactive false  -o "./dist" ',
+            'node ./dist/example.js  --outDir "./dist" --interactive false  ',
             { silent: true },
         )
         expect(result.code).toBe(0)
@@ -33,5 +34,16 @@ describe('CLI-app example', () => {
             { silent: true },
         )
         expect(result.code).toBe(1)
+    })
+})
+
+describe('CLI-app package helper', () => {
+    test('parse package', () => {
+        expect(parsePackageJson(pkg)).toBeDefined()
+    })
+    test('semver error', () => {
+        expect(
+            parsePackageJson({ ...pkg, version: '1.2.2.2.2' }),
+        ).toBeUndefined()
     })
 })

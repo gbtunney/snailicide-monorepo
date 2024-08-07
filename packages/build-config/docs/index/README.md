@@ -14,6 +14,7 @@
 | -------------------------------------------------------------- | ----------- |
 | [BasePackage](type-aliases/BasePackage.md)                     | -           |
 | [ConfigOptions](type-aliases/ConfigOptions.md)                 | -           |
+| [MaterialThemeOptions](type-aliases/MaterialThemeOptions.md)   | -           |
 | [PackageJson](type-aliases/PackageJson.md)                     | -           |
 | [PackageJsonInput](type-aliases/PackageJsonInput.md)           | -           |
 | [PluginKey](type-aliases/PluginKey.md)                         | -           |
@@ -69,6 +70,12 @@ Re-exports [PrettierConfig](../prettier/type-aliases/PrettierConfig.md)
 ### PrettierOptions
 
 Re-exports [PrettierOptions](../prettier/type-aliases/PrettierOptions.md)
+
+---
+
+### commitlint
+
+Re-exports [commitlint](../commitlint/variables/commitlint.md)
 
 ---
 

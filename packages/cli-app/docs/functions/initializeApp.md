@@ -2,12 +2,12 @@
 
 ---
 
-[@snailicide/cli-app](../README.md) / initApp
+[@snailicide/cli-app](../README.md) / initializeApp
 
-# Function: initApp()
+# Function: initializeApp()
 
 ```ts
-function initApp<AppOptionsSchema>(
+function initializeApp<AppOptionsSchema>(
     optionsSchema,
     config,
     initFunction,
@@ -54,4 +54,4 @@ Initializes the application with the provided configuration and options schema.
 
 ## Defined in
 
-[packages/cli-app/src/app.ts:65](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app.ts#L65)
+[packages/cli-app/src/app.ts:180](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app.ts#L180)

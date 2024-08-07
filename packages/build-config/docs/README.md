@@ -125,6 +125,7 @@ module.exports = merge(Prettier.config, options)
 
 | Module | Description |
 | --- | --- |
+| [commitlint](commitlint/README.md) | - |
 | [eslint](eslint/README.md) | Eslint Flat Configuration |
 | [index](index/README.md) | - |
 | [npm](npm/README.md) | Collection of Generic Package Utility Schemas and Typeguards |

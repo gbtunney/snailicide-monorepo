@@ -1,5 +1,5 @@
 export type { InitSuccessCallback } from './app.js'
-export { initApp } from './app.js'
+export { initApp, initializeApp } from './app.js'
 export type {
     AppConfig,
     AppConfigIn,
@@ -7,6 +7,7 @@ export type {
     AppFlagAliases,
     AppHidden,
 } from './app-config.js'
+export { parsePackageJson } from './app-config.js'
 export { commonFlagsSchema } from './app-options.js'
 export type { CommonFlagsInput, CommonFlagsOutput } from './app-options.js'
 export { wrapSchema } from './helpers.js'

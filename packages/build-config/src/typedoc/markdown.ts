@@ -12,11 +12,7 @@ export const configMarkdown = (
 ): undefined | TypedocMarkdownConfig => {
     const resolvedDirname = path.resolve(__dirname)
     if (!fs.existsSync(resolvedDirname)) {
-        console.error(
-            'GGGGGGGGThe directory ',
-            resolvedDirname,
-            ' does not exist.',
-        )
+        console.error('The directory ', resolvedDirname, ' does not exist.')
     } else {
         /* eslint sort/object-properties:off */
         const options: Partial<TypeDocOptions> & Partial<PluginOptions> = {
