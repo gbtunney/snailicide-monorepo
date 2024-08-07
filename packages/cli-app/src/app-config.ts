@@ -2,7 +2,7 @@ import { colorUtils, stringUtils } from '@snailicide/g-library'
 import { zod } from '@snailicide/g-library/node'
 import { Merge } from 'type-fest'
 import { z } from 'zod'
-import { tgZodSchema, ZodObjectSchema } from './helpers.js'
+import { tgZodSchema, wrapSchema, ZodObjectSchema } from './helpers.js'
 
 const default_aliases: {
     help: string
@@ -119,6 +119,25 @@ export const resolveAppConfigSchema = <
         if (!result.success && !suppressError) {
             console.error(JSON.stringify(result.error.format(), undefined, 4))
         }
+        return undefined
+    }
+}
+const packageSchema = wrapSchema<typeof appConfigSchema>(appConfigSchema).pick({
+    description: true,
+    name: true,
+    version: true,
+})
+
+export const parsePackageJson = (
+    pkg: unknown,
+): z.infer<typeof packageSchema> | undefined => {
+    if (packageSchema.safeParse(pkg).success) {
+        return packageSchema.parse(pkg)
+    } else {
+        console.error(
+            'Invalid package.json',
+            packageSchema.safeParse(pkg).error,
+        )
         return undefined
     }
 }

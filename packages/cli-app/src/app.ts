@@ -23,7 +23,6 @@ import {
 } from './helpers.js'
 import {
     getArrayKeys,
-    getIterableTopLevelDefault,
     getIterableTopLevelRawShape,
     getYargAppOptionObject,
 } from './zod-schema.js'
@@ -85,8 +84,6 @@ export const initApp = async <AppOptionsSchema extends ZodObjectSchema>(
         const arrayKeys = getArrayKeys(rawShape)
         const yargsAppOptionsConfig: Record<string, Options> =
             getYargAppOptionObject(rawShape)
-
-        console.log('APP DEFAULTS', getIterableTopLevelDefault(option_schema))
 
         const wrapped_app_options = wrapSchema<AppOptionsSchema>(optionsSchema)
 

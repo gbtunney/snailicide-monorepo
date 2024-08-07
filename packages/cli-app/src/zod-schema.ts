@@ -20,31 +20,6 @@ export const getIterableTopLevelRawShape = <
     return iterateOptions
 }
 
-export const getIterableTopLevelDefault = <
-    AppOptionsSchema extends ZodObjectSchema,
->(
-    optionsSchema: AppOptionsSchema,
-): z.ZodRawShape => {
-    const option_schema: AppOptionsSchema =
-        wrapSchema<AppOptionsSchema>(optionsSchema)
-
-    const iterateOptions: z.ZodRawShape =
-        option_schema instanceof z.ZodObject
-            ? option_schema._def.shape() //.keyof().options
-            : option_schema instanceof z.ZodEffects
-              ? option_schema._def.schema._def.shape() //.innerType().shape() //.innerType().keyof().options
-              : []
-    return Object.fromEntries(
-        Object.entries(iterateOptions).map(([key, value]) => {
-            if (value instanceof z.ZodDefault)
-                return [key, value._def.defaultValue()]
-            return [key, undefined]
-        }),
-    )
-
-    return iterateOptions
-}
-
 export const getArrayKeys = <AppOptionsSchema extends ZodObjectSchema>(
     iterableOptions: z.ZodRawShape,
 ): Array<string> => {
