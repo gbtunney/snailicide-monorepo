@@ -38,53 +38,96 @@ _Node Cli App Boilerplate with yargs, zod, chalk_
 This library is published in the NPM registry and can be installed using any compatible package manager as a development dependency.
 
 ```sh
-pnpm add @snailicide/cli-app -D
+#pnpm
+pnpm add @snailicide/cli-app
 
-## For pnpm workspace, use the command below.
-pnpm add @snailicide/cli-app@workspace:* -D
+#yarn
+yarn add @snailicide/cli-app
+
+#npm
+npm install @snailicide/cli-app
 ```
 
 ###Example Usage
 
 ```ts
-const initFunc = (args: BaseArgs, help: undefined | string) => {
-    if (args.debug === true) {
-        console.log('RESOLVED APP ARGS::initFunc: ', args, 'done')
-    }
-    console.log(help)
-}
+import { z } from 'zod'
 
-const myschema = base_schema
-    .merge(
-        z.object({
-            testarr: z.number().array().default([]).describe('test array'),
-            testarr2: z.string().array().default([]).describe('test array'),
-        }),
-    )
+import {
+    AppConfigIn,
+    commonFlagsSchema,
+    initApp,
+    InitSuccessCallback,
+    WrappedSchema,
+    wrapSchema,
+} from './index.js'
+
+/** Define custom schema, wrapper is required to avoid typescript error */
+const custom_schema = z.object({
+    testarr: z.number().array().default([]).describe('test array'),
+    testarr2: z.string().array().default([]).describe('test array'),
+})
+const my_merged_schema = wrapSchema<typeof commonFlagsSchema>(commonFlagsSchema)
+    .merge(custom_schema)
     .transform((value) => {
         return value
     })
     .describe('this is a sample app that is made of fun')
 
-const alias: AppAliasOption<typeof myschema> = {
-    testarr2: 'o',
-    version: 'v',
-    help: 'h',
-    rootDir: 'r',
+type MergedSchema = WrappedSchema<typeof my_merged_schema>
+
+/**
+ * Set the init function which will be called after app is intialized with typed
+ * arguments.
+ */
+const initFunc: InitSuccessCallback<MergedSchema> = <
+    Schema extends
+        | z.AnyZodObject
+        | z.ZodEffects<z.AnyZodObject> = typeof commonFlagsSchema,
+>(
+    args: z.infer<Schema>,
+) => {
+    if (args['testarr']) {
+        console.warn('RESOLVED APP ARGS: ', args)
+    }
+    console.log(JSON.stringify(args))
+    return true
 }
-const OPTIONS: unResolvedAppOptions = {
-    name: 'Example App',
+
+/** Example app configuration options */
+const exampleAppConfigOptions: AppConfigIn<MergedSchema> = {
     description: 'This is an example to demonstrate use',
-    alias: alias, //code editor error
+    //code editor error
     examples: [
         ['$0 --config "~/config.json"', 'Use custom config'],
         ['$0 --safe', 'Start in safe mode'],
     ],
+    flag_aliases: {
+        outDir: 'o',
+        rootDir: 'r',
+        // help: 'h',
+        //version: 'v',
+    },
+    hidden: ['debug', 'testarr2'],
+    name: 'Example App',
 }
 
-const initialize = async () => {
-    const instance_yargs = initApp(myschema, initFunc, OPTIONS)
+/** Initialize App */
+const initialize = async (): Promise<'SUCCESS' | 'ERROR'> => {
+    const instance_yargs = await initApp<MergedSchema>(
+        my_merged_schema,
+        exampleAppConfigOptions,
+        initFunc,
+    )
+    if (instance_yargs === undefined) {
+        process.exit(1)
+        return 'ERROR'
+    }
+    process.exit(0)
+    return 'SUCCESS'
 }
+
+export default initialize()
 ```
 
 ### Helpful Links
@@ -103,7 +146,7 @@ const initialize = async () => {
 | [AppHidden](type-aliases/AppHidden.md) | - |
 | [CommonFlagsInput](type-aliases/CommonFlagsInput.md) | - |
 | [CommonFlagsOutput](type-aliases/CommonFlagsOutput.md) | - |
-| [InitSuccessCallback](type-aliases/InitSuccessCallback.md) | - |
+| [InitSuccessCallback](type-aliases/InitSuccessCallback.md) | A callback type that is invoked upon successful initialization of the application. |
 | [WrappedSchema](type-aliases/WrappedSchema.md) | - |
 
 ## Variables
@@ -114,7 +157,9 @@ const initialize = async () => {
 
 ## Functions
 
-| Function                              | Description |
-| ------------------------------------- | ----------- |
-| [initApp](functions/initApp.md)       | -           |
-| [wrapSchema](functions/wrapSchema.md) | -           |
+| Function | Description |
+| --- | --- |
+| [initApp](functions/initApp.md) | - |
+| [initializeApp](functions/initializeApp.md) | Initializes the application with the provided configuration and options schema. |
+| [parsePackageJson](functions/parsePackageJson.md) | - |
+| [wrapSchema](functions/wrapSchema.md) | - |

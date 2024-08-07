@@ -14,9 +14,9 @@ This type is used to autocomplete the yargs aliases property. This creates short
 
 ## Type Parameters
 
-| Type Parameter                                                            |
-| ------------------------------------------------------------------------- |
-| `Schema` _extends_ `z.AnyZodObject` \| `z.ZodEffects`\<`z.AnyZodObject`\> |
+| Type Parameter                       |
+| ------------------------------------ |
+| `Schema` _extends_ `ZodObjectSchema` |
 
 ## Defined in
 

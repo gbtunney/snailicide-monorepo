@@ -12,10 +12,10 @@ type AppHidden<Schema>: keyof z.infer<Schema>[];
 
 ## Type Parameters
 
-| Type Parameter                                                            |
-| ------------------------------------------------------------------------- |
-| `Schema` _extends_ `z.AnyZodObject` \| `z.ZodEffects`\<`z.AnyZodObject`\> |
+| Type Parameter                       |
+| ------------------------------------ |
+| `Schema` _extends_ `ZodObjectSchema` |
 
 ## Defined in
 
-[packages/cli-app/src/app-config.ts:24](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L24)
+[packages/cli-app/src/app-config.ts:22](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L22)

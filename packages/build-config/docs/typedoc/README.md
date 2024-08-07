@@ -10,6 +10,12 @@ Typedoc default configurations
 
 ## Index
 
+### Type Aliases
+
+| Type alias                         | Description |
+| ---------------------------------- | ----------- |
+| [Typedoc](type-aliases/Typedoc.md) | -           |
+
 ### Variables
 
 | Variable                        | Description |
@@ -17,6 +23,12 @@ Typedoc default configurations
 | [typedoc](variables/typedoc.md) | -           |
 
 ## References
+
+### MaterialThemeOptions
+
+Re-exports [MaterialThemeOptions](../index/type-aliases/MaterialThemeOptions.md)
+
+---
 
 ### TypedocConfig
 

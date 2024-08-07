@@ -15,10 +15,10 @@ type AppConfigIn<Schema>: z.input<z.ZodType<AppConfig, z.ZodTypeDef, Merge<z.inp
 
 ## Type Parameters
 
-| Type Parameter                                                            |
-| ------------------------------------------------------------------------- |
-| `Schema` _extends_ `z.AnyZodObject` \| `z.ZodEffects`\<`z.AnyZodObject`\> |
+| Type Parameter                       |
+| ------------------------------------ |
+| `Schema` _extends_ `ZodObjectSchema` |
 
 ## Defined in
 
-[packages/cli-app/src/app-config.ts:30](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L30)
+[packages/cli-app/src/app-config.ts:28](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L28)
