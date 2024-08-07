@@ -1,21 +1,21 @@
-#!/bin/sh
+#!/bin/bash
 
 # Protect master from accidental commits.
 
-BRANCH=$(git rev-parse --abbrev-ref HEAD)
-PROTECTED_BRANCHES="^(master|main)"
+BRANCH=$(git rev-parse --abbrev-ref HEAD) PROTECTED_BRANCHES="^(master|main)"
 
-echo -e "===\n>> Pre-commit Hook:: Checking BRANCH: $BRANCH"
+echo "\n===\n>> Running in shell:: $SHELL"
+echo ">> Pre-commit Hook:: Checking BRANCH: $BRANCH\n===\n"
 
 if [[ "$BRANCH" =~ $PROTECTED_BRANCHES ]]; then
-    echo -e "\n🚫 Commit directly to BRANCH:  $BRANCH is not allowed!\n" && exit 1
-fi
-if [[ $BRANCH =~ [^[:ascii:]/-] ]]; then
-    echo -e "\n🚫 Branch name should not have any ascii and upper case letters, please rename your branch name\n" && exit 1
+    echo "\n🚫 Commit directly to BRANCH: $BRANCH is not allowed!\n" && exit 1
 fi
 
-if [[ $BRANCH =~ [A-Z] ]]; then
-    echo -e "\n🚫 Branch name should not have any ascii and upper case letters, please rename your branch name\n" && exit 1
+if [[ "$BRANCH" =~ ^[a-z]*([/-][a-z]+)*$ ]]; then
+    echo "🐛 Branch name is valid!!"
+else
+    echo "\n🚫Branch name should be lowercase and NOT have any characters besides - or / :::: please rename your branch $BRANCH\n" && exit 1
+
 fi
 
 # if we are on DEVELOPMENT branch, in order to commit we need to lint all the files to test them before commiting.
@@ -24,7 +24,7 @@ if [[ "$BRANCH" == 'development' ]]; then
     echo -e "\n🚫 $BRANCH is DEVELOPMENT, checking + fixing ALL FILES  before commit \n"
     pnpm run prepare:all
     #re add the fixed files that were staged
-    git add $(git diff HEAD --diff-filter=MAR --cached --name-only)
+    git add "$(git diff HEAD --diff-filter=MAR --cached --name-only)"
 fi
 # Bypass pre:commit if the branch name contains prefix "wip"
 if [[ "$BRANCH" != *"wip"* ]]; then

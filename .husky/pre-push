@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Protect master from direct pushes.
+BRANCH=$(git rev-parse --abbrev-ref HEAD) PROTECTED_BRANCHES="^(master|main)"
+
+echo "\n===\n>> Running in shell:: $SHELL"
+echo ">> Pre-push Hook:: Checking BRANCH: $BRANCH\n===\n"
+
+if [[ "$BRANCH" =~ $PROTECTED_BRANCHES ]]; then
+    echo "\n🚫 Push directly to BRANCH: $BRANCH is not allowed!\n" && exit 1
+fi
