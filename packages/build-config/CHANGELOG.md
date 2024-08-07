@@ -1,5 +1,13 @@
 # @snailicide/build-config
 
+## 1.2.1
+
+### Patch Changes
+
+-   d587221: - refactored cli-app and added documentation
+    -   added parsePackage to cli-app
+    -   added commitlint module to build-config, fixed bug with typedoc module
+
 ## 1.2.0
 
 ### Minor Changes
