@@ -36,13 +36,9 @@ export const configMarkdown = (
             expandObjects: true,
             indexFormat: 'table',
             mergeReadme: true,
-            outputFileStrategy: 'members',
-            plugin: ['typedoc-plugin-markdown'],
+            outputFileStrategy: 'modules',
+            plugin: ['typedoc-plugin-markdown', 'typedoc-plugin-zod'],
             useCodeBlocks: true,
-            //todo: add textContentMappings
-            // "textContentMappings": {
-            //"breadcrumbs.home": "Home"
-            // },
         }
         return options
     }
