@@ -137,29 +137,388 @@ export default initialize()
 
 ## Type Aliases
 
-| Type alias | Description |
-| --- | --- |
-| [AppConfig](type-aliases/AppConfig.md) | - |
-| [AppConfigIn](type-aliases/AppConfigIn.md) | - |
-| [AppConfigSchema](type-aliases/AppConfigSchema.md) | - |
-| [AppFlagAliases](type-aliases/AppFlagAliases.md) | This type is used to autocomplete the yargs aliases property. This creates shorthand values for option flags. |
-| [AppHidden](type-aliases/AppHidden.md) | - |
-| [CommonFlagsInput](type-aliases/CommonFlagsInput.md) | - |
-| [CommonFlagsOutput](type-aliases/CommonFlagsOutput.md) | - |
-| [InitSuccessCallback](type-aliases/InitSuccessCallback.md) | A callback type that is invoked upon successful initialization of the application. |
-| [WrappedSchema](type-aliases/WrappedSchema.md) | - |
+### AppConfig
+
+```ts
+type AppConfig: AppConfigOut;
+```
+
+#### Defined in
+
+[packages/cli-app/src/app-config.ts:26](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L26)
+
+---
+
+### AppConfigIn\<Schema\>
+
+```ts
+type AppConfigIn<Schema>: {
+  clear: boolean;
+  description: string;
+  examples: [string, string][];
+  figlet: boolean;
+  flag_aliases: AppFlagAliases<Schema>;
+  hidden: AppHidden<Schema>;
+  name: string;
+  print: boolean;
+  title_color: {
+     bg: string;
+     fg: string;
+    };
+  version: string;
+};
+```
+
+#### Type Parameters
+
+| Type Parameter                       |
+| ------------------------------------ |
+| `Schema` _extends_ `ZodObjectSchema` |
+
+#### Type declaration
+
+| Name | Type | Defined in |
+| --- | --- | --- |
+| `clear` | `boolean` | [packages/cli-app/src/app-config.ts:46](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L46) |
+| `description` | `string` | [packages/cli-app/src/app-config.ts:50](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L50) |
+| `examples` | [`string`, `string`][] | [packages/cli-app/src/app-config.ts:51](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L51) |
+| `figlet` | `boolean` | [packages/cli-app/src/app-config.ts:56](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L56) |
+| `flag_aliases` | [`AppFlagAliases`](README.md#appflagaliasesschema)\<`Schema`\> | [packages/cli-app/src/app-config.ts:36](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L36) |
+| `hidden` | [`AppHidden`](README.md#apphiddenschema)\<`Schema`\> | [packages/cli-app/src/app-config.ts:35](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L35) |
+| `name` | `string` | [packages/cli-app/src/app-config.ts:70](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L70) |
+| `print` | `boolean` | [packages/cli-app/src/app-config.ts:73](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L73) |
+| `title_color` | \{ `bg`: `string`; `fg`: `string`; \} | [packages/cli-app/src/app-config.ts:74](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L74) |
+| `title_color.bg` | `string` | [packages/cli-app/src/app-config.ts:76](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L76) |
+| `title_color.fg` | `string` | [packages/cli-app/src/app-config.ts:83](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L83) |
+| `version` | `string` | [packages/cli-app/src/app-config.ts:98](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L98) |
+
+#### Defined in
+
+[packages/cli-app/src/app-config.ts:28](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L28)
+
+---
+
+### AppConfigSchema
+
+```ts
+type AppConfigSchema: typeof appConfigSchema;
+```
+
+#### Defined in
+
+[packages/cli-app/src/app-config.ts:106](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L106)
+
+---
+
+### AppFlagAliases\<Schema\>
+
+```ts
+type AppFlagAliases<Schema>: { [Key in keyof z.infer<Schema>]?: string };
+```
+
+This type is used to autocomplete the yargs aliases property. This creates shorthand values for option flags.
+
+#### Type Parameters
+
+| Type Parameter                       |
+| ------------------------------------ |
+| `Schema` _extends_ `ZodObjectSchema` |
+
+#### Defined in
+
+[packages/cli-app/src/app-config.ts:18](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L18)
+
+---
+
+### AppHidden\<Schema\>
+
+```ts
+type AppHidden<Schema>: keyof z.infer<Schema>[];
+```
+
+#### Type Parameters
+
+| Type Parameter                       |
+| ------------------------------------ |
+| `Schema` _extends_ `ZodObjectSchema` |
+
+#### Defined in
+
+[packages/cli-app/src/app-config.ts:22](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L22)
+
+---
+
+### CommonFlagsInput
+
+```ts
+type CommonFlagsInput: {
+  debug: boolean;
+  outDir: string;
+  rootDir: string;
+  verbose: boolean;
+};
+```
+
+#### Type declaration
+
+| Name | Type | Defined in |
+| --- | --- | --- |
+| `debug` | `boolean` | [packages/cli-app/src/app-options.ts:6](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-options.ts#L6) |
+| `outDir` | `string` | [packages/cli-app/src/app-options.ts:7](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-options.ts#L7) |
+| `rootDir` | `string` | [packages/cli-app/src/app-options.ts:8](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-options.ts#L8) |
+| `verbose` | `boolean` | [packages/cli-app/src/app-options.ts:12](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-options.ts#L12) |
+
+#### Defined in
+
+[packages/cli-app/src/app-options.ts:16](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-options.ts#L16)
+
+---
+
+### CommonFlagsOutput
+
+```ts
+type CommonFlagsOutput: {
+  debug: boolean;
+  outDir: string;
+  rootDir: string;
+  verbose: boolean;
+};
+```
+
+#### Type declaration
+
+| Name | Type | Defined in |
+| --- | --- | --- |
+| `debug` | `boolean` | [packages/cli-app/src/app-options.ts:6](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-options.ts#L6) |
+| `outDir` | `string` | [packages/cli-app/src/app-options.ts:7](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-options.ts#L7) |
+| `rootDir` | `string` | [packages/cli-app/src/app-options.ts:8](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-options.ts#L8) |
+| `verbose` | `boolean` | [packages/cli-app/src/app-options.ts:12](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-options.ts#L12) |
+
+#### Defined in
+
+[packages/cli-app/src/app-options.ts:15](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-options.ts#L15)
+
+---
+
+### InitSuccessCallback()\<AppOptionsSchema\>
+
+```ts
+type InitSuccessCallback<AppOptionsSchema>: (resolvedFlags, help) => void;
+```
+
+A callback type that is invoked upon successful initialization of the application.
+
+#### Type Parameters
+
+| Type Parameter | Default type | Description |
+| --- | --- | --- |
+| `AppOptionsSchema` _extends_ `z.AnyZodObject` \| `z.ZodEffects`\<`z.AnyZodObject`\> | `z.AnyZodObject` | The schema for the application options, which can be either a Zod object schema or a Zod effects schema. |
+
+#### Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `resolvedFlags` | `z.infer`\<`AppOptionsSchema`\> | The resolved and validated flags based on the provided schema. |
+| `help` | `string` \| `undefined` | The help string, if available, otherwise undefined. |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[packages/cli-app/src/app.ts:41](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app.ts#L41)
+
+---
+
+### WrappedSchema\<Schema\>
+
+```ts
+type WrappedSchema<Schema>: Schema extends ZodObjectSchema ? Schema : never;
+```
+
+#### Type Parameters
+
+| Type Parameter                       |
+| ------------------------------------ |
+| `Schema` _extends_ `ZodObjectSchema` |
+
+#### Defined in
+
+[packages/cli-app/src/helpers.ts:4](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/helpers.ts#L4)
 
 ## Variables
 
-| Variable                                            | Description |
-| --------------------------------------------------- | ----------- |
-| [commonFlagsSchema](variables/commonFlagsSchema.md) | -           |
+### commonFlagsSchema
+
+```ts
+const commonFlagsSchema: ZodObject<CommonFlagsOutput>
+```
+
+#### Defined in
+
+[packages/cli-app/src/app-options.ts:5](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-options.ts#L5)
 
 ## Functions
 
-| Function | Description |
+### initApp()
+
+```ts
+function initApp<AppOptionsSchema>(
+    optionsSchema,
+    config,
+    initFunction,
+    skip_interactive?,
+    _yargs?,
+): Promise<undefined | Argv<{}>>
+```
+
+Initializes the application with the provided configuration and options schema.
+
+#### Type Parameters
+
+| Type Parameter | Description |
 | --- | --- |
-| [initApp](functions/initApp.md) | - |
-| [initializeApp](functions/initializeApp.md) | Initializes the application with the provided configuration and options schema. |
-| [parsePackageJson](functions/parsePackageJson.md) | - |
-| [wrapSchema](functions/wrapSchema.md) | - |
+| `AppOptionsSchema` _extends_ `ZodObjectSchema` | The schema for the application options. |
+
+#### Parameters
+
+| Parameter | Type | Default value | Description |
+| --- | --- | --- | --- |
+| `optionsSchema` | `AppOptionsSchema` | `undefined` | The schema for validating the application options. |
+| `config` | `object` | `undefined` | The configuration object for the application. |
+| `config.clear`? | `boolean` | `...` | - |
+| `config.description`? | `string` | `...` | - |
+| `config.examples`? | [`string`, `string`][] | `...` | - |
+| `config.figlet`? | `boolean` | `...` | - |
+| `config.flag_aliases`? | [`AppFlagAliases`](README.md#appflagaliasesschema)\<`AppOptionsSchema`\> | `undefined` | - |
+| `config.hidden`? | [`AppHidden`](README.md#apphiddenschema)\<`AppOptionsSchema`\> | `undefined` | - |
+| `config.name`? | `string` | `...` | - |
+| `config.print`? | `boolean` | `...` | - |
+| `config.title_color`? | `object` | `...` | - |
+| `config.title_color.bg`? | `string` | `...` | - |
+| `config.title_color.fg`? | `string` | `...` | - |
+| `config.version`? | `string` | `...` | - |
+| `initFunction`? | [`InitSuccessCallback`](README.md#initsuccesscallbackappoptionsschema)\<`AppOptionsSchema`\> | `undefined` | The callback function to be called upon successful initialization. |
+| `skip_interactive`? | `boolean` | `false` | Flag to skip interactive prompts. Default is `false` |
+| `_yargs`? | `string`[] | `process.argv` | The command-line arguments to be parsed. Default is `process.argv` |
+
+#### Returns
+
+`Promise`\<`undefined` \| `Argv`\<\{\}\>\>
+
+-   Returns a Yargs instance or undefined if initialization fails.
+
+#### Defined in
+
+[packages/cli-app/src/app.ts:65](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app.ts#L65)
+
+---
+
+### initializeApp()
+
+```ts
+function initializeApp<AppOptionsSchema>(
+    optionsSchema,
+    config,
+    initFunction,
+    skip_interactive?,
+    _yargs?,
+): Promise<undefined | Argv<{}>>
+```
+
+Initializes the application with the provided configuration and options schema.
+
+#### Type Parameters
+
+| Type Parameter | Description |
+| --- | --- |
+| `AppOptionsSchema` _extends_ `ZodObjectSchema` | The schema for the application options. |
+
+#### Parameters
+
+| Parameter | Type | Default value | Description |
+| --- | --- | --- | --- |
+| `optionsSchema` | `AppOptionsSchema` | `undefined` | The schema for validating the application options. |
+| `config` | `object` | `undefined` | The configuration object for the application. |
+| `config.clear`? | `boolean` | `...` | - |
+| `config.description`? | `string` | `...` | - |
+| `config.examples`? | [`string`, `string`][] | `...` | - |
+| `config.figlet`? | `boolean` | `...` | - |
+| `config.flag_aliases`? | [`AppFlagAliases`](README.md#appflagaliasesschema)\<`AppOptionsSchema`\> | `undefined` | - |
+| `config.hidden`? | [`AppHidden`](README.md#apphiddenschema)\<`AppOptionsSchema`\> | `undefined` | - |
+| `config.name`? | `string` | `...` | - |
+| `config.print`? | `boolean` | `...` | - |
+| `config.title_color`? | `object` | `...` | - |
+| `config.title_color.bg`? | `string` | `...` | - |
+| `config.title_color.fg`? | `string` | `...` | - |
+| `config.version`? | `string` | `...` | - |
+| `initFunction`? | [`InitSuccessCallback`](README.md#initsuccesscallbackappoptionsschema)\<`AppOptionsSchema`\> | `undefined` | The callback function to be called upon successful initialization. |
+| `skip_interactive`? | `boolean` | `false` | Flag to skip interactive prompts. Default is `false` |
+| `_yargs`? | `string`[] | `process.argv` | The command-line arguments to be parsed. Default is `process.argv` |
+
+#### Returns
+
+`Promise`\<`undefined` \| `Argv`\<\{\}\>\>
+
+-   Returns a Yargs instance or undefined if initialization fails.
+
+#### Defined in
+
+[packages/cli-app/src/app.ts:180](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app.ts#L180)
+
+---
+
+### parsePackageJson()
+
+```ts
+function parsePackageJson(pkg):
+    | undefined
+    | {
+          description: string
+          name: string
+          version: string
+      }
+```
+
+#### Parameters
+
+| Parameter | Type      |
+| --------- | --------- |
+| `pkg`     | `unknown` |
+
+#### Returns
+
+`undefined` \| \{ `description`: `string`; `name`: `string`; `version`: `string`; \}
+
+#### Defined in
+
+[packages/cli-app/src/app-config.ts:131](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L131)
+
+---
+
+### wrapSchema()
+
+```ts
+function wrapSchema<Schema>(schema): Schema
+```
+
+#### Type Parameters
+
+| Type Parameter                       |
+| ------------------------------------ |
+| `Schema` _extends_ `ZodObjectSchema` |
+
+#### Parameters
+
+| Parameter | Type     |
+| --------- | -------- |
+| `schema`  | `Schema` |
+
+#### Returns
+
+`Schema`
+
+#### Defined in
+
+[packages/cli-app/src/helpers.ts:6](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/helpers.ts#L6)
