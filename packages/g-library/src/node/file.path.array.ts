@@ -126,7 +126,7 @@ export const getFilePathObj = function (_path: string): FilePath | undefined {
     const resolvedPath = path.resolve(_path)
     const dirarray = getDirectoryArr(resolvedPath)
     const parentdirname = getParentDirectory(resolvedPath)
-    const result = {
+    const result: FilePath = {
         absolute: resolvedPath,
         basename: path.basename(resolvedPath),
         dirarray,

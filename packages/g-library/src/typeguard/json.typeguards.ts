@@ -1,21 +1,15 @@
-/**
- * @category Json
- * @namespace Typeguards
- */
-
 import { Jsonifiable } from 'type-fest'
-
 import { RA } from './ramdaimports.js'
 import { isNotUndefined } from '../typeguard/utility.typeguards.js'
 import { Json, PlainObject } from '../types/utility.js'
 
 /**
- * Checks if a value is JSON-serializable.
+ * Checks if a value is JSONifiable.
  *
- * @memberof Typeguards.Json
- * @function isJsonifiable
+ * @category TypeGuard
+ * @template Type - The type of the value being checked.
  * @param {unknown} value - The value to check.
- * @returns {boolean} - True if the value is JSON-serializable, false otherwise.
+ * @returns {boolean} `true` if the value is JSONifiable, otherwise `false`.
  */
 export const isJsonifiable = <Type extends Jsonifiable>(
     value: unknown,
@@ -30,13 +24,13 @@ export const isJsonifiable = <Type extends Jsonifiable>(
 }
 
 /**
- * Checks if a value is a non-nullable JSON value.
+ * Checks if a value is a valid JSON value.
  *
- * @memberof Typeguards.Json
- * @function isJsonValue
- * @param {Json.Value} value - The value to check.
- * @returns {boolean} - True if the value is a non-nullable JSON value, false
- *   otherwise.
+ * @category TypeGuard
+ * @template Type - The type of the value being checked.
+ * @param {Type} value - The value to check.
+ * @returns {boolean} `true` if the value is a valid JSON value, otherwise
+ *   `false`.
  */
 export const isJsonValue = <Type extends Json.Value>(
     value: Type,
@@ -51,13 +45,13 @@ export const isJsonValue = <Type extends Json.Value>(
 }
 
 /**
- * Checks if a value is an object-like JSON-serializable value.
+ * Checks if a value is a JSONifiable object-like structure (object or array).
  *
- * @memberof Typeguards.Json
- * @function isJsonifiableObjectLike
- * @param {Json.Object | Json.Array} value - The value to check.
- * @returns {boolean} - True if the value is an object-like JSON-serializable
- *   value, false otherwise.
+ * @category TypeGuard
+ * @template Type - The type of the value being checked.
+ * @param {Type} value - The value to check.
+ * @returns {boolean} `true` if the value is a JSONifiable object-like
+ *   structure, otherwise `false`.
  */
 export const isJsonifiableObjectLike = <Type extends Json.Object | Json.Array>(
     value: Type,
@@ -66,13 +60,13 @@ export const isJsonifiableObjectLike = <Type extends Json.Object | Json.Array>(
 }
 
 /**
- * Checks if a value is a JSON-serializable object.
+ * Checks if a value is a JSONifiable object.
  *
- * @memberof Typeguards.Json
- * @function isJsonifiableObject
+ * @category TypeGuard
+ * @template Type - The type of the value being checked.
  * @param {unknown} value - The value to check.
- * @returns {boolean} - True if the value is a JSON-serializable object, false
- *   otherwise.
+ * @returns {boolean} `true` if the value is a JSONifiable object, otherwise
+ *   `false`.
  */
 export const isJsonifiableObject = <Type extends PlainObject>(
     value: unknown,
@@ -81,13 +75,13 @@ export const isJsonifiableObject = <Type extends PlainObject>(
 }
 
 /**
- * Checks if a value is a JSON-serializable array.
+ * Checks if a value is a JSONifiable array.
  *
- * @memberof Typeguards.Json
- * @function isJsonifiableArray
+ * @category TypeGuard
+ * @template Type - The type of the value being checked.
  * @param {unknown} value - The value to check.
- * @returns {boolean} - True if the value is a JSON-serializable array, false
- *   otherwise.
+ * @returns {boolean} `true` if the value is a JSONifiable array, otherwise
+ *   `false`.
  */
 export const isJsonifiableArray = <Type extends Json.Array>(
     value: unknown,
@@ -100,4 +94,5 @@ export const tgJson = {
     isJsonifiableObjectLike,
     isJsonValue,
 }
+
 export default tgJson

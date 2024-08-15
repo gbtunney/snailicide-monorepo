@@ -16,22 +16,6 @@ import { isRegExp, isString } from '../typeguard/utility.typeguards.js'
 
 export type ZodRegExp = ZodType<RegExp>
 
-/**
- * Creates a Zod schema for regular expressions, with optional escaping of
- * invalid characters.
- *
- * @memberof ZodHelpers
- * @category Zod
- * @category ZodSchema
- * @example
- *     const myRegExpSchema = resolveRegExpSchema(true)
- *     const myRegExp = myRegExpSchema.parse('example') // Returns a RegExp based on "example"
- *
- * @function resolveRegExpSchema
- * @param {boolean} [escape=true] - Whether to escape invalid characters in the
- *   string before converting to RegExp. Default is `true`
- * @returns {z.ZodSchema} A Zod schema that resolves to a RegExp.
- */
 export const resolveRegExpSchema = (
     doEscape: boolean = true,
 ): z.ZodEffects<
@@ -61,7 +45,6 @@ export const resolveRegExpSchema = (
                 const _reg: RegExp = value
                 return _reg
             }
-            //return undefined
         })
         .refine((value: RegExp) => {
             return value.source !== '(?:)' ? isRegExp(value) : false
@@ -70,22 +53,6 @@ export const resolveRegExpSchema = (
     return union
 }
 
-/**
- * Ensures that the input is treated as an array. If the input is not an array,
- * it is converted into an array.
- *
- * @memberof ZodHelpers
- * @category Zod
- * @category ZodSchema
- * @example
- *     const myArraySchema = ensureArray(z.string())
- *     const myArray = myArraySchema.parse('hello') // Returns ["hello"]
- *
- * @function ensureArray
- * @param {ZodTypeAny} schema - The Zod schema to ensure as an array.
- * @returns {z.ZodSchema} A Zod schema that ensures the input is treated as an
- *   array.
- */
 export const ensureArray = <Type extends z.ZodTypeAny>(
     schema: Type,
 ): ZodEffects<ZodUnion<[ZodArray<Type>, Type]>, Array<Type['_output']>> => {
@@ -101,27 +68,6 @@ export const ensureArray = <Type extends z.ZodTypeAny>(
     return union
 }
 
-/**
- * Creates a Zod schema that validates numeric inputs, including strings that
- * can be converted to numbers. This schema accepts either a string, a number,
- * or a bigint as input and attempts to refine it to a numeric value. If the
- * input is a string that represents a valid number or bigint, it will be
- * converted accordingly. Otherwise, if the conversion is not possible or the
- * input is not a numeric string, the refinement fails.
- *
- * @memberof ZodHelpers
- * @category Zod
- * @category ZodSchema
- * @example
- *     const myNumber = myNumericSchema.parse('123') // Returns 123 as a number
- *     const myBigInt = myNumericSchema.parse('9007199254740991') // Returns 9007199254740991n as a bigint
- *     const invalid = myNumericSchema.parse('abc') // Throws a Zod error
- *
- * @function numeric
- * @returns {z.ZodSchema} A Zod schema that validates numeric inputs and
- *   transforms them into either a bigint, a number, or undefined if the input
- *   cannot be converted.
- */
 export const numeric = (): ZodEffects<
     ZodEffects<
         ZodUnion<[ZodString, ZodNumber, ZodBigInt]>,
