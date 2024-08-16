@@ -1,10 +1,8 @@
 import { isNaN } from 'ramda-adjunct'
 import { Integer } from 'type-fest'
-
 import type { Numeric, PossibleNumeric } from './numeric.js'
 import { parseStringToInteger, parseToFloat } from './parse.js'
-import { isPossibleNumeric } from './typeguards.js'
-import { isStringNumeric } from './validators.js'
+import { isPossibleNumeric, isStringNumeric } from './validators.js'
 import { removeAllNewlines, trimWhiteSpace } from '../string/string-utils.js'
 import {
     isBigInt,
@@ -75,11 +73,6 @@ export const toStringNumeric = <Type extends string>(
  * Convert a value to a valid number type
  *
  * @category Transform
- * @template {PossibleNumeric} Type - Type must extend a
- *   PossibleNumeric(number|string|bigint)
- * @function toNumeric
- * @param {Type} value
- * @returns {Numeric | undefined} Valid number value
  * @see parseToNumeric
  * @see parseToInteger
  */

@@ -1,6 +1,6 @@
 import { Numeric, PossibleNumeric } from './numeric.js'
 import { toStringNumeric } from './transform.js'
-import { isStringNumeric } from './validators.js'
+import { isPossibleNumeric, isStringNumeric } from './validators.js'
 import {
     isBigInt,
     isNumber,
@@ -18,7 +18,12 @@ import {
  */
 
 export type EmptyString = ''
-/** @typedef {EmptyString} This Is an empty string */
+
+export const isParsableToNumeric = <Type extends PossibleNumeric>(
+    value: Type,
+): value is Type => {
+    return isPossibleNumeric(value, false)
+}
 
 export const parseToNumeric = <Type extends PossibleNumeric>(
     value: Type,

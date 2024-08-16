@@ -1,4 +1,5 @@
 export default {}
+
 export {
     getIntegerDigitCount,
     getNumberRoundedToDecimal,
@@ -7,6 +8,7 @@ export {
 } from './misc.js'
 export type { Numeric, PossibleNumeric } from './numeric.js'
 export {
+    isParsableToNumeric,
     parseStringToInteger,
     parseStringToNumeric,
     parseToFloat,
@@ -20,16 +22,12 @@ export {
 } from './transform.js'
 
 export {
-    isParsableToNumeric,
-    isPossibleNumeric,
-    isTrueNumeric,
-} from './typeguards.js'
-
-export {
     isNumeric,
     isNumericFloat,
     isNumericInteger,
     isNumericNonInteger,
+    isPossibleNumeric,
     isStringNumeric,
+    isTrueNumeric,
     isValidScientificNumber,
 } from './validators.js'
