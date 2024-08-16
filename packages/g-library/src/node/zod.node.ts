@@ -13,6 +13,7 @@ import {
 } from './../node/file.path.array.js'
 
 /* * CUSTOM ZOD UTILITIES!! * */
+/** @group Zod Schemas */
 export const fsPath = (
     root: string | undefined = undefined,
 ): ZodEffects<ZodEffects<ZodString, string>, string> => {
@@ -21,7 +22,7 @@ export const fsPath = (
         .transform((value) => getFullPath(value, root))
         .transform(normalizePath)
 }
-
+/** @group Zod Schemas */
 export const fsPathArray = (
     root: string | undefined = undefined,
     getDirectoryFileContents = false,
@@ -33,27 +34,27 @@ export const fsPathArray = (
         getFilePathArr(value, getDirectoryFileContents),
     )
 }
-
+/** @group Zod Schemas */
 export const fsPathExists = (
     exists = true,
     root: string | undefined = undefined,
     allowedType:
         | (Exclude<FileType, undefined> | Array<Exclude<FileType, undefined>>)
         | 'any' = 'any',
-) => {
+): ReturnType<typeof fsPathTypeExists> => {
     if (!exists) {
         return fsPathTypeExists('none', root)
     }
     return fsPathTypeExists(allowedType, root)
 }
-
+/** @group Zod Schemas */
 export const fsPathTypeExists = (
     allowedType:
         | (Exclude<FileType, undefined> | Array<Exclude<FileType, undefined>>)
         | 'any'
         | 'none' = 'any',
     root: string | undefined = undefined,
-) => {
+): ZodEffects<ZodEffects<ZodEffects<ZodString, string>, string>, string> => {
     return fsPath(root).refine(
         (value) => {
             let _inner_result = false
@@ -82,11 +83,21 @@ export const fsPathTypeExists = (
         },
     )
 }
-//validates if it is a glob, and if it exists.
+/**
+ * Schema validates if it is a glob, and if it exists..
+ *
+ * @group Zod Schemas
+ */
 export const fsPathArrayHasFiles = (
     getDirectoryFileContents = false,
     root: string | undefined = undefined,
-) => {
+): ZodEffects<
+    ZodEffects<
+        ZodEffects<ZodEffects<ZodString, string>, string>,
+        Array<FilePath>
+    >,
+    Array<FilePath>
+> => {
     return fsPathArray(root, getDirectoryFileContents).refine(
         (val: Array<FilePath>) => {
             if (val.length > 0 && val[0] !== undefined) {
@@ -105,8 +116,11 @@ export const fsPathArrayHasFiles = (
     )
 }
 
-export const filePathExists = fsPathExists(true)
-
-export const filePathDoesNotExist = fsPathExists(false)
-
-export const filePath = fsPath()
+/** @group Zod Schemas */
+export const filePathExists = (): ReturnType<typeof fsPathExists> =>
+    fsPathExists(true)
+/** @group Zod Schemas */
+export const filePathDoesNotExist = (): ReturnType<typeof fsPathExists> =>
+    fsPathExists(false)
+/** @group Zod Schemas */
+export const filePath = (): ReturnType<typeof fsPath> => fsPath()

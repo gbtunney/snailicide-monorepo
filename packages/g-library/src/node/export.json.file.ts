@@ -3,7 +3,7 @@ import path from 'path'
 
 import { prettyPrintJSON } from './../object/json.js'
 import { Json, Jsonifiable } from './../types/utility.js'
-type JSONExportEntry<
+export type JSONExportEntry<
     Type = Json.Value,
     DataType = Type extends Jsonifiable ? Type : never,
 > = {
@@ -14,13 +14,10 @@ type JSONExportEntry<
 export type JSONExportConfig = Array<JSONExportEntry>
 
 /**
- * ExportJSON
+ * Throws error if file save fail
  *
- * @param {JSONExportConfig} config - Configuration array
- * @param {string | undefined} outdir - Outdir [d=undefined]
  * @param {'ON' | 'ERROR' | 'WARN'} overwrite - [d="ON"] file overwrite mode if
- *   excists.
- * @returns {void}
+ *   exists.
  */
 export const exportJSONFile = (
     config: JSONExportConfig,
@@ -42,7 +39,7 @@ export const exportJSONFile = (
         if (overwrite === 'ON') {
             writeFile() ///write the file return success.
         } else if (!fs.existsSync(file_path)) {
-            //is set to warn or error, but no file excists.
+            //is set to warn or error, but no file exists.
             writeFile() ///write the file return success.
         } else if (overwrite === 'WARN' || fs.existsSync(file_path)) {
             console.warn('FILE PATH ALREADY EXCISTS::: ', file_path, entry)
