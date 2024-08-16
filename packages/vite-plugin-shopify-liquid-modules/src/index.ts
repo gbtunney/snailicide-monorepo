@@ -48,9 +48,9 @@ const processModules = <
         )
         sectionFileArr.forEach((section_file) => {
             const true_module_name = section_file.parentdirname
-            const module_path = zod.filePath.parse(
-                `${modulesDir}/${true_module_name}`,
-            )
+            const module_path = zod
+                .filePath()
+                .parse(`${modulesDir}/${true_module_name}`)
             //LOAD SECTION FILE TO CHECK
             const section_file_content = fs.readFileSync(
                 section_file.absolute,

@@ -39,12 +39,12 @@ const processModules = async ({
 
     Object.entries(entryPoints).forEach(
         async ([entry_pt_out, entry_pt_source]) => {
-            const full_entry_path = zod.filePath.parse(
-                `${sourceCodeDir}/${entry_pt_source}`,
-            )
-            const full_out_path = zod.filePath.parse(
-                `${outConfigDir}/${entry_pt_out}`,
-            )
+            const full_entry_path = zod
+                .filePath()
+                .parse(`${sourceCodeDir}/${entry_pt_source}`)
+            const full_out_path = zod
+                .filePath()
+                .parse(`${outConfigDir}/${entry_pt_out}`)
             return await compileFile(full_out_path, full_entry_path)
         },
     )
