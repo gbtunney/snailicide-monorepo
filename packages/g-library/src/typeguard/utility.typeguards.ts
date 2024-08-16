@@ -11,6 +11,24 @@ import type {
 } from './../types/empty.js'
 import type { PlainObject, Primitive } from './../types/utility.js'
 import { RA } from './ramdaimports.js'
+
+/**
+ * Checks if a value is truthy.
+ *
+ * @group Empty Types
+ * @see {@link isFalsy}
+ */
+export const isTruthy = <Type>(value: Type | Falsy): value is Type =>
+    RA.isTruthy(value)
+/**
+ * Checks if a value is falsy.
+ *
+ * @group Empty Types
+ * @see {@link isTruthy}
+ */
+export const isFalsy = <Type>(value: Type | Falsy): value is Falsy =>
+    RA.isFalsy(value)
+
 /**
  * Retuns `true` if the value is `null`,`undefined` or an empty string, array,
  * or object
@@ -24,46 +42,27 @@ import { RA } from './ramdaimports.js'
  *     isNilOrEmpty({}); //=> true
  *     isNilOrEmpty({length: 0}); //=> false
  *
- * @function isNilOrEmpty
- * @param {T | NilOrEmpty} value - T | NilOrEmpty
- * @returns {boolean}
+ * @group Empty Types
+ * @see {@link isNotNilOrEmpty}
  */
 export const isNilOrEmpty = <Type>(
     value: Type | NilOrEmpty,
 ): value is NilOrEmpty => RA.isNilOrEmpty(value)
 
 /**
- * Checks if a value is truthy.
- *
- * @category TypeGuard
- * @param {Type | Falsy} value - The value to check.
- * @returns {boolean} `true` if the value is truthy, otherwise `false`.
- * @see {@link isFalsy}
- */
-export const isTruthy = <Type>(value: Type | Falsy): value is Type =>
-    RA.isTruthy(value)
-
-/**
  * Checks if a value is not nil or empty.
  *
- * @category TypeGuard
- * @param {Type | NilOrEmpty} value - The value to check.
- * @returns {boolean} `true` if the value is not nil or empty, otherwise
- *   `false`.
+ * @group Empty Types
  * @see {@link isNilOrEmpty}
  */
 export const isNotNilOrEmpty = <Type>(
     value: Type | NilOrEmpty,
 ): value is Type => RA.isNotNilOrEmpty(value)
 
-/* * EMPTY STRING!!!!! * */
 /**
  * Checks if a value is an empty string.
  *
- * @category TypeGuard
- * @param {Type} value - The value to check.
- * @returns {boolean} `true` if the value is an empty string, otherwise `false`.
- * @see {@link isEmptyString}
+ * @group Empty Types
  */
 export const isEmptyString = <Type extends string>(
     value: Type,
@@ -72,21 +71,17 @@ export const isEmptyString = <Type extends string>(
 /**
  * Checks if a value is a string.
  *
- * @category TypeGuard
- * @param {unknown} value - The value to check.
- * @returns {boolean} `true` if the value is a string, otherwise `false`.
- * @see {@link isString}
+ * @group Primitive
+ * @see {@link isNotString}
  */
 export const isString = <Type extends string>(value: unknown): value is Type =>
     RA.isString(value)
 
 /**
- * Checks if a value is not a string.
+ * Checks if a value is NOT a string.
  *
- * @category TypeGuard
- * @param {Type | string} value - The value to check.
- * @returns {boolean} `true` if the value is not a string, otherwise `false`.
- * @see {@link isNotString}
+ * @group Primitive
+ * @see {@link isString}
  */
 export const isNotString = <Type = unknown>(
     value: Type | string,
@@ -95,10 +90,7 @@ export const isNotString = <Type = unknown>(
 /**
  * Checks if a value is a bigint.
  *
- * @category TypeGuard
- * @param {unknown} value - The value to check.
- * @returns {boolean} `true` if the value is a bigint, otherwise `false`.
- * @see {@link isBigInt}
+ * @group Primitive
  */
 export const isBigInt = <Type extends bigint>(
     value: unknown,
@@ -109,16 +101,14 @@ export const isBigInt = <Type extends bigint>(
 /**
  * Checks if a value is a number.
  *
- * @category TypeGuard
- * @param {unknown} value - The value to check.
- * @returns {boolean} `true` if the value is a number, otherwise `false`.
+ * @group Primitive
  * @see {@link isNotNumber}
  */
 export const isNumber = <Type extends number>(value: unknown): value is Type =>
     RA.isValidNumber(value)
 
 /**
- * Checks if a value is not a number.
+ * Checks if a value is NOT a number.
  *
  * @category TypeGuard
  * @param {unknown} value - The value to check.
@@ -135,21 +125,17 @@ export const isNotNumber = <
 /**
  * Checks if a value is an integer.
  *
- * @category TypeGuard
- * @param {unknown} value - The value to check.
- * @returns {boolean} `true` if the value is an integer, otherwise `false`.
- * @see {@link isInteger}
+ * @group Primitive
+ * @see {@link isNotInteger}
  */
 export const isInteger = <Type extends number>(value: unknown): value is Type =>
     RA.isInteger(value)
 
 /**
- * Checks if a value is not an integer.
+ * Checks if a value is NOT an integer.
  *
- * @category TypeGuard
- * @param {unknown} value - The value to check.
- * @returns {boolean} `true` if the value is not an integer, otherwise `false`.
- * @see {@link isNotInteger}
+ * @group Primitive
+ * @see {@link isInteger}
  */
 export const isNotInteger = <
     Type extends number,
@@ -161,22 +147,18 @@ export const isNotInteger = <
 /**
  * Checks if a value is a primitive.
  *
- * @category TypeGuard
- * @param {unknown} value - The value to check.
- * @returns {boolean} `true` if the value is a primitive, otherwise `false`.
- * @see {@link isPrimitive}
+ * @group Primitive
+ * @see {@link isNotPrimitive}
  */
 export const isPrimitive = <Type extends Primitive>(
     value: unknown,
 ): value is Type => RA.isPrimitive(value)
 
 /**
- * Checks if a value is not a primitive.
+ * Checks if a value is NOT a primitive.
  *
- * @category TypeGuard
- * @param {Type | Primitive} value - The value to check.
- * @returns {boolean} `true` if the value is not a primitive, otherwise `false`.
- * @see {@link isNotPrimitive}
+ * @group Primitive
+ * @see {@link isPrimitive}
  */
 export const isNotPrimitive = <Type = unknown>(
     value: Type | Primitive,
@@ -185,21 +167,17 @@ export const isNotPrimitive = <Type = unknown>(
 /**
  * Checks if a value is nil-like.
  *
- * @category TypeGuard
- * @param {Type | NilLike} value - The value to check.
- * @returns {boolean} `true` if the value is nil-like, otherwise `false`.
- * @see {@link isNilLike}
+ * @group Empty Types
+ * @see {@link isNotNilLike}
  */
 export const isNilLike = <Type>(value: Type | NilLike): value is NilLike =>
     RA.isEmptyString(value) || isNil(value)
 
 /**
- * Checks if a value is not nil-like.
+ * Checks if a value is NOT nil-like.
  *
- * @category TypeGuard
- * @param {Type | NilLike} value - The value to check.
- * @returns {boolean} `true` if the value is not nil-like, otherwise `false`.
- * @see {@link isNotNilLike}
+ * @group Empty Types
+ * @see {@link isNilLike}
  */
 export const isNotNilLike = <Type>(value: Type | NilLike): value is Type =>
     !(RA.isEmptyString(value) || isNil(value))
@@ -207,54 +185,44 @@ export const isNotNilLike = <Type>(value: Type | NilLike): value is Type =>
 /**
  * Checks if a value is nullish.
  *
- * @category TypeGuard
- * @param {Type | NilLike} value - The value to check.
- * @returns {boolean} `true` if the value is nullish, otherwise `false`.
- * @see {@link isNullish}
+ * @group Empty Types
+ * @see {@link isNotNullish}
  */
 export const isNullish = <Type>(value: Type | NilLike): value is undefined =>
     RA.isEmptyString(value) || isNil(value)
 
 /**
- * Checks if a value is not nullish.
+ * Checks if a value is NOT nullish.
  *
- * @category TypeGuard
- * @param {Type | NilLike} value - The value to check.
- * @returns {boolean} `true` if the value is not nullish, otherwise `false`.
- * @see {@link isNotNullish}
+ * @group Empty Types
+ * @see {@link isNullish}
  */
 export const isNotNullish = <Type>(value: Type | NilLike): value is Type =>
     !(RA.isEmptyString(value) || isNil(value))
 
 /**
- * Checks if a value is not null.
+ * Checks if a value is null.
  *
- * @category TypeGuard
- * @param {unknown} value - The value to check.
- * @returns {boolean} `true` if the value is not null, otherwise `false`.
+ * @group Empty Types
  * @see {@link isNotNull}
+ */
+export const isNull = (value: unknown): value is null => RA.isNull(value)
+
+/**
+ * Checks if a value is NOT null.
+ *
+ * @group Empty Types
+ * @see {@link isNull}
  */
 export const isNotNull = <Type extends NonNullable<any>>(
     value: unknown,
 ): value is Type => RA.isNotNull(value)
 
 /**
- * Checks if a value is null.
- *
- * @category TypeGuard
- * @param {unknown} value - The value to check.
- * @returns {boolean} `true` if the value is null, otherwise `false`.
- * @see {@link isNull}
- */
-export const isNull = (value: unknown): value is null => RA.isNull(value)
-
-/**
  * Checks if a value is undefined.
  *
- * @category TypeGuard
- * @param {Type | Nullish} value - The value to check.
- * @returns {boolean} `true` if the value is undefined, otherwise `false`.
- * @see {@link isUndefined}
+ * @group Empty Types
+ * @see {@link isNotUndefined}
  */
 export const isUndefined = <Type>(value: Type | Nullish): value is undefined =>
     isNil(value)
@@ -262,10 +230,8 @@ export const isUndefined = <Type>(value: Type | Nullish): value is undefined =>
 /**
  * Checks if a value is not undefined.
  *
- * @category TypeGuard
- * @param {unknown} value - The value to check.
- * @returns {boolean} `true` if the value is not undefined, otherwise `false`.
- * @see {@link isNotUndefined}
+ * @group Empty Types
+ * @see {@link isUndefined}
  */
 export const isNotUndefined = <Type>(value: unknown): value is Type =>
     RA.isNotNil(value)
@@ -273,10 +239,8 @@ export const isNotUndefined = <Type>(value: unknown): value is Type =>
 /**
  * Checks if a value is an empty array.
  *
- * @category TypeGuard
- * @param {unknown} value - The value to check.
- * @returns {boolean} `true` if the value is an empty array, otherwise `false`.
- * @see {@link isEmptyArray}
+ * @group Empty Types
+ * @see {@link isNonEmptyArray}
  */
 export const isEmptyArray = <Type extends EmptyArray>(
     value: unknown,
@@ -285,11 +249,8 @@ export const isEmptyArray = <Type extends EmptyArray>(
 /**
  * Checks if a value is a non-empty array.
  *
- * @category TypeGuard
- * @param {Type} value - The value to check.
- * @returns {boolean} `true` if the value is a non-empty array, otherwise
- *   `false`.
- * @see {@link isNonEmptyArray}
+ * @group Empty Types
+ * @see {@link isEmptyArray}
  */
 export const isNonEmptyArray = <Type extends UnknownArray = EmptyArray>(
     value: Type,
@@ -298,10 +259,7 @@ export const isNonEmptyArray = <Type extends UnknownArray = EmptyArray>(
 /**
  * Checks if a value is an array.
  *
- * @category TypeGuard
- * @param {unknown} value - The value to check.
- * @returns {boolean} `true` if the value is an array, otherwise `false`.
- * @see {@link isArray}
+ * @group Array
  */
 export const isArray = <Type extends UnknownArray>(
     value: unknown,
@@ -310,11 +268,8 @@ export const isArray = <Type extends UnknownArray>(
 /**
  * Checks if a value is a non-empty object.
  *
- * @category TypeGuard
- * @param {Type} value - The value to check.
- * @returns {boolean} `true` if the value is a non-empty object, otherwise
- *   `false`.
- * @see {@link isNonEmptyObject}
+ * @group Empty Types
+ * @see {@link isEmptyObject}
  */
 export const isNonEmptyObject = <
     Type extends PlainObject | Record<string, unknown>,
@@ -325,10 +280,8 @@ export const isNonEmptyObject = <
 /**
  * Checks if a value is an empty object.
  *
- * @category TypeGuard
- * @param {Type} value - The value to check.
- * @returns {boolean} `true` if the value is an empty object, otherwise `false`.
- * @see {@link isEmptyObject}
+ * @group Empty Types
+ * @see {@link isNonEmptyObject}
  */
 export const isEmptyObject = <Type extends EmptyObject>(
     value: Type,
@@ -337,10 +290,7 @@ export const isEmptyObject = <Type extends EmptyObject>(
 /**
  * Checks if a value is a plain object.
  *
- * @category TypeGuard
- * @param {Type} value - The value to check.
- * @returns {boolean} `true` if the value is a plain object, otherwise `false`.
- * @see {@link isPlainObject}
+ * @group Object
  */
 export const isPlainObject = <
     Type extends PlainObject | Record<string, unknown>,
@@ -351,11 +301,7 @@ export const isPlainObject = <
 /**
  * Checks if a value is a regular expression.
  *
- * @category TypeGuard
- * @param {unknown} value - The value to check.
- * @returns {boolean} `true` if the value is a regular expression, otherwise
- *   `false`.
- * @see {@link isRegExp}
+ * @group RegExp
  */
 export const isRegExp = <Type extends RegExp>(
     value: unknown,
@@ -366,10 +312,8 @@ export const isRegExp = <Type extends RegExp>(
 /**
  * Checks if a value is not an error.
  *
- * @category TypeGuard
- * @param {Type} value - The value to check.
- * @returns {boolean} `true` if the value is not an error, otherwise `false`.
- * @see {@link isNotError}
+ * @group Error
+ * @see {@link isError}
  */
 export const isNotError = <Type>(
     value: Type,
@@ -380,22 +324,14 @@ export const isNotError = <Type>(
 /**
  * Checks if a value is an error.
  *
- * @category TypeGuard
- * @param {unknown} value - The value to check.
- * @returns {boolean} `true` if the value is an error, otherwise `false`.
- * @see {@link isError}
+ * @group Error
+ * @see {@link isNotError}
  */
 export const isError = (
     value: unknown,
 ): value is IsLiteral<'ERROR'> extends true ? 'ERROR' : never => {
     return value === 'ERROR'
 }
-
-//Test case  --
-/*const test_value  = 22 //'   ' //PlainObject = { hhihih:'hjhj'}
-if ( tg_isNotUndefined( test_value) ){
-    const vallll : LiteralToPrimitive<typeof test_value>   = test_value
-}*/
 /*
 RA.isNotNull(1); //=> true
 RA.isNotNull(undefined); //=> true

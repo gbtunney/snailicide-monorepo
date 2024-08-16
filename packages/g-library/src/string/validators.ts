@@ -1,14 +1,16 @@
 import semvervalid from 'semver/functions/valid.js'
 
+/**
+ * @category URL
+ * @group Validators
+ */
 export type URL<Type extends string> = Type
 
 /**
  * Checks if a string is a valid URL.
  *
- * @memberof StringUtils
- * @function isValidUrl
- * @param {string} value - The string to check.
- * @returns {boolean} - True if the string is a valid URL, false otherwise.
+ * @category URL
+ * @group Validators
  */
 export const isValidUrl = <Type extends string>(
     value: Type,
@@ -20,11 +22,7 @@ export const isValidUrl = <Type extends string>(
 /**
  * Checks if the provided string is a valid semantic version (SemVer).
  *
- * @memberof StringUtils
- * @function isValidSemVer
- * @param {string} value - The string to be validated as a semantic version.
- * @returns {boolean} `true` if the string is a valid semantic version,
- *   otherwise `false`.
+ * @group Validators
  */
 export const isValidSemVer = (value: string): boolean =>
     semvervalid(value) !== null
@@ -32,10 +30,7 @@ export const isValidSemVer = (value: string): boolean =>
 /**
  * Checks if a string contains a number.
  *
- * @memberof StringUtils
- * @function stringContainsNumber
- * @param {string} value - The string to check.
- * @returns {boolean} - True if the string contains a number, false otherwise.
+ * @group Validators
  */
 export const stringContainsNumber = <Type extends string>(
     value: Type,
@@ -45,11 +40,7 @@ export const stringContainsNumber = <Type extends string>(
  * If the length of the string is 1 and the string does not match a letter,
  * return true.
  *
- * @memberof StringUtils
- * @function stringContainsLetter
- * @param {string} value - The string to check.
- * @returns {boolean} - True if the string length is 1 and does not match a
- *   letter, false otherwise.
+ * @group Validators
  */
 export const stringContainsLetter = <Type extends string>(
     value: Type,

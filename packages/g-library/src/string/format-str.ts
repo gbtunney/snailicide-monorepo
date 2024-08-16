@@ -13,14 +13,7 @@ const { vsprintf }: typeof format = format
  * The arguments can be a single string or an array of strings, which are
  * validated and converted to an array if necessary using a Zod schema.
  *
- * @memberof StringUtils
- * @function formatString
- * @param {string} value - The string containing placeholders for formatting.
- *   Placeholders follow the sprintf format.
- * @param {string | string[]} args - The argument(s) to replace placeholders in
- *   the `value` string. Can be a single string or an array of strings.
- * @returns {string} The formatted string with placeholders replaced by provided
- *   arguments.
+ * @group Replace
  */
 export const formatString = (
     value: string,

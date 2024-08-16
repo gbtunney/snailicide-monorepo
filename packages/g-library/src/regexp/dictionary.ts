@@ -71,6 +71,8 @@ export const WHITE_SPACE_CHARACTERS = [
     '\u205F',
     '\u3000',
 ]
+/** Stuff to trim from basic css classes. */
+export const TRIM_CHARS_DEFAULT = ['.', "'", '"', ' ', '-', '[', ']', '(', ')']
 
 /**
  * US PHONE NUMBER

@@ -12,6 +12,14 @@ import {
     safeSerializeJson,
 } from './json.js'
 
+import {
+    isJsonifiable,
+    isJsonifiableArray,
+    isJsonifiableObject,
+    isJsonifiableObjectLike,
+    isJsonValue,
+} from '../typeguard/json.typeguards.js'
+
 export const objectUtils = {
     flatten,
     prettyPrintJSON,
@@ -19,7 +27,17 @@ export const objectUtils = {
     safeSerializeJson,
     unflatten,
 }
-export default objectUtils
 
-export type { FlattenOptions, UnflattenOptions } from 'flat'
+/** @namespace */
+export const GILLIAN = {
+    isJsonifiable,
+    isJsonifiableArray,
+    isJsonifiableObject,
+    isJsonifiableObjectLike,
+    isJsonValue,
+    prettyPrintJSON,
+    safeDeserializeJson,
+    safeSerializeJson,
+}
+export default objectUtils
 export { merge as deepmerge } from 'ts-deepmerge'

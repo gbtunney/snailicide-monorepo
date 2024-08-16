@@ -1,13 +1,4 @@
 import z from 'zod'
-
-/**
- * Zod Helpers
- *
- * This file contains utility functions for zod *
- *
- * @category Zod
- * @namespace ZodHelpers
- */
 import { ensureArray, numeric, resolveRegExpSchema } from './schemas.js'
 export const schemaForType =
     <Type>() =>
@@ -22,7 +13,6 @@ export const wrapSchema = <Schema extends z.Schema>(schema: Schema): Schema => {
 /**
  * Get zod data typed
  *
- * @category Zod
  * @example
  *     getZodData( z.object({
  *     prop1: z.string(),
@@ -36,12 +26,6 @@ export const wrapSchema = <Schema extends z.Schema>(schema: Schema): Schema => {
  *     prop1: 'i am a string',
  *     prop2: 2
  *     }
- *
- * @template {z.ZodSchema} Schema
- * @function getZodData
- * @param {unknown} value - Z.infer<typeof schema>
- * @param {Schema} schema - Zod schema to use
- * @returns {unknown} Z.infer<typeof schema>
  */
 export const parseZodData = <Schema extends z.ZodSchema>(
     value: unknown,
@@ -54,8 +38,7 @@ export const parseZodData = <Schema extends z.ZodSchema>(
 /**
  * Guard function to determine if value is parseable according to schema
  *
- * @category Zod
- * @category TypeGuard
+ * @category Typeguard
  * @example
  *     tg_Zod( z.object({
  *     prop1: z.string(),
@@ -65,13 +48,6 @@ export const parseZodData = <Schema extends z.ZodSchema>(
  *     prop2: 2,
  *     } )
  *     => true
- *
- * @template {unknown} Type
- * @template {z.ZodSchema} Schema
- * @function tg_Zod
- * @param {Type} value - Value to test
- * @param {Schema} schema - Zod schema to use
- * @returns {boolean}
  */
 export const isZodParsable = <Schema extends z.ZodSchema>(
     value: unknown,
@@ -89,6 +65,7 @@ export const parseFactory =
         return undefined
     }
 
+/** @namespace This file contains utility functions for zod */
 export const zodHelpers = {
     ensureArray,
     isZodParsable,
@@ -100,3 +77,4 @@ export const zodHelpers = {
     wrapSchema,
 }
 export default zodHelpers
+export type { ZodRegExp } from './schemas.js'

@@ -3,6 +3,7 @@ import { getHTMLElementFromString } from './html.js'
 import { styledConsoleLog } from './logging.js'
 import { renderInlineMarkdown, renderMarkdown } from './markdown.js'
 
+/** @namespace */
 export const htmlUtils = {
     getHTMLElementFromString,
     isCSSColorSpecial,
@@ -14,6 +15,7 @@ export const htmlUtils = {
 export default htmlUtils
 
 export { isCSSColorSpecial, isNotCSSColorSpecial } from './css.js'
+export type { CSSColorSpecial } from './css.js'
 export { getHTMLElementFromString } from './html.js'
 export { styledConsoleLog } from './logging.js'
 export { renderInlineMarkdown, renderMarkdown } from './markdown.js'

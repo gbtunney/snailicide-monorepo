@@ -10,6 +10,11 @@ import {
     isString as tgIsString,
 } from '../typeguard/utility.typeguards.js'
 
+/**
+ * Convert a string to a numeric value
+ *
+ * @group Transform
+ */
 export const toStringNumeric = <Type extends string>(
     value: Type,
     strictChars: boolean = true,
@@ -72,9 +77,9 @@ export const toStringNumeric = <Type extends string>(
 /**
  * Convert a value to a valid number type
  *
- * @category Transform
- * @see parseToNumeric
- * @see parseToInteger
+ * @group Transform
+ * @see {@link parseToNumeric}
+ * @see {@link parseToInteger}
  */
 export const toNumeric = <Type extends PossibleNumeric>(
     value: Type,
@@ -92,18 +97,7 @@ export const toNumeric = <Type extends PossibleNumeric>(
 /**
  * Converts a valid number to a float
  *
- * @category Numeric
- * @example
- *     const number_to_test = 22.2002
- *     numericToFloat<typeof number_to_test, true>(number_to_test)
- *     => 22.2002
- *
- * @template {number} Type - Type must extend number
- * @template {boolean} strict [false]-enables strict typing of value using
- *   Float<Type>
- * @function numericToFloat
- * @param {Type | Float<Type>} value - Value to test
- * @returns {number | undefined}
+ * @group Transform
  */
 export const numericToFloat = <Type extends Numeric>(
     value: Type,
@@ -113,18 +107,12 @@ export const numericToFloat = <Type extends Numeric>(
  * Converts a integer number to a exact Integer using parseInt (ie not 12.001
  * but 12.00 is allowed)
  *
- * @category Numeric
  * @example
  *     const number_to_test_int = 22.000
  *     numericToInteger<typeof number_to_test_int, true>(number_to_test_int)
  *     => 22
  *
- * @template {number} Type - Must extend number
- * @template {boolean} strict [d=false] - enables strict typing of value
- *   parameter using Integer<Type>
- * @function numericToInt
- * @param {Type | Integer<Type>} value - Value to test
- * @returns {number | undefined}
+ * @group Transform
  */
 export const numericToInteger = <Type extends Numeric, Strict = false>(
     value: Strict extends true ? Integer<Type> : Type,

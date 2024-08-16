@@ -4,12 +4,9 @@ import { isNotUndefined } from '../typeguard/utility.typeguards.js'
 import { Json, PlainObject } from '../types/utility.js'
 
 /**
- * Checks if a value is JSONifiable.
+ * Checks if a value is Jsonifiable.
  *
- * @category TypeGuard
- * @template Type - The type of the value being checked.
- * @param {unknown} value - The value to check.
- * @returns {boolean} `true` if the value is JSONifiable, otherwise `false`.
+ * @group Json
  */
 export const isJsonifiable = <Type extends Jsonifiable>(
     value: unknown,
@@ -24,13 +21,9 @@ export const isJsonifiable = <Type extends Jsonifiable>(
 }
 
 /**
- * Checks if a value is a valid JSON value.
+ * Checks if a value is a valid Json value.
  *
- * @category TypeGuard
- * @template Type - The type of the value being checked.
- * @param {Type} value - The value to check.
- * @returns {boolean} `true` if the value is a valid JSON value, otherwise
- *   `false`.
+ * @group Json
  */
 export const isJsonValue = <Type extends Json.Value>(
     value: Type,
@@ -47,11 +40,7 @@ export const isJsonValue = <Type extends Json.Value>(
 /**
  * Checks if a value is a JSONifiable object-like structure (object or array).
  *
- * @category TypeGuard
- * @template Type - The type of the value being checked.
- * @param {Type} value - The value to check.
- * @returns {boolean} `true` if the value is a JSONifiable object-like
- *   structure, otherwise `false`.
+ * @group Json
  */
 export const isJsonifiableObjectLike = <Type extends Json.Object | Json.Array>(
     value: Type,
@@ -62,11 +51,7 @@ export const isJsonifiableObjectLike = <Type extends Json.Object | Json.Array>(
 /**
  * Checks if a value is a JSONifiable object.
  *
- * @category TypeGuard
- * @template Type - The type of the value being checked.
- * @param {unknown} value - The value to check.
- * @returns {boolean} `true` if the value is a JSONifiable object, otherwise
- *   `false`.
+ * @group Json
  */
 export const isJsonifiableObject = <Type extends PlainObject>(
     value: unknown,
@@ -77,11 +62,7 @@ export const isJsonifiableObject = <Type extends PlainObject>(
 /**
  * Checks if a value is a JSONifiable array.
  *
- * @category TypeGuard
- * @template Type - The type of the value being checked.
- * @param {unknown} value - The value to check.
- * @returns {boolean} `true` if the value is a JSONifiable array, otherwise
- *   `false`.
+ * @group Json
  */
 export const isJsonifiableArray = <Type extends Json.Array>(
     value: unknown,

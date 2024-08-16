@@ -14,17 +14,7 @@ const _match = String().match
 export type RegExpMatchArray = ReturnType<typeof _match>
 export const lookup: typeof _lookup = _lookup
 
-/**
- * Return a file extension if it is within the character count
- *
- * @function fileExtension
- * @param {number} [min=2] - Minimum characters in the file extension. Default
- *   is `2`
- * @param {number} [max=8] - Minimum characters in the file extension. Default
- *   is `8`
- * @returns {RegExp}
- */
-
+/** Return a file extension if it is within the character count */
 export const fileExtension = (min: number = 2, max: number = 8): RegExp =>
     new RegExp(`.[a-z]{${min.toString()},${max.toString()}$`)
 
@@ -43,12 +33,11 @@ export const joinRegexList = (_value: (string ) | (string )[]): RegExp|undefined
             return _inner.toString()
         }).join('|')
         return  ( isRawStringValidRegExp(_str) )? new RegExp( _str):undefined
-
     }
-
     return undefined
 }*/
 
+/** @namespace */
 export const regexp = {
     escapeStringRegexp,
     fileExtension,

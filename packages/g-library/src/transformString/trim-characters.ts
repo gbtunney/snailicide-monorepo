@@ -12,24 +12,8 @@ import {
  * pattern(s). If multiple patterns are provided, each pattern is applied in
  * sequence.
  *
- * @template {BaseValue & { pattern: string | string[] } & TrimCharacters} Type
- *   - Type must
- *
- * @function trimCharacters
- * @namespace StringUtils
- * @param {Type} params
- *
- *   - The parameters object.
- *
- * @param {string} params.value - The string to be trimmed.
- * @param {string | string[]} [params.pattern=' '] - The pattern(s) to trim from
- *   the string. Can be a single string or an array of strings. Default is `'
- *   '`. Default is `' '`
- * @param {boolean} [params.trimStart=true] - Whether to trim characters from
- *   the start of the string. Default is `true`
- * @param {boolean} [params.trimEnd=true] - Whether to trim characters from the
- *   end of the string. Default is `true`
- * @returns {string} The trimmed string.
+ * @group Trim
+ * @see {@link batchTrimCharacters}
  */
 export const trimCharacters = ({
     doTrimEnd = true,
@@ -56,25 +40,8 @@ export const trimCharacters = ({
  * string. This function allows for batch processing of multiple strings with
  * the same trimming parameters.
  *
- * @template {BaseValue & { pattern: string | string[] } & TrimCharacters} Type
- *   - Type must
- *
- * @function batchTrimCharacters
- * @namespace StringUtils
- * @param {Type} params
- *
- *   - The parameters object.
- *
- * @param {string | string[]} params.value - The string(s) to be trimmed. Can be
- *   a single string or an array of strings.
- * @param {string | string[]} [params.pattern=' '] - The pattern(s) to trim from
- *   the string(s). Can be a single string or an array of strings. Default is `'
- *   '`. Default is `' '`
- * @param {boolean} [params.doTrimStart=true] - Whether to trim characters from
- *   the start of the string(s). Default is `true`
- * @param {boolean} [params.doTrimEnd=true] - Whether to trim characters from
- *   the end of the string(s). Default is `true`
- * @returns {string[]} An array of trimmed strings.
+ * @group Trim
+ * @see {@link trimCharacters}
  */
 export const batchTrimCharacters = ({
     doTrimEnd = true,
@@ -101,17 +68,8 @@ export const batchTrimCharacters = ({
  * This is a convenience function specifically for trimming the start of a
  * string.
  *
- * @template {BaseValue & { pattern: string | string[] } & TrimCharacters} Type
- *   - Type must
- *
- * @function trimCharactersStart
- * @namespace StringUtils
- * @param {Type} params - The parameters object.
- * @param {string} params.value - The string to be trimmed.
- * @param {string | string[]} [params.pattern=' '] - The pattern(s) to trim from
- *   the start of the string. Can be a single string or an array of strings.
- *   Default is `' '`
- * @returns {string} The string with characters trimmed from the start.
+ * @group Trim
+ * @see {@link trimCharacters}
  */
 export const trimCharactersStart = ({
     pattern = ' ',
@@ -132,17 +90,8 @@ export const trimCharactersStart = ({
  * This is a convenience function specifically for trimming the end of a
  * string.
  *
- * @template {BaseValue & { pattern: string | string[] } & TrimCharacters} Type
- *   - Type must
- *
- * @function trimCharactersEnd
- * @namespace StringUtils
- * @param {Type} params - The parameters object.
- * @param {string} params.value - The string to be trimmed.
- * @param {string | string[]} [params.pattern=' '] - The pattern(s) to trim from
- *   the end of the string. Can be a single string or an array of strings.
- *   Default is `' '`
- * @returns {string} The string with characters trimmed from the end.
+ * @group Trim
+ * @see {@link trimCharacters}
  */
 export const trimCharactersEnd = ({
     pattern = ' ',

@@ -22,6 +22,7 @@ export const validate = (value: Chromable): boolean => {
     }
 }
 
+/** @category Validator */
 export const isValidColor = <Type extends Chromable>(
     value: Type,
 ): value is Type => {

@@ -9,7 +9,7 @@ import z, {
     ZodUnion,
 } from 'zod'
 
-import { Numeric } from '../number/numeric.js'
+import { Numeric } from '../number/index.js'
 import { toNumeric } from '../number/transform.js'
 import { escapeStringRegexpInvalid } from '../regexp/escape.js'
 import { isRegExp, isString } from '../typeguard/utility.typeguards.js'

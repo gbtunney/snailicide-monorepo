@@ -1,21 +1,24 @@
 /* * EMPTY TYPES  * */
 
-/** @typedef {EmptyObject} THIS IS A TEST */
+/** @group Empty Types */
 export type EmptyObject = {
     [K in string]: never
 }
 
-/* * EmptyArray * */
+/** @group Empty Types */
 export type EmptyArray = readonly []
 
-/* * @type EmptyArray * */
+/** @group Empty Types */
 export type EmptyString = ''
 
-/* * @type Falsy * */
+/** @group Empty Types */
 export type Falsy = false | 0 | '' | null | undefined | 'Nan'
 
+/** @group Empty Types */
 export type NilOrEmpty = EmptyObject | [] | '' | null | undefined
 
+/** @group Empty Types */
 export type NilLike = '' | null | undefined //nullish but with empty string
 
+/** @group Empty Types */
 export type Nullish = null | undefined

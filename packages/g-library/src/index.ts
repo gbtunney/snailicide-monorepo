@@ -1,5 +1,6 @@
 /* * HTML UTILITIES * */
 export { htmlUtils } from './browser/index.js'
+export type { CSSColorSpecial } from './browser/index.js'
 
 /* * COLOR UTILITIES * */
 export { colorUtils } from './color/index.js'
@@ -19,6 +20,15 @@ export { regexp } from './regexp/index.js'
 
 /* * STRING UTILITIES * */
 export { stringUtils } from './string/index.js'
+export type {
+    BaseValue,
+    BatchBaseValue,
+    Pattern,
+    ReplaceCharacters,
+    TrimCharacters,
+    ValidateFunc,
+    ValidateOperation,
+} from './transformString/index.js'
 
 /* * GENERIC TYPEGUARDS * */
 export { tg } from './typeguard/index.js'
@@ -42,3 +52,4 @@ export type {
 
 /* * ZOD UTILITIES * */
 export { zodHelpers } from './zod_helpers/index.js'
+export type { ZodRegExp } from './zod_helpers/index.js'

@@ -17,8 +17,6 @@ export const stringToRegexp = (
 /**
  * StringListToRegexp Turn a string or strings into a regexp with an |
  *
- * @param {string | string[]} value - String or Array of Strings to be converted
- *   to RegExp, all characters will be escaped
  * @param {Flag} flag - Regexp flag (like g,m)
  * @returns {RegExp} - A joined list
  */
@@ -29,15 +27,7 @@ export const stringListToRegexp = (
     return new RegExp(stringListJoinRegexp(_value), mapFlags(flag))
 }
 
-/**
- * Turn a string or strings into a regexp to trim the start and finish
- *
- * @function getRegExpTrim
- * @param {string | string[]} value - String or Array of Strings to be converted
- *   to RegExp
- * @param {Flag} Flag - Regexp flag (like g,m)
- * @returns {RegExp} - Useful regexp
- */
+/** Turn a string or strings into a regexp to trim the start and finish */
 export const getRegExpTrim = (
     _value: string | Array<string>,
     flag: Flag | Array<Flag> | undefined = 'global',
@@ -51,11 +41,7 @@ export const getRegExpTrim = (
 /**
  * Turn a string or strings into a regexp that checks the start
  *
- * @function getRegExpStartOfString
- * @param {string | string[]} value - String or Array of Strings to be converted
- *   to RegExp
- * @param {Flag} Flag - Regexp flag (like g,m)
- * @returns {RegExp} - Useful regexp
+ * @see {@link getRegExpEndOfString}
  */
 export const getRegExpStartOfString = (
     _value: string | Array<string>,
@@ -65,8 +51,9 @@ export const getRegExpStartOfString = (
 }
 
 /**
- * @function getRegExpMatchEndOfString
- * @see getRegExpMatchStartOfString
+ * Turn a string or strings into a regexp that checks the end
+ *
+ * @see {@link getRegExpStartOfString}
  */
 export const getRegExpEndOfString = (
     _value: string | Array<string>,

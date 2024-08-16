@@ -7,6 +7,7 @@ import {
 } from './../typeguard/utility.typeguards.js'
 import { batchTrimCharacters, trimCharacters } from './trim-characters.js'
 import type { BatchBaseValue, TrimCharacters } from './type.js'
+import { TRIM_CHARS_DEFAULT } from '../regexp/dictionary.js'
 
 //todo: fix these mangled chars
 export const transformExplodeArray = function ({
@@ -36,7 +37,6 @@ export const transformExplodeArray = function ({
         } & TrimCharacters = {
             value: result,
             ...trim,
-            //  pattern: "ddfdf"
         }
         result = batchTrimCharacters(newObj).filter((_str) =>
             _str.length > 2 ? true : false,
@@ -55,9 +55,9 @@ export const transformExplodeArray = function ({
         : result
 }
 
-const TRIM_CHARS_DEFAULT = ['.', "'", '"', ' ', '-', '[', ']', '(', ')'] ///stuff to trim from css classes.
-const DEFAULT_EXPLODE_REGEX = new RegExp(/[ ,]/g) /// default splitter by class
-///this splits a string of windicss classes.
+export const DEFAULT_EXPLODE_REGEX = new RegExp(/[ ,]/g) /// default splitter by class
+
+/** This splits a string of windicss classes.? */
 export const explodeCSSClassString = ({
     delimiter = DEFAULT_EXPLODE_REGEX,
     prefix = undefined,

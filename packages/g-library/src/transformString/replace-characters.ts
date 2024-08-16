@@ -14,13 +14,10 @@ const replaceCharactersSinglePattern = ({
 }: BaseValue & {
     pattern: Pattern
 } & ReplaceCharacters): string => replaceAll(pattern, replacement, value)
+
 /**
- * @function replaceAllCharacters
- * @param {string} value - Single value
- * @param {string | RegExp | string[] | RegExp[]} pattern - Blacklisted chars
- * @param {string} replacement [""] - empty string or string with new characters
- * @returns {string}
- * @see batchReplaceAll
+ * @group Replace
+ * @see {@link batchReplaceAll}
  */
 export const replaceAllCharacters = ({
     pattern = ' ',
@@ -39,15 +36,9 @@ export const replaceAllCharacters = ({
         value,
     )
 }
-//TODO: NEEDS UPDATE!!!
 /**
- * @function batchReplaceAll
- * @param {string | string[]} - Array of strings to be replaced.
- * @param {string | RegExp | string[] | RegExp[]} pattern [" "] - blacklisted
- *   chars
- * @param {string} replacement [ ""] - empty string or string with newcharacters
- * @returns {string} - Array of trimmed strings.
- * @see replaceAllCharacters
+ * @group Replace
+ * @see {@link replaceAllCharacters}
  */
 export const batchReplaceAll = ({
     pattern = ' ',

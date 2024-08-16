@@ -1,5 +1,3 @@
-/* * TRANSFORM STRING LIBRARY *
- * @author Gillian Tunney */
 export { batchReplaceAll as replaceCharacters } from './replace-characters.js'
 
 export {
@@ -13,6 +11,18 @@ export {
     trimCharactersEnd,
     trimCharactersStart,
 } from './trim-characters.js'
+
+export type {
+    BaseValue,
+    BatchBaseValue,
+    Pattern,
+    ReplaceCharacters,
+    TrimCharacters,
+} from './type.js'
+
+/* * TRANSFORM STRING LIBRARY *
+ * @author Gillian Tunney */
+export type { ValidateFunc, ValidateOperation } from './validate-string.js'
 export {
     contains,
     endsWith,
