@@ -13,15 +13,11 @@ export type JSONExportEntry<
 
 export type JSONExportConfig = Array<JSONExportEntry>
 
-/**
- * Throws error if file save fail
- *
- * @param {'ON' | 'ERROR' | 'WARN'} overwrite - [d="ON"] file overwrite mode if
- *   exists.
- */
+/** Throws error if file save fails */
 export const exportJSONFile = (
     config: JSONExportConfig,
     outdir: string | undefined = undefined,
+    /** File overwrite mode if exists */
     overwrite: 'ON' | 'ERROR' | 'WARN' = 'ON',
 ): void => {
     config.forEach((entry) => {
