@@ -19,9 +19,9 @@ const transformFunc = <Schema extends ZodObjectSchema>(
 ): z.output<Schema> => {
     const outDir =
         value['outDir'] !== undefined
-            ? zod.filePath.parse(
-                  node.getFullPath(value['outDir'], value['rootDir']),
-              )
+            ? zod
+                  .filePath()
+                  .parse(node.getFullPath(value['outDir'], value['rootDir']))
             : value['outDir']
     return { ...value, outDir }
 }
