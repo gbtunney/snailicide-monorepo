@@ -171,9 +171,9 @@ type AppConfigIn<Schema>: {
 
 #### Type Parameters
 
-| Type Parameter                       |
-| ------------------------------------ |
-| `Schema` _extends_ `ZodObjectSchema` |
+| Type Parameter                                                    |
+| ----------------------------------------------------------------- |
+| `Schema` _extends_ [`ZodObjectSchema`](README.md#zodobjectschema) |
 
 #### Type declaration
 
@@ -195,6 +195,56 @@ type AppConfigIn<Schema>: {
 #### Defined in
 
 [packages/cli-app/src/app-config.ts:28](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L28)
+
+---
+
+### AppConfigOut
+
+```ts
+type AppConfigOut: {
+  clear: boolean;
+  description: string;
+  examples: [string, string][];
+  figlet: boolean;
+  flag_aliases: {
+     help: string;
+     version: string;
+    };
+  hidden: string[];
+  name: string;
+  print: boolean;
+  title_color: {
+     bg: string;
+     fg: string;
+    };
+  version: string;
+};
+```
+
+This is the schema used to configure the Cli Application, these should NOT used in cli arguments when running the client cli app
+
+#### Type declaration
+
+| Name | Type | Defined in |
+| --- | --- | --- |
+| `clear` | `boolean` | [packages/cli-app/src/app-config.ts:46](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L46) |
+| `description` | `string` | [packages/cli-app/src/app-config.ts:50](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L50) |
+| `examples` | [`string`, `string`][] | [packages/cli-app/src/app-config.ts:51](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L51) |
+| `figlet` | `boolean` | [packages/cli-app/src/app-config.ts:56](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L56) |
+| `flag_aliases` | \{ `help`: `string`; `version`: `string`; \} | [packages/cli-app/src/app-config.ts:60](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L60) |
+| `flag_aliases.help` | `string` | [packages/cli-app/src/app-config.ts:8](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L8) |
+| `flag_aliases.version` | `string` | [packages/cli-app/src/app-config.ts:9](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L9) |
+| `hidden` | `string`[] | [packages/cli-app/src/app-config.ts:66](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L66) |
+| `name` | `string` | [packages/cli-app/src/app-config.ts:70](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L70) |
+| `print` | `boolean` | [packages/cli-app/src/app-config.ts:73](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L73) |
+| `title_color` | \{ `bg`: `string`; `fg`: `string`; \} | [packages/cli-app/src/app-config.ts:74](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L74) |
+| `title_color.bg` | `string` | [packages/cli-app/src/app-config.ts:76](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L76) |
+| `title_color.fg` | `string` | [packages/cli-app/src/app-config.ts:83](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L83) |
+| `version` | `string` | [packages/cli-app/src/app-config.ts:98](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L98) |
+
+#### Defined in
+
+[packages/cli-app/src/app-config.ts:25](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L25)
 
 ---
 
@@ -220,9 +270,9 @@ This type is used to autocomplete the yargs aliases property. This creates short
 
 #### Type Parameters
 
-| Type Parameter                       |
-| ------------------------------------ |
-| `Schema` _extends_ `ZodObjectSchema` |
+| Type Parameter                                                    |
+| ----------------------------------------------------------------- |
+| `Schema` _extends_ [`ZodObjectSchema`](README.md#zodobjectschema) |
 
 #### Defined in
 
@@ -238,9 +288,9 @@ type AppHidden<Schema>: keyof z.infer<Schema>[];
 
 #### Type Parameters
 
-| Type Parameter                       |
-| ------------------------------------ |
-| `Schema` _extends_ `ZodObjectSchema` |
+| Type Parameter                                                    |
+| ----------------------------------------------------------------- |
+| `Schema` _extends_ [`ZodObjectSchema`](README.md#zodobjectschema) |
 
 #### Defined in
 
@@ -339,15 +389,41 @@ type WrappedSchema<Schema>: Schema extends ZodObjectSchema ? Schema : never;
 
 #### Type Parameters
 
-| Type Parameter                       |
-| ------------------------------------ |
-| `Schema` _extends_ `ZodObjectSchema` |
+| Type Parameter                                                    |
+| ----------------------------------------------------------------- |
+| `Schema` _extends_ [`ZodObjectSchema`](README.md#zodobjectschema) |
 
 #### Defined in
 
 [packages/cli-app/src/helpers.ts:4](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/helpers.ts#L4)
 
+---
+
+### ZodObjectSchema
+
+```ts
+type ZodObjectSchema: z.AnyZodObject | z.ZodEffects<z.AnyZodObject>;
+```
+
+#### Defined in
+
+[packages/cli-app/src/helpers.ts:3](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/helpers.ts#L3)
+
 ## Variables
+
+### appConfigSchema
+
+```ts
+const appConfigSchema: ZodObject<AppConfigOut>
+```
+
+This is the schema used to configure the Cli Application, these should NOT used in cli arguments when running the client cli app
+
+#### Defined in
+
+[packages/cli-app/src/app-config.ts:45](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L45)
+
+---
 
 ### commonFlagsSchema
 
@@ -379,7 +455,7 @@ Initializes the application with the provided configuration and options schema.
 
 | Type Parameter | Description |
 | --- | --- |
-| `AppOptionsSchema` _extends_ `ZodObjectSchema` | The schema for the application options. |
+| `AppOptionsSchema` _extends_ [`ZodObjectSchema`](README.md#zodobjectschema) | The schema for the application options. |
 
 #### Parameters
 
@@ -433,7 +509,7 @@ Initializes the application with the provided configuration and options schema.
 
 | Type Parameter | Description |
 | --- | --- |
-| `AppOptionsSchema` _extends_ `ZodObjectSchema` | The schema for the application options. |
+| `AppOptionsSchema` _extends_ [`ZodObjectSchema`](README.md#zodobjectschema) | The schema for the application options. |
 
 #### Parameters
 
@@ -505,9 +581,9 @@ function wrapSchema<Schema>(schema): Schema
 
 #### Type Parameters
 
-| Type Parameter                       |
-| ------------------------------------ |
-| `Schema` _extends_ `ZodObjectSchema` |
+| Type Parameter                                                    |
+| ----------------------------------------------------------------- |
+| `Schema` _extends_ [`ZodObjectSchema`](README.md#zodobjectschema) |
 
 #### Parameters
 
