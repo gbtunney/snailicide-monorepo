@@ -1,3 +1,6 @@
+/** @group Empty Types */
+export type { UnknownArray, UnknownRecord } from 'type-fest'
+
 /* * EMPTY TYPES  * */
 
 /** @group Empty Types */

@@ -1,13 +1,13 @@
 import { isEmpty } from 'ramda'
 
+import { batchTrimCharacters, trimCharacters } from './trim-characters.js'
+import type { BatchBaseValue, TrimCharacters } from './type.js'
+import { TRIM_CHARS_DEFAULT } from '../../regexp/dictionary.js'
 import {
     isArray,
     isNotUndefined,
     isString,
-} from './../typeguard/utility.typeguards.js'
-import { batchTrimCharacters, trimCharacters } from './trim-characters.js'
-import type { BatchBaseValue, TrimCharacters } from './type.js'
-import { TRIM_CHARS_DEFAULT } from '../regexp/dictionary.js'
+} from '../../typeguard/utility.typeguards.js'
 
 //todo: fix these mangled chars
 export const transformExplodeArray = function ({

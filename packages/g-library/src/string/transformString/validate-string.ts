@@ -2,7 +2,7 @@ import { isNotUndefined, isRegExp, isString } from 'ramda-adjunct'
 import {
     getRegExpEndOfString,
     getRegExpStartOfString,
-} from '../regexp/string-to-regexp.js'
+} from '../../regexp/string-to-regexp.js'
 
 export type ValidateOperation =
     | 'startsWith'

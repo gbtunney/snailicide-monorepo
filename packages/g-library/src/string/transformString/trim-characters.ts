@@ -5,7 +5,7 @@ import type { BaseValue, BatchBaseValue, TrimCharacters } from './type.js'
 import {
     getRegExpEndOfString,
     getRegExpStartOfString,
-} from '../regexp/string-to-regexp.js'
+} from '../../regexp/string-to-regexp.js'
 
 /**
  * Trims characters from the start and/or end of a string based on the provided
