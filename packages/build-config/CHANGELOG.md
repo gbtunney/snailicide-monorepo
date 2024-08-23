@@ -1,5 +1,13 @@
 # @snailicide/build-config
 
+## 1.3.0
+
+### Minor Changes
+
+-   2dc7185: - fix(cli-app): fixed bug with default aliases
+    -   feat(g-library): added branded ip address and url validator functions and reorganized
+    -   feat(g-library): new branded / tagged json stuff
+
 ## 1.2.1
 
 ### Patch Changes

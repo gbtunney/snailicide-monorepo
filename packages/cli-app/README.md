@@ -27,6 +27,15 @@ _Node Cli App Boilerplate with yargs, zod, chalk_
 
 ## @snailicide/cli-app 🐌
 
+The `@snailicide/cli-app` package is a builder application for making custom command-line interface (CLI) application. Developers can quickly bootstrap a boilerplate with powerful validation/parsing schemas. It leverages several libraries to provide robust and interactive user experience.
+
+#### Key Features:
+
+-   **Command-Line Parsing**: Utilizes [`yargs`](https://yargs.js.org/docs/) and [`yargs-interactive`](https://www.npmjs.com/package/yargs-interactive?activeTab=readme) for parsing command-line arguments and handling interactive prompts.
+-   **Schema Validation/Handling**: Use zod schemas to parse/validate input, including resolving user options & application configurations, and generating Yargs-compatible option objects.
+-   **Configuration Management**: Manages application configurations using schemas defined with [`zod`](https://zod.dev/). This ensures that configurations are validated and adhere to expected structures.
+-   **Title /HelpScreen Management**: Manage custom cli options and customize appearance of title/help menu terminal output.
+
 ---
 
 ### Installation
@@ -44,7 +53,11 @@ yarn add @snailicide/cli-app
 npm install @snailicide/cli-app
 ```
 
-###Example Usage
+### Example Usage:
+
+The `cli-app` package can be initialized and configured using the `initApp` function, which sets up the application based on provided schemas and options, and supports interactive prompts if needed.
+
+---
 
 ```ts
 import { z } from 'zod'
@@ -129,4 +142,7 @@ export default initialize()
 ### Helpful Links
 
 -   [yargs](https://yargs.js.org/docs/)
--   [Zod | Documentation](https://zod.dev/)
+-   [yargs-interactive](https://www.npmjs.com/package/yargs-interactive?activeTab=readme)
+-   [zod](https://zod.dev/)
+-   [chalk](https://www.npmjs.com/package/chalk)
+-   [figlet](https://www.npmjs.com/package/figlet)
