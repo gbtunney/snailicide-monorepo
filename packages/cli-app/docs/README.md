@@ -145,7 +145,7 @@ type AppConfig: AppConfigOut;
 
 #### Defined in
 
-[packages/cli-app/src/app-config.ts:26](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L26)
+[packages/cli-app/src/app-config.ts:27](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L27)
 
 ---
 
@@ -177,24 +177,24 @@ type AppConfigIn<Schema>: {
 
 #### Type declaration
 
-| Name | Type | Defined in |
-| --- | --- | --- |
-| `clear` | `boolean` | [packages/cli-app/src/app-config.ts:46](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L46) |
-| `description` | `string` | [packages/cli-app/src/app-config.ts:50](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L50) |
-| `examples` | [`string`, `string`][] | [packages/cli-app/src/app-config.ts:51](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L51) |
-| `figlet` | `boolean` | [packages/cli-app/src/app-config.ts:56](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L56) |
-| `flag_aliases` | [`AppFlagAliases`](README.md#appflagaliasesschema)\<`Schema`\> | [packages/cli-app/src/app-config.ts:36](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L36) |
-| `hidden` | [`AppHidden`](README.md#apphiddenschema)\<`Schema`\> | [packages/cli-app/src/app-config.ts:35](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L35) |
-| `name` | `string` | [packages/cli-app/src/app-config.ts:70](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L70) |
-| `print` | `boolean` | [packages/cli-app/src/app-config.ts:73](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L73) |
-| `title_color` | \{ `bg`: `string`; `fg`: `string`; \} | [packages/cli-app/src/app-config.ts:74](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L74) |
-| `title_color.bg` | `string` | [packages/cli-app/src/app-config.ts:76](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L76) |
-| `title_color.fg` | `string` | [packages/cli-app/src/app-config.ts:83](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L83) |
-| `version` | `string` | [packages/cli-app/src/app-config.ts:98](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L98) |
+| Name | Type | Description | Defined in |
+| --- | --- | --- | --- |
+| `clear` | `boolean` | Clears the terminal window | [packages/cli-app/src/app-config.ts:48](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L48) |
+| `description` | `string` | - | [packages/cli-app/src/app-config.ts:52](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L52) |
+| `examples` | [`string`, `string`][] | Examples of usage | [packages/cli-app/src/app-config.ts:54](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L54) |
+| `figlet` | `boolean` | Use figlet to make large ascii title | [packages/cli-app/src/app-config.ts:60](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L60) |
+| `flag_aliases` | [`AppFlagAliases`](README.md#appflagaliasesschema)\<`Schema`\> | - | [packages/cli-app/src/app-config.ts:37](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L37) |
+| `hidden` | [`AppHidden`](README.md#apphiddenschema)\<`Schema`\> | - | [packages/cli-app/src/app-config.ts:36](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L36) |
+| `name` | `string` | - | [packages/cli-app/src/app-config.ts:85](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L85) |
+| `print` | `boolean` | - | [packages/cli-app/src/app-config.ts:88](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L88) |
+| `title_color` | \{ `bg`: `string`; `fg`: `string`; \} | - | [packages/cli-app/src/app-config.ts:89](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L89) |
+| `title_color.bg` | `string` | - | [packages/cli-app/src/app-config.ts:91](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L91) |
+| `title_color.fg` | `string` | - | [packages/cli-app/src/app-config.ts:98](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L98) |
+| `version` | `string` | - | [packages/cli-app/src/app-config.ts:113](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L113) |
 
 #### Defined in
 
-[packages/cli-app/src/app-config.ts:28](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L28)
+[packages/cli-app/src/app-config.ts:29](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L29)
 
 ---
 
@@ -225,26 +225,26 @@ This is the schema used to configure the Cli Application, these should NOT used 
 
 #### Type declaration
 
-| Name | Type | Defined in |
-| --- | --- | --- |
-| `clear` | `boolean` | [packages/cli-app/src/app-config.ts:46](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L46) |
-| `description` | `string` | [packages/cli-app/src/app-config.ts:50](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L50) |
-| `examples` | [`string`, `string`][] | [packages/cli-app/src/app-config.ts:51](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L51) |
-| `figlet` | `boolean` | [packages/cli-app/src/app-config.ts:56](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L56) |
-| `flag_aliases` | \{ `help`: `string`; `version`: `string`; \} | [packages/cli-app/src/app-config.ts:60](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L60) |
-| `flag_aliases.help` | `string` | [packages/cli-app/src/app-config.ts:8](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L8) |
-| `flag_aliases.version` | `string` | [packages/cli-app/src/app-config.ts:9](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L9) |
-| `hidden` | `string`[] | [packages/cli-app/src/app-config.ts:66](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L66) |
-| `name` | `string` | [packages/cli-app/src/app-config.ts:70](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L70) |
-| `print` | `boolean` | [packages/cli-app/src/app-config.ts:73](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L73) |
-| `title_color` | \{ `bg`: `string`; `fg`: `string`; \} | [packages/cli-app/src/app-config.ts:74](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L74) |
-| `title_color.bg` | `string` | [packages/cli-app/src/app-config.ts:76](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L76) |
-| `title_color.fg` | `string` | [packages/cli-app/src/app-config.ts:83](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L83) |
-| `version` | `string` | [packages/cli-app/src/app-config.ts:98](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L98) |
+| Name | Type | Description | Defined in |
+| --- | --- | --- | --- |
+| `clear` | `boolean` | Clears the terminal window | [packages/cli-app/src/app-config.ts:48](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L48) |
+| `description` | `string` | - | [packages/cli-app/src/app-config.ts:52](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L52) |
+| `examples` | [`string`, `string`][] | Examples of usage | [packages/cli-app/src/app-config.ts:54](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L54) |
+| `figlet` | `boolean` | Use figlet to make large ascii title | [packages/cli-app/src/app-config.ts:60](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L60) |
+| `flag_aliases` | \{ `help`: `string`; `version`: `string`; \} | Shorthand Option Aliases (--help , -h ) **Exqmple** `pnpm test:example -h # are equivalent pnpm test:example --help` | [packages/cli-app/src/app-config.ts:74](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L74) |
+| `flag_aliases.help` | `string` | - | [packages/cli-app/src/app-config.ts:8](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L8) |
+| `flag_aliases.version` | `string` | - | [packages/cli-app/src/app-config.ts:9](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L9) |
+| `hidden` | `string`[] | Hide an option from the help screen | [packages/cli-app/src/app-config.ts:81](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L81) |
+| `name` | `string` | - | [packages/cli-app/src/app-config.ts:85](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L85) |
+| `print` | `boolean` | - | [packages/cli-app/src/app-config.ts:88](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L88) |
+| `title_color` | \{ `bg`: `string`; `fg`: `string`; \} | - | [packages/cli-app/src/app-config.ts:89](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L89) |
+| `title_color.bg` | `string` | - | [packages/cli-app/src/app-config.ts:91](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L91) |
+| `title_color.fg` | `string` | - | [packages/cli-app/src/app-config.ts:98](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L98) |
+| `version` | `string` | - | [packages/cli-app/src/app-config.ts:113](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L113) |
 
 #### Defined in
 
-[packages/cli-app/src/app-config.ts:25](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L25)
+[packages/cli-app/src/app-config.ts:26](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L26)
 
 ---
 
@@ -256,14 +256,14 @@ type AppConfigSchema: typeof appConfigSchema;
 
 #### Defined in
 
-[packages/cli-app/src/app-config.ts:106](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L106)
+[packages/cli-app/src/app-config.ts:121](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L121)
 
 ---
 
 ### AppFlagAliases\<Schema\>
 
 ```ts
-type AppFlagAliases<Schema>: { [Key in keyof z.infer<Schema>]?: string };
+type AppFlagAliases<Schema>: DefaultAliases & { [Key in keyof z.infer<Schema>]?: string };
 ```
 
 This type is used to autocomplete the yargs aliases property. This creates shorthand values for option flags.
@@ -276,7 +276,7 @@ This type is used to autocomplete the yargs aliases property. This creates short
 
 #### Defined in
 
-[packages/cli-app/src/app-config.ts:18](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L18)
+[packages/cli-app/src/app-config.ts:19](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L19)
 
 ---
 
@@ -294,7 +294,7 @@ type AppHidden<Schema>: keyof z.infer<Schema>[];
 
 #### Defined in
 
-[packages/cli-app/src/app-config.ts:22](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L22)
+[packages/cli-app/src/app-config.ts:23](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L23)
 
 ---
 
@@ -421,7 +421,7 @@ This is the schema used to configure the Cli Application, these should NOT used 
 
 #### Defined in
 
-[packages/cli-app/src/app-config.ts:45](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L45)
+[packages/cli-app/src/app-config.ts:46](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L46)
 
 ---
 
@@ -463,10 +463,10 @@ Initializes the application with the provided configuration and options schema.
 | --- | --- | --- | --- |
 | `optionsSchema` | `AppOptionsSchema` | `undefined` | The schema for validating the application options. |
 | `config` | `object` | `undefined` | The configuration object for the application. |
-| `config.clear`? | `boolean` | `...` | - |
+| `config.clear`? | `boolean` | `...` | Clears the terminal window |
 | `config.description`? | `string` | `...` | - |
-| `config.examples`? | [`string`, `string`][] | `...` | - |
-| `config.figlet`? | `boolean` | `...` | - |
+| `config.examples`? | [`string`, `string`][] | `...` | Examples of usage |
+| `config.figlet`? | `boolean` | `...` | Use figlet to make large ascii title |
 | `config.flag_aliases`? | [`AppFlagAliases`](README.md#appflagaliasesschema)\<`AppOptionsSchema`\> | `undefined` | - |
 | `config.hidden`? | [`AppHidden`](README.md#apphiddenschema)\<`AppOptionsSchema`\> | `undefined` | - |
 | `config.name`? | `string` | `...` | - |
@@ -517,10 +517,10 @@ Initializes the application with the provided configuration and options schema.
 | --- | --- | --- | --- |
 | `optionsSchema` | `AppOptionsSchema` | `undefined` | The schema for validating the application options. |
 | `config` | `object` | `undefined` | The configuration object for the application. |
-| `config.clear`? | `boolean` | `...` | - |
+| `config.clear`? | `boolean` | `...` | Clears the terminal window |
 | `config.description`? | `string` | `...` | - |
-| `config.examples`? | [`string`, `string`][] | `...` | - |
-| `config.figlet`? | `boolean` | `...` | - |
+| `config.examples`? | [`string`, `string`][] | `...` | Examples of usage |
+| `config.figlet`? | `boolean` | `...` | Use figlet to make large ascii title |
 | `config.flag_aliases`? | [`AppFlagAliases`](README.md#appflagaliasesschema)\<`AppOptionsSchema`\> | `undefined` | - |
 | `config.hidden`? | [`AppHidden`](README.md#apphiddenschema)\<`AppOptionsSchema`\> | `undefined` | - |
 | `config.name`? | `string` | `...` | - |
@@ -569,7 +569,7 @@ function parsePackageJson(pkg):
 
 #### Defined in
 
-[packages/cli-app/src/app-config.ts:131](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L131)
+[packages/cli-app/src/app-config.ts:146](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L146)
 
 ---
 
