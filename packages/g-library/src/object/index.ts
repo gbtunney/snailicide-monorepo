@@ -36,4 +36,21 @@ export const objectUtils = {
     unflatten,
 }
 export default objectUtils
+
+export const tg = {
+    isJsonifiable,
+    isJsonifiableArray,
+    isJsonifiableObject,
+    isJsonifiableObjectLike,
+    isJsonValue,
+}
+
+export {
+    prettyPrintJSON,
+    safeDeserializeJson,
+    safeSerializeJson,
+} from './json.js'
+
+export { flatten, unflatten } from 'flat'
+
 export { merge as deepmerge } from 'ts-deepmerge'
