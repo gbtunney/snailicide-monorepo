@@ -4,10 +4,11 @@ import { Merge } from 'type-fest'
 import { z } from 'zod'
 import { tgZodSchema, wrapSchema, ZodObjectSchema } from './helpers.js'
 
-const default_aliases: {
-    help: string
-    version: string
-} = {
+export type DefaultAliases = {
+    help?: string
+    version?: string
+}
+const default_aliases: DefaultAliases = {
     help: 'h',
     version: 'v',
 }
@@ -15,7 +16,7 @@ const default_aliases: {
  * This type is used to autocomplete the yargs aliases property. This creates
  * shorthand values for option flags.
  */
-export type AppFlagAliases<Schema extends ZodObjectSchema> = {
+export type AppFlagAliases<Schema extends ZodObjectSchema> = DefaultAliases & {
     [Key in keyof z.infer<Schema>]?: string
 }
 
@@ -43,26 +44,40 @@ export type AppConfigIn<Schema extends ZodObjectSchema> = z.input<
  * used in cli arguments when running the client cli app
  */
 export const appConfigSchema = z.object({
+    /** Clears the terminal window */
     clear: z
         .boolean()
         .default(true)
         .describe('Clear the terminal screen if possible.'),
     description: z.string().optional(),
+    /** Examples of usage */
     examples: z
         .array(zod.tuple([zod.string(), zod.string()]))
         .default([])
         .describe('Examples for app cli help'),
     //todo: allow figlet options?
+    /** Use figlet to make large ascii title */
     figlet: z
         .boolean()
         .default(true)
         .describe('Get title using lg ascii text w/FIGfont spec'),
+    /**
+     * Shorthand Option Aliases (--help , -h )
+     *
+     * @exqmple
+     * ```sh
+     *    pnpm test:example -h
+     *  # are equivalent
+     * pnpm  test:example --help
+     * ```
+     */
     flag_aliases: z
         .record(z.string())
         .default(default_aliases)
         .transform((value) => {
             return { ...value, ...default_aliases }
         }),
+    /** Hide an option from the help screen */
     hidden: z
         .array(z.string())
         .default([])

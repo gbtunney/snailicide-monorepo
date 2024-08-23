@@ -50,9 +50,9 @@ const exampleAppConfigOptions: AppConfigIn<MergedSchema> = {
         ['$0 --safe', 'Start in safe mode'],
     ],
     flag_aliases: {
+        help: 'h',
         outDir: 'o',
         rootDir: 'r',
-        // help: 'h',
         //version: 'v',
     },
     hidden: ['debug', 'testarr2'],
