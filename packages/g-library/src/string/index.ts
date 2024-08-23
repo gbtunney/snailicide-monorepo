@@ -1,26 +1,23 @@
-/**
- * GENERAL STRING UTILS
- *
- * This file contains utility functions for string manipulation. *
- *
- * @category Utility
- * @category String
- * @namespace StringUtils
- */
+/** GENERAL STRING UTILS */
 
-import * as stringTransform from './../transformString/index.js'
+import * as Case from './case.js'
+import * as escape from './escape.js'
 import * as format from './format-str.js'
 import * as StringUtils from './string-utils.js'
 import * as StringGen from './string.js'
+import * as stringTransform from './transformString/index.js'
 import * as validators from './validators.js'
 
+/** @namespace */
 export const stringUtils = {
     ...StringUtils,
     ...StringGen,
     ...stringTransform,
-    ...validators,
     ...format,
+    ...escape,
+    ...validators,
+    ...Case,
 }
 
 export default stringUtils
-export type { URL } from './validators.js'
+export type * from './validators.js'

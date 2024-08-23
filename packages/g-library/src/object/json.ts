@@ -1,4 +1,4 @@
-import { Jsonifiable } from 'type-fest'
+import { GetTagMetadata, Jsonifiable, Tagged } from 'type-fest'
 
 import { isJsonValue } from '../typeguard/json.typeguards.js'
 import { Json } from '../types/utility.js'
@@ -6,13 +6,7 @@ import { Json } from '../types/utility.js'
 /**
  * PrettyPrint a JSON object.
  *
- * @memberof ObjectUtils
- * @template {T extends Jsonifiable} T
- * @function prettyPrintJSON
- * @param {T} value - A parseable JSON object.
- * @param {int} [indentSpaces=4] - An integer representing the spaces to indent.
- *   Default is `4`
- * @returns {string} - Formatted string.
+ * @category Json
  */
 export const prettyPrintJSON = <Type extends Jsonifiable>(
     value: Type,
@@ -28,13 +22,7 @@ export const prettyPrintJSON = <Type extends Jsonifiable>(
 /**
  * Safely serializes a JSON object, with an option for pretty printing.
  *
- * @memberof ObjectUtils
- * @template {T extends Json.Value} T
- * @function safeSerializeJson
- * @param {T} data - The data to serialize.
- * @param {boolean} [prettyPrint=true] - Whether to pretty print the JSON.
- *   Default is `true`
- * @returns {string} - The serialized JSON string or an error message.
+ * @category Json
  */
 export const safeSerializeJson = <Type extends Json.Value>(
     data: Type,
@@ -48,11 +36,7 @@ export const safeSerializeJson = <Type extends Json.Value>(
 /**
  * Safely deserializes a JSON string.
  *
- * @memberof ObjectUtils
- * @function safeDeserializeJson
- * @param {string} data - The JSON string to deserialize.
- * @returns {Json.Value | undefined} - The deserialized JSON object, or
- *   undefined if deserialization fails.
+ * @category Json
  */
 export const safeDeserializeJson = (data: string): Json.Value | undefined => {
     try {
@@ -64,4 +48,44 @@ export const safeDeserializeJson = (data: string): Json.Value | undefined => {
         console.error(e)
     }
     return undefined
+}
+//todo: finish these functions
+export type JsonOf<Type> = Tagged<string, 'JSON', Type>
+
+/** @internal */
+export const demoDeserializeJSON = <Type extends JsonOf<unknown>>(
+    value: Type,
+): GetTagMetadata<Type, 'JSON'> => {
+    const json_value = JSON.parse(value)
+    return json_value as GetTagMetadata<Type, 'JSON'>
+}
+
+/** @internal */
+export const demosafeSerializeJson = <Type extends Json.Value>(
+    value: Type,
+    prettyPrint: boolean = false,
+    indentSpaces: number = 4,
+): JsonOf<Type> | 'ERROR' => {
+    if (isJsonValue<Type>(value)) {
+        return prettyPrint
+            ? (JSON.stringify(value, undefined, indentSpaces) as JsonOf<Type>)
+            : (JSON.stringify(value) as JsonOf<Type>)
+    } else {
+        console.log(`Error serializing JSON:: ${value}`)
+        return 'ERROR' // data as JsonErrorOf<Type>
+    }
+}
+
+/** @internal */
+export const testprettyPrintJSON = <Type extends JsonOf<unknown>>(
+    value: Type,
+    indentSpaces: number = 4,
+): string => {
+    const _parsedResult /** To object , restringify */ =
+        demoDeserializeJSON<Type>(value)
+    return JSON.stringify(
+        _parsedResult,
+        undefined,
+        indentSpaces,
+    ) as JsonOf<Type>
 }

@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vitest'
 
 import * as _parse from './parse.js'
-import { isParsableToNumeric } from './typeguards.js'
+import { isParsableToNumeric } from './parse.js'
 import { isNumeric } from './validators.js'
 
 describe('Parse Module', () => {

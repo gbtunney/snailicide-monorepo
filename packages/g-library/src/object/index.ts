@@ -6,14 +6,30 @@
  * @namespace ObjectUtils
  */
 import { flatten, unflatten } from 'flat'
+
 import {
     prettyPrintJSON,
     safeDeserializeJson,
     safeSerializeJson,
 } from './json.js'
 
+import {
+    isJsonifiable,
+    isJsonifiableArray,
+    isJsonifiableObject,
+    isJsonifiableObjectLike,
+    isJsonValue,
+} from '../typeguard/json.typeguards.js'
+
+/** @namespace */
 export const objectUtils = {
     flatten,
+    // deepmerge,
+    isJsonifiable,
+    isJsonifiableArray,
+    isJsonifiableObject,
+    isJsonifiableObjectLike,
+    isJsonValue,
     prettyPrintJSON,
     safeDeserializeJson,
     safeSerializeJson,
@@ -21,5 +37,20 @@ export const objectUtils = {
 }
 export default objectUtils
 
-export type { FlattenOptions, UnflattenOptions } from 'flat'
+export const tg = {
+    isJsonifiable,
+    isJsonifiableArray,
+    isJsonifiableObject,
+    isJsonifiableObjectLike,
+    isJsonValue,
+}
+
+export {
+    prettyPrintJSON,
+    safeDeserializeJson,
+    safeSerializeJson,
+} from './json.js'
+
+export { flatten, unflatten } from 'flat'
+
 export { merge as deepmerge } from 'ts-deepmerge'

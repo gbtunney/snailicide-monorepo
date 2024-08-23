@@ -1,10 +1,10 @@
 import { describe, expect, test } from 'vitest'
-
 import { isBigInt, isNumber } from './../typeguard/utility.typeguards.js'
+import { isParsableToNumeric } from './parse.js'
 import { toStringNumeric } from './transform.js'
-import { isPossibleNumeric } from './typeguards.js'
 import {
     isNumeric,
+    isPossibleNumeric,
     isStringNumeric,
     isValidScientificNumber,
 } from './validators.js'
@@ -50,7 +50,7 @@ const logStrings = (valueArr: Array<string>): void => {
 }
 
 describe('validators', () => {
-    test('transform: TODO:', () => {
+    test('tnumeric validators scientific', () => {
         const validNumbers: Array<string | number | bigint> = [
             0xff, //these should be integers
             0xff, //these should be integers
@@ -144,6 +144,50 @@ describe('validators', () => {
             ).toBe(true)
             /*console.log( "valueeee" , value ,"isPossibleNumeric",isPossibleNumeric(value
             ), "isNumeric", isNumeric(value), "isNumericString",isStringNumeric(value))*/
+        })
+    })
+    test('numeric validators', () => {
+        expect(isPossibleNumeric('222')).toEqual(true)
+        expect(isPossibleNumeric(' 222  ')).toEqual(true)
+
+        expect(isPossibleNumeric('222px')).toEqual(false)
+        expect(isPossibleNumeric('222px', false)).toEqual(true)
+        expect(isPossibleNumeric('-100000.0')).toEqual(true)
+
+        expect(true).toEqual(true)
+
+        const value = 'px'
+        expect(isParsableToNumeric(value)).toEqual(false)
+
+        const testValue = ' 200px'
+        expect(isParsableToNumeric(testValue)).toEqual(true)
+        expect(isPossibleNumeric(testValue)).toEqual(false)
+
+        console.log(
+            'isPossibleNumeric',
+            isPossibleNumeric(testValue),
+            'isParsableToNumeric',
+            isParsableToNumeric(testValue),
+        )
+
+        const validTestValues = [
+            3444.4,
+            BigInt('0o377777777777777777'),
+            '\n\r-100000.0',
+            -3444,
+            '-10',
+            //   '0',
+            '0xff',
+            '0xFF',
+            //'8e5',
+            '3.1415',
+            '+10',
+            '144',
+            '5',
+            //'22px'
+        ]
+        validTestValues.forEach((value) => {
+            expect(isPossibleNumeric(value)).toEqual(true)
         })
     })
 })

@@ -1,6 +1,7 @@
 import yargs from 'yargs'
 import { z } from 'zod'
 
+/** @group yargs */
 export const getYArgs = <Type extends z.ZodSchema>(
     schema: Type,
     debug = false,
@@ -13,6 +14,7 @@ export const getYArgs = <Type extends z.ZodSchema>(
     else return undefined
 }
 
+/** @group yargs */
 export const getArgsObject = (
     value = process.argv,
 ): Promise<Record<string, unknown>> | Record<string, unknown> =>

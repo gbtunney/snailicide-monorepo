@@ -1,6 +1,13 @@
 export default node
 
-export { zod } from './node/index.js'
 import { node } from './node/index.js'
-/* * NODE UTILS MODULE * */
+/** @namespace */
+export { zod } from './node/index.js'
 export { node } from './node/index.js'
+export type {
+    FilePath,
+    FileType,
+    ImageMimeType,
+    JSONExportConfig,
+    JSONExportEntry,
+} from './node/index.js'

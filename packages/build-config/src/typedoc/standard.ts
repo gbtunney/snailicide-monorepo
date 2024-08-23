@@ -26,6 +26,7 @@ export const config = (__dirname: string): undefined | TypedocConfig => {
             ],
             excludeExternals: false,
             gitRevision: 'master',
+            plugin: ['typedoc-plugin-zod'],
         }
         return options
     }
@@ -39,7 +40,7 @@ export const materialTheme = (
     if (standardConfig !== undefined) {
         const options: TypedocConfig & MaterialThemeOptions = {
             ...standardConfig,
-            plugin: ['typedoc-material-theme'],
+            plugin: ['typedoc-material-theme', 'typedoc-plugin-zod'],
             themeColor: '#cb9820',
         }
         return options

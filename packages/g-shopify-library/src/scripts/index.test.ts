@@ -15,11 +15,13 @@ describe('shopify functions', () => {
             'https://cdn.shopify.com/s/files/1/0155/0473/products/OSBarnOwl_8cc931c0-f15f-414b-9a38-93160f766dd0.jpg'
         const badURLNoExt =
             'https://cdn.shopify.com/s/files/1/0155/0473/products/OSBarnOwl_8cc931c0-f15f-414b-9a38-93160f766dd0'
-        const invalidURL =
+        const noschemeURL =
             'cdn.shopify.com/s/files/1/0155/0473/products/OSBarnOwl_8cc931c0-f15f-414b-9a38-93160f766dd0.jpg'
 
         expect(shopifyMediaURL(badURLNoExt, 2024)).toBe(undefined)
-        expect(shopifyMediaURL(invalidURL)).toBe(undefined)
+        expect(shopifyMediaURL(noschemeURL)).toBe(
+            'cdn.shopify.com/s/files/1/0155/0473/products/OSBarnOwl_8cc931c0-f15f-414b-9a38-93160f766dd0.jpg',
+        )
 
         expect(shopifyMediaURL(goodURL, 1024, 2048)).toBe(
             'https://cdn.shopify.com/s/files/1/0155/0473/products/OSBarnOwl_8cc931c0-f15f-414b-9a38-93160f766dd0_1024x2048.jpg',

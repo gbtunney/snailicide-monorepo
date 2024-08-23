@@ -7,12 +7,17 @@ import path from 'path'
 export type FilePath = {
     basename: string
     dirname: string
+    /** Parent directory name */
     parentdirname: string | undefined
+    /** Extension */
     extname: string
     filename: string
+    /** Absolute Path */
     absolute: string
+    /** Array of parent directories */
     dirarray: Array<string>
-    excists: boolean
+    /** Does path exist? */
+    exists: boolean
 }
 export type FileType = 'directory' | 'file' | 'symlink' | 'glob' | undefined
 /**
@@ -24,8 +29,6 @@ export type FileType = 'directory' | 'file' | 'symlink' | 'glob' | undefined
  * @param {string} value - Glob Path String - "*.json"
  * @param {boolean} getDirectoryFiles - Get the file contents of directory (
  *   like /mydir/* )
- * @returns {FilePath[]} - Array of data objects containing various file path
- *   parameters
  */
 export const getFilePathArr = (
     value: string,
@@ -55,12 +58,12 @@ export const isFileArray = (
     allowDirectory = false,
 ): boolean => {
     const _path: string = path.resolve(value)
-    /* * If we dont care if it excists, test if it is a glob or has no extention.  * */
+    /* * If we dont care if it exists, test if it is a glob or has no extention.  * */
     if (!exists) {
         if (isGlob(_path)) return true
         else if (allowDirectory && isDirectory(_path)) return true
     } else {
-        /* * If we dont care if it excists, test if it is a glob or has no extention.  * */
+        /* * If we dont care if it exists, test if it is a glob or has no extention.  * */
         const newglob: undefined | string = isGlob(_path)
             ? _path
             : allowDirectory && isDirectory(_path)
@@ -85,7 +88,7 @@ export const getExistingPathType = (value: string): FileType => {
     return undefined
 }
 
-/* * isFile - if the string is a glob, we do not care if it excists or resolves.  * */
+/* * isFile - if the string is a glob, we do not care if it exists or resolves.  * */
 export const isFile = (
     value: string,
     allowedExtention: string | Array<string> | undefined = undefined,
@@ -106,11 +109,11 @@ export const isFile = (
     }
     return false
 }
-/* * isDirectory - if the string is a glob, we do not care if it excists or resolves.  * */
+/* * isDirectory - if the string is a glob, we do not care if it exists or resolves.  * */
 export const isDirectory = (value: string): boolean => {
     return !isFile(value)
 }
-/* * isGlob - if the string is a glob, we do not care if it excists or resolves.  * */
+/* * isGlob - if the string is a glob, we do not care if it exists or resolves.  * */
 export const isGlob = (value: string): boolean => {
     return _isGlob(value)
 }
@@ -126,12 +129,12 @@ export const getFilePathObj = function (_path: string): FilePath | undefined {
     const resolvedPath = path.resolve(_path)
     const dirarray = getDirectoryArr(resolvedPath)
     const parentdirname = getParentDirectory(resolvedPath)
-    const result = {
+    const result: FilePath = {
         absolute: resolvedPath,
         basename: path.basename(resolvedPath),
         dirarray,
         dirname: path.dirname(resolvedPath),
-        excists: fs.existsSync(resolvedPath),
+        exists: fs.existsSync(resolvedPath),
         extname: getExt(resolvedPath),
         filename: getFilename(resolvedPath),
         parentdirname,

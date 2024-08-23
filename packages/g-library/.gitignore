@@ -4,5 +4,7 @@ types
 docs
 *.d.ts
 *.js
+*.d.ts
+*.js.map
 # Allow
 !src/types

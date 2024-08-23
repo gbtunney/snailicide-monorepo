@@ -1,6 +1,6 @@
 import { Numeric, PossibleNumeric } from './numeric.js'
 import { toStringNumeric } from './transform.js'
-import { isStringNumeric } from './validators.js'
+import { isPossibleNumeric, isStringNumeric } from './validators.js'
 import {
     isBigInt,
     isNumber,
@@ -10,16 +10,18 @@ import {
  * All functions WILL REMOVE ALL whitespace,letter and punctuation as long as
  * the final value a valid number This will convert a possible numeric value (ie
  * string) to a number (like built in parseInt or parseFloat)
- *
- * @module Parse
- * @author Gillian Tunney
- * @category Parse
- * @see parseInt, parseFloat built in js functions
  */
 
 export type EmptyString = ''
-/** @typedef {EmptyString} This Is an empty string */
 
+/** @group Parse */
+export const isParsableToNumeric = <Type extends PossibleNumeric>(
+    value: Type,
+): value is Type => {
+    return isPossibleNumeric(value, false)
+}
+
+/** @group Parse */
 export const parseToNumeric = <Type extends PossibleNumeric>(
     value: Type,
 ): Numeric | undefined => {
@@ -35,12 +37,7 @@ export const parseToNumeric = <Type extends PossibleNumeric>(
  * Parse value if is numeric ( like result of parseFloat ). Will remove
  * whitespace,letter and punctuation
  *
- * @category Parse
- * @template {PossibleNumeric} Type - Type must extend a PossibleNumeric
- *   (number|string|bigint)
- * @function parseToNumeric
- * @param {T} value - A value that will need to be replaced soon
- * @returns {number | undefined} - Parsed value
+ * @group Parse
  */
 export const parseStringToNumeric = <Type extends string>(
     value: Type,
@@ -48,6 +45,7 @@ export const parseStringToNumeric = <Type extends string>(
     return toStringNumeric(value, false)
 }
 
+/** @group Parse */
 export const parseStringToInteger = <Type extends string>(
     value: Type,
 ): number | undefined => {
@@ -61,9 +59,7 @@ export const parseStringToInteger = <Type extends string>(
 }
 
 /**
- * @category Parse
- * @function parseToFloat
- * @alias {parseToNumeric}
+ * @group Parse
  * @see {parseToNumeric}
  */
 export const parseToFloat = parseToNumeric

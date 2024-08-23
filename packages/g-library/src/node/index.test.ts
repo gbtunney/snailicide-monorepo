@@ -30,7 +30,7 @@ describe('getFilePathArr getFilePathObj', () => {
         )
         const filePathGlob = './sample_image/*'
         if (filePathObj2 !== undefined) {
-            expect(filePathObj2.excists).toEqual(false)
+            expect(filePathObj2.exists).toEqual(false)
         } else expect(false).toEqual(true)
 
         if (filePathObj !== undefined) {

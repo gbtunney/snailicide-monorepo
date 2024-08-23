@@ -1,6 +1,9 @@
-/* * CSS COLOR VALUE PROPERTIES * */
-
-export type CSSColorSpecialProp =
+/**
+ * Special CSS color value properties (that are not colors)
+ *
+ * @group CSS
+ */
+export type CSSColorSpecial =
     | 'inherit'
     | 'initial'
     | 'revert'
@@ -8,9 +11,14 @@ export type CSSColorSpecialProp =
     | 'currentColor'
     | 'transparent'
 
+/**
+ * @group CSS
+ * @group Typeguard
+ * @see {@link isNotCSSColorSpecial}
+ */
 export const isCSSColorSpecial = <Type = unknown>(
-    value: Type | CSSColorSpecialProp,
-): value is CSSColorSpecialProp =>
+    value: Type | CSSColorSpecial,
+): value is CSSColorSpecial =>
     value === 'inherit' ||
     value === 'initial' ||
     value === 'revert' ||
@@ -18,8 +26,13 @@ export const isCSSColorSpecial = <Type = unknown>(
     value === 'currentColor' ||
     value === 'transparent'
 
+/**
+ * @group CSS
+ * @group Typeguard
+ * @see {@link isCSSColorSpecial}
+ */
 export const isNotCSSColorSpecial = <Type = unknown>(
-    value: Type | CSSColorSpecialProp,
+    value: Type | CSSColorSpecial,
 ): value is Type =>
     !(
         value === 'inherit' ||

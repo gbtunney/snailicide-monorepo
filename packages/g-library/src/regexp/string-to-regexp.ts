@@ -3,24 +3,39 @@ import { ensureArray } from 'ramda-adjunct'
 import type { ValueOf } from 'type-fest'
 import { escapeStringRegexp } from './escape.js'
 import { isStringValidRegExp } from './validators.js'
+import { isArray, isRegExp } from '../typeguard/utility.typeguards'
+
+/**
+ * Converts a string to a regular expression.
+ *
+ * @param value - The string value to convert.
+ * @param escape - Indicates whether to escape special characters in the string.
+ *   Default is false.
+ * @param flag - The flag(s) to apply to the regular expression. Default is
+ *   'global'.
+ * @returns The converted regular expression or undefined if the conversion
+ *   fails.
+ */
 export const stringToRegexp = (
     value: string,
     escape: boolean = false,
+    flag: Flag | Array<Flag> | undefined = 'global',
 ): RegExp | undefined => {
     if (escape) {
         return isStringValidRegExp(escapeStringRegexp(value))
-            ? new RegExp(escapeStringRegexp(value))
+            ? new RegExp(escapeStringRegexp(value), mapFlags(flag))
             : undefined
-    } else return isStringValidRegExp(value) ? new RegExp(value) : undefined
+    } else
+        return isStringValidRegExp(value)
+            ? new RegExp(value, mapFlags(flag))
+            : undefined
 }
 
 /**
- * StringListToRegexp Turn a string or strings into a regexp with an |
+ * Turn a string or strings into a regexp concatinated with a with an |
  *
- * @param {string | string[]} value - String or Array of Strings to be converted
- *   to RegExp, all characters will be escaped
- * @param {Flag} flag - Regexp flag (like g,m)
- * @returns {RegExp} - A joined list
+ * @param flag - Regexp flag (like g,m)
+ * @returns - A joined list
  */
 export const stringListToRegexp = (
     _value: string | Array<string>,
@@ -29,15 +44,7 @@ export const stringListToRegexp = (
     return new RegExp(stringListJoinRegexp(_value), mapFlags(flag))
 }
 
-/**
- * Turn a string or strings into a regexp to trim the start and finish
- *
- * @function getRegExpTrim
- * @param {string | string[]} value - String or Array of Strings to be converted
- *   to RegExp
- * @param {Flag} Flag - Regexp flag (like g,m)
- * @returns {RegExp} - Useful regexp
- */
+/** Turn a string or strings into a regexp to trim the start and finish */
 export const getRegExpTrim = (
     _value: string | Array<string>,
     flag: Flag | Array<Flag> | undefined = 'global',
@@ -51,38 +58,46 @@ export const getRegExpTrim = (
 /**
  * Turn a string or strings into a regexp that checks the start
  *
- * @function getRegExpStartOfString
- * @param {string | string[]} value - String or Array of Strings to be converted
- *   to RegExp
- * @param {Flag} Flag - Regexp flag (like g,m)
- * @returns {RegExp} - Useful regexp
+ * @see {@link getRegExpEndOfString}
  */
 export const getRegExpStartOfString = (
-    _value: string | Array<string>,
+    _value: RegExp | string | Array<string>,
     flag: Flag | Array<Flag> | undefined = 'global',
 ): RegExp => {
-    return new RegExp(`^${stringListJoinRegexp(_value)}`, mapFlags(flag))
+    return isRegExp(_value)
+        ? new RegExp(`^${_value.source}`, mapFlags(flag))
+        : isArray<Array<string>>(_value)
+          ? new RegExp(`^${stringListJoinRegexp(_value, true)}`, mapFlags(flag))
+          : new RegExp(`^${stringListJoinRegexp(_value)}`, mapFlags(flag))
 }
 
 /**
- * @function getRegExpMatchEndOfString
- * @see getRegExpMatchStartOfString
+ * Turn a string or strings into a regexp that checks the end
+ *
+ * @see {@link getRegExpStartOfString}
  */
 export const getRegExpEndOfString = (
-    _value: string | Array<string>,
+    _value: RegExp | string | Array<string>,
     flag: Flag | Array<Flag> | undefined = 'global',
 ): RegExp => {
-    return new RegExp(`${stringListJoinRegexp(_value)}$`, mapFlags(flag))
+    return isRegExp(_value)
+        ? new RegExp(`${_value.source}$`, mapFlags(flag))
+        : isArray<Array<string>>(_value)
+          ? new RegExp(`${stringListJoinRegexp(_value, true)}$`, mapFlags(flag))
+          : new RegExp(`${stringListJoinRegexp(_value)}$`, mapFlags(flag))
 }
 
-const stringListJoinRegexp = (_value: string | Array<string>): string => {
+const stringListJoinRegexp = (
+    _value: string | Array<string>,
+    useParenthesis: boolean = false,
+): string => {
     const value: Array<string> = ensureArray(_value)
     const escaped: Array<string> = value.map((str: string) =>
         escapeStringRegexp(str),
     )
-    return escaped.join('|')
+    return useParenthesis ? `(${escaped.join('|')})` : escaped.join('|')
 }
-const flagMap = {
+export const flagMap = {
     dotAll: 's',
 
     global: 'g',

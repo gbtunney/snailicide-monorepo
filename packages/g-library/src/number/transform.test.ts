@@ -1,8 +1,6 @@
 import { describe, expect, test } from 'vitest'
-
 import { toNumeric } from './transform.js'
-import { isPossibleNumeric } from './typeguards.js'
-import { isNumeric } from './validators.js'
+import { isNumeric, isPossibleNumeric } from './validators.js'
 
 describe('Numeric Transform,', () => {
     test('test: toNumeric:', () => {

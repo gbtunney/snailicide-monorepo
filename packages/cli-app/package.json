@@ -66,7 +66,7 @@
         "@snailicide/g-library": "workspace:*",
         "@types/clear": "^0.1.4",
         "@types/figlet": "^1.5.8",
-        "@types/node": "^22.1.0",
+        "@types/node": "^22.5.0",
         "@types/yargs": "^17.0.32",
         "@types/yargs-interactive": "^2.1.6",
         "chalk": "^5.3.0",
@@ -85,6 +85,7 @@
         "ts-node": "^10.9.2",
         "typedoc": "^0.26.5",
         "typedoc-plugin-markdown": "^4.2.3",
+        "typedoc-plugin-zod": "^1.2.0",
         "typescript": "^5.5.4",
         "vitest": "^2.0.5"
     },
