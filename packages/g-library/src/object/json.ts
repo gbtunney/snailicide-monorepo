@@ -52,7 +52,7 @@ export const safeDeserializeJson = (data: string): Json.Value | undefined => {
 //todo: finish these functions
 export type JsonOf<Type> = Tagged<string, 'JSON', Type>
 
-/** Parse string to json value */
+/** @internal */
 export const demoDeserializeJSON = <Type extends JsonOf<unknown>>(
     value: Type,
 ): GetTagMetadata<Type, 'JSON'> => {
@@ -60,7 +60,7 @@ export const demoDeserializeJSON = <Type extends JsonOf<unknown>>(
     return json_value as GetTagMetadata<Type, 'JSON'>
 }
 
-//same as demo stringify
+/** @internal */
 export const demosafeSerializeJson = <Type extends Json.Value>(
     value: Type,
     prettyPrint: boolean = false,
@@ -76,6 +76,7 @@ export const demosafeSerializeJson = <Type extends Json.Value>(
     }
 }
 
+/** @internal */
 export const testprettyPrintJSON = <Type extends JsonOf<unknown>>(
     value: Type,
     indentSpaces: number = 4,

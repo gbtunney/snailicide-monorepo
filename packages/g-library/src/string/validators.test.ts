@@ -35,6 +35,11 @@ describe('Image Base64 Encoding', () => {
         expect(isValidUrl('https://google.com', 'https', false)).toBe(true)
 
         expect(
+            isValidUrl(
+                'cdn.shopify.com/s/files/1/0155/0473/products/OSBarnOwl_8cc931c0-f15f-414b-9a38-93160f766dd0.jpg',
+            ),
+        ).toBe(true)
+        expect(
             getValidUrl(
                 'https://mailchimp.com/resources/parts-of-a-url/?igaag=154664726859&igaat=&igacm=20637339549&igacr=687230856184&igakw=&igamt=&igant=g&ds_c=DEPT_AOC_Google_Search_US_EN_NB_Acquire_Broad_DSA-Rsrc_US&ds_kids=p78250621731&ds_a_lid=aud-1530365438563:dsa-2227026702184&ds_cid=71700000115207178&ds_agid=58700008574686663&gad_source=1&gbraid=0AAAAADh1Fp3O_uqqer5UZTLyrsKewLSCV&gclid=Cj0KCQjww5u2BhDeARIsALBuLnOWhXdbFIZxiCzscHQJHVpEeRjX2Uvpl3IPNtfY6INzSEaFVcPYVUAaAj03EALw_wcB&gclsrc=aw.ds',
             ),
