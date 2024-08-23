@@ -1,5 +1,13 @@
 # @snailicide/g-library@0.2.1
 
+## 1.1.0
+
+### Minor Changes
+
+-   2dc7185: - fix(cli-app): fixed bug with default aliases
+    -   feat(g-library): added branded ip address and url validator functions and reorganized
+    -   feat(g-library): new branded / tagged json stuff
+
 ## 1.0.1
 
 ### Patch Changes
