@@ -23,13 +23,28 @@ _Function library written in typescript_
 -   [github](https://github.com/gbtunney)
 -   [email](mailto:gbtunney@mac.com)
 
-### Documentation
+#### Documentation
 
 -   [@snailicide/g-library docs](http://gilliantunney.com/docs-snailicide/)
 
-## 🐌
+#### CDN
 
-## Installation
+-   [jsdeliver](todo://link)
+
+> Important! Suggested package manager is [pnpm](https://pnpm.io)
+
+## @snailicide/g-library 🐌
+
+The `@snailicide/g-library` package is a function library designed to provide a collection of reusable functions that can be utilized across any project. It aims to encapsulate common logic and utilities to promote code reuse and maintainability.
+
+#### Key Features:
+
+-   **Reusable Functions**: Offers a wide range of utility functions that can be used across different modules and components within the project.
+-   **Common Utilities**: Includes functions for common tasks such as data manipulation, formatting, validation, and more.
+
+---
+
+### Installation
 
 This library is published in the NPM registry and can be installed using any compatible package manager.
 
