@@ -1,5 +1,6 @@
 /** GENERAL STRING UTILS */
 
+import * as Case from './case.js'
 import * as escape from './escape.js'
 import * as format from './format-str.js'
 import * as StringUtils from './string-utils.js'
@@ -15,7 +16,8 @@ export const stringUtils = {
     ...format,
     ...escape,
     ...validators,
+    ...Case,
 }
 
 export default stringUtils
-export type { URL } from './validators.js'
+export type * from './validators.js'

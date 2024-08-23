@@ -1,7 +1,7 @@
 /**
  * Special CSS color value properties (that are not colors)
  *
- * @category CSS
+ * @group CSS
  */
 export type CSSColorSpecial =
     | 'inherit'
@@ -12,7 +12,7 @@ export type CSSColorSpecial =
     | 'transparent'
 
 /**
- * @category CSS
+ * @group CSS
  * @group Typeguard
  * @see {@link isNotCSSColorSpecial}
  */
@@ -27,7 +27,7 @@ export const isCSSColorSpecial = <Type = unknown>(
     value === 'transparent'
 
 /**
- * @category CSS
+ * @group CSS
  * @group Typeguard
  * @see {@link isCSSColorSpecial}
  */

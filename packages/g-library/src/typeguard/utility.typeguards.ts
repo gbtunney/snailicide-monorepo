@@ -62,6 +62,7 @@ export const isNotNilOrEmpty = <Type>(
 /**
  * Checks if a value is an empty string.
  *
+ * @category Primitive
  * @group Empty Types
  */
 export const isEmptyString = <Type extends string>(
@@ -110,9 +111,8 @@ export const isNumber = <Type extends number>(value: unknown): value is Type =>
 /**
  * Checks if a value is NOT a number.
  *
- * @category TypeGuard
- * @param {unknown} value - The value to check.
- * @returns {boolean} `true` if the value is not a number, otherwise `false`.
+ * @group Primitive
+ * @group Numeric
  * @see {@link isNumber}
  */
 export const isNotNumber = <
@@ -125,7 +125,7 @@ export const isNotNumber = <
 /**
  * Checks if a value is an integer.
  *
- * @group Primitive
+ * @category Primitive
  * @see {@link isNotInteger}
  */
 export const isInteger = <Type extends number>(value: unknown): value is Type =>
@@ -134,7 +134,7 @@ export const isInteger = <Type extends number>(value: unknown): value is Type =>
 /**
  * Checks if a value is NOT an integer.
  *
- * @group Primitive
+ * @category Primitive
  * @see {@link isInteger}
  */
 export const isNotInteger = <
@@ -147,7 +147,7 @@ export const isNotInteger = <
 /**
  * Checks if a value is a primitive.
  *
- * @group Primitive
+ * @category Primitive
  * @see {@link isNotPrimitive}
  */
 export const isPrimitive = <Type extends Primitive>(
@@ -157,7 +157,7 @@ export const isPrimitive = <Type extends Primitive>(
 /**
  * Checks if a value is NOT a primitive.
  *
- * @group Primitive
+ * @category Primitive
  * @see {@link isPrimitive}
  */
 export const isNotPrimitive = <Type = unknown>(
@@ -167,7 +167,7 @@ export const isNotPrimitive = <Type = unknown>(
 /**
  * Checks if a value is nil-like.
  *
- * @group Empty Types
+ * @category Empty Types
  * @see {@link isNotNilLike}
  */
 export const isNilLike = <Type>(value: Type | NilLike): value is NilLike =>
@@ -176,7 +176,7 @@ export const isNilLike = <Type>(value: Type | NilLike): value is NilLike =>
 /**
  * Checks if a value is NOT nil-like.
  *
- * @group Empty Types
+ * @category Empty Types
  * @see {@link isNilLike}
  */
 export const isNotNilLike = <Type>(value: Type | NilLike): value is Type =>
@@ -185,7 +185,7 @@ export const isNotNilLike = <Type>(value: Type | NilLike): value is Type =>
 /**
  * Checks if a value is nullish.
  *
- * @group Empty Types
+ * @category Empty Types
  * @see {@link isNotNullish}
  */
 export const isNullish = <Type>(value: Type | NilLike): value is undefined =>
@@ -194,7 +194,7 @@ export const isNullish = <Type>(value: Type | NilLike): value is undefined =>
 /**
  * Checks if a value is NOT nullish.
  *
- * @group Empty Types
+ * @category Empty Types
  * @see {@link isNullish}
  */
 export const isNotNullish = <Type>(value: Type | NilLike): value is Type =>
@@ -203,7 +203,7 @@ export const isNotNullish = <Type>(value: Type | NilLike): value is Type =>
 /**
  * Checks if a value is null.
  *
- * @group Empty Types
+ * @category Empty Types
  * @see {@link isNotNull}
  */
 export const isNull = (value: unknown): value is null => RA.isNull(value)
@@ -211,7 +211,7 @@ export const isNull = (value: unknown): value is null => RA.isNull(value)
 /**
  * Checks if a value is NOT null.
  *
- * @group Empty Types
+ * @category Empty Types
  * @see {@link isNull}
  */
 export const isNotNull = <Type extends NonNullable<any>>(
@@ -221,7 +221,7 @@ export const isNotNull = <Type extends NonNullable<any>>(
 /**
  * Checks if a value is undefined.
  *
- * @group Empty Types
+ * @category Empty Types
  * @see {@link isNotUndefined}
  */
 export const isUndefined = <Type>(value: Type | Nullish): value is undefined =>
@@ -230,7 +230,7 @@ export const isUndefined = <Type>(value: Type | Nullish): value is undefined =>
 /**
  * Checks if a value is not undefined.
  *
- * @group Empty Types
+ * @category Empty Types
  * @see {@link isUndefined}
  */
 export const isNotUndefined = <Type>(value: unknown): value is Type =>
@@ -239,7 +239,8 @@ export const isNotUndefined = <Type>(value: unknown): value is Type =>
 /**
  * Checks if a value is an empty array.
  *
- * @group Empty Types
+ * @category Array
+ * @category Empty Types
  * @see {@link isNonEmptyArray}
  */
 export const isEmptyArray = <Type extends EmptyArray>(
@@ -249,7 +250,7 @@ export const isEmptyArray = <Type extends EmptyArray>(
 /**
  * Checks if a value is a non-empty array.
  *
- * @group Empty Types
+ * @category Array
  * @see {@link isEmptyArray}
  */
 export const isNonEmptyArray = <Type extends UnknownArray = EmptyArray>(
@@ -259,7 +260,7 @@ export const isNonEmptyArray = <Type extends UnknownArray = EmptyArray>(
 /**
  * Checks if a value is an array.
  *
- * @group Array
+ * @category Array
  */
 export const isArray = <Type extends UnknownArray>(
     value: unknown,
@@ -268,7 +269,7 @@ export const isArray = <Type extends UnknownArray>(
 /**
  * Checks if a value is a non-empty object.
  *
- * @group Empty Types
+ * @category Object
  * @see {@link isEmptyObject}
  */
 export const isNonEmptyObject = <
@@ -280,7 +281,8 @@ export const isNonEmptyObject = <
 /**
  * Checks if a value is an empty object.
  *
- * @group Empty Types
+ * @category Empty Types
+ * @category Object
  * @see {@link isNonEmptyObject}
  */
 export const isEmptyObject = <Type extends EmptyObject>(
@@ -290,7 +292,7 @@ export const isEmptyObject = <Type extends EmptyObject>(
 /**
  * Checks if a value is a plain object.
  *
- * @group Object
+ * @category Object
  */
 export const isPlainObject = <
     Type extends PlainObject | Record<string, unknown>,
@@ -301,7 +303,7 @@ export const isPlainObject = <
 /**
  * Checks if a value is a regular expression.
  *
- * @group RegExp
+ * @category RegExp
  */
 export const isRegExp = <Type extends RegExp>(
     value: unknown,
@@ -312,7 +314,7 @@ export const isRegExp = <Type extends RegExp>(
 /**
  * Checks if a value is not an error.
  *
- * @group Error
+ * @category Error
  * @see {@link isError}
  */
 export const isNotError = <Type>(
@@ -324,7 +326,7 @@ export const isNotError = <Type>(
 /**
  * Checks if a value is an error.
  *
- * @group Error
+ * @category Error
  * @see {@link isNotError}
  */
 export const isError = (

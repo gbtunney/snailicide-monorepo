@@ -13,7 +13,8 @@ const { vsprintf }: typeof format = format
  * The arguments can be a single string or an array of strings, which are
  * validated and converted to an array if necessary using a Zod schema.
  *
- * @group Replace
+ * @category Replace
+ * @category Format
  */
 export const formatString = (
     value: string,

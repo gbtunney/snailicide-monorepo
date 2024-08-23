@@ -1,7 +1,12 @@
+import type { Tagged } from 'type-fest'
 import fs from 'fs'
 import path from 'path'
 
 export type ImageMimeType = 'jpeg' | 'png' | 'gif' | 'svg' | 'bmp'
+
+//todo: finish this type
+type Base64 = Tagged<string, 'base64'>
+
 export const getImageExtensionLiteral = (value: string): ImageMimeType => {
     if (value === 'jpeg') return 'jpeg'
     else if (value === 'gif') return 'gif'
@@ -16,6 +21,7 @@ export const getImageExtensionLiteral = (value: string): ImageMimeType => {
         return 'png'
     }
 }
+
 export const getImageBase64 = (
     file_path: string,
     mime_type: ImageMimeType = 'png',

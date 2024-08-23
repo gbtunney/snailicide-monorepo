@@ -1,11 +1,16 @@
 import { describe, expect, test } from 'vitest'
 import z from 'zod'
 
-import { ensureArray, resolveRegExpSchema } from './schemas.js'
+import { ensureArray, numeric, resolveRegExpSchema } from './schemas.js'
 import { isRegExp } from '../typeguard/utility.typeguards.js'
 
 describe('Zod helpers', () => {
     test('ENSURE ARRAY', () => {
+        const testing = numeric().optional()
+        const tttt: z.input<typeof testing> = '2'
+        // @ts-expect-error: "should error as this has been narrowed"
+        const outptNumeric: z.output<typeof testing> = '2'
+
         const getArrStringSchemaTest = ensureArray(z.string())
         const startvalue = 'zzzz'
         const arrvalue = [startvalue]
@@ -66,7 +71,6 @@ describe('Zod helpers', () => {
         const __inputOutD: z.output<typeof getArrRecursiveSchemaTest> = ['33']
         // BUSTED EXAMPLE : console.log("TESTMMMM", getArrRecursiveSchemaTest.parse("gillian") )
     })
-
     test('resolveRegExpSchema', () => {
         expect(resolveRegExpSchema().safeParse('^+0x').success).toBe(true)
         const testschema = resolveRegExpSchema(true)

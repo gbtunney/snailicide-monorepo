@@ -16,6 +16,10 @@ import { isRegExp, isString } from '../typeguard/utility.typeguards.js'
 
 export type ZodRegExp = ZodType<RegExp>
 
+/**
+ * @category Zod
+ * @category Schema
+ */
 export const resolveRegExpSchema = (
     doEscape: boolean = true,
 ): z.ZodEffects<
@@ -53,6 +57,10 @@ export const resolveRegExpSchema = (
     return union
 }
 
+/**
+ * @category Zod
+ * @category Schema
+ */
 export const ensureArray = <Type extends z.ZodTypeAny>(
     schema: Type,
 ): ZodEffects<ZodUnion<[ZodArray<Type>, Type]>, Array<Type['_output']>> => {
@@ -68,6 +76,10 @@ export const ensureArray = <Type extends z.ZodTypeAny>(
     return union
 }
 
+/**
+ * @category Zod
+ * @category Schema
+ */
 export const numeric = (): ZodEffects<
     ZodEffects<
         ZodUnion<[ZodString, ZodNumber, ZodBigInt]>,

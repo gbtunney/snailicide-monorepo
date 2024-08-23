@@ -1,18 +1,25 @@
 import z from 'zod'
 import { ensureArray, numeric, resolveRegExpSchema } from './schemas.js'
+
+/** @category Zod */
 export const schemaForType =
     <Type>() =>
     <Schema extends z.ZodType<Type, any, any>>(arg: Schema): Schema => {
         return arg
     }
 
-/** So that it doesnt lose its schema typing after a transform or merge function */
+/**
+ * So that it doesnt lose its schema typing after a transform or merge function
+ *
+ * @category Zod
+ */
 export const wrapSchema = <Schema extends z.Schema>(schema: Schema): Schema => {
     return schema
 }
 /**
  * Get zod data typed
  *
+ * @category Zod
  * @example
  *     getZodData( z.object({
  *     prop1: z.string(),
@@ -38,7 +45,7 @@ export const parseZodData = <Schema extends z.ZodSchema>(
 /**
  * Guard function to determine if value is parseable according to schema
  *
- * @category Typeguard
+ * @category Zod
  * @example
  *     tg_Zod( z.object({
  *     prop1: z.string(),

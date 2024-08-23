@@ -6,7 +6,8 @@ import { Json, PlainObject } from '../types/utility.js'
 /**
  * Checks if a value is Jsonifiable.
  *
- * @group Json
+ * @category Object
+ * @category Json
  */
 export const isJsonifiable = <Type extends Jsonifiable>(
     value: unknown,
@@ -23,7 +24,8 @@ export const isJsonifiable = <Type extends Jsonifiable>(
 /**
  * Checks if a value is a valid Json value.
  *
- * @group Json
+ * @category Object
+ * @category Json
  */
 export const isJsonValue = <Type extends Json.Value>(
     value: Type,
@@ -40,7 +42,8 @@ export const isJsonValue = <Type extends Json.Value>(
 /**
  * Checks if a value is a JSONifiable object-like structure (object or array).
  *
- * @group Json
+ * @category Object
+ * @category Json
  */
 export const isJsonifiableObjectLike = <Type extends Json.Object | Json.Array>(
     value: Type,
@@ -51,7 +54,8 @@ export const isJsonifiableObjectLike = <Type extends Json.Object | Json.Array>(
 /**
  * Checks if a value is a JSONifiable object.
  *
- * @group Json
+ * @category Object
+ * @category Json
  */
 export const isJsonifiableObject = <Type extends PlainObject>(
     value: unknown,
@@ -62,18 +66,9 @@ export const isJsonifiableObject = <Type extends PlainObject>(
 /**
  * Checks if a value is a JSONifiable array.
  *
- * @group Json
+ * @category Array
+ * @category Json
  */
 export const isJsonifiableArray = <Type extends Json.Array>(
     value: unknown,
 ): value is Type extends Json.Array ? Type : never => RA.isArray(value)
-
-export const tgJson = {
-    isJsonifiable,
-    isJsonifiableArray,
-    isJsonifiableObject,
-    isJsonifiableObjectLike,
-    isJsonValue,
-}
-
-export default tgJson

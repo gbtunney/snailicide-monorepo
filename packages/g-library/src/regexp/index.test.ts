@@ -1,14 +1,39 @@
 import { describe, expect, test } from 'vitest'
-
+import {
+    anyURLDomainExtension,
+    anyURLScheme,
+    urlDomainExtension,
+    urlScheme,
+} from './dictionary.js'
 import { escapeStringRegexp } from './escape.js'
 import {
     getRegExpEndOfString,
     getRegExpStartOfString,
 } from './string-to-regexp.js'
 import { isValidRegExp } from './validators.js'
-
 describe('Regexp', () => {
     test('Regexp namespace: Test', () => {
+        expect(anyURLDomainExtension().test('google.kkkkkk')).toBe(false)
+        expect(anyURLDomainExtension().test('google.com')).toBe(true)
+
+        const testURL = 'http://google.com'
+        expect(
+            anyURLDomainExtension().test(testURL) &&
+                anyURLScheme().test(testURL),
+        ).toBe(true)
+        expect(
+            urlDomainExtension(['com', 'net', 'org']).test(testURL) &&
+                anyURLScheme().test(testURL),
+        ).toBe(true)
+        expect(
+            urlDomainExtension(['net', 'org']).test(testURL) &&
+                anyURLScheme().test(testURL),
+        ).toBe(false)
+
+        const testURL2 = 'rdar://1234'
+        expect(urlScheme().test(testURL2)).toBe(false)
+        expect(urlScheme('rdar').test(testURL2)).toBe(true)
+
         expect(getRegExpEndOfString(['svg', 'png']).test('myfile.jpg')).toBe(
             false,
         )
@@ -37,10 +62,6 @@ describe('Regexp', () => {
         //todo: REJOIN THIS !!!
         //   const list = joinRegexList(['0x' ,'^rx'])
 
-        //  console.log('IS REG VALUD', format('this is an %s demonstration %s', 'formatting', 'gbt'))
-
-        //  expect(isValidRegExp(goodString)).toBe(true)
-        // expect(isValidRegExp(badString)).toBe(true)
         expect(isValidRegExp(new RegExp(escapeStringRegexp(goodString)))).toBe(
             true,
         )

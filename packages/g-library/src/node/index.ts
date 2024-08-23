@@ -6,6 +6,8 @@ import { exportJSONFile } from './export.json.file.js'
 import * as filePath from './file.path.array.js'
 import { getArgsObject, getYArgs } from './yargs-util.js'
 import * as zod_fs_schema from './zod.node.js'
+
+/** @internal */
 export const zod: typeof z & typeof zod_fs_schema = {
     ...z,
     ...zod_fs_schema,
@@ -21,8 +23,9 @@ export const node = {
     ...filePath,
 }
 export default node
-
 /* * TYPES * */
 export type { ImageMimeType } from './encode-base64.js'
+
 export type { JSONExportConfig, JSONExportEntry } from './export.json.file.js'
+export * as filePath from './file.path.array.js'
 export type { FilePath, FileType } from './file.path.array.js'

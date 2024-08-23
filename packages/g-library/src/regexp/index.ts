@@ -1,22 +1,27 @@
 import * as _lookup from './dictionary.js'
-import { escapeStringRegexp } from './escape.js'
-import {
-    getRegExpEndOfString,
-    getRegExpStartOfString,
-    getRegExpTrim,
-    stringListToRegexp,
-    stringToRegexp,
-} from './string-to-regexp.js'
-import { isStringValidRegExp, isValidRegExp } from './validators.js'
+import * as escape from './escape.js'
+import * as helpers from './helpers.js'
+import * as strToRegexp from './string-to-regexp.js'
+import * as validators from './validators.js'
 
 /* eslint  @typescript-eslint/unbound-method: "warn" */
 const _match = String().match
 export type RegExpMatchArray = ReturnType<typeof _match>
 export const lookup: typeof _lookup = _lookup
 
-/** Return a file extension if it is within the character count */
+/** Returns a file extension if it is within the character count */
 export const fileExtension = (min: number = 2, max: number = 8): RegExp =>
-    new RegExp(`.[a-z]{${min.toString()},${max.toString()}$`)
+    helpers.regExpCharacterCount(new RegExp('.[a-z]'))
+
+/** @namespace */
+export const regexp = {
+    fileExtension,
+    lookup: _lookup,
+    ...escape,
+    ...helpers,
+    ...validators,
+    ...strToRegexp,
+}
 
 /* TODO: finish
 export const joinRegexList = (_value: (string ) | (string )[]): RegExp|undefined => {
@@ -36,18 +41,3 @@ export const joinRegexList = (_value: (string ) | (string )[]): RegExp|undefined
     }
     return undefined
 }*/
-
-/** @namespace */
-export const regexp = {
-    escapeStringRegexp,
-    fileExtension,
-    getRegExpEndOfString,
-    getRegExpStartOfString,
-    getRegExpTrim,
-    isStringValidRegExp,
-    isValidRegExp,
-    lookup: _lookup,
-    stringListToRegexp,
-    stringToRegexp,
-}
-export default regexp

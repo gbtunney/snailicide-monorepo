@@ -10,7 +10,7 @@ import {
     isValidScientificNumber,
 } from './../number/validators.js'
 import { isZodParsable } from './../zod_helpers/index.js'
-import tgJson from './json.typeguards.js'
+import * as tgJson from './json.typeguards.js'
 import * as _tg from './utility.typeguards.js'
 
 /** @namespace Typeguard Functions */

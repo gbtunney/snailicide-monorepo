@@ -1,6 +1,5 @@
-/* * HTML UTILITIES * */
-export { htmlUtils } from './browser/index.js'
-
+/** HTML utilities for browser and node */
+export * as htmlUtils from './browser/index.js'
 export type * from './browser/index.js'
 
 /* * COLOR UTILITIES * */
@@ -20,11 +19,11 @@ export { objectUtils } from './object/index.js'
 export { deepmerge } from './object/index.js'
 
 /* * REGEXP UTILITIES * */
+/** @namespace */
 export { regexp } from './regexp/index.js'
 
 /* * STRING UTILITIES * */
 export { stringUtils } from './string/index.js'
-
 export type {
     BaseValue,
     BatchBaseValue,
@@ -37,6 +36,7 @@ export type {
 
 /* * GENERIC TYPEGUARDS * */
 export { tg } from './typeguard/index.js'
+
 /* * GENERIC AND UTILITY TYPES * */
 export type * from './types/index.js'
 

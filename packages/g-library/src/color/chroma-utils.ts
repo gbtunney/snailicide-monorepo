@@ -13,7 +13,7 @@ type HueDegrees = number
 type Saturation = number
 type Luminance = number
 type HSL = [HueDegrees, Saturation, Luminance]
-export const validate = (value: Chromable): boolean => {
+const validate = (value: Chromable): boolean => {
     try {
         chroma.color(value)
         return true

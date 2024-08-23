@@ -12,7 +12,7 @@ import {
  * pattern(s). If multiple patterns are provided, each pattern is applied in
  * sequence.
  *
- * @group Trim
+ * @category Trim
  * @see {@link batchTrimCharacters}
  */
 export const trimCharacters = ({
@@ -40,7 +40,7 @@ export const trimCharacters = ({
  * string. This function allows for batch processing of multiple strings with
  * the same trimming parameters.
  *
- * @group Trim
+ * @category Trim
  * @see {@link trimCharacters}
  */
 export const batchTrimCharacters = ({
@@ -68,7 +68,7 @@ export const batchTrimCharacters = ({
  * This is a convenience function specifically for trimming the start of a
  * string.
  *
- * @group Trim
+ * @category Trim
  * @see {@link trimCharacters}
  */
 export const trimCharactersStart = ({
@@ -90,7 +90,7 @@ export const trimCharactersStart = ({
  * This is a convenience function specifically for trimming the end of a
  * string.
  *
- * @group Trim
+ * @category Trim
  * @see {@link trimCharacters}
  */
 export const trimCharactersEnd = ({

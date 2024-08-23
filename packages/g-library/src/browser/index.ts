@@ -1,19 +1,4 @@
-import { isCSSColorSpecial, isNotCSSColorSpecial } from './css.js'
-import { getHTMLElementFromString } from './html.js'
-import { styledConsoleLog } from './logging.js'
-import { renderInlineMarkdown, renderMarkdown } from './markdown.js'
-
-/** @namespace */
-export const htmlUtils = {
-    getHTMLElementFromString,
-    isCSSColorSpecial,
-    isNotCSSColorSpecial,
-    renderInlineMarkdown,
-    renderMarkdown,
-    styledConsoleLog,
-}
-export default htmlUtils
-
+/** HTML utilities for browser and node */
 export { isCSSColorSpecial, isNotCSSColorSpecial } from './css.js'
 export type { CSSColorSpecial } from './css.js'
 export { getHTMLElementFromString } from './html.js'

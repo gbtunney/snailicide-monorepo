@@ -16,7 +16,7 @@ const replaceCharactersSinglePattern = ({
 } & ReplaceCharacters): string => replaceAll(pattern, replacement, value)
 
 /**
- * @group Replace
+ * @category Replace Characters
  * @see {@link batchReplaceAll}
  */
 export const replaceAllCharacters = ({
@@ -37,7 +37,7 @@ export const replaceAllCharacters = ({
     )
 }
 /**
- * @group Replace
+ * @category Replace Characters
  * @see {@link replaceAllCharacters}
  */
 export const batchReplaceAll = ({
