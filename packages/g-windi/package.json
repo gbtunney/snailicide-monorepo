@@ -51,7 +51,7 @@
     "dependencies": {
         "@snailicide/g-library": "workspace:*",
         "@types/ramda": "^0.30.1",
-        "@vueuse/core": "^10.4.1",
+        "@vueuse/core": "^11.0.1",
         "chroma.ts": "^1.0.10",
         "ramda": "^0.30.1",
         "ramda-adjunct": "^5.0.1",
@@ -61,7 +61,7 @@
     },
     "devDependencies": {
         "@snailicide/build-config": "workspace:*",
-        "@types/node": "^22.1.0",
+        "@types/node": "^22.5.0",
         "prettier": "^3.0.3",
         "rollup": "^4.18.1",
         "ts-node": "^10.9.1",
