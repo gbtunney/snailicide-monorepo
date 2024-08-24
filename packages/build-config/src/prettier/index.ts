@@ -1,25 +1,37 @@
-/**
- * Prettier Configuration
- *
- * @module prettier
- */
 import { Config, Options } from 'prettier'
-import { codeStyleOptions } from './code.style.js'
 
-const options: Options = codeStyleOptions
-
-const config: Config = {
-    ...options,
-    plugins: ['prettier-plugin-jsdoc', 'prettier-plugin-sh'],
+export const options: Options = {
+    bracketSameLine: true,
+    proseWrap: 'never',
+    quoteProps: 'consistent',
+    semi: false,
+    singleQuote: true,
+    tabWidth: 4,
 }
 
-/* * Prettier Namespace * */
+export const prettierConfiguration = (_options?: Options): Config => {
+    const defaultOptions = options
+    const myoption =
+        _options !== undefined
+            ? { ...defaultOptions, ..._options }
+            : defaultOptions
+
+    return {
+        ...myoption,
+        plugins: ['prettier-plugin-jsdoc', 'prettier-plugin-sh'],
+    }
+}
+/* * @hidden * */
+export const config: Config = prettierConfiguration()
+
+/* * @hidden * */
 export const Prettier = {
     config,
     options,
 }
-/* * Export Types * */
-export type PrettierOptions = Config
-export type PrettierConfig = Config
 
-export default Prettier
+/* * Export Types * */
+export type {
+    Config as PrettierConfig,
+    Options as PrettierOptions,
+} from 'prettier'

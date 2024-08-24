@@ -1,8 +1,3 @@
-/**
- * Rollup Configuration tools and utilities
- *
- * @module rollup
- */
 import { unflatten } from 'flat'
 import { omit } from 'ramda'
 import { InternalModuleFormat, OutputOptions, RollupOptions } from 'rollup'
@@ -10,7 +5,6 @@ import { merge as deepmerge } from 'ts-deepmerge'
 import { JsonValue } from 'type-fest'
 import type { LiteralUnion } from 'type-fest'
 import path from 'path'
-
 import { BasePackage } from './../npm/index.js'
 import {
     addMinFileExtension,
@@ -98,7 +92,7 @@ export const EXPORT_KEY_LOOKUP: Record<ExportType, KeyData> = {
     },
 }
 
-type KeyData = {
+export type KeyData = {
     extension: string
     internal_format: InternalModuleFormat
     module_format: string
@@ -147,13 +141,6 @@ export const getOutputObj = (
     const overrides: Partial<OutputOptions> & { minify?: boolean } =
         entry.overrides !== undefined ? entry.overrides : {}
 
-    //expand output objects by export type
-    type ExpandedExportType = {
-        export_type: ExportType
-        file: string
-        format: InternalModuleFormat
-        export_key: string
-    }
     //return minimal objects so we can get an export map later
     const expandedExportTypes: Array<ExpandedExportType> =
         entry.export_types.map((export_type) => {
@@ -286,9 +273,16 @@ export const getRollupConfig = (
     return _CONFIG
 }
 
-type OutputObjReturnType = {
+export type OutputObjReturnType = {
     exportObj: Record<string, Record<string, string>>
     config: Omit<RollupOptions, 'plugins'>
+}
+/** Expand output objects by export type */
+export type ExpandedExportType = {
+    export_type: ExportType
+    file: string
+    format: InternalModuleFormat
+    export_key: string
 }
 export const getPackageExports = (
     args: Array<OutputObjReturnType & { plugins: RollupOptions['plugins'] }>,
@@ -307,7 +301,7 @@ export const getPackageExports = (
         return undefined
     }
 }
-
+/** @internal */
 export const rollup = {
     CDN_PLUGINS_BUNDLED,
     DEFAULT_PLUGINS_BUNDLED,
@@ -318,11 +312,16 @@ export const rollup = {
     getPluginsConfiguration,
     getRollupConfig,
 }
+/** @internal */
 export default rollup
 
-export { getPluginsConfiguration } from './plugins.js'
 export type {
-    ConfigOptions,
-    PluginKey,
-    PluginsConfiguration,
+    ConfigOptions as RollupPluginConfigOptions,
+    PluginKey as RollupPluginKey,
+    PluginsConfiguration as RollupPluginConfiguration,
+} from './plugins.js'
+export {
+    CDN_PLUGINS_BUNDLED,
+    DEFAULT_PLUGINS_BUNDLED,
+    getPluginsConfiguration,
 } from './plugins.js'
