@@ -51,7 +51,7 @@ export const configMarkdown = (
         /* eslint sort/object-properties:off */
         const options: TypedocMarkdownConfig = {
             /** This uses a "module" format, using the index of each subfolder */
-            entryPoints: [path.resolve(`${resolvedDirname}/src/cccccindex.ts`)],
+            entryPoints: [path.resolve(`${resolvedDirname}/src/index.ts`)],
             tsconfig: path.resolve(`${resolvedDirname}/src/`),
             readme: path.resolve(`${resolvedDirname}/README.md`),
             out: path.resolve(`${resolvedDirname}/docs`),
