@@ -44,7 +44,7 @@
         "test:watch": "vitest watch",
         "test:example": "pnpm build:ts && pnpm exec vite build",
         "\n========== DOCS >> ==========": "",
-        "docs:build": "pnpm run build:ts && pnpm exec typedoc && pnpm docs:format",
+        "docs:build:todo": "pnpm run build:ts && pnpm exec typedoc && pnpm docs:format",
         "docs:format": "pnpm exec prettier ./docs --write",
         "\n========== PUBLISH >> ==========": "",
         "release": "pnpm prerelease && pnpm publish --access public --report-summary",
