@@ -3,10 +3,9 @@
  * @author Gillian Tunney
  * @see [commitlint - Lint commit messages](https://commitlint.js.org/#/)
  */
-import type { UserConfig } from '@commitlint/types'
-import { commitlint } from '@snailicide/build-config'
+import { commitlint, CommitlintUserConfig } from '@snailicide/build-config'
 
-const Configuration: UserConfig = commitlint.configuration([
+const Configuration: CommitlintUserConfig = commitlint.configuration([
     'root',
     'build-config',
     'g-library',
