@@ -8,6 +8,11 @@ node_modules
 .eslint-local.cjs
 .eslint-local.d.cts
 tsconfig-base.json
+*.d.mts
+*.mjs
+*.d.mts
+*.map
 
+*.mjs.map
 # Allow
 !src/tsconfig/tsconfig-base.json

@@ -1,0 +1,9 @@
+{
+    "extends": "./tsconfig-local-base.json",
+    "compilerOptions": {
+        "types": ["node"]
+    },
+    "exclude": ["node_modules", "*.ts"],
+    "files": ["./.vitepress/config.mts"],
+    "include": ["**/*.json"]
+}
