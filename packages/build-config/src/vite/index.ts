@@ -6,7 +6,7 @@ import { defineConfig, UserConfig } from 'vite'
  */
 
 /** Vite configuration for documentation server* */
-export const docServerConfig = (port = 5555): UserConfig => {
+export const viteDocServerConfig = (port = 5555): UserConfig => {
     return defineConfig({
         base: './',
         publicDir: './docs',
@@ -18,6 +18,9 @@ export const docServerConfig = (port = 5555): UserConfig => {
     })
 }
 
+/** @ignore */
 export const vite = {
-    docServer: docServerConfig,
+    docServer: viteDocServerConfig,
 }
+
+export type { UserConfig as ViteUserConfig } from 'vite'

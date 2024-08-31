@@ -19,11 +19,17 @@ export type Typedoc = {
         __dirname: string,
     ) => (TypedocConfig & MaterialThemeOptions) | undefined
 }
+
+/** @ignore */
 export const typedoc: Typedoc = {
     config,
     configMarkdown,
     materialTheme,
 }
-export default typedoc
+
 export type { TypedocMarkdownConfig } from './markdown.js'
 export type { MaterialThemeOptions, TypedocConfig } from './standard.js'
+export {
+    config as typedocStandardConfig,
+    materialTheme as typedocMaterialTheme,
+} from './standard.js'

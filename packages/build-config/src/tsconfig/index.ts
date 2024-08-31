@@ -12,3 +12,4 @@ export const tsConfig = (
 export const tsConfigBase: JsonObject = tsConfig({
     compilerOptions,
 })
+export type { JsonObject, SetRequired, TsConfigJson } from 'type-fest'

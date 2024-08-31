@@ -1,7 +1,6 @@
 # Ignore
 dist
 types
-docs
 exampleSectionSchema.json
 # Allow
 !src/types

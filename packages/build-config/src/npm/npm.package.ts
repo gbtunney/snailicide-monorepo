@@ -7,6 +7,7 @@ const wrapSchema = <Type extends z.Schema<unknown>>(schema: Type): Type => {
     return schema
 }
 
+/** Basic representation of NPM's package.json */
 export const packageStandardSchema = (
     base_schema: z.AnyZodObject = basePackage,
 ): typeof base_schema => {

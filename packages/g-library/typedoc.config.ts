@@ -22,6 +22,7 @@ const _typeDocConfig = merge(
     defaultConfig !== undefined ? defaultConfig : {},
     custom,
 )
-// @ts-expect-error: "merge errors i dont know why"
+
+
 const typeDocConfig: ReturnType<typeof typedoc.materialTheme> = _typeDocConfig
 export default typeDocConfig
