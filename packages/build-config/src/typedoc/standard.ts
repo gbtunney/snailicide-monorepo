@@ -1,49 +1,57 @@
-import { TypeDocOptions } from 'typedoc'
-import fs from 'fs'
-import * as path from 'path'
+import { merge as deepmerge } from "ts-deepmerge"
+import { TypeDocOptions } from "typedoc"
+import { fileSharedOptions } from "./shared.js"
+
+import type { TypedocConfigFunction, TypedocOptions } from "./shared.js"
 
 export type MaterialThemeOptions = {
     themeColor?: string
 }
 export type TypedocConfig = Partial<TypeDocOptions>
 
-export const config = (__dirname: string): undefined | TypedocConfig => {
-    const resolvedDirname = path.resolve(__dirname)
-    if (!fs.existsSync(resolvedDirname)) {
-        console.error('The directory ', resolvedDirname, ' does not exist.')
-    } else {
+const uhhkjhj: TypedocOptions = {}
+export const config: TypedocConfigFunction = (__dirname, _options) => {
+    const _fileOptions: TypedocOptions | undefined =
+        fileSharedOptions(__dirname)
+    const options_to_merge: TypedocOptions =
+        _options !== undefined ? _options : {}
+
+    if (_fileOptions !== undefined) {
+        const fileOptions = _fileOptions
         /* eslint sort/object-properties:off */
-        const options: TypedocConfig = {
-            /** This config uses a standard entrypoint */
-            entryPoints: [path.resolve(`${resolvedDirname}/src/index.ts`)],
-            tsconfig: path.resolve(`${resolvedDirname}/src/`),
-            readme: path.resolve(`${resolvedDirname}/README.md`),
-            out: path.resolve(`${resolvedDirname}/docs`),
-            exclude: [
-                '**/*.test.ts',
-                'node_modules/**/*',
-                '**/node_modules/**/*',
-            ],
+        const options: TypedocOptions = {
+            ...fileOptions,
             excludeExternals: false,
-            gitRevision: 'master',
-            plugin: ['typedoc-plugin-zod'],
+            plugin: ["typedoc-plugin-zod"],
         }
-        return options
+        const mergedOptions: TypedocOptions = deepmerge(
+            options,
+            options_to_merge,
+        ) as TypedocOptions
+        return mergedOptions
     }
     return undefined
 }
 
-export const materialTheme = (
+export const materialTheme: TypedocConfigFunction<MaterialThemeOptions> = (
     __dirname: string,
-): undefined | (TypedocConfig & MaterialThemeOptions) => {
-    const standardConfig: TypedocConfig | undefined = config(__dirname)
+    _options,
+) => {
+    const options_to_merge: TypedocOptions<MaterialThemeOptions> =
+        _options !== undefined ? _options : {}
+
+    const standardConfig: TypedocOptions | undefined = config(__dirname)
     if (standardConfig !== undefined) {
-        const options: TypedocConfig & MaterialThemeOptions = {
+        const options: TypedocOptions<MaterialThemeOptions> = {
             ...standardConfig,
-            plugin: ['typedoc-material-theme', 'typedoc-plugin-zod'],
-            themeColor: '#cb9820',
+            plugin: ["typedoc-material-theme", "typedoc-plugin-zod"],
+            themeColor: "#cb9820",
         }
-        return options
+        const mergedOptions: TypedocOptions = deepmerge(
+            options,
+            options_to_merge,
+        ) as TypedocOptions<MaterialThemeOptions>
+        return mergedOptions
     }
     return undefined
 }
