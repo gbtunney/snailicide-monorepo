@@ -1,4 +1,4 @@
-import { isNotUndefined, isPlainObject as RAisPlainObject } from 'ramda-adjunct'
+import { isNotUndefined, isPlainObject as RAisPlainObject } from "ramda-adjunct"
 import type {
     JsonArray,
     Jsonifiable,
@@ -6,9 +6,9 @@ import type {
     JsonValue,
     ReadonlyDeep,
     UnknownRecord,
-} from 'type-fest'
+} from "type-fest"
 
-import fs from 'fs'
+import fs from "fs"
 
 export type JSONExportEntry<Type extends Jsonifiable = JsonArray | JsonObject> =
     {
@@ -45,8 +45,8 @@ export const exportJSON = (
 const getJSONString = <Type = unknown>(value: Type, indentSpaces = 4): string =>
     JSON.stringify(JSON.parse(JSON.stringify(value)), undefined, indentSpaces)
 
-const addFileExtension = (value: string, extension = '.json'): string => {
-    const _extension = String(extension).startsWith('.')
+const addFileExtension = (value: string, extension = ".json"): string => {
+    const _extension = String(extension).startsWith(".")
         ? extension
         : `.${extension}`
     return String(value).endsWith(_extension) ? value : `${value}${extension}`
@@ -68,14 +68,14 @@ export type JSONCompatible<Type> = unknown extends Type
                 : JSONCompatible<Type[Property]>
       }
 
-export const isPlainObject = <Type extends UnknownRecord>(
+export const isPlainObject = <Type extends UnknownRecord = UnknownRecord>(
     value: unknown,
 ): value is Type => {
     return isNotUndefined(value) && RAisPlainObject(value)
 }
 
-export const safeDeserializeJSON = <Type>(
-    data: JSONCompatible<Type>,
+export const safeDeserializeJSON = <Type = UnknownRecord>(
+    data: any,
 ): JSONCompatible<Type> | undefined => {
     try {
         const str: string = JSON.stringify(data)
@@ -87,3 +87,20 @@ export const safeDeserializeJSON = <Type>(
 }
 
 export default {}
+
+/** TYPEFEST TYPES */
+export type {
+    Jsonifiable,
+    Jsonify,
+    LiteralToPrimitive,
+    LiteralToPrimitiveDeep,
+    LiteralUnion,
+    Merge,
+    MergeDeep,
+    PartialDeep,
+    Primitive,
+    Simplify,
+    SimplifyDeep,
+    Stringified,
+    ValueOf,
+} from "type-fest"
