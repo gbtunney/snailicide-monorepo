@@ -11,20 +11,27 @@ const getLintStagedConfig = (): LintStagedConfig => {
     const mdExt = getFileExtensionList<true>(['md'])
 
     const configExample: LintStagedConfig = {
+
+        /** Markdown */
         [`*.${mdExt.toString()}`]: [
             'prettier --write',
             'pnpm exec markdownlint --config=node_modules/@snailicide/build-config/dist/.markdownlint.json --fix',
         ],
+
+        /** JS-Like Files */
         [`*.{${jsExt.toString()}}`]: [
-            'eslint --fix --debug',
             'prettier --write',
+            'eslint --fix --debug',
         ],
+
+        /** Misc Prettier Files todo: update in root scripts */
         [`*.{${prettierExt.toString()}}`]: 'prettier --write',
+
+        /** Shell Scripts and Ignores */
         '.gitignore': 'prettier --write',
         '.husky/**/*': 'prettier --write',
     }
-    console.log('TTHE jsExt RESULT ISSS', configExample)
-
+    console.log('LINT-STAGED CONFIG IS::', configExample)
     return configExample
 }
 
