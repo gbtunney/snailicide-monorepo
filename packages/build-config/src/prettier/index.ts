@@ -7,7 +7,6 @@ import { Config, Options } from 'prettier'
 import JsdocPlugin from 'prettier-plugin-jsdoc'
 import { merge as deepmerge } from 'ts-deepmerge'
 import type { IterableElement, Merge } from 'type-fest'
-//import {JsdocOptions} from "prettier-plugin-jsdoc/dist/types";
 
 // @ts-expect-error: "idk this is annoying"
 export type JsDocOptions = (typeof JsdocPlugin)['Options']
