@@ -56,9 +56,14 @@ export type * from './typedoc/index.js'
 /* *  UTILITIES *  */
 export {
     exportJSON,
+    getFileExtensionList,
     importJSON,
     isPlainObject,
+    JS_FILE_EXTENSIONS,
+    JSLIKE_FILE_EXTENSIONS,
+    PRETTIER_FILE_EXTENSIONS,
     safeDeserializeJSON,
+    TS_FILE_EXTENSIONS,
 } from './utilities.js'
 export type * from './utilities.js'
 

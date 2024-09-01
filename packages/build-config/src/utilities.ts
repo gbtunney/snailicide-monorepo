@@ -1,4 +1,7 @@
-/** Utility functions (mainly for working with JSON data) */
+/**
+ * Utility functions (mainly for working with lintstaged,file extensions and
+ * JSON data)
+ */
 import {
     isArray,
     isNotUndefined,
@@ -6,6 +9,7 @@ import {
     isPrimitive,
 } from 'ramda-adjunct'
 import type {
+    ArrayValues,
     JsonArray,
     Jsonifiable,
     JsonObject,
@@ -17,6 +21,54 @@ import type {
 
 import fs from 'fs'
 import path from 'path'
+
+export const JS_FILE_EXTENSIONS = ['js', 'mjs', 'cjs', 'jsx'] as const
+export const TS_FILE_EXTENSIONS = ['ts', 'mts', 'cts', 'tsx'] as const
+export const JSLIKE_FILE_EXTENSIONS = [
+    ...JS_FILE_EXTENSIONS,
+    ...TS_FILE_EXTENSIONS,
+] as const
+export const PRETTIER_FILE_EXTENSIONS = [
+    'md',
+    'json',
+    'yaml',
+    'yml',
+    'graphql',
+    'sh',
+    'html',
+] as const
+
+export type JSFileExtensions = ArrayValues<typeof JS_FILE_EXTENSIONS>
+export type TSFileExtensions = ArrayValues<typeof TS_FILE_EXTENSIONS>
+export type JSLikeFileExtensions = ArrayValues<typeof JSLIKE_FILE_EXTENSIONS>
+export type PrettierFileExtensions = ArrayValues<
+    typeof PRETTIER_FILE_EXTENSIONS
+>
+export type AllowedExtensions<
+    IncludePrettierExtentions extends boolean = false,
+> = IncludePrettierExtentions extends true
+    ?
+          | Array<PrettierFileExtensions>
+          | ReadonlyDeep<Array<PrettierFileExtensions>>
+    : Array<JSLikeFileExtensions> | ReadonlyDeep<Array<JSLikeFileExtensions>>
+export type LintStagedConfig = Record<string, string | Array<string>>
+
+export const getFileExtensionList = <
+    IncludePrettierExtentions extends boolean = false,
+>(
+    extensions: AllowedExtensions<IncludePrettierExtentions>,
+    joined: boolean = true,
+    prefix: string = '',
+): string | Array<string> => {
+    const list = extensions.map((value: string): string => {
+        return `${prefix}${value}`
+    })
+    return joined ? list.join(',') : list
+}
+
+//sh,html,json,yaml,yml,graphql,md
+getFileExtensionList<true>(PRETTIER_FILE_EXTENSIONS)
+
 export type JSONExportEntry<Type extends Jsonifiable = JsonArray | JsonObject> =
     {
         data: Type
