@@ -3,10 +3,10 @@ import sortPlugin from 'eslint-plugin-sort'
 import type { Config } from 'typescript-eslint'
 
 /** @see [How to quickly configure ESLint for import sorting](https://medium.com/@diballesteros/how-to-quickly-configure-eslint-for-import-sorting-3a4017bd4853) */
-
 export const sortRules = (): Config => [
     sortPlugin.configs['flat/recommended'],
     {
+        name: 'SORT IMPORTS & EXPORTS : ERROR',
         rules: {
             'import/order': [
                 'error',
@@ -33,7 +33,6 @@ export const sortRules = (): Config => [
                     pathGroupsExcludedImportTypes: ['internal'],
                 },
             ],
-
             'sort/exports': [
                 'error',
                 {
@@ -43,6 +42,7 @@ export const sortRules = (): Config => [
                     typeOrder: 'preserve',
                 },
             ],
+            /** Use import instead of Sort p;ugins sorter for imports only */
             'sort/imports': 'off',
         },
     },

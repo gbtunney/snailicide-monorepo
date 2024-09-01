@@ -1,7 +1,13 @@
 import { Config } from 'typescript-eslint'
+import { getFileExtensionList, TS_FILE_EXTENSIONS } from '../../utilities.js'
+
+/** @todo: breakdown this file into groups? */
 export const namingConventionRules = (error: boolean = true): Config => [
     {
-        files: ['**/src/**/*.ts'],
+        files: [
+            ...getFileExtensionList(TS_FILE_EXTENSIONS, false, '**/src/**/*.'),
+        ],
+        name: 'Naming Convention: General rules for source files',
         rules: {
             '@typescript-eslint/naming-convention': [
                 error ? 'error' : 'warn',
@@ -83,7 +89,14 @@ export const namingConventionRules = (error: boolean = true): Config => [
         },
     },
     {
-        files: ['**/src/**/index.ts'],
+        files: [
+            ...getFileExtensionList(
+                TS_FILE_EXTENSIONS,
+                false,
+                '**/src/**/index.',
+            ),
+        ],
+        name: 'Naming Convention: Overriden rules for index files in src',
         rules: {
             '@typescript-eslint/naming-convention': [
                 error ? 'error' : 'warn',

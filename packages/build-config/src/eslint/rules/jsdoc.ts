@@ -4,12 +4,11 @@ import { SHARED_FORMATTING_RULES } from '../../prettier/index.js'
 
 export const jsdocRules = (): Config => [
     { ...jsdoc.configs['flat/recommended'] },
-
-    { ...jsdoc.configs['flat/recommended-typescript'] },
     /* eslint sort/object-properties:off */
     {
+        name: 'JSDoc: ERROR',
         rules: {
-            /** Indentation and alignment */
+            /** ** Indentation and alignment */
             'jsdoc/check-alignment': 'error',
             'jsdoc/check-indentation': ['error', { excludeTags: ['example'] }],
             'jsdoc/check-line-alignment': [
@@ -19,10 +18,6 @@ export const jsdocRules = (): Config => [
             ],
 
             /** Lines */
-            'jsdoc/lines-before-block': [
-                'error',
-                { ignoreSameLine: true, lines: 1 },
-            ],
             'jsdoc/multiline-blocks': [
                 'error',
                 {
@@ -48,12 +43,18 @@ export const jsdocRules = (): Config => [
             'jsdoc/no-multi-asterisks': 'error',
 
             /** Misc */
-            'jsdoc/require-param': 'off',
-            'jsdoc/require-returns': 'off',
             'jsdoc/convert-to-jsdoc-comments': [
                 'error',
                 { lineOrBlockStyle: 'both' },
             ],
+        },
+    },
+    {
+        name: 'JSDoc: OFF',
+        rules: {
+            'jsdoc/lines-before-block': 'off',
+            'jsdoc/require-param': 'off',
+            'jsdoc/require-returns': 'off',
         },
     },
 ]

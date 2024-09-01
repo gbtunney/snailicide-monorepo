@@ -1,8 +1,8 @@
 /**
  * Eslint / Tslint Configuration
- *
  * @see [eslint - Find and fix problems in your JavaScript code.](https://eslint.org/)
  * @see [typescript-eslint](https://typescript-eslint.io/getting-started/)
+ * @see Styleguide: _(rule motivation and reference)_ {@link [TypeScript Style Guide](https://mkosir.github.io/typescript-style-guide/) }
  */
 import { flatEslintConfig } from './base.js'
 

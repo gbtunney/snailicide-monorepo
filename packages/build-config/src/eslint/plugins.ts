@@ -13,6 +13,7 @@ import tsEslint from 'typescript-eslint'
 
 export const pluginsConfig = (): Config => [
     {
+        name: 'Custom Base Configuration : Included plugins',
         plugins: {
             ['@typescript-eslint']: tsEslint.plugin,
             ['eslint-comments']: eslintCommentsPlugin,
