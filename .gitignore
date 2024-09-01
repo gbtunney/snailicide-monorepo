@@ -155,3 +155,4 @@ docs/private
 #packages/**/docs/**/*
 packages/**/releases/*
 .history
+**/.vitepress/cache

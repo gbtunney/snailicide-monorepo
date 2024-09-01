@@ -3,8 +3,8 @@
  *
  * @see [VitePress | Vite & Vue Powered Static Site Generator](https://vitepress.dev/)
  */
-import { merge as deepmerge } from "ts-deepmerge"
-import { DefaultTheme, defineConfig, UserConfig } from "vitepress"
+import { merge as deepmerge } from 'ts-deepmerge'
+import { DefaultTheme, defineConfig, UserConfig } from 'vitepress'
 //import typedocSidebar from "../docs/typedoc-sidebar.json";
 
 export type VitepressSidebarMulti = DefaultTheme.SidebarMulti

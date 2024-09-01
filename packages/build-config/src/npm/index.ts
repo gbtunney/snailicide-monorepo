@@ -7,8 +7,8 @@ import {
     isNPMPackage,
     packageStandardSchema,
     parseNPMPackage,
-} from "./npm.package.js"
-import { schemas } from "./schema.js"
+} from './npm.package.js'
+import { schemas } from './schema.js'
 
 /** @internal */
 export const npm = {
@@ -22,11 +22,11 @@ export {
     isNPMPackage,
     packageStandardSchema,
     parseNPMPackage,
-} from "./npm.package.js"
+} from './npm.package.js'
 export type {
     BasePackage,
     PackageJson,
     PackageJsonInput,
-} from "./npm.package.js"
+} from './npm.package.js'
 
-export { schemas } from "./schema.js"
+export { schemas } from './schema.js'

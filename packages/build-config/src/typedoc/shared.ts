@@ -1,7 +1,7 @@
-import type { Merge, PartialDeep, UndefinedOnPartialDeep } from "type-fest"
-import { TypeDocOptions } from "typedoc"
-import fs from "fs"
-import path from "path"
+import type { Merge, PartialDeep, UndefinedOnPartialDeep } from 'type-fest'
+import { TypeDocOptions } from 'typedoc'
+import fs from 'fs'
+import path from 'path'
 
 export type TypedocConfigFunction<Type extends object = TypeDocOptions> = (
     __dirname: string,
@@ -13,14 +13,14 @@ export type TypedocOptions<Type extends object = TypeDocOptions> = PartialDeep<
 
 export type TypedocFileOptions = Pick<
     TypeDocOptions,
-    "entryPoints" | "tsconfig" | "readme" | "out" | "exclude" | "gitRevision"
+    'entryPoints' | 'tsconfig' | 'readme' | 'out' | 'exclude' | 'gitRevision'
 >
 export const fileSharedOptions = (
     __dirname: string,
 ): undefined | TypedocOptions => {
     const resolvedDirname = path.resolve(__dirname)
     if (!fs.existsSync(resolvedDirname)) {
-        console.error("The directory ", resolvedDirname, " does not exist.")
+        console.error('The directory ', resolvedDirname, ' does not exist.')
         return undefined
     } else {
         /* eslint sort/object-properties:off */
@@ -31,11 +31,11 @@ export const fileSharedOptions = (
             readme: path.resolve(`${resolvedDirname}/README.md`),
             out: path.resolve(`${resolvedDirname}/docs`),
             exclude: [
-                "**/*.test.ts",
-                "node_modules/**/*",
-                "**/node_modules/**/*",
+                '**/*.test.ts',
+                'node_modules/**/*',
+                '**/node_modules/**/*',
             ],
-            gitRevision: "master",
+            gitRevision: 'master',
         }
         return options
     }

@@ -23,6 +23,7 @@ export const namingConventionRules = (error: boolean = true): Config => [
                     modifiers: ['exported'],
                     selector: ['variable', 'function'],
                 },
+
                 /**
                  * Enforce that boolean variables are prefixed with an allowed
                  * verb
@@ -53,6 +54,7 @@ export const namingConventionRules = (error: boolean = true): Config => [
                      */
                     selector: 'typeParameter',
                 },
+
                 /** Enforce that all const variables are in UPPER_CASE */
                 {
                     format: ['UPPER_CASE'],
@@ -69,6 +71,7 @@ export const namingConventionRules = (error: boolean = true): Config => [
                     selector: 'enumMember',
                 },
                 //@typescript-eslint/naming-convention
+
                 /** Enforce that private members are prefixed with an underscore */
                 {
                     format: ['camelCase'],

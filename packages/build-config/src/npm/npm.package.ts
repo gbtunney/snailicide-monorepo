@@ -1,7 +1,7 @@
-import type { Merge } from "type-fest"
-import { z } from "zod"
+import type { Merge } from 'type-fest'
+import { z } from 'zod'
 
-import { basePackage } from "./schema.js"
+import { basePackage } from './schema.js'
 
 const wrapSchema = <Type extends z.Schema<unknown>>(schema: Type): Type => {
     return schema
@@ -30,7 +30,7 @@ export const parseNPMPackage = <
 >(
     value: unknown,
     custom_schema: Schema | undefined = undefined,
-    show_error: boolean | "safe" = "safe",
+    show_error: boolean | 'safe' = 'safe',
     passThrough: boolean = true,
 ): PackageJson<Schema, BaseSchema> | undefined => {
     const base_schema = wrapSchema<z.AnyZodObject>(basePackage)
@@ -46,6 +46,7 @@ export const parseNPMPackage = <
         ? mergedSchema.parse(value)
         : undefined
 }
+
 /** Validates a npm package.json object */
 export const isNPMPackage = <
     Schema extends z.AnyZodObject,
@@ -53,7 +54,7 @@ export const isNPMPackage = <
 >(
     value: unknown,
     custom_schema: Schema | undefined = undefined,
-    show_error: boolean | "safe" = false,
+    show_error: boolean | 'safe' = false,
     passthru: boolean = true,
 ): value is PackageJson<Schema, BaseSchema> | undefined => {
     const base_schema = wrapSchema<z.AnyZodObject>(basePackage)
@@ -66,7 +67,7 @@ export const isNPMPackage = <
               ? base_schema.merge(base_schema).passthrough()
               : base_schema.merge(base_schema)
 
-    if (show_error === "safe" && !mergedSchema.safeParse(value).success) {
+    if (show_error === 'safe' && !mergedSchema.safeParse(value).success) {
         console.log(mergedSchema.safeParse(value).error)
     }
     if (show_error === true && !mergedSchema.safeParse(value).success) {

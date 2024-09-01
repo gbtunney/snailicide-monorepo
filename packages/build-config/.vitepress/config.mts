@@ -1,6 +1,6 @@
-import url from "node:url"
-import { importJSON, vitepress, VitepressSidebar } from "./../types/index.js"
-const __dirname = url.fileURLToPath(new URL(".", import.meta.url))
+import url from 'node:url'
+import { importJSON, vitepress, VitepressSidebar } from './../types/index.js'
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 
 const defineConfiguration = async (
     _dirname: string,
@@ -16,25 +16,25 @@ const defineConfiguration = async (
             themeConfig: {
                 aside: false,
                 nav: [
-                    { link: "/", text: "Home" },
-                    { link: "/docs/", text: "Documentation" },
+                    { link: '/', text: 'Home' },
+                    { link: '/docs/', text: 'Documentation' },
                 ],
                 // https://vitepress.dev/reference/default-theme-config
                 search: {
-                    provider: "local",
+                    provider: 'local',
                 },
                 socialLinks: [
                     {
-                        icon: "github",
-                        link: "https://github.com/gbtunney/snailicide-monorepo.git#README.md",
+                        icon: 'github',
+                        link: 'https://github.com/gbtunney/snailicide-monorepo.git#README.md',
                     },
                     {
-                        icon: "instagram",
-                        link: "http://instagram.com/snailicide",
+                        icon: 'instagram',
+                        link: 'http://instagram.com/snailicide',
                     },
                     {
-                        icon: "youtube",
-                        link: "http://youtube.com/gbtunney",
+                        icon: 'youtube',
+                        link: 'http://youtube.com/gbtunney',
                     },
                 ],
             },

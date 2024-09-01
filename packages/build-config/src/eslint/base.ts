@@ -12,6 +12,7 @@ import { namingConventionRules } from './rules/naming-convention.js'
 import { sortRules } from './rules/sort.js'
 import { typescriptRules } from './rules/typescript.js'
 import { vitestRules } from './rules/vitest.js'
+import { SHARED_FORMATTING_RULES } from '../prettier/index.js'
 
 const base_files = ['**/*.{js,mjs,cjs,ts}']
 const base_ignores = [
@@ -49,6 +50,14 @@ export const flatEslintConfig = async (__dirname: string): Promise<Config> => {
         ...(await namingConventionRules()),
 
         ...(await eslintCommentRules()),
+        {
+            rules: {
+                'no-multiple-empty-lines': [
+                    'error',
+                    { max: SHARED_FORMATTING_RULES.maxEmptyLines },
+                ],
+            },
+        },
         {
             files: ['**/*.cjs'],
             rules: {

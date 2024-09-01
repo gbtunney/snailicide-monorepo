@@ -6,12 +6,12 @@
  * @see [davidAnson/markdownlint](https://github.com/DavidAnson/markdownlint)
  * todo: format front-matter?
  */
-import type { Configuration } from "markdownlint"
-import { JsonObject } from "type-fest"
+import type { Configuration } from 'markdownlint'
+import { JsonObject } from 'type-fest'
 
-import type { UndefinedOnPartialDeep } from "type-fest"
-import { getRules } from "./config.js"
-import { isPlainObject, safeDeserializeJSON } from "../utilities.js"
+import type { UndefinedOnPartialDeep } from 'type-fest'
+import { getRules } from './config.js'
+import { isPlainObject, safeDeserializeJSON } from '../utilities.js'
 
 export type MarkdownLintConfig = UndefinedOnPartialDeep<Configuration>
 export const markdownlintConfig = (

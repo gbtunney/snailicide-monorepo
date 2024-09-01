@@ -3,8 +3,8 @@
 layout: home
 
 hero:
-  name: "@snailicide-build-config  🐌"
-  text: "TypeDoc Documentation"
+  name: '@snailicide-build-config  🐌'
+  text: 'TypeDoc Documentation'
   tagline: Made with typedoc-vitepress-theme.
   actions:
     - theme: brand

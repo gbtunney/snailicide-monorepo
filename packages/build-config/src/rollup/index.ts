@@ -3,32 +3,32 @@
  *
  * @see [Rollup - The JavaScript module bundler](http://rollupjs.org/guide/en)
  */
-import { unflatten } from "flat"
-import { omit } from "ramda"
-import { InternalModuleFormat, OutputOptions, RollupOptions } from "rollup"
-import { merge as deepmerge } from "ts-deepmerge"
-import { JsonValue } from "type-fest"
-import type { LiteralUnion } from "type-fest"
-import path from "path"
-import { BasePackage } from "./../npm/index.js"
+import { unflatten } from 'flat'
+import { omit } from 'ramda'
+import { InternalModuleFormat, OutputOptions, RollupOptions } from 'rollup'
+import { merge as deepmerge } from 'ts-deepmerge'
+import { JsonValue } from 'type-fest'
+import type { LiteralUnion } from 'type-fest'
+import path from 'path'
+import { BasePackage } from './../npm/index.js'
 import {
     addMinFileExtension,
     createOutputOptions,
     getExportKey,
     getOutfileName,
-} from "./functions.js"
+} from './functions.js'
 import {
     CDN_PLUGINS_BUNDLED,
     DEFAULT_PLUGINS_BUNDLED,
     getPluginsConfiguration,
-} from "./plugins.js"
-import { isNPMPackage, parseNPMPackage } from "../npm/npm.package.js"
+} from './plugins.js'
+import { isNPMPackage, parseNPMPackage } from '../npm/npm.package.js'
 
 /** Comment with library information to be appended in the generated bundles. */
 export const getBanner = (
     library_name: string,
     package_json: BasePackage,
-    show_error: boolean | "safe" = true,
+    show_error: boolean | 'safe' = true,
 ): string | undefined => {
     if (isNPMPackage(package_json)) {
         return `/*
@@ -46,55 +46,55 @@ export const getBanner = (
     }
 }
 export type ExportType =
-    | "types"
-    | "require"
-    | "import"
-    | "default"
-    | "browser_default"
-    | "browser_types"
-    | "browser_import"
-    | "browser_umd"
+    | 'types'
+    | 'require'
+    | 'import'
+    | 'default'
+    | 'browser_default'
+    | 'browser_types'
+    | 'browser_import'
+    | 'browser_umd'
 
 export const EXPORT_KEY_LOOKUP: Record<ExportType, KeyData> = {
     browser_default: {
-        extension: "-iife.js",
-        internal_format: "iife",
-        module_format: "iife",
+        extension: '-iife.js',
+        internal_format: 'iife',
+        module_format: 'iife',
     },
     browser_import: {
-        extension: ".js",
-        internal_format: "es",
-        module_format: "esm",
+        extension: '.js',
+        internal_format: 'es',
+        module_format: 'esm',
     },
     browser_types: {
-        extension: ".d.ts",
-        internal_format: "es",
-        module_format: "typescript",
+        extension: '.d.ts',
+        internal_format: 'es',
+        module_format: 'typescript',
     },
     browser_umd: {
-        extension: "-umd.js",
-        internal_format: "umd",
-        module_format: "umd",
+        extension: '-umd.js',
+        internal_format: 'umd',
+        module_format: 'umd',
     },
     default: {
-        extension: "js",
-        internal_format: "es",
-        module_format: "esm",
+        extension: 'js',
+        internal_format: 'es',
+        module_format: 'esm',
     },
     import: {
-        extension: "mjs",
-        internal_format: "es",
-        module_format: "module",
+        extension: 'mjs',
+        internal_format: 'es',
+        module_format: 'module',
     },
     require: {
-        extension: "cjs",
-        internal_format: "cjs",
-        module_format: "commonjs",
+        extension: 'cjs',
+        internal_format: 'cjs',
+        module_format: 'commonjs',
     },
     types: {
-        extension: ".d.ts",
-        internal_format: "es",
-        module_format: "typescript",
+        extension: '.d.ts',
+        internal_format: 'es',
+        module_format: 'typescript',
     },
 }
 
@@ -105,7 +105,7 @@ export type KeyData = {
 }
 
 export type EntryConfig = {
-    export_key: LiteralUnion<"." | "*" | "main", string>
+    export_key: LiteralUnion<'.' | '*' | 'main', string>
     in_file_name_override?: string | undefined
     out_file_name_override?:
         | string
@@ -114,6 +114,7 @@ export type EntryConfig = {
     source_dir: string
     output_dir: string
     library_name: string
+
     /** Overridess */
     overrides?: Partial<OutputOptions> & { minify?: boolean }
 }
@@ -133,11 +134,11 @@ export const getOutputObj = (
         source_dir,
     }: Pick<
         EntryConfig,
-        | "export_key"
-        | "source_dir"
-        | "output_dir"
-        | "out_file_name_override"
-        | "in_file_name_override"
+        | 'export_key'
+        | 'source_dir'
+        | 'output_dir'
+        | 'out_file_name_override'
+        | 'in_file_name_override'
     > = entry
 
     const filename = getOutfileName(export_key, out_file_name_override)
@@ -151,7 +152,7 @@ export const getOutputObj = (
     const expandedExportTypes: Array<ExpandedExportType> =
         entry.export_types.map((export_type) => {
             const _extension = EXPORT_KEY_LOOKUP[export_type].extension
-            const extension = !_extension.includes(".")
+            const extension = !_extension.includes('.')
                 ? `.${_extension}`
                 : _extension
             const file = path.resolve(`${output_dir}/${filename}${extension}`)
@@ -172,7 +173,7 @@ export const getOutputObj = (
         >((acc, value: ExpandedExportType) => {
             return {
                 ...acc,
-                [value.export_type]: `./${path.relative(".", value.file)}`, //processTranscriptionSlice(value)
+                [value.export_type]: `./${path.relative('.', value.file)}`, //processTranscriptionSlice(value)
             }
         }, {}),
     }
@@ -181,7 +182,7 @@ export const getOutputObj = (
         input: source_file,
         output: expandedExportTypes.reduce<Array<OutputOptions>>(
             (acc, value) => {
-                const _overrides = omit(["minify"], overrides)
+                const _overrides = omit(['minify'], overrides)
 
                 const mainOutputObject = createOutputOptions({
                     ..._overrides,
@@ -206,7 +207,7 @@ export const getOutputObj = (
                 ]
                 return [
                     ...acc,
-                    ...(!new RegExp(/types/, "g").test(value.export_type)
+                    ...(!new RegExp(/types/, 'g').test(value.export_type)
                         ? newOutputArray
                         : []),
                 ]
@@ -214,7 +215,7 @@ export const getOutputObj = (
             [],
         ),
     }
-    return { config, exportObj: unflatten(export_object, { delimiter: "_" }) }
+    return { config, exportObj: unflatten(export_object, { delimiter: '_' }) }
 }
 
 /**
@@ -227,19 +228,19 @@ export const getOutputObj = (
  * @returns An array of output configurations with plugins.
  */
 export const getConfigEntries = (
-    directoryObj: Pick<EntryConfig, "source_dir" | "output_dir">,
-    entries: Array<Omit<EntryConfig, "source_dir" | "output_dir">>,
-    plugins: RollupOptions["plugins"] = [],
+    directoryObj: Pick<EntryConfig, 'source_dir' | 'output_dir'>,
+    entries: Array<Omit<EntryConfig, 'source_dir' | 'output_dir'>>,
+    plugins: RollupOptions['plugins'] = [],
     package_json: BasePackage,
 ): Array<
     OutputObjReturnType & {
-        plugins: RollupOptions["plugins"]
+        plugins: RollupOptions['plugins']
     }
 > => {
     return entries.map((entry) => {
         const _banner = getBanner(entry.library_name, package_json)
 
-        const banner: string = _banner !== undefined ? _banner : ""
+        const banner: string = _banner !== undefined ? _banner : ''
         const inneroverrides =
             entry.overrides !== undefined
                 ? {
@@ -248,7 +249,7 @@ export const getConfigEntries = (
                   }
                 : { banner }
         const result: OutputObjReturnType & {
-            plugins: RollupOptions["plugins"]
+            plugins: RollupOptions['plugins']
         } = {
             ...getOutputObj({
                 ...entry,
@@ -264,7 +265,7 @@ export const getConfigEntries = (
 export const getRollupConfig = (
     args: Array<
         OutputObjReturnType & {
-            plugins: RollupOptions["plugins"]
+            plugins: RollupOptions['plugins']
         }
     >,
 ): Array<RollupOptions> => {
@@ -281,8 +282,9 @@ export const getRollupConfig = (
 
 export type OutputObjReturnType = {
     exportObj: Record<string, Record<string, string>>
-    config: Omit<RollupOptions, "plugins">
+    config: Omit<RollupOptions, 'plugins'>
 }
+
 /** Expand output objects by export type */
 export type ExpandedExportType = {
     export_type: ExportType
@@ -291,7 +293,7 @@ export type ExpandedExportType = {
     export_key: string
 }
 export const getPackageExports = (
-    args: Array<OutputObjReturnType & { plugins: RollupOptions["plugins"] }>,
+    args: Array<OutputObjReturnType & { plugins: RollupOptions['plugins'] }>,
     doPrint: boolean = false,
 ): JsonValue | undefined => {
     const export_result = args.reduce((acc, value) => {
@@ -319,6 +321,7 @@ export const rollup = {
     getPluginsConfiguration,
     getRollupConfig,
 }
+
 /** @internal */
 export default rollup
 
@@ -326,9 +329,9 @@ export type {
     ConfigOptions as RollupPluginConfigOptions,
     PluginKey as RollupPluginKey,
     PluginsConfiguration as RollupPluginConfiguration,
-} from "./plugins.js"
+} from './plugins.js'
 export {
     CDN_PLUGINS_BUNDLED,
     DEFAULT_PLUGINS_BUNDLED,
     getPluginsConfiguration,
-} from "./plugins.js"
+} from './plugins.js'

@@ -4,7 +4,7 @@ import {
     isNotUndefined,
     isPlainObject as RAisPlainObject,
     isPrimitive,
-} from "ramda-adjunct"
+} from 'ramda-adjunct'
 import type {
     JsonArray,
     Jsonifiable,
@@ -13,10 +13,10 @@ import type {
     JsonValue,
     ReadonlyDeep,
     UnknownRecord,
-} from "type-fest"
+} from 'type-fest'
 
-import fs from "fs"
-import path from "path"
+import fs from 'fs'
+import path from 'path'
 export type JSONExportEntry<Type extends Jsonifiable = JsonArray | JsonObject> =
     {
         data: Type
@@ -52,8 +52,8 @@ export const exportJSON = (
 const getJSONString = <Type = unknown>(value: Type, indentSpaces = 4): string =>
     JSON.stringify(JSON.parse(JSON.stringify(value)), undefined, indentSpaces)
 
-const addFileExtension = (value: string, extension = ".json"): string => {
-    const _extension = String(extension).startsWith(".")
+const addFileExtension = (value: string, extension = '.json'): string => {
+    const _extension = String(extension).startsWith('.')
         ? extension
         : `.${extension}`
     return String(value).endsWith(_extension) ? value : `${value}${extension}`
@@ -102,16 +102,16 @@ export const importJSON = async (
         return undefined
     }
     const json: JsonObject = await import(_path, {
-        assert: { type: "json" },
+        assert: { type: 'json' },
     })
-    if (isArray(json["default"])) {
-        return json["default"] as JsonArray
+    if (isArray(json['default'])) {
+        return json['default'] as JsonArray
     }
-    if (RAisPlainObject(json["default"])) {
-        return json["default"] as JsonObject
+    if (RAisPlainObject(json['default'])) {
+        return json['default'] as JsonObject
     }
-    if (isPrimitive(json["default"])) {
-        return json["default"] as JsonPrimitive
+    if (isPrimitive(json['default'])) {
+        return json['default'] as JsonPrimitive
     }
     return undefined
 }
@@ -132,4 +132,4 @@ export type {
     SimplifyDeep,
     Stringified,
     ValueOf,
-} from "type-fest"
+} from 'type-fest'

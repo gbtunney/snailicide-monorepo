@@ -1,8 +1,8 @@
-import { merge as deepmerge } from "ts-deepmerge"
-import { TypeDocOptions } from "typedoc"
-import { fileSharedOptions } from "./shared.js"
+import { merge as deepmerge } from 'ts-deepmerge'
+import { TypeDocOptions } from 'typedoc'
+import { fileSharedOptions } from './shared.js'
 
-import type { TypedocConfigFunction, TypedocOptions } from "./shared.js"
+import type { TypedocConfigFunction, TypedocOptions } from './shared.js'
 
 export type MaterialThemeOptions = {
     themeColor?: string
@@ -22,7 +22,7 @@ export const config: TypedocConfigFunction = (__dirname, _options) => {
         const options: TypedocOptions = {
             ...fileOptions,
             excludeExternals: false,
-            plugin: ["typedoc-plugin-zod"],
+            plugin: ['typedoc-plugin-zod'],
         }
         const mergedOptions: TypedocOptions = deepmerge(
             options,
@@ -44,8 +44,8 @@ export const materialTheme: TypedocConfigFunction<MaterialThemeOptions> = (
     if (standardConfig !== undefined) {
         const options: TypedocOptions<MaterialThemeOptions> = {
             ...standardConfig,
-            plugin: ["typedoc-material-theme", "typedoc-plugin-zod"],
-            themeColor: "#cb9820",
+            plugin: ['typedoc-material-theme', 'typedoc-plugin-zod'],
+            themeColor: '#cb9820',
         }
         const mergedOptions: TypedocOptions = deepmerge(
             options,

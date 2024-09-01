@@ -1,7 +1,7 @@
-import { Configuration } from "markdownlint"
-import { merge as deepmerge } from "ts-deepmerge"
-import { UndefinedOnPartialDeep } from "type-fest"
-import { SHARED_FORMATTING_RULES } from "../prettier/index.js"
+import { Configuration } from 'markdownlint'
+import { merge as deepmerge } from 'ts-deepmerge'
+import { UndefinedOnPartialDeep } from 'type-fest'
+import { SHARED_FORMATTING_RULES } from '../prettier/index.js'
 
 type MarkdownLintConfig = UndefinedOnPartialDeep<Configuration>
 //**  Example markdownlint configuration with all properties set to their default value */
@@ -23,13 +23,13 @@ export const getRules = (
         // MD003/heading-style : Heading style : https://github.com/DavidAnson/markdownlint/blob/v0.35.0/doc/md003.md
         MD003: {
             // Heading style
-            style: "consistent",
+            style: 'consistent',
         },
 
         // MD004/ul-style : Unordered list style : https://github.com/DavidAnson/markdownlint/blob/v0.35.0/doc/md004.md
         MD004: {
             // List style
-            style: "consistent",
+            style: 'consistent',
         },
 
         // MD005/list-indent : Inconsistent indentation for list items at the same level : https://github.com/DavidAnson/markdownlint/blob/v0.35.0/doc/md005.md
@@ -131,7 +131,7 @@ export const getRules = (
         // MD025/single-title/single-h1 : Multiple top-level headings in the same document : https://github.com/DavidAnson/markdownlint/blob/v0.35.0/doc/md025.md
         MD025: {
             // RegExp for matching title in front matter
-            front_matter_title: "^\\s*title\\s*[:=]",
+            front_matter_title: '^\\s*title\\s*[:=]',
             // Heading level
             level: 1,
         },
@@ -139,7 +139,7 @@ export const getRules = (
         // MD026/no-trailing-punctuation : Trailing punctuation in heading : https://github.com/DavidAnson/markdownlint/blob/v0.35.0/doc/md026.md
         MD026: {
             // Punctuation characters
-            punctuation: ".,;:!。，；：！",
+            punctuation: '.,;:!。，；：！',
         },
 
         // MD027/no-multiple-space-blockquote : Multiple spaces after blockquote symbol : https://github.com/DavidAnson/markdownlint/blob/v0.35.0/doc/md027.md
@@ -151,7 +151,7 @@ export const getRules = (
         // MD029/ol-prefix : Ordered list item prefix : https://github.com/DavidAnson/markdownlint/blob/v0.35.0/doc/md029.md
         MD029: {
             // List style
-            style: "one_or_ordered",
+            style: 'one_or_ordered',
         },
 
         // MD030/list-marker-space : Spaces after list markers : https://github.com/DavidAnson/markdownlint/blob/v0.35.0/doc/md030.md
@@ -187,13 +187,13 @@ export const getRules = (
         // MD035/hr-style : Horizontal rule style : https://github.com/DavidAnson/markdownlint/blob/v0.35.0/doc/md035.md
         MD035: {
             // Horizontal rule style
-            style: "consistent",
+            style: 'consistent',
         },
 
         // MD036/no-emphasis-as-heading : Emphasis used instead of a heading : https://github.com/DavidAnson/markdownlint/blob/v0.35.0/doc/md036.md
         MD036: {
             // Punctuation characters
-            punctuation: ".,;:!?。，；：！？",
+            punctuation: '.,;:!?。，；：！？',
         },
 
         // MD037/no-space-in-emphasis : Spaces inside emphasis markers : https://github.com/DavidAnson/markdownlint/blob/v0.35.0/doc/md037.md
@@ -216,7 +216,7 @@ export const getRules = (
         // MD041/first-line-heading/first-line-h1 : First line in a file should be a top-level heading : https://github.com/DavidAnson/markdownlint/blob/v0.35.0/doc/md041.md
         MD041: {
             // RegExp for matching title in front matter
-            front_matter_title: "^\\s*title\\s*[:=]",
+            front_matter_title: '^\\s*title\\s*[:=]',
             // Heading level
             level: 1,
         },
@@ -248,7 +248,7 @@ export const getRules = (
         // MD046/code-block-style : Code block style : https://github.com/DavidAnson/markdownlint/blob/v0.35.0/doc/md046.md
         MD046: {
             // Block style
-            style: "consistent",
+            style: 'consistent',
         },
 
         // MD047/single-trailing-newline : Files should end with a single newline character : https://github.com/DavidAnson/markdownlint/blob/v0.35.0/doc/md047.md
@@ -257,19 +257,19 @@ export const getRules = (
         // MD048/code-fence-style : Code fence style : https://github.com/DavidAnson/markdownlint/blob/v0.35.0/doc/md048.md
         MD048: {
             // Code fence style
-            style: "consistent",
+            style: 'consistent',
         },
 
         // MD049/emphasis-style : Emphasis style : https://github.com/DavidAnson/markdownlint/blob/v0.35.0/doc/md049.md
         MD049: {
             // Emphasis style
-            style: "consistent",
+            style: 'consistent',
         },
 
         // MD050/strong-style : Strong style : https://github.com/DavidAnson/markdownlint/blob/v0.35.0/doc/md050.md
         MD050: {
             // Strong style
-            style: "consistent",
+            style: 'consistent',
         },
 
         // MD051/link-fragments : Link fragments should be valid : https://github.com/DavidAnson/markdownlint/blob/v0.35.0/doc/md051.md
@@ -284,7 +284,7 @@ export const getRules = (
         // MD053/link-image-reference-definitions : Link and image reference definitions should be needed : https://github.com/DavidAnson/markdownlint/blob/v0.35.0/doc/md053.md
         MD053: {
             // Ignored definitions
-            ignored_definitions: ["//"],
+            ignored_definitions: ['//'],
         },
 
         // MD054/link-image-style : Link and image style : https://github.com/DavidAnson/markdownlint/blob/v0.35.0/doc/md054.md
@@ -306,7 +306,7 @@ export const getRules = (
         // MD055/table-pipe-style : Table pipe style : https://github.com/DavidAnson/markdownlint/blob/v0.35.0/doc/md055.md
         MD055: {
             // Table pipe style
-            style: "consistent",
+            style: 'consistent',
         },
 
         // MD056/table-column-count : Table column count : https://github.com/DavidAnson/markdownlint/blob/v0.35.0/doc/md056.md
