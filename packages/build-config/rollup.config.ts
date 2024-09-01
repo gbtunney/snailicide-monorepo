@@ -1,42 +1,54 @@
-import { RollupOptions } from 'rollup'
-import shell from 'shelljs'
-import type { Jsonify } from 'type-fest'
-import _package from './package.json' assert { type: 'json' }
-import { exportJSON, Prettier, rollup } from './types/index.js'
-import { tsConfigBase } from './types/tsconfig/index.js'
+import { RollupOptions } from "rollup"
+import shell from "shelljs"
+import type { Jsonify, JsonObject } from "type-fest"
+import _package from "./package.json" assert { type: "json" }
+import { exportJSON, Prettier, rollup } from "./types/index.js"
+import {
+    MarkdownLintConfig,
+    markdownLintConfigJson,
+} from "./types/markdownlint/index.js"
+import { tsConfigBase } from "./types/tsconfig/index.js"
 
-const LIBRARY_NAME: string = 'GBBuildConfig'
+const LIBRARY_NAME: string = "GBBuildConfig"
 const PRINT_EXPORTS: boolean = false
 
 const prettierConfig: Jsonify<typeof Prettier.config> = Prettier.config
 
+const MARKDOWN_LINT_OPTIONS: MarkdownLintConfig = {}
+const _mdConfig = markdownLintConfigJson(MARKDOWN_LINT_OPTIONS)
+const mdConfig: JsonObject = _mdConfig !== undefined ? _mdConfig : {}
+
 const JSON_EXPORTS = [
     {
         data: prettierConfig,
-        filename: './dist/.prettierrc.json',
+        filename: "./dist/.prettierrc.json",
     },
     {
         data: tsConfigBase,
-        filename: './tsconfig-base.json',
+        filename: "./tsconfig-base.json",
     },
+    /*{
+        data: mdConfig,
+        filename: './dist/.markdownlint.json'
+    }*/
 ] as const
 const DIRECTORY_PATHS = {
-    output_dir: './dist/',
-    source_dir: './src/',
+    output_dir: "./dist/",
+    source_dir: "./src/",
 } as const
 
 const rollUp = (): Array<RollupOptions> => {
-    ;(() => shell.mkdir('-p', './dist'))()
+    ;(() => shell.mkdir("-p", "./dist"))()
     /* *export config as JSON if FLAGGED using jsonExportConfig * */
 
-    exportJSON(JSON_EXPORTS, '.')
+    exportJSON(JSON_EXPORTS, ".")
 
     const CONFIG_OBJ = rollup.getConfigEntries(
         DIRECTORY_PATHS,
         [
             {
-                export_key: '*',
-                export_types: ['default', 'import', 'require', 'types'],
+                export_key: "*",
+                export_types: ["default", "import", "require", "types"],
                 library_name: LIBRARY_NAME,
             },
         ],
