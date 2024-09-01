@@ -21,6 +21,7 @@
         ],
         "./tsconfig-base": "./tsconfig-base.json",
         "./eslint": "./dist/.eslintrc.json",
+        "./markdownlint": "./dist/.markdownlint.json",
         "./prettier": "./dist/.prettierrc.json"
     },
     "main": "./dist/index.js",
@@ -47,7 +48,7 @@
         "release:archive": "mkdir -p ./releases &&  pnpm exec npm pack --pack-destination='./releases'",
         "\n========== CODE STYLE >> ==========": "",
         "lint": "pnpm exec eslint -c \"$(git rev-parse --show-toplevel)/eslint.config.js\" .",
-        "lint:md":  "pnpm exec markdownlint ./*.md --config=./dist/.markdownlint.json ",
+        "lint:md": "pnpm exec markdownlint ./*.md --config=./dist/.markdownlint.json ",
         "\n========== CHECK >> ==========": "",
         "check": "pnpm lint",
         "check:md": "pnpm run lint:md",

@@ -27,10 +27,10 @@ const JSON_EXPORTS = [
         data: tsConfigBase,
         filename: "./tsconfig-base.json",
     },
-    /*{
+    {
         data: mdConfig,
-        filename: './dist/.markdownlint.json'
-    }*/
+        filename: "./dist/.markdownlint.json",
+    },
 ] as const
 const DIRECTORY_PATHS = {
     output_dir: "./dist/",
@@ -39,8 +39,7 @@ const DIRECTORY_PATHS = {
 
 const rollUp = (): Array<RollupOptions> => {
     ;(() => shell.mkdir("-p", "./dist"))()
-    /* *export config as JSON if FLAGGED using jsonExportConfig * */
-
+    // export config as JSON if FLAGGED using jsonExportConfig
     exportJSON(JSON_EXPORTS, ".")
 
     const CONFIG_OBJ = rollup.getConfigEntries(
