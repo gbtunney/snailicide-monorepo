@@ -7,13 +7,13 @@ import { merge as deepmerge } from "ts-deepmerge"
 import { DefaultTheme, defineConfig, UserConfig } from "vitepress"
 //import typedocSidebar from "../docs/typedoc-sidebar.json";
 
-export type SidebarMulti = DefaultTheme.SidebarMulti
-export type Sidebar = Array<DefaultTheme.SidebarItem>
+export type VitepressSidebarMulti = DefaultTheme.SidebarMulti
+export type VitepressSidebar = Array<DefaultTheme.SidebarItem>
 export type DefaultVitepressConfig = UserConfig<DefaultTheme.Config>
 
 /** https://vitepress.dev/reference/site-config */
 export const vitepress = (
-    sidebarItems: Sidebar,
+    sidebarItems: VitepressSidebar,
     _options?: DefaultVitepressConfig,
 ): DefaultVitepressConfig => {
     const options_to_merge: DefaultVitepressConfig =

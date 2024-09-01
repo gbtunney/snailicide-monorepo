@@ -1,9 +1,5 @@
-import type { DefaultTheme } from "vitepress"
 import url from "node:url"
-import { importJSON, vitepress } from "./../types/index.js"
-
-type Sidebar = Array<DefaultTheme.SidebarItem>
-
+import { importJSON, vitepress, VitepressSidebar } from "./../types/index.js"
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url))
 
 const defineConfiguration = async (
@@ -12,8 +8,8 @@ const defineConfiguration = async (
     const sidebar_result = await importJSON(
         `${_dirname}/../docs/typedoc-sidebar.json`,
     )
-    const typedocSidebar = sidebar_result as Sidebar
-    console.log("GBT :: THE FILE DOES MAYBE  EXIST", sidebar_result)
+    const typedocSidebar = sidebar_result as VitepressSidebar
+    //console.log("GBT :: Sidebar file is:: ", sidebar_result)
     const vitepressConfig: ReturnType<typeof vitepress> = vitepress(
         typedocSidebar,
         {

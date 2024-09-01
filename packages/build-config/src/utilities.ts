@@ -1,15 +1,22 @@
-import { isNotUndefined, isPlainObject as RAisPlainObject } from "ramda-adjunct"
+/** Utility functions (mainly for working with JSON data) */
+import {
+    isArray,
+    isNotUndefined,
+    isPlainObject as RAisPlainObject,
+    isPrimitive,
+} from "ramda-adjunct"
 import type {
     JsonArray,
     Jsonifiable,
     JsonObject,
+    JsonPrimitive,
     JsonValue,
     ReadonlyDeep,
     UnknownRecord,
 } from "type-fest"
 
 import fs from "fs"
-
+import path from "path"
 export type JSONExportEntry<Type extends Jsonifiable = JsonArray | JsonObject> =
     {
         data: Type
@@ -85,7 +92,29 @@ export const safeDeserializeJSON = <Type = UnknownRecord>(
         return undefined
     }
 }
-
+export const importJSON = async (
+    filename: string,
+    returnValue: unknown = undefined,
+): Promise<undefined | JsonPrimitive | JsonArray | JsonObject> => {
+    const _path = path.resolve(filename)
+    if (!fs.existsSync(_path)) {
+        console.warn(`File not found: ${_path}`)
+        return undefined
+    }
+    const json: JsonObject = await import(_path, {
+        assert: { type: "json" },
+    })
+    if (isArray(json["default"])) {
+        return json["default"] as JsonArray
+    }
+    if (RAisPlainObject(json["default"])) {
+        return json["default"] as JsonObject
+    }
+    if (isPrimitive(json["default"])) {
+        return json["default"] as JsonPrimitive
+    }
+    return undefined
+}
 export default {}
 
 /** TYPEFEST TYPES */
