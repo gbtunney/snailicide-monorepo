@@ -161,9 +161,7 @@ docs/private
 
 # packages/**/docs/**/*
 packages/**/releases/*
-
-.nx/cache
-.nx/workspace-data
+.nx
 .ssh
 .history
 .env

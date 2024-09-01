@@ -11,7 +11,6 @@ const getLintStagedConfig = (): LintStagedConfig => {
     const mdExt = getFileExtensionList<true>(['md'])
 
     const configExample: LintStagedConfig = {
-
         /** Markdown */
         [`*.${mdExt.toString()}`]: [
             'prettier --write',
