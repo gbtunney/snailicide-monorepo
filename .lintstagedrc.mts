@@ -10,18 +10,16 @@ const getLintStagedConfig = (): LintStagedConfig => {
     const prettierExt = getFileExtensionList<true>(PRETTIER_FILE_EXTENSIONS)
     const mdExt = getFileExtensionList<true>(['md'])
 
-    /* eslint   @typescript-eslint/restrict-template-expressions : "warn" */
     const configExample: LintStagedConfig = {
-        [`*.${mdExt.toString}`]: [
+        [`*.${mdExt.toString()}`]: [
             'prettier --write',
-            'pnpm exec markdownlint --config=node_modules/@snailicide/build-config/dist/.markdownlint.json',
+            'pnpm exec markdownlint --config=node_modules/@snailicide/build-config/dist/.markdownlint.json --fix',
         ],
         [`*.{${jsExt.toString()}}`]: [
             'eslint --fix --debug',
             'prettier --write',
         ],
         [`*.{${prettierExt.toString()}}`]: 'prettier --write',
-
         '.gitignore': 'prettier --write',
         '.husky/**/*': 'prettier --write',
     }
