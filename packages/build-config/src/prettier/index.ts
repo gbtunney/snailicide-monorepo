@@ -1,12 +1,19 @@
 /**
  * Prettier Configuration
- *
  * @see [Prettier - Opinionated Code Formatter](https://prettier.io/)
  */
 import { Config, Options } from 'prettier'
 import JsdocPlugin from 'prettier-plugin-jsdoc'
 import { merge as deepmerge } from 'ts-deepmerge'
 import type { IterableElement, Merge } from 'type-fest'
+
+const PRETTIER_WIDTH_BASE: PrettierConfig['tabWidth'] = 100
+
+const PRETTIER_WIDTH_SCALE = {
+    code: 0.8,
+    comments: 1.2,
+    markdown: 0.8,
+} as const
 
 // @ts-expect-error: "idk this is annoying"
 export type JsDocOptions = (typeof JsdocPlugin)['Options']
@@ -23,41 +30,49 @@ export type PrettierConfig = Merge<
         overrides: PrettierOverrides
     }
 >
-export type AdditionalOptions = {
-    maxEmptyLines: number
-    markdownTabWidth: PrettierConfig['tabWidth']
-}
 
 export const SHARED_FORMATTING_RULES: Merge<
     PrettierOptions,
-    AdditionalOptions
+    {
+        maxEmptyLines: number
+        markdownTabWidth: PrettierConfig['tabWidth']
+    }
 > = {
     markdownTabWidth: 2,
     maxEmptyLines: 1,
-    printWidth: 80,
     tabWidth: 4, //todo: use in "no-multiple-empty-lines" //MD012/no-multiple-blanks
 } as const
 
-export const DEFAULT_OPTIONS: PrettierOptions = {
-    bracketSameLine: true,
-    jsdocPreferCodeFences: true,
+export const getScaledWidth = (
+    scaleKey: keyof typeof PRETTIER_WIDTH_SCALE,
+    baseWidth: number = PRETTIER_WIDTH_BASE,
+    scaleMap: typeof PRETTIER_WIDTH_SCALE = PRETTIER_WIDTH_SCALE,
+): number => {
+    return Math.floor(scaleMap[scaleKey] * baseWidth)
+}
 
-    /** JS Doc */
-    jsdocPrintWidth: SHARED_FORMATTING_RULES.printWidth,
-    proseWrap: 'never',
-    quoteProps: 'consistent',
-    semi: false,
+const getDefaultOptions = (): PrettierOptions => {
+    return {
+        bracketSameLine: true,
+        jsdocPreferCodeFences: true,
+        /** JS Doc */
+        jsdocPrintWidth: getScaledWidth('comments'),
+        printWidth: getScaledWidth('code'),
+        proseWrap: 'never',
+        quoteProps: 'consistent',
+        semi: false,
 
-    singleQuote: true,
-    tabWidth: SHARED_FORMATTING_RULES.tabWidth,
-} as const
+        singleQuote: true,
+        tabWidth: SHARED_FORMATTING_RULES.tabWidth,
+    } as const
+}
 
 const defaultOverrides: PrettierOverrides = [
     /** Override for markdown files only */
     {
         files: '**/*.md',
         options: {
-            printWidth: SHARED_FORMATTING_RULES.printWidth,
+            printWidth: getScaledWidth('markdown'),
             proseWrap: 'always',
             tabWidth: SHARED_FORMATTING_RULES.markdownTabWidth,
         },
@@ -70,8 +85,8 @@ export const prettierConfiguration = (
 ): PrettierConfig => {
     const myoption: PrettierOptions =
         _options !== undefined
-            ? { ...DEFAULT_OPTIONS, ..._options }
-            : DEFAULT_OPTIONS
+            ? { ...getDefaultOptions(), ..._options }
+            : getDefaultOptions()
 
     const overrides: PrettierOverrides =
         _overrides !== undefined
@@ -92,5 +107,5 @@ export const Prettier: {
 } = {
     config: prettierConfiguration(),
     configuration: prettierConfiguration,
-    options: DEFAULT_OPTIONS,
+    options: getDefaultOptions(),
 }

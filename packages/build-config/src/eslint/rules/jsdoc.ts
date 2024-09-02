@@ -1,6 +1,6 @@
 import jsdoc from 'eslint-plugin-jsdoc'
 import { Config } from 'typescript-eslint'
-import { SHARED_FORMATTING_RULES } from '../../prettier/index.js'
+import { getScaledWidth } from '../../prettier/index.js'
 
 export const jsdocRules = (): Config => [
     { ...jsdoc.configs['flat/recommended'] },
@@ -8,7 +8,7 @@ export const jsdocRules = (): Config => [
     {
         name: 'JSDoc: ERROR',
         rules: {
-            /** ** Indentation and alignment */
+            /** Indentation and alignment */
             'jsdoc/check-alignment': 'error',
             'jsdoc/check-indentation': ['error', { excludeTags: ['example'] }],
             'jsdoc/check-line-alignment': [
@@ -22,25 +22,25 @@ export const jsdocRules = (): Config => [
                 'error',
                 {
                     allowMultipleTags: true,
-                    minimumLengthForMultiline:
-                        SHARED_FORMATTING_RULES.printWidth / 2,
+                    minimumLengthForMultiline: Math.floor(
+                        getScaledWidth('comments') / 3,
+                    ),
                     noMultilineBlocks: true,
                     noZeroLineText: true,
                 },
             ],
-            'jsdoc/tag-lines': [
-                'error',
-                'never',
-                { tags: { param: { count: 0, lines: 'always' } } },
-            ],
+            'jsdoc/tag-lines': ['error', 'always', { count: 0 }],
 
             /** Blank Lines */
             'jsdoc/no-blank-block-descriptions': 'error',
             'jsdoc/no-blank-blocks': ['error', { enableFixer: true }],
 
-            /** Asterisks */
+            /**
+             * Asterisks
+             * @todo : jsdoc/no-multi-asterisks is messed up, prettier turns to hyphens
+             */
             'jsdoc/require-asterisk-prefix': 'error',
-            'jsdoc/no-multi-asterisks': 'error',
+            'jsdoc/no-multi-asterisks': ['error', { allowWhitespace: false }],
 
             /** Misc */
             'jsdoc/convert-to-jsdoc-comments': [
