@@ -50,7 +50,7 @@
         "\n========== CODE STYLE >> ==========": "",
         "prettier": "cross-var prettier {*,**/*}.{ts,js,cjs,mjs,cts,mts,sh,html,json,yaml,yml,graphql,md} ./.husky/* --ignore-path ./.gitignore --no-error-on-unmatched-pattern --write",
         "lint": "cross-var eslint -c $npm_package_config_eslint_config",
-        "lint:md": "pnpm exec markdownlint {./*,./**/*}.md --config=node_modules/@snailicide/build-config/dist/.markdownlint.json",
+        "lint:md": "pnpm exec markdownlint {./*,./**/*}.md -c ./.markdownlint.mjs",
         "\n========== CHECK >> ==========": "",
         "check": "pnpm check:self",
         "check:md": "pnpm run lint:md",

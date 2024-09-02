@@ -14,7 +14,7 @@ const getLintStagedConfig = (): LintStagedConfig => {
         /** Markdown */
         [`*.${mdExt.toString()}`]: [
             'prettier --write',
-            'pnpm exec markdownlint --config=node_modules/@snailicide/build-config/dist/.markdownlint.json --fix',
+            'pnpm exec markdownlint -c ./.markdownlint.mts --fix',
         ],
 
         /** JS-Like Files */
