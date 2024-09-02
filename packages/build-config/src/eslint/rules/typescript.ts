@@ -9,8 +9,7 @@ export const typescriptRules = (): Config => {
         {
             name: 'Typescript Rules : ERROR',
             /**
-             * Typescript Rules that should throw error, please reference
-             * styleguide
+             * Typescript Rules that should throw error, please reference styleguide
              * @see [TypeScript Style Guide](https://mkosir.github.io/typescript-style-guide/)
              */
             rules: {

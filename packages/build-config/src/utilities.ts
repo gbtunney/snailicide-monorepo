@@ -1,7 +1,4 @@
-/**
- * Utility functions (mainly for working with lintstaged,file extensions and
- * JSON data)
- */
+/** Utility functions (mainly for working with lintstaged,file extensions and JSON data) */
 import {
     isArray,
     isNotUndefined,

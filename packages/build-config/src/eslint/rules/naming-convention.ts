@@ -30,10 +30,7 @@ export const namingConventionRules = (error: boolean = true): Config => [
                     selector: ['variable', 'function'],
                 },
 
-                /**
-                 * Enforce that boolean variables are prefixed with an allowed
-                 * verb
-                 */
+                /** Enforce that boolean variables are prefixed with an allowed verb */
 
                 {
                     format: ['snake_case', 'camelCase'],
@@ -54,10 +51,7 @@ export const namingConventionRules = (error: boolean = true): Config => [
                     custom: { match: true, regex: '^[A-Z]([A-Z]|[a-z]){2,}' },
                     format: ['PascalCase'],
 
-                    /**
-                     * A generic variable must start with the capital letter T
-                     * followed by a descriptive name
-                     */
+                    /** A generic variable must start with the capital letter T followed by a descriptive name */
                     selector: 'typeParameter',
                 },
 
