@@ -10,8 +10,11 @@
     },
     "exclude": ["./*.ts"],
     "files": [
+        "./.lintstagedrc.mts",
+        "./.markdownlint.mts",
         "./commitlint.config.ts",
         "./prettier.config.ts",
-        "./.lintstagedrc.mts"
+        "./typedoc.config.ts",
+        "./.vitepress/config.mts"
     ]
 }
