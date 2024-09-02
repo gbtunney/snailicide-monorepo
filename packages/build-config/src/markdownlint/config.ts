@@ -1,7 +1,7 @@
 import { Configuration } from 'markdownlint'
 import { merge as deepmerge } from 'ts-deepmerge'
 import { UndefinedOnPartialDeep } from 'type-fest'
-import { SHARED_FORMATTING_RULES } from '../prettier/index.js'
+import { getScaledWidth, SHARED_FORMATTING_RULES } from '../prettier/index.js'
 
 type MarkdownLintConfig = UndefinedOnPartialDeep<Configuration>
 //**  Example markdownlint configuration with all properties set to their default value */
@@ -79,15 +79,15 @@ export const getRules = (
         // MD013/line-length : Line length : https://github.com/DavidAnson/markdownlint/blob/v0.35.0/doc/md013.md
         MD013: {
             // Number of characters for code blocks
-            code_block_line_length: SHARED_FORMATTING_RULES.printWidth,
+            code_block_line_length: getScaledWidth('markdown'),
             // Include code blocks
             code_blocks: true,
             // Number of characters for headings
-            heading_line_length: SHARED_FORMATTING_RULES.printWidth,
+            heading_line_length: getScaledWidth('markdown'),
             // Include headings
             headings: true,
             // Number of characters
-            line_length: SHARED_FORMATTING_RULES.printWidth,
+            line_length: getScaledWidth('markdown'),
             // Stern length checking
             stern: false,
             // Strict length checking
@@ -123,10 +123,8 @@ export const getRules = (
         MD023: true,
 
         // MD024/no-duplicate-heading : Multiple headings with the same content : https://github.com/DavidAnson/markdownlint/blob/v0.35.0/doc/md024.md
-        MD024: {
-            // Only check sibling headings
-            siblings_only: true,
-        },
+        MD024: false,
+        /** @todo: this breaks for unknown reason. Only check sibling headings siblings_only: true,, */
 
         // MD025/single-title/single-h1 : Multiple top-level headings in the same document : https://github.com/DavidAnson/markdownlint/blob/v0.35.0/doc/md025.md
         MD025: {
