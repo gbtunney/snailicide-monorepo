@@ -20,10 +20,10 @@ packages._
 ### Repository
 
 - **Github:**
-  [snailicide-monorepo](https://github.com/gbtunney/snailicide-monorepo.git)
-
-- **NPM Homepage**:
-  [@snailicide/build-config](http://www.npmjs.com/package/@snailicide/build-config)
+  [`@snailicide/build-config`](https://github.com/gbtunney/snailicide-monorepo/tree/main/packages/build-config)
+  • [`snailicide-monorepo`](https://github.com/gbtunney/snailicide-monorepo.git)
+- **CDN**:
+  [jsdeliver](https://cdn.jsdelivr.net/npm/@snailicide/build-config/dist/index.min.js)
 
 ### Author
 

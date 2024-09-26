@@ -79,7 +79,7 @@ export const getRules = (
         // MD013/line-length : Line length : https://github.com/DavidAnson/markdownlint/blob/v0.35.0/doc/md013.md
         MD013: {
             // Number of characters for code blocks
-            code_block_line_length: getScaledWidth('markdown'),
+            code_block_line_length: getScaledWidth('comments'),
             // Include code blocks
             code_blocks: true,
             // Number of characters for headings

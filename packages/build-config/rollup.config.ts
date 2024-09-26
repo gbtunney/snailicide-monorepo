@@ -2,7 +2,8 @@ import { RollupOptions } from 'rollup'
 import shell from 'shelljs'
 import type { Jsonify, JsonObject } from 'type-fest'
 import _package from './package.json' assert { type: 'json' }
-import { exportJSON, Prettier, rollup } from './types/index.js'
+import { exportJSONFile } from './types/export.json.file.js'
+import { Prettier, rollup } from './types/index.js'
 import {
     MarkdownLintConfig,
     markdownLintConfigJson,
@@ -18,10 +19,11 @@ const MARKDOWN_LINT_OPTIONS: MarkdownLintConfig = {}
 const _mdConfig = markdownLintConfigJson(MARKDOWN_LINT_OPTIONS)
 const mdConfig: JsonObject = _mdConfig !== undefined ? _mdConfig : {}
 
+/** As const */
 const JSON_EXPORTS = [
     {
         data: prettierConfig,
-        filename: './dist/.prettierrc.json',
+        filename: 'dist/.prettierrc.json',
     },
     {
         data: tsConfigBase,
@@ -29,9 +31,9 @@ const JSON_EXPORTS = [
     },
     {
         data: mdConfig,
-        filename: './dist/.markdownlint.json',
+        filename: 'dist/.markdownlint.json',
     },
-] as const
+]
 const DIRECTORY_PATHS = {
     output_dir: './dist/',
     source_dir: './src/',
@@ -40,7 +42,7 @@ const DIRECTORY_PATHS = {
 const rollUp = (): Array<RollupOptions> => {
     ;(() => shell.mkdir('-p', './dist'))()
     // export config as JSON if FLAGGED using jsonExportConfig
-    exportJSON(JSON_EXPORTS, '.')
+    exportJSONFile(JSON_EXPORTS, '.')
 
     const CONFIG_OBJ = rollup.getConfigEntries(
         DIRECTORY_PATHS,
