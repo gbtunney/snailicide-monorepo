@@ -29,6 +29,8 @@ const base_ignores = [
     '**/types/**/*',
     '**/types/**',
     '**/*.d.ts',
+    '**/*.d.mts',
+    '**/*.d.cts',
 ]
 
 export const flatEslintConfig = async (__dirname: string): Promise<Config> => {

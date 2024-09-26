@@ -1,6 +1,5 @@
 /**
  * Typedoc Configuration
- *
  * @see [Typedoc - Documentation Generator for TypeScript Projects](https://typedoc.org/)
  */
 import type { PluginOptions as MarkdownPluginOptions } from 'typedoc-plugin-markdown'

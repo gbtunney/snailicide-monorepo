@@ -53,7 +53,6 @@ export type * from './typedoc/index.js'
 
 /* *  UTILITIES *  */
 export {
-    exportJSON,
     getFileExtensionList,
     importJSON,
     isPlainObject,

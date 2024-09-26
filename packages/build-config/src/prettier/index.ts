@@ -3,7 +3,7 @@
  * @see [Prettier - Opinionated Code Formatter](https://prettier.io/)
  */
 import { Config, Options } from 'prettier'
-import JsdocPlugin from 'prettier-plugin-jsdoc'
+import * as JsdocPlugin from 'prettier-plugin-jsdoc'
 import { merge as deepmerge } from 'ts-deepmerge'
 import type { IterableElement, Merge } from 'type-fest'
 

@@ -1,6 +1,5 @@
 /**
  * Vitest Configuration
- *
  * @see [Vitest - A modern testing library for Vue 3](https://vitest.dev/)
  */
 import { defineConfig, UserConfig } from 'vitest/config'

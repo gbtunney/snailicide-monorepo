@@ -8,7 +8,6 @@ import {
 import type {
     ArrayValues,
     JsonArray,
-    Jsonifiable,
     JsonObject,
     JsonPrimitive,
     JsonValue,
@@ -66,6 +65,7 @@ export const getFileExtensionList = <
 //sh,html,json,yaml,yml,graphql,md
 getFileExtensionList<true>(PRETTIER_FILE_EXTENSIONS)
 
+/*
 export type JSONExportEntry<Type extends Jsonifiable = JsonArray | JsonObject> =
     {
         data: Type
@@ -81,10 +81,12 @@ export const exportJSON = (
 ): boolean => {
     const successMap: Array<boolean> = Array.from(config).map((entry) => {
         try {
+
+          //  TODO:FIX
             fs.writeFileSync(
                 outdir === undefined
-                    ? `./${addFileExtension(entry.filename)}`
-                    : `./${outdir}/${addFileExtension(entry.filename)}`,
+                    ? `${addFileExtension(entry.filename)}`
+                    : `${outdir}/${addFileExtension(entry.filename)}`,
                 getJSONString<typeof entry.data>(entry.data),
             )
             return true
@@ -100,6 +102,7 @@ export const exportJSON = (
 }
 const getJSONString = <Type = unknown>(value: Type, indentSpaces = 4): string =>
     JSON.stringify(JSON.parse(JSON.stringify(value)), undefined, indentSpaces)
+*/
 
 const addFileExtension = (value: string, extension = '.json'): string => {
     const _extension = String(extension).startsWith('.')

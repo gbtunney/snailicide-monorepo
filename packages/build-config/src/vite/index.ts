@@ -1,6 +1,5 @@
 /**
  * Vite Configuration ( only docserver for now )
- *
  * @module vite
  * @see [Vite - Next Generation Frontend Tooling](https://vitejs.dev/)
  */

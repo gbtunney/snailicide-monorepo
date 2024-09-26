@@ -1,6 +1,5 @@
 /**
  * Rollup Configuration, Plugins, and helper functions
- *
  * @see [Rollup - The JavaScript module bundler](http://rollupjs.org/guide/en)
  */
 import { unflatten } from 'flat'
@@ -220,7 +219,6 @@ export const getOutputObj = (
 
 /**
  * Returns an array of output configurations based on the provided entries.
- *
  * @param directoryObj - An object containing the source and output directories.
  * @param entries - An array of entry configurations.
  * @param plugins - Optional array of Rollup plugins.
