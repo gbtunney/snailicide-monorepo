@@ -1,27 +1,28 @@
 # GIT NOTES!
 
--   name: Deploy GitHub Pages site uses: actions/deploy-pages@v1.2.9
+- name: Deploy GitHub Pages site uses: actions/deploy-pages@v1.2.9
 
--   Commit [Link](https://github.com/gbtunney/gbt-theme-dawn/commit/7035aaa754ba4f99b1ff1f245d9f882ef6951b96)
+- Commit
+  [Link](https://github.com/gbtunney/gbt-theme-dawn/commit/7035aaa754ba4f99b1ff1f245d9f882ef6951b96)
 
 ## Init instructions
 
--   create a new repository on the command line
-    ```shell
-    echo "# test2" >> README.md
-    git init
-    git add README.md
-    git commit -m "first commit"
-    git branch -M main
-    git remote add origin git@github.com:gbtunney/test2.git
-    git push -u origin main
-    ```
--   push an existing repository from the command line
-    ```shell
-    git remote add origin git@github.com:gbtunney/test2.git
-    git branch -M main
-    git push -u origin main
-    ```
+- create a new repository on the command line
+  ```shell
+  echo "# test2" >> README.md
+  git init
+  git add README.md
+  git commit -m "first commit"
+  git branch -M main
+  git remote add origin git@github.com:gbtunney/test2.git
+  git push -u origin main
+  ```
+- push an existing repository from the command line
+  ```shell
+  git remote add origin git@github.com:gbtunney/test2.git
+  git branch -M main
+  git push -u origin main
+  ```
 
 ## Add package from commit hash
 
@@ -38,15 +39,17 @@ https://github.com/adobe/aio-lib-photoshop-api.tz
 
 ## STASH CHANGES!!!
 
--   **Stash single file**: `git stash -m "Description of scope" -- <file>`
+- **Stash single file**: `git stash -m "Description of scope" -- <file>`
 
--   **Restore from stash, then delete**: `git stash pop`
+- **Restore from stash, then delete**: `git stash pop`
 
--   Files can be stashed with comments. `git stash push -m "Change comment" -- file1.txt`
+- Files can be stashed with comments.
+  `git stash push -m "Change comment" -- file1.txt`
 
--   View stash: `git stash list`
+- View stash: `git stash list`
 
--   Creating a Copy of a Stashed File Under a Different Filename `git show stash@{0}:stashed_file.rb > copy_of_stashed_file.rb`
+- Creating a Copy of a Stashed File Under a Different Filename
+  `git show stash@{0}:stashed_file.rb > copy_of_stashed_file.rb`
 
 todo: command below fails if file is deleted ( rather than updated )
 
@@ -60,8 +63,8 @@ pnpm commit
 
 ## Useful links
 
--   [Automate Semantic Versioning with Conventional Commits](https://medium.com/@jsilvax/automate-semantic-versioning-with-conventional-commits-d76a9f45f2fa)
--   [Git Annotated-Tags](https://git-scm.com/book/en/v2/Git-Basics-Tagging#Annotated-Tags)
+- [Automate Semantic Versioning with Conventional Commits](https://medium.com/@jsilvax/automate-semantic-versioning-with-conventional-commits-d76a9f45f2fa)
+- [Git Annotated-Tags](https://git-scm.com/book/en/v2/Git-Basics-Tagging#Annotated-Tags)
 
 ## Tags
 
@@ -89,14 +92,14 @@ git tag -n5
 
 ## Repo merging notes
 
--   [Git Filter Repo](https://github.com/newren/git-filter-repo#how-do-i-install-it)
+- [Git Filter Repo](https://github.com/newren/git-filter-repo#how-do-i-install-it)
 
 ```shell
 #remove all other files and history except path
 git filter-repo --path packages/g-shopify-library
 ```
 
--   Merge git repositories
+- Merge git repositories
 
 ```shell
 cd repo-b
@@ -108,7 +111,7 @@ git remote remove repo-a
 #then use the git filter-repo
 ```
 
--   push an existing repository from the command line
+- push an existing repository from the command line
 
 ````shell
 git remote add origin git@github.com:gbtunney/junk.git
