@@ -2,7 +2,6 @@ import { trim } from 'ramda'
 
 /**
  * Insert a string at an index
- *
  * @category Replace Characters
  */
 export const insert = (
@@ -17,7 +16,6 @@ export const insert = (
 
 /**
  * Truncates a string to a specified length, appending '...' if truncated.
- *
  * @category Remove Characters
  */
 export const truncate = (
@@ -29,7 +27,7 @@ export const truncate = (
     maxChars = onlyFullWords ? maxChars + 1 : maxChars
     value = trim(value)
     if (value.length <= maxChars) return value
-    value = value.substr(0, maxChars - append.length)
+    value = value.substring(0, maxChars - append.length)
     //crop at last space or remove trailing whitespace
     value = onlyFullWords
         ? value.substring(0, value.lastIndexOf(' '))

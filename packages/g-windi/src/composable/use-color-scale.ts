@@ -6,7 +6,8 @@ import type { ThemeColors, WindiConfig } from './index.js'
 
 export type ColorScaleConfig = {
     scale: [] | Array<TChromable>
-    default_color?: TChromable //default color
+    /** Default color */
+    default_color?: TChromable
     color_count: number
 }
 export type ColorScaleConfigCollection = Record<
@@ -16,7 +17,6 @@ export type ColorScaleConfigCollection = Record<
 
 export type useColorScale = typeof useColorScale
 export const useColorScale = () => {
-    ///private method.
     const _getColorScale = (
         { color_count = 5, default_color, scale = [] }: ColorScaleConfig = {
             color_count: 5,

@@ -1,19 +1,23 @@
 # @snailicide/g-shopify-library 🐌
 
 <p align="center">
-	<img alt="Version" src="https://img.shields.io/npm/v/@snailicide/g-shopify-library"/>
-	<a href="#" target="_blank">
-		<img alt="License: MIT" src="https://img.shields.io/npm/l/@snailicide/g-shopify-library"/>
-	</a>
-	<a href="#" target="_blank">
-		<img alt="Typescript" height="20px" src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white"/>
-	</a>
-	<a href="#" target="_blank">
-		<img alt="RollupJS" height="20px" src="https://img.shields.io/badge/RollupJS-ef3335?style=for-the-badge&logo=rollup.js&logoColor=white"/>
-	</a>
+ <img alt="Version" src="https://img.shields.io/npm/v/@snailicide/g-shopify-library"/>
+ <a href="#" target="_blank">
+  <img alt="License: MIT" src="https://img.shields.io/npm/l/@snailicide/g-shopify-library"/>
+ </a>
+ <a href="#" target="_blank">
+  <img alt="Typescript" height="20px" src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white"/>
+ </a>
+ <a href="#" target="_blank">
+  <img alt="RollupJS" height="20px" src="https://img.shields.io/badge/RollupJS-ef3335?style=for-the-badge&logo=rollup.js&logoColor=white"/>
+ </a>
 </p>
 
-_This plugin enables Shopify theme developers to structure their code into "module" folders which keep Liquid template files (snippets and sections) organized together with their corresponding JS or CSS, while retaining the standard file structure of Shopify themes. Please see [Inspiration](#inspiration) section for more info and backstory!_
+_This plugin enables Shopify theme developers to structure their code into
+"module" folders which keep Liquid template files (snippets and sections)
+organized together with their corresponding JS or CSS, while retaining the
+standard file structure of Shopify themes. Please see
+[Inspiration](#inspiration) section for more info and backstory!_
 
 ### Repository
 
@@ -23,33 +27,35 @@ _This plugin enables Shopify theme developers to structure their code into "modu
 
 👤 **Gillian Tunney**
 
--   [github](https://github.com/gbtunney)
--   [email](mailto:gbtunney@mac.com)
+- [github](https://github.com/gbtunney)
+- [email](mailto:gbtunney@mac.com)
 
 ## 🐌
 
 > Collections of types and utilities for working with Shopify
 
--   [🐌Welcome to @snailicide/g-shopify-library🐌](#welcome-to--snailicide-g-shopify-library--)
-    -   [Features](#features)
-    -   [Examples](#examples)
-    -   [Installation](#installation)
-    -   [Helpful Links](#helpful-links)
-    -   [To-Do](#to-do)
-    -   [Bugs](#bugs)
+- [🐌Welcome to @snailicide/g-shopify-library🐌](#welcome-to--snailicide-g-shopify-library--)
+  - [Features](#features)
+  - [Examples](#examples)
+  - [Installation](#installation)
+  - [Helpful Links](#helpful-links)
+  - [To-Do](#to-do)
+  - [Bugs](#bugs)
 
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of
+contents generated with markdown-toc</a></i></small>
 
 ## Features
 
--   Generic functions for Storefront API, Shopify MediaURLs, etc
--   Section Schema types and validators (using zod)
+- Generic functions for Storefront API, Shopify MediaURLs, etc
+- Section Schema types and validators (using zod)
 
 ## Usage
 
 ### Installation
 
-This library is published in the NPM registry and can be installed using any compatible package manager.
+This library is published in the NPM registry and can be installed using any
+compatible package manager.
 
 ```bash
 #npm
@@ -64,16 +70,16 @@ pnpm add @snailicide/g-shopify-library -D
 
 ## Helpful Links
 
--   [Shopify Section schema reference](https://shopify.dev/themes/architecture/sections/section-schema)
--   [@shopify/admin-graphql-api-utilities](https://www.npmjs.com/package/@shopify/admin-graphql-api-utilities)
--   [Zod](https://zod.dev/)
--   [TypeScript](https://www.typescriptlang.org)
--   [Ramda](https://ramdajs.com/docs)
+- [Shopify Section schema reference](https://shopify.dev/themes/architecture/sections/section-schema)
+- [@shopify/admin-graphql-api-utilities](https://www.npmjs.com/package/@shopify/admin-graphql-api-utilities)
+- [Zod](https://zod.dev/)
+- [TypeScript](https://www.typescriptlang.org)
+- [Ramda](https://ramdajs.com/docs)
 
 ## To-Do
 
--   [ ] Presets (in new version)
--   [ ] Documentation
+- [ ] Presets (in new version)
+- [ ] Documentation
 
 ## Bugs
 

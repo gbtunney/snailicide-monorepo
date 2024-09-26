@@ -28,15 +28,10 @@ import {
 } from './zod-schema.js'
 
 /**
- * A callback type that is invoked upon successful initialization of the
- * application.
- *
- * @template AppOptionsSchema - The schema for the application options, which
- *   can be either a Zod object schema or a Zod effects schema.
- * @param {z.infer<AppOptionsSchema>} resolvedFlags - The resolved and validated
- *   flags based on the provided schema.
- * @param {string | undefined} help - The help string, if available, otherwise
- *   undefined.
+ * A callback type that is invoked upon successful initialization of the application.
+ * @template AppOptionsSchema - The schema for app options, either a ZodObject or a ZodEffects schema.
+ * @param {z.infer<AppOptionsSchema>} resolvedFlags - The resolved and validated flags based on the provided schema.
+ * @param {string | undefined} help - The help string, if available, otherwise undefined.
  */
 export type InitSuccessCallback<
     AppOptionsSchema extends
@@ -45,22 +40,14 @@ export type InitSuccessCallback<
 > = (resolvedFlags: z.infer<AppOptionsSchema>, help: string | undefined) => void
 
 /**
- * Initializes the application with the provided configuration and options
- * schema.
- *
+ * Initializes the application with the provided configuration and options schema.
  * @template AppOptionsSchema - The schema for the application options.
- * @param {AppOptionsSchema} optionsSchema - The schema for validating the
- *   application options.
- * @param {AppConfigIn<AppOptionsSchema>} config - The configuration object for
- *   the application.
- * @param {InitSuccessCallback<AppOptionsSchema>} initFunction - The callback
- *   function to be called upon successful initialization.
- * @param {boolean} [skip_interactive=false] - Flag to skip interactive prompts.
- *   Default is `false`
- * @param {string[]} [_yargs=process.argv] - The command-line arguments to be
- *   parsed. Default is `process.argv`
- * @returns {Promise<Argv | undefined>} - Returns a Yargs instance or undefined
- *   if initialization fails.
+ * @param {AppOptionsSchema} optionsSchema - The schema for validating the application options.
+ * @param {AppConfigIn<AppOptionsSchema>} config - The configuration object for the application.
+ * @param {InitSuccessCallback<AppOptionsSchema>} initFunction - The callback func ccalled successful init
+ * @param {boolean} [skip_interactive] - Flag to skip interactive prompts. Default is `false`
+ * @param {string[]} [_yargs] - The command-line arguments to be parsed. Default is `process.argv`
+ * @returns {Promise<Argv | undefined>} - Returns a Yargs instance or undefined if initialization fails.
  */
 export const initApp = async <AppOptionsSchema extends ZodObjectSchema>(
     optionsSchema: AppOptionsSchema,
@@ -99,7 +86,7 @@ export const initApp = async <AppOptionsSchema extends ZodObjectSchema>(
                   getHeader(app_config).divider
               }`
 
-        /* * Write commander like options from zod descriptions * */
+        /** Write commander like options from zod descriptions */
         const getArgsInstance = (
             value = process.argv,
         ): Argv<Record<string, unknown>> => {

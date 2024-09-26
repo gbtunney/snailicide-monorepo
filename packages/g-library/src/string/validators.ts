@@ -90,7 +90,6 @@ export const getValidUrl = <Type extends string>(
 
 /**
  * Checks if a string is a valid URL.
- *
  * @category URL
  * @category Validators todo: try to type URLScheme
  */
@@ -107,7 +106,6 @@ export const isValidUrl = <Type extends string = string>(
 
 /**
  * Checks if the provided string is a valid semantic version (SemVer).
- *
  * @category Validators
  */
 export const isValidSemVer = (value: string): boolean =>
@@ -115,7 +113,6 @@ export const isValidSemVer = (value: string): boolean =>
 
 /**
  * If the length of the string is >1 and string contains a number.
- *
  * @category Validators
  */
 export const stringContainsNumber = <Type extends string>(
@@ -123,9 +120,7 @@ export const stringContainsNumber = <Type extends string>(
 ): value is Type => value.length >= 1 && /\d/.test(value)
 
 /**
- * If the length of the string is >1 and the string does not match a letter,
- * return true.
- *
+ * If the length of the string is >1 and the string does not match a letter, return true.
  * @category Validators
  */
 export const stringContainsLetter = <Type extends string>(

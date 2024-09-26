@@ -1,4 +1,4 @@
-//todo:: number format options
+/** Todo:: number format options */
 export const formatCurrency = (
     value: number,
     minimumFractionDigits: number = 2,

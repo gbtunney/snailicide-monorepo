@@ -14,7 +14,6 @@ import { RA } from './ramdaimports.js'
 
 /**
  * Checks if a value is truthy.
- *
  * @group Empty Types
  * @see {@link isFalsy}
  */
@@ -22,7 +21,6 @@ export const isTruthy = <Type>(value: Type | Falsy): value is Type =>
     RA.isTruthy(value)
 /**
  * Checks if a value is falsy.
- *
  * @group Empty Types
  * @see {@link isTruthy}
  */
@@ -30,9 +28,7 @@ export const isFalsy = <Type>(value: Type | Falsy): value is Falsy =>
     RA.isFalsy(value)
 
 /**
- * Retuns `true` if the value is `null`,`undefined` or an empty string, array,
- * or object
- *
+ * Retuns `true` if the value is `null`,`undefined` or an empty string, array, or object
  * @example
  *     isNilOrEmpty([1, 2, 3]); //=> false
  *     isNilOrEmpty([]); //=> true
@@ -51,7 +47,6 @@ export const isNilOrEmpty = <Type>(
 
 /**
  * Checks if a value is not nil or empty.
- *
  * @group Empty Types
  * @see {@link isNilOrEmpty}
  */
@@ -61,7 +56,6 @@ export const isNotNilOrEmpty = <Type>(
 
 /**
  * Checks if a value is an empty string.
- *
  * @category Primitive
  * @group Empty Types
  */
@@ -71,7 +65,6 @@ export const isEmptyString = <Type extends string>(
 
 /**
  * Checks if a value is a string.
- *
  * @group Primitive
  * @see {@link isNotString}
  */
@@ -80,7 +73,6 @@ export const isString = <Type extends string>(value: unknown): value is Type =>
 
 /**
  * Checks if a value is NOT a string.
- *
  * @group Primitive
  * @see {@link isString}
  */
@@ -90,7 +82,6 @@ export const isNotString = <Type = unknown>(
 
 /**
  * Checks if a value is a bigint.
- *
  * @group Primitive
  */
 export const isBigInt = <Type extends bigint>(
@@ -101,7 +92,6 @@ export const isBigInt = <Type extends bigint>(
 
 /**
  * Checks if a value is a number.
- *
  * @group Primitive
  * @see {@link isNotNumber}
  */
@@ -110,7 +100,6 @@ export const isNumber = <Type extends number>(value: unknown): value is Type =>
 
 /**
  * Checks if a value is NOT a number.
- *
  * @group Primitive
  * @group Numeric
  * @see {@link isNumber}
@@ -124,7 +113,6 @@ export const isNotNumber = <
 
 /**
  * Checks if a value is an integer.
- *
  * @category Primitive
  * @see {@link isNotInteger}
  */
@@ -133,7 +121,6 @@ export const isInteger = <Type extends number>(value: unknown): value is Type =>
 
 /**
  * Checks if a value is NOT an integer.
- *
  * @category Primitive
  * @see {@link isInteger}
  */
@@ -146,7 +133,6 @@ export const isNotInteger = <
 
 /**
  * Checks if a value is a primitive.
- *
  * @category Primitive
  * @see {@link isNotPrimitive}
  */
@@ -156,7 +142,6 @@ export const isPrimitive = <Type extends Primitive>(
 
 /**
  * Checks if a value is NOT a primitive.
- *
  * @category Primitive
  * @see {@link isPrimitive}
  */
@@ -166,7 +151,6 @@ export const isNotPrimitive = <Type = unknown>(
 
 /**
  * Checks if a value is nil-like.
- *
  * @category Empty Types
  * @see {@link isNotNilLike}
  */
@@ -175,7 +159,6 @@ export const isNilLike = <Type>(value: Type | NilLike): value is NilLike =>
 
 /**
  * Checks if a value is NOT nil-like.
- *
  * @category Empty Types
  * @see {@link isNilLike}
  */
@@ -184,7 +167,6 @@ export const isNotNilLike = <Type>(value: Type | NilLike): value is Type =>
 
 /**
  * Checks if a value is nullish.
- *
  * @category Empty Types
  * @see {@link isNotNullish}
  */
@@ -193,7 +175,6 @@ export const isNullish = <Type>(value: Type | NilLike): value is undefined =>
 
 /**
  * Checks if a value is NOT nullish.
- *
  * @category Empty Types
  * @see {@link isNullish}
  */
@@ -202,7 +183,6 @@ export const isNotNullish = <Type>(value: Type | NilLike): value is Type =>
 
 /**
  * Checks if a value is null.
- *
  * @category Empty Types
  * @see {@link isNotNull}
  */
@@ -210,7 +190,6 @@ export const isNull = (value: unknown): value is null => RA.isNull(value)
 
 /**
  * Checks if a value is NOT null.
- *
  * @category Empty Types
  * @see {@link isNull}
  */
@@ -220,7 +199,6 @@ export const isNotNull = <Type extends NonNullable<any>>(
 
 /**
  * Checks if a value is undefined.
- *
  * @category Empty Types
  * @see {@link isNotUndefined}
  */
@@ -229,7 +207,6 @@ export const isUndefined = <Type>(value: Type | Nullish): value is undefined =>
 
 /**
  * Checks if a value is not undefined.
- *
  * @category Empty Types
  * @see {@link isUndefined}
  */
@@ -238,7 +215,6 @@ export const isNotUndefined = <Type>(value: unknown): value is Type =>
 
 /**
  * Checks if a value is an empty array.
- *
  * @category Array
  * @category Empty Types
  * @see {@link isNonEmptyArray}
@@ -249,7 +225,6 @@ export const isEmptyArray = <Type extends EmptyArray>(
 
 /**
  * Checks if a value is a non-empty array.
- *
  * @category Array
  * @see {@link isEmptyArray}
  */
@@ -259,7 +234,6 @@ export const isNonEmptyArray = <Type extends UnknownArray = EmptyArray>(
 
 /**
  * Checks if a value is an array.
- *
  * @category Array
  */
 export const isArray = <Type extends UnknownArray>(
@@ -268,7 +242,6 @@ export const isArray = <Type extends UnknownArray>(
 
 /**
  * Checks if a value is a non-empty object.
- *
  * @category Object
  * @see {@link isEmptyObject}
  */
@@ -280,7 +253,6 @@ export const isNonEmptyObject = <
 
 /**
  * Checks if a value is an empty object.
- *
  * @category Empty Types
  * @category Object
  * @see {@link isNonEmptyObject}
@@ -291,7 +263,6 @@ export const isEmptyObject = <Type extends EmptyObject>(
 
 /**
  * Checks if a value is a plain object.
- *
  * @category Object
  */
 export const isPlainObject = <
@@ -302,7 +273,6 @@ export const isPlainObject = <
 
 /**
  * Checks if a value is a regular expression.
- *
  * @category RegExp
  */
 export const isRegExp = <Type extends RegExp>(
@@ -313,7 +283,6 @@ export const isRegExp = <Type extends RegExp>(
 
 /**
  * Checks if a value is not an error.
- *
  * @category Error
  * @see {@link isError}
  */
@@ -325,7 +294,6 @@ export const isNotError = <Type>(
 
 /**
  * Checks if a value is an error.
- *
  * @category Error
  * @see {@link isNotError}
  */

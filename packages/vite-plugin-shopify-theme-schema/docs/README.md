@@ -20,9 +20,12 @@
   </a>
 </p>
 
-This plugin adds features to make it easier to manage the JSON schema files for Shopify Theme Settings. Please see [Inspiration](#inspiration) section for more info and backstory!
+This plugin adds features to make it easier to manage the JSON schema files for
+Shopify Theme Settings. Please see [Inspiration](#inspiration) section for more
+info and backstory!
 
-> Many thanks to [barrel-shopify](https://github.com/barrel/barrel-shopify) by Barrel NY for readme inspiration.
+> Many thanks to [barrel-shopify](https://github.com/barrel/barrel-shopify) by
+> Barrel NY for readme inspiration.
 
 ### Repository
 
@@ -32,64 +35,73 @@ This plugin adds features to make it easier to manage the JSON schema files for 
 
 👤 **Gillian Tunney**
 
--   [github](https://github.com/gbtunney)
--   [email](mailto:gbtunney@mac.com)
+- [github](https://github.com/gbtunney)
+- [email](mailto:gbtunney@mac.com)
 
 ## Contents
 
--   [🐌](#)
--   [Features](#features)
-    -   [Dynamic Shopify Setting Schemas](#dynamic-shopify-setting-schemas)
--   [Examples](#examples)
-    -   [Installation](#installation)
-    -   [Tests](#tests)
--   [Usage](#usage)
-    -   [Options](#options)
--   [Inspiration](#inspiration)
-    -   [vite-plugin-shopify-theme-settings by Barrel NY](#vite-plugin-shopify-theme-settings-by-barrel-ny)
--   [Helpful Links](#helpful-links)
--   [To-Do](#to-do)
--   [Bugs](#bugs)
--   [Functions](#functions)
-    -   [default()](#default)
-    -   [resolveOptions()](#resolveoptions)
--   [Type Aliases](#type-aliases)
-    -   [ShopifyThemeSchemaOptions](#shopifythemeschemaoptions)
-    -   [ResolvedShopifyThemeSchemaOptions](#resolvedshopifythemeschemaoptions)
+- [🐌](#)
+- [Features](#features)
+  - [Dynamic Shopify Setting Schemas](#dynamic-shopify-setting-schemas)
+- [Examples](#examples)
+  - [Installation](#installation)
+  - [Tests](#tests)
+- [Usage](#usage)
+  - [Options](#options)
+- [Inspiration](#inspiration)
+  - [vite-plugin-shopify-theme-settings by Barrel NY](#vite-plugin-shopify-theme-settings-by-barrel-ny)
+- [Helpful Links](#helpful-links)
+- [To-Do](#to-do)
+- [Bugs](#bugs)
+- [Functions](#functions)
+  - [default()](#default)
+  - [resolveOptions()](#resolveoptions)
+- [Type Aliases](#type-aliases)
+  - [ShopifyThemeSchemaOptions](#shopifythemeschemaoptions)
+  - [ResolvedShopifyThemeSchemaOptions](#resolvedshopifythemeschemaoptions)
 
 ## 🐌
 
--   [🐌 Welcome to @snailicide/vite-plugin-shopify-theme-schema 🐌](#welcome-to--snailicide-vite-plugin-shopify-theme-schema---)
-    -   [Features](#features)
-    -   [Examples](#examples)
-        -   [Installation](#installation)
-        -   [Tests](#tests)
-    -   [Usage](#usage)
-        -   [Options](#options)
-    -   [Inspiration](#inspiration)
-        -   vite-plugin-shopify-theme-settings
-    -   [Helpful Links](#helpful-links)
-    -   [To-Do](#to-do)
-    -   [Bugs](#bugs)
+- [🐌 Welcome to @snailicide/vite-plugin-shopify-theme-schema 🐌](#welcome-to--snailicide-vite-plugin-shopify-theme-schema---)
+  - [Features](#features)
+  - [Examples](#examples)
+    - [Installation](#installation)
+    - [Tests](#tests)
+  - [Usage](#usage)
+    - [Options](#options)
+  - [Inspiration](#inspiration)
+    - vite-plugin-shopify-theme-settings
+  - [Helpful Links](#helpful-links)
+  - [To-Do](#to-do)
+  - [Bugs](#bugs)
 
-<small><i><a href="http://ecotrust-canada.github.io/markdown-toc/">Table of contents generated with markdown-toc</a></i></small>
+<small><i><a href="http://ecotrust-canada.github.io/markdown-toc/">Table of
+contents generated with markdown-toc</a></i></small>
 
 ## Features
 
 ### Dynamic Shopify Setting Schemas
 
--   Build Shopify Setting schemas dynamically from Typescript, Javascript, and JSON files
--   Share and reuse schema partials between different files. Promotes efficient code reusability.
--   Benefit from the language support provided by IDEs such as VSCode and [WebStorm](https://www.jetbrains.com/webstorm/) like autocompletion, formatting, collapsing
--   Use Typescript autocompletion to declare schema structure using my code library. Included types and validators range from generic to highly specific.
+- Build Shopify Setting schemas dynamically from Typescript, Javascript, and
+  JSON files
+- Share and reuse schema partials between different files. Promotes efficient
+  code reusability.
+- Benefit from the language support provided by IDEs such as VSCode and
+  [WebStorm](https://www.jetbrains.com/webstorm/) like autocompletion,
+  formatting, collapsing
+- Use Typescript autocompletion to declare schema structure using my code
+  library. Included types and validators range from generic to highly specific.
 
 ## Examples
 
-See [**example_theme_config**](./example_theme_config/) folder for usage examples of [validators](_media/settings_colors.ts) and [types](_media/settings_typography.ts).
+See [**example_theme_config**](./example_theme_config/) folder for usage
+examples of [validators](_media/settings_colors.ts) and
+[types](_media/settings_typography.ts).
 
 ### Installation
 
-This library is published in the NPM registry and can be installed using any compatible package manager.
+This library is published in the NPM registry and can be installed using any
+compatible package manager.
 
 ```sh
 #pnpm
@@ -118,21 +130,25 @@ import pluginShopifyThemeSchema from '@snailicide/vite-plugin-shopify-theme-sche
 
 /* * Example  * */
 export default {
-    plugins: [
-        pluginShopifyThemeSchema({
-            themeRoot: '.',
-            sourceCodeDir: './src/global_settings',
-            entryPoints: {
-                'settings_schema.json': 'settings_schema.js',
-            },
-        }),
-    ],
+  plugins: [
+    pluginShopifyThemeSchema({
+      themeRoot: '.',
+      sourceCodeDir: './src/global_settings',
+      entryPoints: {
+        'settings_schema.json': 'settings_schema.js',
+      },
+    }),
+  ],
 }
 ```
 
--   Create a `sourceCodeDir` directory under your theme's folder to hold the source files for your `settings_schema.json` or custom entrypoint.
--   Create a Javascript,Typescript or JSON file for each 'entrypoint' of your theme settings. You can compose different files to determine the settings sequence.
--   Make sure that your schema source directory is listed in your theme's `.shopifyignore` file to avoid errors when pushing code to Shopify.
+- Create a `sourceCodeDir` directory under your theme's folder to hold the
+  source files for your `settings_schema.json` or custom entrypoint.
+- Create a Javascript,Typescript or JSON file for each 'entrypoint' of your
+  theme settings. You can compose different files to determine the settings
+  sequence.
+- Make sure that your schema source directory is listed in your theme's
+  `.shopifyignore` file to avoid errors when pushing code to Shopify.
 
 ### Options
 
@@ -141,11 +157,11 @@ import type { ShopifyLiquidModulesOptions } from './src/options'
 
 /* * Default Options Available * */
 const defaultobj: ShopifyLiquidModulesOptions = {
-    themeRoot: '.',
-    sourceCodeDir: './src',
-    entryPoints: {
-        'settings_schema.json': 'settings_schema.js',
-    },
+  themeRoot: '.',
+  sourceCodeDir: './src',
+  entryPoints: {
+    'settings_schema.json': 'settings_schema.js',
+  },
 }
 ```
 
@@ -153,19 +169,25 @@ const defaultobj: ShopifyLiquidModulesOptions = {
 
 ### [vite-plugin-shopify-theme-settings](https://github.com/barrel/barrel-shopify/tree/main/packages/vite-plugin-shopify-theme-settings) by Barrel NY
 
-Since i am new to vite plugin, i used this as my starting structure and was heavily inspired by the overall concept of the vite-plugin-shopify-theme-settings. I skipped looping thru the json directory and instead used an 'entryPoint' approach.
+Since i am new to vite plugin, i used this as my starting structure and was
+heavily inspired by the overall concept of the
+vite-plugin-shopify-theme-settings. I skipped looping thru the json directory
+and instead used an 'entryPoint' approach.
 
 ## Helpful Links
 
--   [Vite](https://vitejs.dev/)
--   [Shopify Liquid reference](https://shopify.dev/api/liquid)
--   [Shopify Theme Settings reference](https://shopify.dev/themes/architecture/settings)
--   [vite-plugin-shopify-theme-settings](https://github.com/barrel/barrel-shopify/tree/main/packages/vite-plugin-shopify-theme-settings) _(by barrel-shopify)_
--   the awesome [vite-plugin-shopify](https://github.com/barrel/barrel-shopify/tree/main/packages/vite-plugin-shopify) _(by barrel-shopify)_
+- [Vite](https://vitejs.dev/)
+- [Shopify Liquid reference](https://shopify.dev/api/liquid)
+- [Shopify Theme Settings reference](https://shopify.dev/themes/architecture/settings)
+- [vite-plugin-shopify-theme-settings](https://github.com/barrel/barrel-shopify/tree/main/packages/vite-plugin-shopify-theme-settings)
+  _(by barrel-shopify)_
+- the awesome
+  [vite-plugin-shopify](https://github.com/barrel/barrel-shopify/tree/main/packages/vite-plugin-shopify)
+  _(by barrel-shopify)_
 
 ## To-Do
 
--   [ ] Unit Tests
+- [ ] Unit Tests
 
 ## Bugs
 
@@ -202,12 +224,12 @@ function default(options): Plugin
 
 ```ts
 function resolveOptions(options):
-    | undefined
-    | {
-          entryPoints: Record<string, string>
-          sourceCodeDir: string
-          themeRoot: string
-      }
+  | undefined
+  | {
+      entryPoints: Record<string, string>
+      sourceCodeDir: string
+      themeRoot: string
+    }
 ```
 
 #### Parameters
@@ -221,7 +243,8 @@ function resolveOptions(options):
 
 #### Returns
 
-`undefined` | \{ `entryPoints`: `Record`\<`string`, `string`>; `sourceCodeDir`: `string`; `themeRoot`: `string`; }
+`undefined` | \{ `entryPoints`: `Record`\<`string`, `string`>; `sourceCodeDir`:
+`string`; `themeRoot`: `string`; }
 
 #### Defined in
 
@@ -241,11 +264,11 @@ type ShopifyThemeSchemaOptions: {
 
 #### Type declaration
 
-| Name | Type | Defined in |
-| --- | --- | --- |
-| `entryPoints` | `Record`\<`string`, `string`> | [packages/vite-plugin-shopify-theme-schema/src/options.ts:5](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/vite-plugin-shopify-theme-schema/src/options.ts#L5) |
-| `sourceCodeDir` | `string` | [packages/vite-plugin-shopify-theme-schema/src/options.ts:8](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/vite-plugin-shopify-theme-schema/src/options.ts#L8) |
-| `themeRoot` | `string` | [packages/vite-plugin-shopify-theme-schema/src/options.ts:9](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/vite-plugin-shopify-theme-schema/src/options.ts#L9) |
+| Name            | Type                          | Defined in                                                                                                                                                                            |
+| --------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `entryPoints`   | `Record`\<`string`, `string`> | [packages/vite-plugin-shopify-theme-schema/src/options.ts:5](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/vite-plugin-shopify-theme-schema/src/options.ts#L5) |
+| `sourceCodeDir` | `string`                      | [packages/vite-plugin-shopify-theme-schema/src/options.ts:8](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/vite-plugin-shopify-theme-schema/src/options.ts#L8) |
+| `themeRoot`     | `string`                      | [packages/vite-plugin-shopify-theme-schema/src/options.ts:9](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/vite-plugin-shopify-theme-schema/src/options.ts#L9) |
 
 #### Defined in
 
@@ -265,11 +288,11 @@ type ResolvedShopifyThemeSchemaOptions: {
 
 #### Type declaration
 
-| Name | Type | Defined in |
-| --- | --- | --- |
-| `entryPoints` | `Record`\<`string`, `string`> | [packages/vite-plugin-shopify-theme-schema/src/options.ts:5](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/vite-plugin-shopify-theme-schema/src/options.ts#L5) |
-| `sourceCodeDir` | `string` | [packages/vite-plugin-shopify-theme-schema/src/options.ts:8](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/vite-plugin-shopify-theme-schema/src/options.ts#L8) |
-| `themeRoot` | `string` | [packages/vite-plugin-shopify-theme-schema/src/options.ts:9](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/vite-plugin-shopify-theme-schema/src/options.ts#L9) |
+| Name            | Type                          | Defined in                                                                                                                                                                            |
+| --------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `entryPoints`   | `Record`\<`string`, `string`> | [packages/vite-plugin-shopify-theme-schema/src/options.ts:5](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/vite-plugin-shopify-theme-schema/src/options.ts#L5) |
+| `sourceCodeDir` | `string`                      | [packages/vite-plugin-shopify-theme-schema/src/options.ts:8](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/vite-plugin-shopify-theme-schema/src/options.ts#L8) |
+| `themeRoot`     | `string`                      | [packages/vite-plugin-shopify-theme-schema/src/options.ts:9](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/vite-plugin-shopify-theme-schema/src/options.ts#L9) |
 
 #### Defined in
 

@@ -1,7 +1,8 @@
 import type { ActionType, NodePlopAPI, PlopGeneratorConfig } from 'plop'
 import yargs from 'yargs'
 
-const boolBaseTemplate = true //ass oppesed to library todi: change to enum
+/** Ass oppesed to library todi: change to enum */
+const boolBaseTemplate = true
 const GENERATED_DIRECTORY = 'generated'
 const TEMPLATE_BASE_DIRECTORY = './templates'
 const TEMPLATE_DIRECTORY = boolBaseTemplate

@@ -22,7 +22,6 @@ export type IValidateObj = {
 
 /**
  * Checks if the string starts with the given pattern
- *
  * @category Validators
  * @see {@link endsWith}
  */
@@ -34,7 +33,6 @@ export const startsWith: ValidateFunc = (
 
 /**
  * Checks if the string ends with the given pattern.
- *
  * @category Validators
  * @see {@link startsWith}
  */
@@ -45,7 +43,6 @@ export const endsWith: ValidateFunc = (
 
 /**
  * Checks if the string includes the given string.
- *
  * @category Validators
  */
 export const includes: ValidateFunc = (value, pattern) =>
@@ -53,21 +50,18 @@ export const includes: ValidateFunc = (value, pattern) =>
 
 /**
  * Checks if the string is === the given pattern.
- *
  * @category Validators
  */
 export const eq: ValidateFunc = (value, pattern) => value === pattern
 
 /**
  * Checks if the string contains the given string.
- *
  * @category Validators
  */
 export const contains: ValidateFunc = includes
 
 /**
  * Checks if the string matches the given RegExp pattern.
- *
  * @category Validators
  */
 export const match = (value: string, pattern: RegExp): boolean =>
@@ -75,7 +69,6 @@ export const match = (value: string, pattern: RegExp): boolean =>
 
 /**
  * Validates a string based on the provided pattern and validation operation.
- *
  * @category Validators
  * @see {@link validateStringBatch}
  */
@@ -89,9 +82,7 @@ export const validateString = (
 }
 
 /**
- * Validates a batch of strings or validation objects based on the provided
- * operation.
- *
+ * Validates a batch of strings or validation objects based on the provided operation.
  * @category Validators
  * @see {@link validateString}
  */

@@ -22,13 +22,11 @@ export type FilePath = {
 export type FileType = 'directory' | 'file' | 'symlink' | 'glob' | undefined
 /**
  * Get Array of FilePaths from a glob string
- *
  * @example
  *     getFilePathArr('./*.json')
  *
  * @param {string} value - Glob Path String - "*.json"
- * @param {boolean} getDirectoryFiles - Get the file contents of directory (
- *   like /mydir/* )
+ * @param {boolean} getDirectoryFiles - Get the file contents of directory ( like /mydir/* )
  */
 export const getFilePathArr = (
     value: string,
@@ -88,7 +86,7 @@ export const getExistingPathType = (value: string): FileType => {
     return undefined
 }
 
-/* * isFile - if the string is a glob, we do not care if it exists or resolves.  * */
+/** IsFile - if the string is a glob, we do not care if it exists or resolves. */
 export const isFile = (
     value: string,
     allowedExtention: string | Array<string> | undefined = undefined,
@@ -109,11 +107,11 @@ export const isFile = (
     }
     return false
 }
-/* * isDirectory - if the string is a glob, we do not care if it exists or resolves.  * */
+/** IsDirectory - if the string is a glob, we do not care if it exists or resolves. */
 export const isDirectory = (value: string): boolean => {
     return !isFile(value)
 }
-/* * isGlob - if the string is a glob, we do not care if it exists or resolves.  * */
+/** IsGlob - if the string is a glob, we do not care if it exists or resolves. */
 export const isGlob = (value: string): boolean => {
     return _isGlob(value)
 }

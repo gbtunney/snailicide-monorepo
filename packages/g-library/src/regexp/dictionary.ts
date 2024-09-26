@@ -4,7 +4,6 @@ import type { Writable } from 'type-fest'
 
 /**
  * Name field in package.json
- *
  * @example
  *     '@snailicide/g-library'
  *     #bad
@@ -15,7 +14,6 @@ export const validPackageName =
 
 /**
  * PackageManager field in package.json
- *
  * @see {@link https://stackoverflow.com/questions/71747609/how-to-specify-packagemanager-in-package-json|node.js - How to specify "packageManager" in package.json - Stack Overflow}
  */
 export const packageManager = /(npm|pnpm|yarn)@\d+\.\d+\.\d+(-.+)?/
@@ -359,10 +357,7 @@ export const URL_DOMAIN_EXTENSION = [
     'arpa',
 ] as const
 
-/**
- * Regexp to match a url WITHOUT A SCHEME todo: need to add domain extension to
- * this
- */
+/** Regexp to match a url WITHOUT A SCHEME todo: need to add domain extension to this */
 export const URL = new RegExp(
     '(?:\\S+(?::\\S*)?@)?(?:(?!(?:10|127)(?:\\.\\d{1,3}){3})(?!(?:169\\.254|192\\.168)(?:\\.\\d{1,3}){2})(?!172\\.(?:1[6-9]|2\\d|3[0-1])(?:\\.\\d{1,3}){2})(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[1-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\\.(?:[a-z\u00a1-\uffff]{2,})))(?::\\d{2,5})?(?:[/?#]\\S*)?$',
     'm',
@@ -374,7 +369,7 @@ export const IP_ADDRESS_REG_EXP = new RegExp(
 )
 
 export const anyURLDomainExtension = (): RegExp => urlDomainExtension()
-//todo: handle urls with query strings
+/** Todo: handle urls with query strings */
 export const urlDomainExtension = (
     value: string | Array<string> = URL_DOMAIN_EXTENSION as Writable<
         typeof URL_DOMAIN_EXTENSION
@@ -393,7 +388,6 @@ export const urlScheme = (
  * US PHONE NUMBER
  *
  * Works in: ECMAScript, PCRE, Google Forms
- *
  * @category GoogleAppScript
  * @see {@link https://regex101.com/r/CYCMEc/1 | regexp101 examples}
  */
@@ -404,7 +398,6 @@ export const phoneNumber =
  * US ZIP CODE
  *
  * Works in: ECMAScript, PCRE, Google Forms
- *
  * @category GoogleAppScript
  * @see {@link https://regex101.com/r/VFnoSZ/2 | regexp101 examples}
  */

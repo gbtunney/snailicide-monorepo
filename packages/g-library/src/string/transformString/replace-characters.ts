@@ -47,7 +47,8 @@ export const batchReplaceAll = ({
 }: BatchBaseValue & {
     pattern: Pattern | Array<Pattern>
 } & ReplaceCharacters): string | Array<string> => {
-    const _value = isString(value) ? ensureArray(value) : value //already an array
+    /** Already an array */
+    const _value = isString(value) ? ensureArray(value) : value
 
     const result = _value.map((single_value) => {
         return replaceAllCharacters({

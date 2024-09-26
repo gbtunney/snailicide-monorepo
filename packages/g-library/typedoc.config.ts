@@ -23,6 +23,5 @@ const _typeDocConfig = merge(
     custom,
 )
 
-
 const typeDocConfig: ReturnType<typeof typedoc.materialTheme> = _typeDocConfig
 export default typeDocConfig

@@ -2,12 +2,13 @@ import type { Simplify, StringKeyOf } from 'type-fest'
 
 export namespace SettingTypes {
     type _List = {
-        //collection and product list
+        /** Collection and product list */
         limit?: number
     }
     type _TSelectOption = {
         value: string
-        label: string // is label required idk?
+        /** Is label required idk? */
+        label: string
     }
     type _Text = {
         default?: string
@@ -30,31 +31,36 @@ export namespace SettingTypes {
     }
     export type Checkbox = {
         type: 'checkbox'
-        default?: boolean //default is false
+        /** Default is false */
+        default?: boolean
     }
     export type Radio = {
         type: 'radio'
         options: Array<_TSelectOption>
-        default?: string //If default is unspecified, then the first option is selected by default.
+        /** If default is unspecified, then the first option is selected by default. */
+        default?: string
     }
     export type Select = Omit<Radio, 'type'> & {
         type: 'select'
-        group?: string /// no other info providewd
+        /** No other info provided */
+        group?: string
     }
     export type Range = {
         type: 'range'
-        default: number //!!! NOTE ! REQUIRED HERE
+        default: number /** !!! NOTE ! REQUIRED HERE */
         min: number
         max: number
         step: number
-        unit: string // "example px",
+        /** "example px", */
+        unit: string
     }
 
     /* * Color Picker  *
      * * @return "color object" | "blank" */
     export type Color = {
         type: 'color'
-        default?: string //in hex code string format "#000000"
+        /** In hex code string format "#000000" */
+        default?: string
     }
 
     /* * Gradient Picker
@@ -62,7 +68,8 @@ export namespace SettingTypes {
      * @return string | "blank" */
     export type ColorBackground = {
         type: 'color_background'
-        default?: string // example: "linear-gradient(#ffffff, #000000)"
+        /** Example: "linear-gradient(#ffffff, #000000)" */
+        default?: string
     }
     export type Gradient = ColorBackground
 
@@ -74,7 +81,8 @@ export namespace SettingTypes {
      *  */
     export type FontPicker = {
         type: 'font_picker'
-        default: string ///NOTE: THIS IS REQUIRED!!!  example "helvetica_n4"
+        /** NOTE: THIS IS REQUIRED!!! example "helvetica_n4" */
+        default: string
     }
 
     /* * HTML Type *
@@ -82,7 +90,8 @@ export namespace SettingTypes {
      * @return string |  EmptyDrop */
     export type HTML = {
         type: 'html'
-        default?: HTMLElement ///dont know if default , dont know if html elemenbt type will work
+        /** Dont know if has default 0r if html element type will work */
+        default?: HTMLElement
         placeholder?: HTMLElement
     }
 
@@ -91,7 +100,8 @@ export namespace SettingTypes {
      * * * @return string | "EmptyDrop"  */
     export type RichText = {
         type: 'richtext'
-        default?: string //default must be wrapped in <p></p>
+        /** Default must be wrapped in <p></p> */
+        default?: string
     }
 
     /* * URL Picker  *
@@ -102,7 +112,8 @@ export namespace SettingTypes {
      * - Accepted values for the default attribute are /collections and /collections/all.  */
     export type URL = {
         type: 'url'
-        default?: string //Accepted values are /collections and /collections/all IDK???
+        /** Accepted values are /collections and /collections/all IDK??? */
+        default?: string
     }
 
     /* * VideoURL
@@ -197,14 +208,14 @@ export namespace SettingTypes {
     export type ThemeInfo = {
         name: 'theme_info'
         theme_name: string
-        theme_version: string //should be semver eventually
+        theme_version: string /** Should be semver eventually */
         theme_author: string
         theme_documentation_url?: string
         theme_support_url?: string
     }
 
     export type BasicSettingTypes = {
-        /* * Basic Setting Input Types * */
+        /** - Basic Setting Input Types */
         text: Text
         textarea: TextArea
         number: Number
@@ -227,7 +238,7 @@ export namespace SettingTypes {
     }
 
     export type ShopifySettingTypes = {
-        /* * Shopify Setting Input Types * */
+        /** - Shopify Setting Input Types */
         article: Article
         blog: Blog
         collection: Collection
@@ -303,7 +314,7 @@ export namespace Shared {
         name: string
         tag?: ElementTags
         class?: string
-        limit?: number // section limit count
+        limit?: number /** Section limit count */
         templates?: Array<PageTypes>
     }
 }
