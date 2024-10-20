@@ -32,7 +32,7 @@
         "nx:test": "pnpm exec nx run-many --target=test",
         "\n========== DOCS >> ==========": "",
         "docs:dev": "pnpm run docs:typedoc && vitepress dev",
-        "docs:build": "pnpm run docs:typedoc && vitepress build",
+        "docs:build:bk": "pnpm run docs:typedoc && vitepress build",
         "docs:preview": "pnpm run docs:typedoc && vitepress preview",
         "docs:typedoc": "pnpm run build && pnpm run build:self && pnpm exec typedoc",
         "nx:docs": "pnpm exec nx run-many -t docs:build",
