@@ -1,5 +1,12 @@
 # @snailicide/g-shopify-library
 
+## 0.3.5
+
+### Patch Changes
+
+- Updated dependencies [964e865]
+  - @snailicide/g-library@1.2.0
+
 ## 0.3.4
 
 ### Patch Changes

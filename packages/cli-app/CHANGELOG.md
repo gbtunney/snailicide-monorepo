@@ -1,5 +1,18 @@
 # @snailicide/cli-app
 
+## 0.4.0
+
+### Minor Changes
+
+- 964e865: - g-library added minimatch
+  - reworked cli-app
+  - build-config fixed eslint rules
+
+### Patch Changes
+
+- Updated dependencies [964e865]
+  - @snailicide/g-library@1.2.0
+
 ## 0.3.0
 
 ### Minor Changes

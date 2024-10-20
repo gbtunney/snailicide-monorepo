@@ -1,6 +1,6 @@
 {
     "name": "@snailicide/vite-plugin-shopify-liquid-modules",
-    "version": "0.2.4",
+    "version": "0.2.5",
     "description": "This vite plugin enables Shopify theme developers to structure their code into module folders ",
     "private": false,
     "type": "module",

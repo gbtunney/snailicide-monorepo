@@ -1,6 +1,6 @@
 {
     "name": "@snailicide/vite-plugin-shopify-theme-schema",
-    "version": "0.2.4",
+    "version": "0.2.5",
     "description": "This vite plugin enables Shopify theme developers to better manage the JSON schema files for Shopify Theme Settings",
     "private": false,
     "type": "module",
