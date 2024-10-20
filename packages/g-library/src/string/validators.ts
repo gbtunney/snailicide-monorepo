@@ -1,3 +1,4 @@
+import { minimatch } from 'minimatch'
 import semvervalid from 'semver/functions/valid.js'
 import { ValueOf, Writable } from 'type-fest'
 import z from 'zod'
@@ -9,6 +10,9 @@ import {
     urlScheme,
 } from '../regexp/dictionary.js'
 
+export const getValidMinimatch = (value: string, pattern: string): boolean => {
+    return minimatch(value, pattern)
+}
 /** @category URL */
 export type URLScheme = ValueOf<typeof URL_SCHEME>
 
