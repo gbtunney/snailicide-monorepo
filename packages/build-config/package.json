@@ -47,13 +47,14 @@
         "prerelease": "pnpm clean && pnpm build && pnpm docs:build && pnpm test && pnpm run release:archive",
         "release:archive": "mkdir -p ./releases &&  pnpm exec npm pack --pack-destination='./releases'",
         "\n========== CODE STYLE >> ==========": "",
-        "lint": "pnpm exec eslint -c \"$(git rev-parse --show-toplevel)/eslint.config.js\" .",
-        "lint:md": "pnpm exec markdownlint ./*.md --config=./dist/.markdownlint.json ",
+        "prettier": "cross-var prettier ./.husky/* --ignore-path ./.gitignore --no-error-on-unmatched-pattern {$npm_package_config_prettier_path}.{$npm_package_config_prettier_extensions} --config $(git rev-parse --show-toplevel)/$npm_package_config_prettier_config",
+        "lint": "cross-var eslint -c $(git rev-parse --show-toplevel)/$npm_package_config_eslint_config",
+        "lint:md": "pnpm exec markdownlint-cli2 '{./*,./**/*}.md' '#**/node_modules/**' '#packages/test-package/**/*' ",
         "\n========== CHECK >> ==========": "",
         "check": "pnpm lint",
         "check:md": "pnpm run lint:md",
         "\n========== FIX >> ==========": "",
-        "fix": "pnpm lint --fix",
+        "fix": "pnpm prettier --write && pnpm lint --fix",
         "fix:md": "pnpm run lint:md --fix",
         "\n========== CLEAN >> ==========": "",
         "clean": "pnpm clean:ts && pnpm clean:build",
@@ -150,5 +151,17 @@
         "unified-prettier": "^2.0.1",
         "vitepress": "^1.3.4"
     },
-    "prettier": "./dist/.prettierrc.json"
+    "prettier": "./dist/.prettierrc.json",
+    "config": {
+        "prettier": {
+            "extensions": "ts,js,cjs,mjs,cts,mts,sh,html,json,yaml,yml,graphql,md",
+            "path": "*,**/*",
+            "config": "prettier.config.js"
+        },
+        "eslint": {
+            "extensions": "ts,js,cjs,mjs",
+            "path": "*",
+            "config": "eslint.config.js"
+        }
+    }
 }

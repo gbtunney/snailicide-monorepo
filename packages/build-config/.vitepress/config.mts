@@ -9,7 +9,6 @@ const defineConfiguration = async (
         `${_dirname}/../docs/typedoc-sidebar.json`,
     )
     const typedocSidebar = sidebar_result as VitepressSidebar
-    //console.log("GBT :: Sidebar file is:: ", sidebar_result)
     const vitepressConfig: ReturnType<typeof vitepress> = vitepress(
         typedocSidebar,
         {
@@ -42,6 +41,5 @@ const defineConfiguration = async (
     )
     return vitepressConfig
 }
-
 // https://vitepress.dev/reference/site-config
 export default defineConfiguration(__dirname)
