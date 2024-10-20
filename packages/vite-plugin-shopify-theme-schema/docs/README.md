@@ -54,11 +54,7 @@ info and backstory!
 - [To-Do](#to-do)
 - [Bugs](#bugs)
 - [Functions](#functions)
-  - [default()](#default)
-  - [resolveOptions()](#resolveoptions)
 - [Type Aliases](#type-aliases)
-  - [ShopifyThemeSchemaOptions](#shopifythemeschemaoptions)
-  - [ResolvedShopifyThemeSchemaOptions](#resolvedshopifythemeschemaoptions)
 
 ## 🐌
 
@@ -195,105 +191,14 @@ Please create an issue if you found any bugs, to help us improve this project!
 
 ## Functions
 
-### default()
-
-```ts
-function default(options): Plugin
-```
-
-#### Parameters
-
-| Parameter                | Type                          |
-| ------------------------ | ----------------------------- |
-| `options`                | `object`                      |
-| `options.entryPoints`?   | `Record`\<`string`, `string`> |
-| `options.sourceCodeDir`? | `string`                      |
-| `options.themeRoot`?     | `string`                      |
-
-#### Returns
-
-`Plugin`
-
-#### Defined in
-
-[packages/vite-plugin-shopify-theme-schema/src/index.ts:8](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/vite-plugin-shopify-theme-schema/src/index.ts#L8)
-
----
-
-### resolveOptions()
-
-```ts
-function resolveOptions(options):
-  | undefined
-  | {
-      entryPoints: Record<string, string>
-      sourceCodeDir: string
-      themeRoot: string
-    }
-```
-
-#### Parameters
-
-| Parameter                | Type                          |
-| ------------------------ | ----------------------------- |
-| `options`                | `object`                      |
-| `options.entryPoints`?   | `Record`\<`string`, `string`> |
-| `options.sourceCodeDir`? | `string`                      |
-| `options.themeRoot`?     | `string`                      |
-
-#### Returns
-
-`undefined` | \{ `entryPoints`: `Record`\<`string`, `string`>; `sourceCodeDir`:
-`string`; `themeRoot`: `string`; }
-
-#### Defined in
-
-[packages/vite-plugin-shopify-theme-schema/src/options.ts:17](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/vite-plugin-shopify-theme-schema/src/options.ts#L17)
+| Function                                      | Description |
+| --------------------------------------------- | ----------- |
+| [default](functions/default.md)               | -           |
+| [resolveOptions](functions/resolveOptions.md) | -           |
 
 ## Type Aliases
 
-### ShopifyThemeSchemaOptions
-
-```ts
-type ShopifyThemeSchemaOptions: {
-  entryPoints: Record<string, string>;
-  sourceCodeDir: string;
-  themeRoot: string;
-};
-```
-
-#### Type declaration
-
-| Name            | Type                          | Defined in                                                                                                                                                                            |
-| --------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `entryPoints`   | `Record`\<`string`, `string`> | [packages/vite-plugin-shopify-theme-schema/src/options.ts:5](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/vite-plugin-shopify-theme-schema/src/options.ts#L5) |
-| `sourceCodeDir` | `string`                      | [packages/vite-plugin-shopify-theme-schema/src/options.ts:8](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/vite-plugin-shopify-theme-schema/src/options.ts#L8) |
-| `themeRoot`     | `string`                      | [packages/vite-plugin-shopify-theme-schema/src/options.ts:9](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/vite-plugin-shopify-theme-schema/src/options.ts#L9) |
-
-#### Defined in
-
-[packages/vite-plugin-shopify-theme-schema/src/options.ts:12](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/vite-plugin-shopify-theme-schema/src/options.ts#L12)
-
----
-
-### ResolvedShopifyThemeSchemaOptions
-
-```ts
-type ResolvedShopifyThemeSchemaOptions: {
-  entryPoints: Record<string, string>;
-  sourceCodeDir: string;
-  themeRoot: string;
-};
-```
-
-#### Type declaration
-
-| Name            | Type                          | Defined in                                                                                                                                                                            |
-| --------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `entryPoints`   | `Record`\<`string`, `string`> | [packages/vite-plugin-shopify-theme-schema/src/options.ts:5](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/vite-plugin-shopify-theme-schema/src/options.ts#L5) |
-| `sourceCodeDir` | `string`                      | [packages/vite-plugin-shopify-theme-schema/src/options.ts:8](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/vite-plugin-shopify-theme-schema/src/options.ts#L8) |
-| `themeRoot`     | `string`                      | [packages/vite-plugin-shopify-theme-schema/src/options.ts:9](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/vite-plugin-shopify-theme-schema/src/options.ts#L9) |
-
-#### Defined in
-
-[packages/vite-plugin-shopify-theme-schema/src/options.ts:13](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/vite-plugin-shopify-theme-schema/src/options.ts#L13)
+| Type alias                                                                             | Description |
+| -------------------------------------------------------------------------------------- | ----------- |
+| [ShopifyThemeSchemaOptions](type-aliases/ShopifyThemeSchemaOptions.md)                 | -           |
+| [ResolvedShopifyThemeSchemaOptions](type-aliases/ResolvedShopifyThemeSchemaOptions.md) | -           |
