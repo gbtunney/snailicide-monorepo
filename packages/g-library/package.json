@@ -31,11 +31,15 @@
         "test:workflow": "open /Applications/Docker.app && pnpm test:workflow:release",
         "test:workflow:release": "cross-var pnpm exec gh act --workflows  $(git rev-parse --show-toplevel)/workflows/workflow-release-package.yml  --input PACKAGE_NAME='$npm_package_name' --reuse",
         "\n========== CODE STYLE >> ==========": "",
-        "lint": "pnpm exec eslint -c \"$(git rev-parse --show-toplevel)/eslint.config.js\" .",
+        "prettier": "cross-var prettier ./.husky/* --ignore-path ./.gitignore --no-error-on-unmatched-pattern {$npm_package_config_prettier_path}.{$npm_package_config_prettier_extensions} --config $(git rev-parse --show-toplevel)/$npm_package_config_prettier_config",
+        "lint": "cross-var eslint -c $(git rev-parse --show-toplevel)/$npm_package_config_eslint_config",
+        "lint:md": "pnpm exec markdownlint-cli2 '{./*,./**/*}.md' '#**/node_modules/**' '#packages/test-package/**/*' ",
         "\n========== CHECK >> ==========": "",
         "check": "pnpm lint",
+        "check:md": "pnpm run lint:md",
         "\n========== FIX >> ==========": "",
-        "fix": "pnpm lint --fix",
+        "fix": "pnpm prettier --write && pnpm lint --fix",
+        "fix:md": "pnpm run lint:md --fix",
         "\n========== DOCS >> ==========": "",
         "docs:build": "pnpm build:ts && pnpm exec typedoc",
         "docs:serve": "vite --config ./vite.docs.config.ts",
@@ -139,6 +143,16 @@
                 "remote": "bluehost:~/public_html/docs-snailicide",
                 "local": "./docs/*"
             }
+        },
+        "prettier": {
+            "extensions": "ts,js,cjs,mjs,cts,mts,sh,html,json,yaml,yml,graphql,md",
+            "path": "*,**/*",
+            "config": "prettier.config.js"
+        },
+        "eslint": {
+            "extensions": "ts,js,cjs,mjs",
+            "path": "*",
+            "config": "eslint.config.js"
         }
     },
     "homepage": "https://github.com/gbtunney/snailicide-monorepo/tree/main/packages/g-library",
