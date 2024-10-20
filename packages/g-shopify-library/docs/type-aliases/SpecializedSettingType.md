@@ -1,8 +1,8 @@
-[**@snailicide/g-shopify-library v0.3.4**](../README.md) • **Docs**
+[**@snailicide/g-shopify-library v0.3.5**](../README.md) • **Docs**
 
 ---
 
-[@snailicide/g-shopify-library v0.3.4](../README.md) / SpecializedSettingType
+[@snailicide/g-shopify-library v0.3.5](../README.md) / SpecializedSettingType
 
 # Type Alias: SpecializedSettingType
 

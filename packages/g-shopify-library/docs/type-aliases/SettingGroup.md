@@ -1,8 +1,8 @@
-[**@snailicide/g-shopify-library v0.3.4**](../README.md) • **Docs**
+[**@snailicide/g-shopify-library v0.3.5**](../README.md) • **Docs**
 
 ---
 
-[@snailicide/g-shopify-library v0.3.4](../README.md) / SettingGroup
+[@snailicide/g-shopify-library v0.3.5](../README.md) / SettingGroup
 
 # Type Alias: SettingGroup
 

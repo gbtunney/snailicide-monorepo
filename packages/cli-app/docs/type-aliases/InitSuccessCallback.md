@@ -1,8 +1,8 @@
-[**@snailicide/cli-app v0.3.0**](../README.md) • **Docs**
+[**@snailicide/cli-app v0.4.0**](../README.md) • **Docs**
 
 ---
 
-[@snailicide/cli-app v0.3.0](../README.md) / InitSuccessCallback
+[@snailicide/cli-app v0.4.0](../README.md) / InitSuccessCallback
 
 # Type Alias: InitSuccessCallback()\<AppOptionsSchema>
 
