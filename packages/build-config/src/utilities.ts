@@ -1,15 +1,71 @@
-import { isNotUndefined, isPlainObject as RAisPlainObject } from 'ramda-adjunct'
+/** Utility functions (mainly for working with lintstaged,file extensions and JSON data) */
+import {
+    isArray,
+    isNotUndefined,
+    isPlainObject as RAisPlainObject,
+    isPrimitive,
+} from 'ramda-adjunct'
 import type {
+    ArrayValues,
     JsonArray,
-    Jsonifiable,
     JsonObject,
+    JsonPrimitive,
     JsonValue,
     ReadonlyDeep,
     UnknownRecord,
 } from 'type-fest'
 
 import fs from 'fs'
+import path from 'path'
 
+export const JS_FILE_EXTENSIONS = ['js', 'mjs', 'cjs', 'jsx'] as const
+export const TS_FILE_EXTENSIONS = ['ts', 'mts', 'cts', 'tsx'] as const
+export const JSLIKE_FILE_EXTENSIONS = [
+    ...JS_FILE_EXTENSIONS,
+    ...TS_FILE_EXTENSIONS,
+] as const
+export const PRETTIER_FILE_EXTENSIONS = [
+    'md',
+    'json',
+    'yaml',
+    'yml',
+    'graphql',
+    'sh',
+    'html',
+] as const
+
+export type JSFileExtensions = ArrayValues<typeof JS_FILE_EXTENSIONS>
+export type TSFileExtensions = ArrayValues<typeof TS_FILE_EXTENSIONS>
+export type JSLikeFileExtensions = ArrayValues<typeof JSLIKE_FILE_EXTENSIONS>
+export type PrettierFileExtensions = ArrayValues<
+    typeof PRETTIER_FILE_EXTENSIONS
+>
+export type AllowedExtensions<
+    IncludePrettierExtentions extends boolean = false,
+> = IncludePrettierExtentions extends true
+    ?
+          | Array<PrettierFileExtensions>
+          | ReadonlyDeep<Array<PrettierFileExtensions>>
+    : Array<JSLikeFileExtensions> | ReadonlyDeep<Array<JSLikeFileExtensions>>
+export type LintStagedConfig = Record<string, string | Array<string>>
+
+export const getFileExtensionList = <
+    IncludePrettierExtentions extends boolean = false,
+>(
+    extensions: AllowedExtensions<IncludePrettierExtentions>,
+    joined: boolean = true,
+    prefix: string = '',
+): string | Array<string> => {
+    const list = extensions.map((value: string): string => {
+        return `${prefix}${value}`
+    })
+    return joined ? list.join(',') : list
+}
+
+//sh,html,json,yaml,yml,graphql,md
+getFileExtensionList<true>(PRETTIER_FILE_EXTENSIONS)
+
+/*
 export type JSONExportEntry<Type extends Jsonifiable = JsonArray | JsonObject> =
     {
         data: Type
@@ -25,10 +81,12 @@ export const exportJSON = (
 ): boolean => {
     const successMap: Array<boolean> = Array.from(config).map((entry) => {
         try {
+
+          //  TODO:FIX
             fs.writeFileSync(
                 outdir === undefined
-                    ? `./${addFileExtension(entry.filename)}`
-                    : `./${outdir}/${addFileExtension(entry.filename)}`,
+                    ? `${addFileExtension(entry.filename)}`
+                    : `${outdir}/${addFileExtension(entry.filename)}`,
                 getJSONString<typeof entry.data>(entry.data),
             )
             return true
@@ -44,6 +102,7 @@ export const exportJSON = (
 }
 const getJSONString = <Type = unknown>(value: Type, indentSpaces = 4): string =>
     JSON.stringify(JSON.parse(JSON.stringify(value)), undefined, indentSpaces)
+*/
 
 const addFileExtension = (value: string, extension = '.json'): string => {
     const _extension = String(extension).startsWith('.')
@@ -68,14 +127,14 @@ export type JSONCompatible<Type> = unknown extends Type
                 : JSONCompatible<Type[Property]>
       }
 
-export const isPlainObject = <Type extends UnknownRecord>(
+export const isPlainObject = <Type extends UnknownRecord = UnknownRecord>(
     value: unknown,
 ): value is Type => {
     return isNotUndefined(value) && RAisPlainObject(value)
 }
 
-export const safeDeserializeJSON = <Type>(
-    data: JSONCompatible<Type>,
+export const safeDeserializeJSON = <Type = UnknownRecord>(
+    data: any,
 ): JSONCompatible<Type> | undefined => {
     try {
         const str: string = JSON.stringify(data)
@@ -85,5 +144,44 @@ export const safeDeserializeJSON = <Type>(
         return undefined
     }
 }
-
+export const importJSON = async (
+    filename: string,
+    returnValue: unknown = undefined,
+): Promise<undefined | JsonPrimitive | JsonArray | JsonObject> => {
+    const _path = path.resolve(filename)
+    if (!fs.existsSync(_path)) {
+        console.warn(`File not found: ${_path}`)
+        return undefined
+    }
+    const json: JsonObject = await import(_path, {
+        assert: { type: 'json' },
+    })
+    if (isArray(json['default'])) {
+        return json['default'] as JsonArray
+    }
+    if (RAisPlainObject(json['default'])) {
+        return json['default'] as JsonObject
+    }
+    if (isPrimitive(json['default'])) {
+        return json['default'] as JsonPrimitive
+    }
+    return undefined
+}
 export default {}
+
+/** TYPEFEST TYPES */
+export type {
+    Jsonifiable,
+    Jsonify,
+    LiteralToPrimitive,
+    LiteralToPrimitiveDeep,
+    LiteralUnion,
+    Merge,
+    MergeDeep,
+    PartialDeep,
+    Primitive,
+    Simplify,
+    SimplifyDeep,
+    Stringified,
+    ValueOf,
+} from 'type-fest'

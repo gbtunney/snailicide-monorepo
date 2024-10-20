@@ -3,14 +3,12 @@ import { pipe, replace } from 'ramda'
 
 /**
  * Escapes special characters in string for regexp.
- *
  * @category Escape
  */
 export const escapeRegExp = (value: string): string => escapeStringRegexp(value)
 
 /**
  * Escapes a string for insertion into HTML.
- *
  * @category Escape
  */
 export const escapeHtml = (value: string): string =>
@@ -24,7 +22,6 @@ export const escapeHtml = (value: string): string =>
 
 /**
  * Unescapes HTML special chars.
- *
  * @category Escape
  */
 export const unescapeHtml = (value: string): string =>
@@ -38,7 +35,6 @@ export const unescapeHtml = (value: string): string =>
 
 /**
  * Escapes a string into unicode sequences.
- *
  * @category Escape
  */
 export function escapeUnicode(

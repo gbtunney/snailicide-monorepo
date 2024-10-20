@@ -20,6 +20,8 @@ const example_package = {
     types: 'types/index.d.ts',
     version: '1.0.2',
 }
+
+/** Omit(["repository","description"],example_package) */
 const example_package_bad = {
     author: {
         email: 'gbtunney@mac.com',
@@ -29,7 +31,7 @@ const example_package_bad = {
     name: 'g-libttest',
     types: 'types/index.d.ts',
     version: '1.0.2',
-} //omit(["repository","description"],example_package)
+}
 
 describe('Rolluup Config Test', () => {
     test('BANNER', () => {

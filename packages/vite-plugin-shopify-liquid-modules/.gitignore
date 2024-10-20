@@ -2,7 +2,6 @@
 dist
 types
 example_theme
-docs
 example_modules/**/*.d.ts
 example_modules/**/*.js
 example_modules/**/*.d.ts.map

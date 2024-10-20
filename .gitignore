@@ -138,20 +138,31 @@ pnpmfile.js
 scratch
 examples
 
-#todo: figure out what to do with this
-*.test.js
+# JSLike Files
 *.js
 *.d.ts
 *.d.ts.map
 *.js.map
-.ssh
+*.mjs
+*.d.mts
+*.mjs.map
+*.d.mts.map
+*.cjs
+*.d.cts
+*.cjs.map
+*.d.cts.map
+!eslint.config.js
+
+#todo: figure out what to do with this
+*.test.js
 examples
 apps
 docs/private
-.env
-!eslint.config.js
-.nx/cache
-.nx/workspace-data
-#packages/**/docs/**/*
+
+# packages/**/docs/**/*
 packages/**/releases/*
+.nx
+.ssh
 .history
+.env
+**/.vitepress/cache

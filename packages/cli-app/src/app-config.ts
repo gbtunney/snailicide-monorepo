@@ -12,10 +12,7 @@ const default_aliases: DefaultAliases = {
     help: 'h',
     version: 'v',
 }
-/**
- * This type is used to autocomplete the yargs aliases property. This creates
- * shorthand values for option flags.
- */
+/** This type is used to autocomplete the yargs aliases property. This creates shorthand values for option flags. */
 export type AppFlagAliases<Schema extends ZodObjectSchema> = DefaultAliases & {
     [Key in keyof z.infer<Schema>]?: string
 }
@@ -40,8 +37,8 @@ export type AppConfigIn<Schema extends ZodObjectSchema> = z.input<
     >
 >
 /**
- * This is the schema used to configure the Cli Application, these should NOT
- * used in cli arguments when running the client cli app
+ * This is the schema used to configure the Cli Application, these should NOT used in cli arguments when running the
+ * client cli app
  */
 export const appConfigSchema = z.object({
     /** Clears the terminal window */
@@ -63,7 +60,6 @@ export const appConfigSchema = z.object({
         .describe('Get title using lg ascii text w/FIGfont spec'),
     /**
      * Shorthand Option Aliases (--help , -h )
-     *
      * @exqmple
      * ```sh
      *    pnpm test:example -h
@@ -74,7 +70,7 @@ export const appConfigSchema = z.object({
     flag_aliases: z
         .record(z.string())
         .default(default_aliases)
-        .transform((value) => {
+        .transform((value: Record<string, string>): Record<string, string> => {
             return { ...value, ...default_aliases }
         }),
     /** Hide an option from the help screen */
@@ -84,7 +80,9 @@ export const appConfigSchema = z.object({
         .describe('hide a key from the help menu'),
     name: z
         .string()
-        .transform((value) => stringUtils.hyphenate(value).toLowerCase()),
+        .transform((value: string): string =>
+            stringUtils.hyphenate(value).toLowerCase(),
+        ),
     print: z.boolean().default(true).describe('Print the header'),
     title_color: z
         .object({

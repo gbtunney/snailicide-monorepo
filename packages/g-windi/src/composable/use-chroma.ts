@@ -11,7 +11,7 @@ export const useChroma = () => {
         //todo: chheck to see if inc is an integer.
         return (hue + incrementValue) % 360
     }
-    //RA.rangeStep(5, 0, 20); // => [0, 5, 10, 15]
+    /** RA.rangeStep(5, 0, 20); // => [0, 5, 10, 15] */
     const complement = (color: Chromable, format?: chroma.ColorFormat) => {
         const [hue, ...rest] = chroma.color(color).hsl()
         return chroma.color([rotateHueFunction(hue, 180), ...rest], format)
@@ -166,7 +166,7 @@ export type ChromaColorPalatte = {
     lightness: number
     luminance: number
     temperature: number
-    //palattes.
+    /** Palattes. */
     complement: Color
     split_complement: Array<Color>
     triad: Array<Color>

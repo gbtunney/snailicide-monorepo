@@ -7,9 +7,8 @@ import {
     isString,
 } from '../typeguard/utility.typeguards.js'
 /**
- * All functions WILL REMOVE ALL whitespace,letter and punctuation as long as
- * the final value a valid number This will convert a possible numeric value (ie
- * string) to a number (like built in parseInt or parseFloat)
+ * All functions WILL REMOVE ALL whitespace,letter and punctuation as long as the final value a valid number This will
+ * convert a possible numeric value (ie string) to a number (like built in parseInt or parseFloat)
  */
 
 export type EmptyString = ''
@@ -34,9 +33,7 @@ export const parseToNumeric = <Type extends PossibleNumeric>(
 }
 
 /**
- * Parse value if is numeric ( like result of parseFloat ). Will remove
- * whitespace,letter and punctuation
- *
+ * Parse value if is numeric ( like result of parseFloat ). Will remove whitespace,letter and punctuation
  * @group Parse
  */
 export const parseStringToNumeric = <Type extends string>(

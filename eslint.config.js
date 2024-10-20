@@ -8,7 +8,11 @@ const FLAT_CONFIG = await EsLint.flatConfig(__dirname)
 export default [
     ...FLAT_CONFIG,
     {
-        ignores: ['packages/**/docs/**/*', '.history/**/*'],
+        ignores: [
+            'packages/**/docs/**/*',
+            '.history/**/*',
+            '**/.vitepress/cache',
+        ],
     },
     ...tseslint.config({
         extends: [tseslint.configs.disableTypeChecked],

@@ -1,7 +1,6 @@
 /**
- * Rollup Configuration tools and utilities
- *
- * @module rollup
+ * Rollup Configuration, Plugins, and helper functions
+ * @see [Rollup - The JavaScript module bundler](http://rollupjs.org/guide/en)
  */
 import { unflatten } from 'flat'
 import { omit } from 'ramda'
@@ -10,7 +9,6 @@ import { merge as deepmerge } from 'ts-deepmerge'
 import { JsonValue } from 'type-fest'
 import type { LiteralUnion } from 'type-fest'
 import path from 'path'
-
 import { BasePackage } from './../npm/index.js'
 import {
     addMinFileExtension,
@@ -24,6 +22,7 @@ import {
     getPluginsConfiguration,
 } from './plugins.js'
 import { isNPMPackage, parseNPMPackage } from '../npm/npm.package.js'
+
 /** Comment with library information to be appended in the generated bundles. */
 export const getBanner = (
     library_name: string,
@@ -98,7 +97,7 @@ export const EXPORT_KEY_LOOKUP: Record<ExportType, KeyData> = {
     },
 }
 
-type KeyData = {
+export type KeyData = {
     extension: string
     internal_format: InternalModuleFormat
     module_format: string
@@ -114,7 +113,8 @@ export type EntryConfig = {
     source_dir: string
     output_dir: string
     library_name: string
-    //overridess
+
+    /** Overridess */
     overrides?: Partial<OutputOptions> & { minify?: boolean }
 }
 
@@ -147,13 +147,6 @@ export const getOutputObj = (
     const overrides: Partial<OutputOptions> & { minify?: boolean } =
         entry.overrides !== undefined ? entry.overrides : {}
 
-    //expand output objects by export type
-    type ExpandedExportType = {
-        export_type: ExportType
-        file: string
-        format: InternalModuleFormat
-        export_key: string
-    }
     //return minimal objects so we can get an export map later
     const expandedExportTypes: Array<ExpandedExportType> =
         entry.export_types.map((export_type) => {
@@ -226,7 +219,6 @@ export const getOutputObj = (
 
 /**
  * Returns an array of output configurations based on the provided entries.
- *
  * @param directoryObj - An object containing the source and output directories.
  * @param entries - An array of entry configurations.
  * @param plugins - Optional array of Rollup plugins.
@@ -286,9 +278,17 @@ export const getRollupConfig = (
     return _CONFIG
 }
 
-type OutputObjReturnType = {
+export type OutputObjReturnType = {
     exportObj: Record<string, Record<string, string>>
     config: Omit<RollupOptions, 'plugins'>
+}
+
+/** Expand output objects by export type */
+export type ExpandedExportType = {
+    export_type: ExportType
+    file: string
+    format: InternalModuleFormat
+    export_key: string
 }
 export const getPackageExports = (
     args: Array<OutputObjReturnType & { plugins: RollupOptions['plugins'] }>,
@@ -308,6 +308,7 @@ export const getPackageExports = (
     }
 }
 
+/** @internal */
 export const rollup = {
     CDN_PLUGINS_BUNDLED,
     DEFAULT_PLUGINS_BUNDLED,
@@ -318,11 +319,17 @@ export const rollup = {
     getPluginsConfiguration,
     getRollupConfig,
 }
+
+/** @internal */
 export default rollup
 
-export { getPluginsConfiguration } from './plugins.js'
 export type {
-    ConfigOptions,
-    PluginKey,
-    PluginsConfiguration,
+    ConfigOptions as RollupPluginConfigOptions,
+    PluginKey as RollupPluginKey,
+    PluginsConfiguration as RollupPluginConfiguration,
+} from './plugins.js'
+export {
+    CDN_PLUGINS_BUNDLED,
+    DEFAULT_PLUGINS_BUNDLED,
+    getPluginsConfiguration,
 } from './plugins.js'

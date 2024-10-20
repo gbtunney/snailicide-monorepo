@@ -11,10 +11,13 @@ export type Pattern = string | RegExp
 
 /** @internal */
 export type TrimCharacters = {
-    doTrimStart?: boolean ///default is true.
-    doTrimEnd?: boolean ///default is true.
+    /** Default is true. */
+    doTrimStart?: boolean
+    /** Default is true. */
+    doTrimEnd?: boolean
 }
 /** @internal */
 export type ReplaceCharacters = {
-    replacement: string ///default is empty string
+    /** Default is is empty string */
+    replacement: string
 }

@@ -2,18 +2,19 @@ import { Config } from 'typescript-eslint'
 
 export const eslintCommentRules = (): Config => [
     {
+        name: 'ESLint Comments : ERROR',
         rules: {
-            // disallow a eslint-enable comment for multiple eslint-disable comments
+            /* disallow a eslint-enable comment for multiple eslint-disable comments */
             'eslint-comments/no-aggregating-enable': 'error',
-            // disallow duplicate eslint-disable comments
+            /*disallow duplicate eslint-disable comments*/
             'eslint-comments/no-duplicate-disable': 'error',
-            // disallow eslint-disable comments without rule names
+            /*   disallow eslint-disable comments without rule names */
             'eslint-comments/no-unlimited-disable': 'error',
-            // disallow unused eslint-disable comments
+            /* disallow unused eslint-disable comments*/
             'eslint-comments/no-unused-disable': 'error',
-            // disallow unused eslint-enable comments
+            /* disallow unused eslint-enable comments*/
             'eslint-comments/no-unused-enable': 'error',
-            // disallow ESLint directive-comments
+            /*  disallow ESLint directive-comments*/
             'eslint-comments/no-use': [
                 'error',
                 {

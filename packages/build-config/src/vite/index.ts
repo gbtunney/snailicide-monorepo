@@ -1,12 +1,13 @@
-import { defineConfig, UserConfig } from 'vite'
 /**
- * Vite configurations
- *
+ * Vite Configuration ( only docserver for now )
  * @module vite
+ * @see [Vite - Next Generation Frontend Tooling](https://vitejs.dev/)
  */
 
-/** Vite configuration for documentation server* */
-export const docServerConfig = (port = 5555): UserConfig => {
+import { defineConfig, UserConfig } from 'vite'
+
+/** Vite configuration for documentation server */
+export const viteDocServerConfig = (port = 5555): UserConfig => {
     return defineConfig({
         base: './',
         publicDir: './docs',
@@ -18,6 +19,9 @@ export const docServerConfig = (port = 5555): UserConfig => {
     })
 }
 
+/** @ignore */
 export const vite = {
-    docServer: docServerConfig,
+    docServer: viteDocServerConfig,
 }
+
+export type { UserConfig as ViteUserConfig } from 'vite'

@@ -4,21 +4,18 @@ import { removeNonWord, replaceAccents } from './string-utils.js'
 
 /**
  * Converts a string to lowercase.
- *
  * @category Case
  */
 export const lowerCase = (value: string): string => toLower(value)
 
 /**
  * Converts a string to uppercase.
- *
  * @category Case
  */
 export const upperCase = (value: string): string => toUpper(value)
 
 /**
  * Capitalizes the first letter of each word in a string.
- *
  * @category Case
  */
 export const capitalizeWords = (value: string): string =>
@@ -26,7 +23,6 @@ export const capitalizeWords = (value: string): string =>
 
 /**
  * Converts a string to camelCase.
- *
  * @category Case
  */
 export const camelCase = (value: string): string => {
@@ -50,7 +46,6 @@ export const camelCase = (value: string): string => {
 
 /**
  * Adds space between camelCase text.
- *
  * @category Case
  */
 export const unCamelCase = (value: string): string =>
@@ -62,7 +57,6 @@ export const unCamelCase = (value: string): string =>
 
 /**
  * Converts a string to proper case (UPPERCASE first char of each word).
- *
  * @category Case
  */
 export const properCase = (value: string): string =>
@@ -70,7 +64,6 @@ export const properCase = (value: string): string =>
 
 /**
  * Converts a string to PascalCase.
- *
  * @category Case
  */
 export const pascalCase = (value: string): string =>
@@ -78,7 +71,6 @@ export const pascalCase = (value: string): string =>
 
 /**
  * Converts a string to sentence case.
- *
  * @category Case
  */
 export const sentenceCase = (value: string): string =>
@@ -93,7 +85,6 @@ export const sentenceCase = (value: string): string =>
 
 /**
  * Converts a string to slug format with a specified delimiter.
- *
  * @category Case
  */
 export const slugify = (value: string, delimiter = '-'): string => {
@@ -103,7 +94,6 @@ export const slugify = (value: string, delimiter = '-'): string => {
 
 /**
  * Converts camelCase text to hyphenated text. ( kabobcase!)
- *
  * @category Case
  */
 export const hyphenate = (value: string): string =>
@@ -111,7 +101,6 @@ export const hyphenate = (value: string): string =>
 
 /**
  * Converts hyphenated text to spaces.
- *
  * @category Case
  */
 export const unhyphenate = (value: string): string =>
@@ -119,7 +108,6 @@ export const unhyphenate = (value: string): string =>
 
 /**
  * Converts camelCase text to underscored text.
- *
  * @category Case
  */
 export const underscore = (value: string): string =>

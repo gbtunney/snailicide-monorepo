@@ -2,7 +2,8 @@
 
 ## Permissions
 
-sudo chmod -R 600 ~/.ssh/_ sudo chmod -R 644 ~/.ssh/_.pub sudo chmod -R 644 ~/.ssh/config
+sudo chmod -R 600 ~/.ssh/_ sudo chmod -R 644 ~/.ssh/_.pub sudo chmod -R 644
+~/.ssh/config
 
 ## Check permissions
 

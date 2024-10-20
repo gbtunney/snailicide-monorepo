@@ -1,6 +1,7 @@
 # Ignore
 dist
 types
+docs
 node_modules
 #TODO: figure out where to put these
 .eslintrc.js
@@ -8,7 +9,11 @@ node_modules
 .eslint-local.cjs
 .eslint-local.d.cts
 tsconfig-base.json
+*.d.mts
+*.mjs
+*.d.mts
+*.map
 
+*.mjs.map
 # Allow
 !src/tsconfig/tsconfig-base.json
-!docs

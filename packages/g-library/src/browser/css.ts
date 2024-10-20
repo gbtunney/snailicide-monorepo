@@ -1,6 +1,5 @@
 /**
  * Special CSS color value properties (that are not colors)
- *
  * @group CSS
  */
 export type CSSColorSpecial =

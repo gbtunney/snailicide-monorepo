@@ -1,47 +1,141 @@
-import { TypeDocOptions } from 'typedoc'
-import { PluginOptions } from 'typedoc-plugin-markdown'
-import fs from 'fs'
-import * as path from 'path'
+import { merge as deepmerge } from 'ts-deepmerge'
+import type { Merge } from 'type-fest'
+import { ReflectionKind } from 'typedoc'
+import { PluginOptions as MarkdownPluginOptions } from 'typedoc-plugin-markdown'
 
-export type TypedocMarkdownConfig = Partial<TypeDocOptions> &
-    Partial<PluginOptions>
+import {
+    fileSharedOptions,
+    TypedocConfigFunction,
+    TypedocOptions,
+} from './shared.js'
+export type RemarkPluginOptions = {
+    /** An array of remark plugin names. */
+
+    /** |Record<string, unknown>; */
+    remarkPlugins?: unknown
+
+    /** Custom options for the remark-stringify plugin. */
+    remarkStringifyOptions?: unknown
+}
+export type TypedocMarkdownOptions = TypedocOptions<
+    Merge<MarkdownPluginOptions, RemarkPluginOptions>
+>
+
+const markdownBase = (): TypedocMarkdownOptions => {
+    const options: TypedocMarkdownOptions = {
+        categorizeByGroup: true,
+
+        /** Typedoc-plugin-markdown formats */
+        enumMembersFormat: 'table',
+
+        /** Exclusions */
+        excludeExternals: false,
+
+        excludeInternal: true,
+        excludeReferences: false,
+        expandObjects: true,
+        groupOrder: SORT_ORDER,
+        includeVersion: true,
+        indexFormat: 'table',
+
+        /** Sort order */
+        kindSortOrder: SORT_ORDER,
+        mergeReadme: true,
+        outputFileStrategy: 'members',
+
+        parametersFormat: 'table',
+
+        /** Typedoc Plugins */
+        plugin: ['typedoc-plugin-markdown', 'typedoc-plugin-zod'],
+        propertiesFormat: 'table',
+        sanitizeComments: true,
+        sort: ['kind', 'source-order'],
+        typeDeclarationFormat: 'table',
+
+        useCodeBlocks: true,
+    }
+    return options
+}
+const SORT_ORDER: Array<ReflectionKind.KindString> = [
+    'Module',
+    'Namespace',
+    'Function',
+    'Variable',
+    'TypeAlias',
+    'Enum',
+    'EnumMember',
+    'Parameter',
+    'TypeParameter',
+    'TypeLiteral',
+    'IndexSignature',
+    'Property',
+    'Accessor',
+    'Method',
+    'Class',
+    'Interface',
+    'Constructor',
+    'Reference',
+    'Project',
+    'CallSignature',
+    'ConstructorSignature',
+    'GetSignature',
+    'SetSignature',
+]
+const enableRemarkPlugins = (
+    prettier: boolean = true,
+    toc: boolean = true,
+    maxDepth: number = 3,
+): TypedocMarkdownOptions => {
+    return prettier || toc
+        ? {
+              plugin: ['typedoc-plugin-remark'],
+              remarkPlugins: [
+                  ...(prettier ? ['unified-prettier'] : []),
+                  ...(toc ? [['remark-toc', { maxDepth }]] : []),
+              ],
+          }
+        : {}
+}
 
 /** Typedoc-plugin-markdown is required */
-export const configMarkdown = (
-    __dirname: string,
-): undefined | TypedocMarkdownConfig => {
-    const resolvedDirname = path.resolve(__dirname)
-    if (!fs.existsSync(resolvedDirname)) {
-        console.error('The directory ', resolvedDirname, ' does not exist.')
-    } else {
-        /* eslint sort/object-properties:off */
-        const options: Partial<TypeDocOptions> & Partial<PluginOptions> = {
-            /** This uses a "module" format, using the index of each subfolder */
-            entryPoints: [path.resolve(`${resolvedDirname}/src/**/index.ts`)],
-            tsconfig: path.resolve(`${resolvedDirname}/src/`),
-            readme: path.resolve(`${resolvedDirname}/README.md`),
-            out: path.resolve(`${resolvedDirname}/docs`),
-            exclude: [
-                '**/*.test.ts',
-                'node_modules/**/*',
-                '**/node_modules/**/*',
-            ],
-            excludeExternals: true,
-            gitRevision: 'master',
-            /** Typedoc-plugin-markdown options */
-            enumMembersFormat: 'table',
-            parametersFormat: 'table',
-            propertiesFormat: 'table',
-            typeDeclarationFormat: 'table',
-            expandObjects: true,
-            indexFormat: 'table',
-            mergeReadme: true,
-            outputFileStrategy: 'modules',
-            plugin: ['typedoc-plugin-markdown', 'typedoc-plugin-zod'],
-            useCodeBlocks: true,
-        }
-        return options
+export const configMarkdown: TypedocConfigFunction<
+    Merge<MarkdownPluginOptions, RemarkPluginOptions>
+> = (__dirname, _options) => {
+    const _fileOptions = fileSharedOptions(__dirname)
+    const options_to_merge: TypedocMarkdownOptions =
+        _options !== undefined ? _options : {}
+
+    if (_fileOptions !== undefined) {
+        const options: TypedocMarkdownOptions = deepmerge(
+            {
+                ..._fileOptions,
+                ...markdownBase(),
+            },
+            enableRemarkPlugins(true, true),
+        ) as TypedocMarkdownOptions
+        return deepmerge(options, options_to_merge) as TypedocMarkdownOptions
     }
+    return undefined
+}
+
+export const configVitepress: TypedocConfigFunction<
+    Merge<MarkdownPluginOptions, RemarkPluginOptions>
+> = (__dirname, _options) => {
+    const _fileOptions = fileSharedOptions(__dirname)
+    const options_to_merge: TypedocMarkdownOptions =
+        _options !== undefined ? _options : {}
+    if (_fileOptions !== undefined) {
+        const options: TypedocMarkdownOptions = deepmerge(
+            {
+                ..._fileOptions,
+                ...markdownBase(),
+                ...enableRemarkPlugins(false, false),
+            },
+            { plugin: ['typedoc-vitepress-theme'] },
+        ) as TypedocMarkdownOptions
+        return deepmerge(options, options_to_merge) as TypedocMarkdownOptions
+    }
+
     return undefined
 }
 export default configMarkdown

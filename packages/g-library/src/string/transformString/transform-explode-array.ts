@@ -9,7 +9,7 @@ import {
     isString,
 } from '../../typeguard/utility.typeguards.js'
 
-//todo: fix these mangled chars
+/** Todo: fix these mangled chars */
 export const transformExplodeArray = function ({
     delimiter = ',',
     prefix = undefined,
@@ -55,7 +55,8 @@ export const transformExplodeArray = function ({
         : result
 }
 
-export const DEFAULT_EXPLODE_REGEX = new RegExp(/[ ,]/g) /// default splitter by class
+/** Default split by css class */
+export const DEFAULT_EXPLODE_REGEX = new RegExp(/[ ,]/g)
 
 /** This splits a string of windicss classes.? */
 export const explodeCSSClassString = ({

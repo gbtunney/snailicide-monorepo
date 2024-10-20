@@ -41,7 +41,8 @@ export namespace LocalSchema {
           : T
 
     export type Block<_Settings = {}, TypeString = string> = {
-        type: TypeString extends string ? TypeString : undefined //"gillian"
+        /** "gillian" */
+        type: TypeString extends string ? TypeString : undefined
         name?: string
         limit?: number
         settings?: _Settings
@@ -63,7 +64,7 @@ export namespace LocalSchema {
         {
             [Key in keyof T]: {
                 type: Key
-                name?: string //> type?
+                name?: string /** > Type? */
                 settings?: PresetSettings<Simplify<T[Key]['settings']>>
             }
         }[keyof T]
@@ -154,7 +155,7 @@ export const defineBlocks = (
         {},
     )
 }
-/* * Define Schema Preset - this is mostly for prefixing something. * */
+/** Define Schema Preset - this is mostly for prefixing something. */
 export const defineSchemaPreset = (
     value: SectionSchema.PresetSettings,
     _prefix: string | undefined = undefined,

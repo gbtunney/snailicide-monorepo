@@ -47,7 +47,7 @@ export const packagePrompts: Array<PromptQuestion> = [
         type: 'list',
     },
     {
-        // no reasonable default for node packages
+        /** No reasonable default for node packages */
         default: (answers: Partial<PackageSchema>) => {
             if (answers !== undefined && answers.target !== undefined) {
                 type EnumPresetKeys = keyof typeof EnumDescriptionPresets
@@ -72,7 +72,8 @@ export const packagePrompts: Array<PromptQuestion> = [
         default: 'gbtunney@mac.com',
         message: 'Author email:',
         name: 'author_email',
-        type: 'input', ///todo: make config obj
+        /** Todo: make config obj */
+        type: 'input',
         validate: (input: unknown) => {
             const parseObj =
                 packageSchemaProps.author_email.isOptional() && input === ''

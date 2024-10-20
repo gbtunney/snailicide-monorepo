@@ -1,18 +1,21 @@
 /**
- * Eslint Flat Configuration
- *
- * @module eslint
+ * Eslint / Tslint Configuration
+ * @see [eslint - Find and fix problems in your JavaScript code.](https://eslint.org/)
+ * @see [typescript-eslint](https://typescript-eslint.io/getting-started/)
+ * @see Styleguide: _(rule motivation and reference)_ {@link [TypeScript Style Guide](https://mkosir.github.io/typescript-style-guide/) }
  */
-export type EslintConfig = Config
+import { flatEslintConfig } from './base.js'
 
-import type { Config } from 'typescript-eslint'
-import config from './base.js'
-/* * ESLint Namespace * */
+/** @ignore */
 export const EsLint: {
-    config: typeof config
-    flatConfig: typeof config
+    config: typeof flatEslintConfig
+    flatConfig: typeof flatEslintConfig
 } = {
-    config,
-    flatConfig: config,
+    config: flatEslintConfig,
+    flatConfig: flatEslintConfig,
 }
-export default EsLint
+
+export { flatEslintConfig } from './base.js'
+export { flatEslintConfig as config } from './base.js'
+export type { Config as EslintConfig } from 'typescript-eslint'
+export type { Config as TsConfig } from 'typescript-eslint'

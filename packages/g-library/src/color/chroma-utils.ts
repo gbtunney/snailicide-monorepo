@@ -46,7 +46,7 @@ const rotateHueFunction = (hue: number, incrementValue: number): number => {
     //todo: chheck to see if inc is an integer.
     return (hue + incrementValue) % 360
 }
-//RA.rangeStep(5, 0, 20); // => [0, 5, 10, 15]
+/** RA.rangeStep(5, 0, 20); // => [0, 5, 10, 15] */
 export const complement = (
     color: Chromable,
     format: ColorFormat = 'hsl',
@@ -134,12 +134,12 @@ const chromaColorBrighten = (
     return undefined
 }
 
-/*Inputs: BaseColor, HueVariation
-
-Color1 = BaseColor
-Color2 = ColorFromHSL(Hue(BaseColor) + HueVariation, Saturation(BaseColor), Lightness(BaseColor))
-Color3 = ColorFromHSL(Hue(BaseColor) - HueVariation, Saturation(BaseColor), Lightness(BaseColor))
-  */
+/**
+ * Inputs: BaseColor, HueVariation
+ *
+ * Color1 = BaseColor Color2 = ColorFromHSL(Hue(BaseColor) + HueVariation, Saturation(BaseColor), Lightness(BaseColor))
+ * Color3 = ColorFromHSL(Hue(BaseColor) - HueVariation, Saturation(BaseColor), Lightness(BaseColor))
+ */
 function _analogous(color: Chromable, results: number, slices: number): void {
     /*results = results || 6;
         slices = slices || 30;
@@ -195,7 +195,7 @@ export type ChromaColorPalatte = {
     lightness: number
     luminance: number
     temperature: number
-    //palattes.
+    /** Palattes. */
     complement: Color
     split_complement: Array<Color>
     triad: Array<Color>

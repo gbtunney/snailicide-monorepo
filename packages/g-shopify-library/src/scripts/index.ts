@@ -3,9 +3,7 @@ import { numeric, stringUtils, tg } from '@snailicide/g-library'
 import * as RA from 'ramda-adjunct'
 
 /**
- * Converts a potentially encoded Global ID (GID) to its decoded form if it is a
- * valid GID, otherwise returns undefined.
- *
+ * Converts a potentially encoded Global ID (GID) to its decoded form if it is a valid GID, otherwise returns undefined.
  * @function toGID
  * @param {string} value - The GID to decode.
  * @returns {string | undefined} The decoded GID if valid, otherwise undefined.
@@ -16,7 +14,6 @@ export const toGID = (value: string): string | undefined => {
 
 /**
  * Checks if the provided string is an encoded GID.
- *
  * @function isEncodedGID
  * @param {string} value - The string to check.
  * @returns {boolean} True if the string is an encoded GID, false otherwise.
@@ -32,7 +29,6 @@ export const isEncodedGID = <Type extends string>(
 }
 /**
  * Determines if the provided string is a valid GID.
- *
  * @function isGID
  * @param {string} value - The string to validate.
  * @returns {boolean} True if the string is a valid GID, false otherwise.
@@ -49,15 +45,11 @@ export const isGID = <Type extends string>(value: Type): value is Type => {
           : false
 }
 /**
- * Checks if the provided value can be parsed into a Shopify ID (SID) with a
- * minimum number of digits.
- *
+ * Checks if the provided value can be parsed into a Shopify ID (SID) with a minimum number of digits.
  * @function isParsableToSID
  * @param {string | number} value - The value to check.
- * @param {number} [min_digits=9] - The minimum number of digits required for
- *   the SID. Default is `9`
- * @returns {boolean} True if the value can be parsed into a SID, false
- *   otherwise.
+ * @param {number} [min_digits] - The minimum number of digits required for the SID. Default is `9`
+ * @returns {boolean} True if the value can be parsed into a SID, false otherwise.
  */
 export const isParsableToSID = <Type extends string | number>(
     value: Type,
@@ -74,15 +66,11 @@ export const isParsableToSID = <Type extends string | number>(
 }
 
 /**
- * Converts a GID to a Shopify ID (SID) if possible, considering a minimum
- * number of digits.
- *
+ * Converts a GID to a Shopify ID (SID) if possible, considering a minimum number of digits.
  * @function toSID
  * @param {string} value - The GID to convert.
- * @param {number} [min_digits=9] - The minimum number of digits required for
- *   the SID. Default is `9`
- * @returns {number | undefined} The SID if conversion is possible, otherwise
- *   undefined.
+ * @param {number} [min_digits] - The minimum number of digits required for the SID. Default is `9`
+ * @returns {number | undefined} The SID if conversion is possible, otherwise undefined.
  */
 export const toSID = <Type extends string>(
     value: Type,
@@ -105,13 +93,10 @@ export const toSID = <Type extends string>(
 }
 
 /**
- * Determines if the provided value is a valid Shopify ID (SID), considering a
- * minimum number of digits.
- *
+ * Determines if the provided value is a valid Shopify ID (SID), considering a minimum number of digits.
  * @function isSID
  * @param {number | string} value - The value to validate.
- * @param {number} [min_digits=9] - The minimum number of digits required for
- *   the SID. Default is `9`
+ * @param {number} [min_digits] - The minimum number of digits required for the SID. Default is `9`
  * @returns {boolean} True if the value is a valid SID, false otherwise.
  */
 export const isSID = <Type extends number | string>(
@@ -129,22 +114,14 @@ export const isSID = <Type extends number | string>(
 }
 
 /**
- * Generates a Shopify media URL with optional parameters for resizing and
- * cropping.
- *
+ * Generates a Shopify media URL with optional parameters for resizing and cropping.
  * @function shopifyMediaURL
- * @param {string} [src=undefined] - The source URL of the media. Default is
- *   `undefined`
- * @param {number | string} [width=undefined] - The desired width of the media.
- *   Default is `undefined`
- * @param {number | string} [height=undefined] - The desired height of the
- *   media. Default is `undefined`
- * @param {'top' | 'center' | 'bottom' | 'left' | 'right'} [crop=undefined] -
- *   The crop position. Default is `undefined`
- * @param {boolean} [scale=false] - Whether to scale the image. Default is
- *   `false`
- * @returns {string | undefined} The modified media URL or undefined if the
- *   source URL is invalid.
+ * @param {string} [src] - The source URL of the media. Default is `undefined`
+ * @param {number | string} [width] - The desired width of the media. Default is `undefined`
+ * @param {number | string} [height] - The desired height of the media. Default is `undefined`
+ * @param {'top' | 'center' | 'bottom' | 'left' | 'right'} [crop] - The crop position. Default is `undefined`
+ * @param {boolean} [scale] - Whether to scale the image. Default is `false`
+ * @returns {string | undefined} The modified media URL or undefined if the source URL is invalid.
  */
 export const shopifyMediaURL = (
     src: string | undefined = undefined,

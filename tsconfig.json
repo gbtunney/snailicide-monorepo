@@ -9,5 +9,12 @@
         "rootDir": "."
     },
     "exclude": ["./*.ts"],
-    "files": ["./commitlint.config.ts", "./prettier.config.ts"]
+    "files": [
+        "./.lintstagedrc.mts",
+        "./.markdownlint-cli2.mts",
+        "./commitlint.config.ts",
+        "./prettier.config.ts"
+        //  "./typedoc.config.ts"
+        // "./.vitepress/config.mts"
+    ]
 }

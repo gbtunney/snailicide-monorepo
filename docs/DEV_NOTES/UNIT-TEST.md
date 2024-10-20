@@ -2,11 +2,11 @@
 
 ## Possible JEST alternative?
 
--   [avajs/ava: Node.js test runner🚀](https://github.com/avajs/ava)
+- [avajs/ava: Node.js test runner🚀](https://github.com/avajs/ava)
 
 ## Backstop
 
--   [garris/BackstopJS: automated visual regression testing](https://github.com/garris/BackstopJS)
+- [garris/BackstopJS: automated visual regression testing](https://github.com/garris/BackstopJS)
 
 ## Puppeteer
 

@@ -1,9 +1,11 @@
 /**
- * @file Commitlint configuration for the Monorepo.
- * @author Gillian Tunney
+ * Commitlint configuration for use in Monorepo.
  * @see [commitlint - Lint commit messages](https://commitlint.js.org/#/)
+ * @see [commitlint-config-conventional - Shareable commitlint config](https://www.npmjs.com/package/@commitlint/config-conventional)
+ * @see [Commitizen](https://commitizen-tools.github.io/commitizen/)
  */
-import type { UserConfig } from '@commitlint/types'
+import type { UserConfig as CommitlintUserConfig } from '@commitlint/types'
+import type { Writable } from 'type-fest'
 
 export const COMMIT_TYPES = [
     'feat',
@@ -19,12 +21,12 @@ export const COMMIT_TYPES = [
     'revert',
     'style',
     'test',
-]
-const configuration = (
+] as const
+export const configuration = (
     scope_enum: Array<string> = [],
-    type_enum: Array<string> = COMMIT_TYPES,
-): UserConfig => {
-    const baseConfig: UserConfig = {
+    type_enum: Array<string> = COMMIT_TYPES as Writable<typeof COMMIT_TYPES>,
+): CommitlintUserConfig => {
+    const baseConfig: CommitlintUserConfig = {
         extends: ['@commitlint/config-conventional'],
         prompt: {
             messages: {
@@ -147,8 +149,11 @@ const configuration = (
     }
     return baseConfig
 }
+
+/** @ignore */
 export const commitlint = {
     commit_types: COMMIT_TYPES,
     configuration,
 }
-export default commitlint
+
+export type { UserConfig as CommitlintUserConfig } from '@commitlint/types'

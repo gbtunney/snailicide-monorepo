@@ -7,17 +7,17 @@ describe('zod', () => {
     test('zod', () => {
         type GlobalColorSettingsGroup = {
             //todo: look at why header type doesnt matter,
-            /* * Colors * */
+            /** - Colors */
             color_header: Setting<'paragraph'>
             colors_solid_button_labels: Setting<'color'>
 
-            /* * Accent Colors * */
+            /** - Accent Colors */
             colors_accent_1: Setting<'color'>
             gradient_accent_1: Setting<'color_background'>
             colors_accent_2: Setting<'color'>
             gradient_accent_2: Setting<'color_background'>
 
-            /* * Primary Colors * */
+            /** - Primary Colors */
             color_header2: Setting<'header'>
 
             colors_text: Setting<'color'>

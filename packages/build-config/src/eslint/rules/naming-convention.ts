@@ -1,7 +1,13 @@
 import { Config } from 'typescript-eslint'
+import { getFileExtensionList, TS_FILE_EXTENSIONS } from '../../utilities.js'
+
+/** @todo: breakdown this file into groups? */
 export const namingConventionRules = (error: boolean = true): Config => [
     {
-        files: ['**/src/**/*.ts'],
+        files: [
+            ...getFileExtensionList(TS_FILE_EXTENSIONS, false, '**/src/**/*.'),
+        ],
+        name: 'Naming Convention: General rules for source files',
         rules: {
             '@typescript-eslint/naming-convention': [
                 error ? 'error' : 'warn',
@@ -23,10 +29,8 @@ export const namingConventionRules = (error: boolean = true): Config => [
                     modifiers: ['exported'],
                     selector: ['variable', 'function'],
                 },
-                /**
-                 * Enforce that boolean variables are prefixed with an allowed
-                 * verb
-                 */
+
+                /** Enforce that boolean variables are prefixed with an allowed verb */
 
                 {
                     format: ['snake_case', 'camelCase'],
@@ -47,12 +51,10 @@ export const namingConventionRules = (error: boolean = true): Config => [
                     custom: { match: true, regex: '^[A-Z]([A-Z]|[a-z]){2,}' },
                     format: ['PascalCase'],
 
-                    /**
-                     * A generic variable must start with the capital letter T
-                     * followed by a descriptive name
-                     */
+                    /** A generic variable must start with the capital letter T followed by a descriptive name */
                     selector: 'typeParameter',
                 },
+
                 /** Enforce that all const variables are in UPPER_CASE */
                 {
                     format: ['UPPER_CASE'],
@@ -69,6 +71,7 @@ export const namingConventionRules = (error: boolean = true): Config => [
                     selector: 'enumMember',
                 },
                 //@typescript-eslint/naming-convention
+
                 /** Enforce that private members are prefixed with an underscore */
                 {
                     format: ['camelCase'],
@@ -80,7 +83,14 @@ export const namingConventionRules = (error: boolean = true): Config => [
         },
     },
     {
-        files: ['**/src/**/index.ts'],
+        files: [
+            ...getFileExtensionList(
+                TS_FILE_EXTENSIONS,
+                false,
+                '**/src/**/index.',
+            ),
+        ],
+        name: 'Naming Convention: Overriden rules for index files in src',
         rules: {
             '@typescript-eslint/naming-convention': [
                 error ? 'error' : 'warn',

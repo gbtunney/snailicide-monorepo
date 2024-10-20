@@ -21,10 +21,11 @@
         ],
         "./tsconfig-base": "./tsconfig-base.json",
         "./eslint": "./dist/.eslintrc.json",
+        "./markdownlint": "./dist/.markdownlint.json",
         "./prettier": "./dist/.prettierrc.json"
     },
     "main": "./dist/index.js",
-    "types": "./types/index.d.ts",
+    "types": "./dist/index.d.ts",
     "scripts": {
         "\n========== BUILD >> ==========": "",
         "build": " pnpm build:ts && pnpm build:rollup",
@@ -37,22 +38,28 @@
         "test": "vitest run",
         "test:watch": "vitest watch",
         "\n========== DOCS >> ==========": "",
-        "docs:build": "pnpm run build:ts && pnpm exec typedoc && pnpm docs:format",
-        "docs:format": "pnpm exec prettier \"./docs\" --write",
+        "docs:dev": "pnpm run docs:typedoc && vitepress dev",
+        "docs:build": "pnpm run docs:typedoc && vitepress build",
+        "docs:preview": "pnpm run docs:typedoc &&  vitepress preview",
+        "docs:typedoc": "pnpm run build && pnpm exec typedoc",
         "\n========== PUBLISH >> ==========": "",
         "release": "pnpm prerelease && pnpm publish --access public --report-summary",
         "prerelease": "pnpm clean && pnpm build && pnpm docs:build && pnpm test && pnpm run release:archive",
         "release:archive": "mkdir -p ./releases &&  pnpm exec npm pack --pack-destination='./releases'",
         "\n========== CODE STYLE >> ==========": "",
-        "lint": "pnpm exec eslint -c \"$(git rev-parse --show-toplevel)/eslint.config.js\" .",
+        "prettier": "cross-var prettier ./.husky/* --ignore-path ./.gitignore --no-error-on-unmatched-pattern {$npm_package_config_prettier_path}.{$npm_package_config_prettier_extensions} --config $(git rev-parse --show-toplevel)/$npm_package_config_prettier_config",
+        "lint": "cross-var eslint -c $(git rev-parse --show-toplevel)/$npm_package_config_eslint_config",
+        "lint:md": "pnpm exec markdownlint-cli2 '{./*,./**/*}.md' '#**/node_modules/**' '#packages/test-package/**/*' ",
         "\n========== CHECK >> ==========": "",
         "check": "pnpm lint",
+        "check:md": "pnpm run lint:md",
         "\n========== FIX >> ==========": "",
-        "fix": "pnpm lint --fix",
+        "fix": "pnpm prettier --write && pnpm lint --fix",
+        "fix:md": "pnpm run lint:md --fix",
         "\n========== CLEAN >> ==========": "",
         "clean": "pnpm clean:ts && pnpm clean:build",
         "clean:ts": "tsc --build --clean && rm -R -f tsconfig-base.json",
-        "clean:build": "rm -R -f dist types"
+        "clean:build": "rm -R -f dist types docs"
     },
     "keywords": [
         "eslint",
@@ -79,7 +86,11 @@
         "@rollup/plugin-json": "^6.1.0",
         "@rollup/plugin-node-resolve": "^15.2.3",
         "@rollup/plugin-terser": "^0.4.4",
+        "@shikijs/core": "^1.14.1",
+        "@shikijs/transformers": "1.14.1",
         "@types/eslint": "^9.6.0",
+        "@types/markdown-it": "^14.1.2",
+        "@vitejs/plugin-vue": "^5.1.2",
         "eslint": "^9.7.0",
         "eslint-plugin-eslint-comments": "^3.2.0",
         "eslint-plugin-filenames-simple": "^0.9.0",
@@ -90,6 +101,8 @@
         "eslint-plugin-vitest": "^0.5.4",
         "flat": "^6.0.1",
         "globals": "^15.8.0",
+        "markdown-it": "^14.1.0",
+        "markdownlint": "^0.35.0",
         "prettier": "^3.3.2",
         "ramda": "^0.30.1",
         "ramda-adjunct": "^5.0.1",
@@ -97,12 +110,14 @@
         "rollup-plugin-polyfill-node": "^0.13.0",
         "rollup-plugin-ts": "^3.4.5",
         "semver": "^7.6.3",
+        "shiki": "^1.14.1",
         "sort-package-json": "^2.10.1",
         "ts-deepmerge": "^7.0.1",
-        "type-fest": "^4.22.1",
+        "type-fest": "^4.25.0",
         "typescript-eslint": "^8.0.0",
         "vite": "^5.4.2",
         "vitest": "^2.0.3",
+        "vue": "^3.4.38",
         "zod": "^3.23.8"
     },
     "peerDependencies": {
@@ -115,18 +130,38 @@
         "vitest": "^1.6.0"
     },
     "devDependencies": {
+        "@rollup/plugin-typescript": "^11.1.6",
         "@types/node": "^22.5.0",
         "@types/ramda": "^0.30.1",
         "@types/semver": "^7.5.8",
         "@types/shelljs": "^0.8.12",
         "cross-var": "^1.1.0",
+        "markdownlint-cli": "^0.41.0",
+        "remark-github": "^12.0.0",
+        "remark-toc": "^9.0.0",
         "rollup": "^4.19.0",
         "shelljs": "^0.8.5",
         "ts-node": "^10.9.1",
         "typedoc": "^0.26.5",
         "typedoc-plugin-markdown": "4.2.5",
+        "typedoc-plugin-remark": "^1.0.3",
         "typedoc-plugin-zod": "^1.2.0",
-        "typescript": "^5.2.2"
+        "typedoc-vitepress-theme": "^1.0.1",
+        "typescript": "^5.2.2",
+        "unified-prettier": "^2.0.1",
+        "vitepress": "^1.3.4"
     },
-    "prettier": "./dist/.prettierrc.json"
+    "prettier": "./dist/.prettierrc.json",
+    "config": {
+        "prettier": {
+            "extensions": "ts,js,cjs,mjs,cts,mts,sh,html,json,yaml,yml,graphql,md",
+            "path": "*,**/*",
+            "config": "prettier.config.js"
+        },
+        "eslint": {
+            "extensions": "ts,js,cjs,mjs",
+            "path": "*",
+            "config": "eslint.config.js"
+        }
+    }
 }

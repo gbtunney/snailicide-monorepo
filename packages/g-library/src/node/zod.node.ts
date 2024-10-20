@@ -85,7 +85,6 @@ export const fsPathTypeExists = (
 }
 /**
  * Schema validates if it is a glob, and if it exists..
- *
  * @group Zod Schemas
  */
 export const fsPathArrayHasFiles = (

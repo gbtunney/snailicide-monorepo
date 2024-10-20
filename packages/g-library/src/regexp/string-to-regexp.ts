@@ -7,14 +7,10 @@ import { isArray, isRegExp } from '../typeguard/utility.typeguards'
 
 /**
  * Converts a string to a regular expression.
- *
  * @param value - The string value to convert.
- * @param escape - Indicates whether to escape special characters in the string.
- *   Default is false.
- * @param flag - The flag(s) to apply to the regular expression. Default is
- *   'global'.
- * @returns The converted regular expression or undefined if the conversion
- *   fails.
+ * @param escape - Indicates whether to escape special characters in the string. Default is false.
+ * @param flag - The flag(s) to apply to the regular expression. Default is 'global'.
+ * @returns The converted regular expression or undefined if the conversion fails.
  */
 export const stringToRegexp = (
     value: string,
@@ -33,7 +29,6 @@ export const stringToRegexp = (
 
 /**
  * Turn a string or strings into a regexp concatinated with a with an |
- *
  * @param flag - Regexp flag (like g,m)
  * @returns - A joined list
  */
@@ -57,7 +52,6 @@ export const getRegExpTrim = (
 
 /**
  * Turn a string or strings into a regexp that checks the start
- *
  * @see {@link getRegExpEndOfString}
  */
 export const getRegExpStartOfString = (
@@ -73,7 +67,6 @@ export const getRegExpStartOfString = (
 
 /**
  * Turn a string or strings into a regexp that checks the end
- *
  * @see {@link getRegExpStartOfString}
  */
 export const getRegExpEndOfString = (

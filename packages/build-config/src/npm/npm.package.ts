@@ -7,12 +7,14 @@ const wrapSchema = <Type extends z.Schema<unknown>>(schema: Type): Type => {
     return schema
 }
 
+/** Basic representation of NPM's package.json */
 export const packageStandardSchema = (
     base_schema: z.AnyZodObject = basePackage,
 ): typeof base_schema => {
     return wrapSchema<z.AnyZodObject>(base_schema)
 }
 export type BasePackage = z.infer<typeof basePackage>
+
 export type PackageJson<
     Schema extends z.AnyZodObject = typeof basePackage,
     BaseSchema extends z.AnyZodObject = typeof basePackage,
@@ -44,6 +46,8 @@ export const parseNPMPackage = <
         ? mergedSchema.parse(value)
         : undefined
 }
+
+/** Validates a npm package.json object */
 export const isNPMPackage = <
     Schema extends z.AnyZodObject,
     BaseSchema extends z.AnyZodObject = typeof basePackage,
