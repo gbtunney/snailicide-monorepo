@@ -1,8 +1,8 @@
-[**@snailicide/g-shopify-library v0.3.4**](../README.md) • **Docs**
+[**@snailicide/g-shopify-library v0.3.5**](../README.md) • **Docs**
 
 ---
 
-[@snailicide/g-shopify-library v0.3.4](../README.md) / parseSetting
+[@snailicide/g-shopify-library v0.3.5](../README.md) / parseSetting
 
 # Function: parseSetting()
 

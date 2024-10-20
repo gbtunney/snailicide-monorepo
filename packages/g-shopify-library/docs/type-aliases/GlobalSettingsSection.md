@@ -1,8 +1,8 @@
-[**@snailicide/g-shopify-library v0.3.4**](../README.md) • **Docs**
+[**@snailicide/g-shopify-library v0.3.5**](../README.md) • **Docs**
 
 ---
 
-[@snailicide/g-shopify-library v0.3.4](../README.md) / GlobalSettingsSection
+[@snailicide/g-shopify-library v0.3.5](../README.md) / GlobalSettingsSection
 
 # Type Alias: GlobalSettingsSection
 
