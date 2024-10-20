@@ -82,7 +82,7 @@ export const initApp = async <AppOptionsSchema extends ZodObjectSchema>(
               : app_config.name
         const header: string = app_config.print
             ? doPrintHeader(getHeader(app_config))
-            : `\nWelcome to ${app_config.name}\n${
+            : `\nWelcome to ${app_config.name.toString()}\n${
                   getHeader(app_config).divider
               }`
 

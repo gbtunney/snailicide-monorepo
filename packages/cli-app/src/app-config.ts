@@ -70,7 +70,7 @@ export const appConfigSchema = z.object({
     flag_aliases: z
         .record(z.string())
         .default(default_aliases)
-        .transform((value) => {
+        .transform((value: Record<string, string>): Record<string, string> => {
             return { ...value, ...default_aliases }
         }),
     /** Hide an option from the help screen */
@@ -80,7 +80,9 @@ export const appConfigSchema = z.object({
         .describe('hide a key from the help menu'),
     name: z
         .string()
-        .transform((value) => stringUtils.hyphenate(value).toLowerCase()),
+        .transform((value: string): string =>
+            stringUtils.hyphenate(value).toLowerCase(),
+        ),
     print: z.boolean().default(true).describe('Print the header'),
     title_color: z
         .object({
