@@ -1,9 +1,9 @@
-[**@snailicide/vite-plugin-shopify-theme-schema v0.2.4**](../README.md) •
+[**@snailicide/vite-plugin-shopify-theme-schema v0.2.5**](../README.md) •
 **Docs**
 
 ---
 
-[@snailicide/vite-plugin-shopify-theme-schema v0.2.4](../README.md) /
+[@snailicide/vite-plugin-shopify-theme-schema v0.2.5](../README.md) /
 ShopifyThemeSchemaOptions
 
 # Type Alias: ShopifyThemeSchemaOptions

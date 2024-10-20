@@ -1,4 +1,4 @@
-**@snailicide/vite-plugin-shopify-theme-schema v0.2.4** • **Docs**
+**@snailicide/vite-plugin-shopify-theme-schema v0.2.5** • **Docs**
 
 ---
 
