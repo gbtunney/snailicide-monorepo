@@ -1,5 +1,13 @@
 # @snailicide/build-config
 
+## 1.4.0
+
+### Minor Changes
+
+- 964e865: - g-library added minimatch
+  - reworked cli-app
+  - build-config fixed eslint rules
+
 ## 1.3.0
 
 ### Minor Changes
