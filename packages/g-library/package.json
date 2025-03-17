@@ -141,7 +141,7 @@
         },
         "deploy": {
             "docs": {
-                "remote": "bluehost:~/public_html/docs-snailicide",
+                "remote": "bluehost:~/public_html/docs/g-library",
                 "local": "./docs/*"
             }
         },
