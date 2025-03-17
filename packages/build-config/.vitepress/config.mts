@@ -12,6 +12,7 @@ const defineConfiguration = async (
     const vitepressConfig: ReturnType<typeof vitepress> = vitepress(
         typedocSidebar,
         {
+            //todo: idk why this is hererootDir :"docs/build-config/",
             themeConfig: {
                 aside: false,
                 nav: [

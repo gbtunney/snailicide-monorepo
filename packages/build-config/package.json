@@ -42,6 +42,9 @@
         "docs:build": "pnpm run docs:typedoc && vitepress build",
         "docs:preview": "pnpm run docs:typedoc &&  vitepress preview",
         "docs:typedoc": "pnpm run build && pnpm exec typedoc",
+        "\n========== DEPLOY >> ==========": "",
+        "deploy": "pnpm prerelease && pnpm deploy:docs",
+        "deploy:docs": "cross-var scp -r $npm_package_config_deploy_docs_local $npm_package_config_deploy_docs_remote",
         "\n========== PUBLISH >> ==========": "",
         "release": "pnpm prerelease && pnpm publish --access public --report-summary",
         "prerelease": "pnpm clean && pnpm build && pnpm docs:build && pnpm test && pnpm run release:archive",
@@ -59,7 +62,7 @@
         "\n========== CLEAN >> ==========": "",
         "clean": "pnpm clean:ts && pnpm clean:build",
         "clean:ts": "tsc --build --clean && rm -R -f tsconfig-base.json",
-        "clean:build": "rm -R -f dist types docs"
+        "clean:build": "rm -R -f dist types docs .vitepress/dist"
     },
     "keywords": [
         "eslint",
@@ -162,6 +165,12 @@
             "extensions": "ts,js,cjs,mjs",
             "path": "*",
             "config": "eslint.config.js"
+        },
+        "deploy": {
+            "docs": {
+                "remote": "bluehost:~/public_html/docs/build-config",
+                "local": "./.vitepress/dist/**/*"
+            }
         }
     }
 }
