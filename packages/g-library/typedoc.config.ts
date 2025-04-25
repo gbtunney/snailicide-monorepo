@@ -4,16 +4,18 @@ import url from 'node:url'
 import path from 'path'
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 //import { Options as OptionsVitepress }from 'typedoc-vitepress-theme'
+
+/** @todo: needs to be updated to vitepress */
 const custom: Partial<TypeDocOptions> = {
     //  categorizeByGroup: true,
     entryPoints: [path.resolve(`${__dirname}/src/node.ts`)],
-    excludeInternal: true,
+    /* excludeInternal: true,
     navigation: {
         includeCategories: true,
         includeFolders: false,
         includeGroups: true,
-    },
-    plugin: ['typedoc-plugin-remove-references'],
+    },*/
+    //plugin: ['typedoc-plugin-remove-references'],
 }
 
 const defaultConfig = typedoc.materialTheme(__dirname)

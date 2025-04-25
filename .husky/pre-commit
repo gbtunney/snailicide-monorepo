@@ -28,7 +28,7 @@ if [[ "$BRANCH" == 'development' ]]; then
 fi
 # Bypass pre:commit if the branch name contains prefix "wip"
 if [[ "$BRANCH" != *"wip"* ]]; then
-    pnpm run pre:commit
+    pnpm run build
 fi
 
 exit 0
