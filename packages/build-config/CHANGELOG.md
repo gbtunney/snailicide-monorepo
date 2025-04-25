@@ -1,5 +1,11 @@
 # @snailicide/build-config
 
+## 1.4.1
+
+### Patch Changes
+
+- fbf7e30: updated lint rules and formatting
+
 ## 1.4.0
 
 ### Minor Changes
