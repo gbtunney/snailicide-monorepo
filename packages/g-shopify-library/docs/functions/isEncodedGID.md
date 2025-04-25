@@ -1,8 +1,8 @@
-[**@snailicide/g-shopify-library v0.3.5**](../README.md) • **Docs**
+[**@snailicide/g-shopify-library v0.3.5**](../README.md)
 
 ---
 
-[@snailicide/g-shopify-library v0.3.5](../README.md) / isEncodedGID
+[@snailicide/g-shopify-library](../README.md) / isEncodedGID
 
 # Function: isEncodedGID()
 
@@ -10,7 +10,12 @@
 function isEncodedGID<Type>(value): value is Type
 ```
 
+Defined in:
+[packages/g-shopify-library/src/scripts/index.ts:23](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/g-shopify-library/src/scripts/index.ts#L23)
+
 Checks if the provided string is an encoded GID.
+
+isEncodedGID
 
 ## Type Parameters
 
@@ -29,11 +34,3 @@ Checks if the provided string is an encoded GID.
 `value is Type`
 
 True if the string is an encoded GID, false otherwise.
-
-## Function
-
-isEncodedGID
-
-## Defined in
-
-[packages/g-shopify-library/src/scripts/index.ts:21](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/g-shopify-library/src/scripts/index.ts#L21)

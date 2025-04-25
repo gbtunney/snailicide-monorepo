@@ -1,23 +1,20 @@
-**@snailicide/g-shopify-library v0.3.5** • **Docs**
+**@snailicide/g-shopify-library v0.3.5**
 
 ---
 
 # @snailicide/g-shopify-library 🐌
 
 <p align="center">
-  <img alt="Version" src="https://img.shields.io/npm/v/@snailicide/g-shopify-library" />
-
-  <a href="#" target="_blank">
-    <img alt="License: MIT" src="https://img.shields.io/npm/l/@snailicide/g-shopify-library" />
-  </a>
-
-  <a href="#" target="_blank">
-    <img alt="Typescript" height="20px" src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white" />
-  </a>
-
-  <a href="#" target="_blank">
-    <img alt="RollupJS" height="20px" src="https://img.shields.io/badge/RollupJS-ef3335?style=for-the-badge&logo=rollup.js&logoColor=white" />
-  </a>
+ <img alt="Version" src="https://img.shields.io/npm/v/@snailicide/g-shopify-library"/>
+ <a href="#" target="_blank">
+  <img alt="License: MIT" src="https://img.shields.io/npm/l/@snailicide/g-shopify-library"/>
+ </a>
+ <a href="#" target="_blank">
+  <img alt="Typescript" height="20px" src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white"/>
+ </a>
+ <a href="#" target="_blank">
+  <img alt="RollupJS" height="20px" src="https://img.shields.io/badge/RollupJS-ef3335?style=for-the-badge&logo=rollup.js&logoColor=white"/>
+ </a>
 </p>
 
 _This plugin enables Shopify theme developers to structure their code into
@@ -37,18 +34,6 @@ standard file structure of Shopify themes. Please see
 - [github](https://github.com/gbtunney)
 - [email](mailto:gbtunney@mac.com)
 
-## Contents
-
-- [🐌](#)
-- [Features](#features)
-- [Usage](#usage)
-  - [Installation](#installation)
-- [Helpful Links](#helpful-links)
-- [To-Do](#to-do)
-- [Bugs](#bugs)
-- [Functions](#functions)
-- [Type Aliases](#type-aliases)
-
 ## 🐌
 
 > Collections of types and utilities for working with Shopify
@@ -61,7 +46,7 @@ standard file structure of Shopify themes. Please see
   - [To-Do](#to-do)
   - [Bugs](#bugs)
 
-<small><i><a href="http://ecotrust-canada.github.io/markdown-toc/">Table of
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of
 contents generated with markdown-toc</a></i></small>
 
 ## Features
@@ -97,8 +82,8 @@ pnpm add @snailicide/g-shopify-library -D
 
 ## To-Do
 
-- [ ] Presets (in new version)
-- [ ] Documentation
+- \[ ] Presets (in new version)
+- \[ ] Documentation
 
 ## Bugs
 
@@ -106,26 +91,21 @@ Please create an issue if you found any bugs, to help us improve this project!
 
 ## Functions
 
-| Function                                                          | Description                                                                                                           |
-| ----------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| [toGID](functions/toGID.md)                                       | Converts a potentially encoded Global ID (GID) to its decoded form if it is a valid GID, otherwise returns undefined. |
-| [isEncodedGID](functions/isEncodedGID.md)                         | Checks if the provided string is an encoded GID.                                                                      |
-| [isGID](functions/isGID.md)                                       | Determines if the provided string is a valid GID.                                                                     |
-| [isParsableToSID](functions/isParsableToSID.md)                   | Checks if the provided value can be parsed into a Shopify ID (SID) with a minimum number of digits.                   |
-| [toSID](functions/toSID.md)                                       | Converts a GID to a Shopify ID (SID) if possible, considering a minimum number of digits.                             |
-| [isSID](functions/isSID.md)                                       | Determines if the provided value is a valid Shopify ID (SID), considering a minimum number of digits.                 |
-| [shopifyMediaURL](functions/shopifyMediaURL.md)                   | Generates a Shopify media URL with optional parameters for resizing and cropping.                                     |
-| [parseSectionSchema](functions/parseSectionSchema.md)             | -                                                                                                                     |
-| [parseBlockSchema](functions/parseBlockSchema.md)                 | -                                                                                                                     |
-| [parseSettingsGroup](functions/parseSettingsGroup.md)             | -                                                                                                                     |
-| [parseSingleSetting](functions/parseSingleSetting.md)             | -                                                                                                                     |
-| [parseSetting](functions/parseSetting.md)                         | -                                                                                                                     |
-| [parseThemeSettings](functions/parseThemeSettings.md)             | -                                                                                                                     |
-| [parseThemeSettingSection](functions/parseThemeSettingSection.md) | -                                                                                                                     |
+| Function                                              | Description                                                                                                           |
+| ----------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| [toGID](functions/toGID.md)                           | Converts a potentially encoded Global ID (GID) to its decoded form if it is a valid GID, otherwise returns undefined. |
+| [isEncodedGID](functions/isEncodedGID.md)             | Checks if the provided string is an encoded GID.                                                                      |
+| [isGID](functions/isGID.md)                           | Determines if the provided string is a valid GID.                                                                     |
+| [isParsableToSID](functions/isParsableToSID.md)       | Checks if the provided value can be parsed into a Shopify ID (SID) with a minimum number of digits.                   |
+| [toSID](functions/toSID.md)                           | Converts a GID to a Shopify ID (SID) if possible, considering a minimum number of digits.                             |
+| [isSID](functions/isSID.md)                           | Determines if the provided value is a valid Shopify ID (SID), considering a minimum number of digits.                 |
+| [shopifyMediaURL](functions/shopifyMediaURL.md)       | Generates a Shopify media URL with optional parameters for resizing and cropping.                                     |
+| [parseSettingsGroup](functions/parseSettingsGroup.md) | -                                                                                                                     |
+| [parseSingleSetting](functions/parseSingleSetting.md) | -                                                                                                                     |
 
 ## Type Aliases
 
-| Type alias                                                       | Description |
+| Type Alias                                                       | Description |
 | ---------------------------------------------------------------- | ----------- |
 | [ElementTags](type-aliases/ElementTags.md)                       | -           |
 | [PageTypes](type-aliases/PageTypes.md)                           | -           |
@@ -145,3 +125,13 @@ Please create an issue if you found any bugs, to help us improve this project!
 | [ThemeInfo](type-aliases/ThemeInfo.md)                           | -           |
 | [GlobalSettingsSection](type-aliases/GlobalSettingsSection.md)   | -           |
 | [GlobalSettingsSchema](type-aliases/GlobalSettingsSchema.md)     | -           |
+
+## Variables
+
+| Variable                                                          | Description |
+| ----------------------------------------------------------------- | ----------- |
+| [parseSectionSchema](variables/parseSectionSchema.md)             | -           |
+| [parseBlockSchema](variables/parseBlockSchema.md)                 | -           |
+| [parseSetting](variables/parseSetting.md)                         | -           |
+| [parseThemeSettings](variables/parseThemeSettings.md)             | -           |
+| [parseThemeSettingSection](variables/parseThemeSettingSection.md) | -           |

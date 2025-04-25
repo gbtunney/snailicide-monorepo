@@ -2,12 +2,12 @@
 
 ---
 
-[@snailicide/g-shopify-library](../README.md) / parseSingleSetting
+[@snailicide/g-shopify-library](../README.md) / parseSetting
 
-# Function: parseSingleSetting()
+# Variable: parseSetting()
 
 ```ts
-function parseSingleSetting(data, id):
+const parseSetting: (data, id) =>
   | undefined
   | {
   content: string;
@@ -17,11 +17,11 @@ function parseSingleSetting(data, id):
   content: string;
   type: "paragraph";
 }
-| ({ default: boolean; type: "checkbox"; } | { default: number; type: "number"; placeholder?: string | undefined; } | { default: string | number; options: { value: string; label: string; }[]; type: "radio"; } | ... 20 more ... | { ...; }) & { ...; };
+  | ({ default: boolean; type: "checkbox"; } | { default: number; type: "number"; placeholder?: string | undefined; } | { default: string | number; options: { value: string; label: string; }[]; type: "radio"; } | ... 20 more ... | { ...; }) & { ...; } = parseSingleSetting;
 ```
 
 Defined in:
-[packages/g-shopify-library/src/settings/index.ts:137](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/g-shopify-library/src/settings/index.ts#L137)
+[packages/g-shopify-library/src/settings/index.ts:146](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/g-shopify-library/src/settings/index.ts#L146)
 
 ## Parameters
 

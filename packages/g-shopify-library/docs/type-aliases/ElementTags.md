@@ -1,21 +1,14 @@
-[**@snailicide/g-shopify-library v0.3.5**](../README.md) • **Docs**
+[**@snailicide/g-shopify-library v0.3.5**](../README.md)
 
 ---
 
-[@snailicide/g-shopify-library v0.3.5](../README.md) / ElementTags
+[@snailicide/g-shopify-library](../README.md) / ElementTags
 
 # Type Alias: ElementTags
 
 ```ts
-type ElementTags:
-  | "article"
-  | "header"
-  | "div"
-  | "aside"
-  | "footer"
-  | "section";
+type ElementTags = 'article' | 'header' | 'div' | 'aside' | 'footer' | 'section'
 ```
 
-## Defined in
-
+Defined in:
 [packages/g-shopify-library/src/sections/index.ts:18](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/g-shopify-library/src/sections/index.ts#L18)

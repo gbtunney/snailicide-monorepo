@@ -50,7 +50,7 @@
         "lint:staged": "pnpm exec lint-staged --relative --debug",
         "postinstall": "pnpm nx:build:config && pnpm build:self",
         "\n========== CODE STYLE >> ==========": "",
-        "prettier": "cross-var prettier {*,**/*}.{ts,js,cjs,mjs,cts,mts,sh,html,json,yaml,yml,graphql,md} ./.husky/* --ignore-path ./.gitignore --no-error-on-unmatched-pattern --write",
+        "prettier": "cross-var prettier {*,**/*}.{ts,js,cts,cjs,mts,mjs,tsx,jsx,sh,html,json,yaml,yml,graphql,md} ./.husky/* --ignore-path ./.gitignore --no-error-on-unmatched-pattern --write",
         "lint": "cross-var eslint -c $npm_package_config_eslint_config",
         "lint:md": "pnpm exec markdownlint-cli2 '{./*,./**/*}.md' '#**/{node_modules,.changeset,docs}/**' '#packages/cli-template/templates/**/*'",
         "\n========== CHECK >> ==========": "",
@@ -109,8 +109,6 @@
     "prettier": "@snailicide/build-config/prettier",
     "config": {
         "eslint": {
-            "extensions": "ts,js,cjs,mjs",
-            "path": "*",
             "config": "eslint.config.js"
         },
         "commitizen": {

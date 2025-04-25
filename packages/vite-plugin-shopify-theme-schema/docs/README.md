@@ -1,23 +1,20 @@
-**@snailicide/vite-plugin-shopify-theme-schema v0.2.5** • **Docs**
+**@snailicide/vite-plugin-shopify-theme-schema v0.2.5**
 
 ---
 
 # @snailicide/vite-plugin-shopify-theme-schema 🐌
 
 <p align="center">
-  <img alt="Version" src="https://img.shields.io/npm/v/@snailicide/vite-plugin-shopify-theme-schema" />
-
-  <a href="#" target="_blank">
-    <img alt="License: MIT" src="https://img.shields.io/npm/l/@snailicide/vite-plugin-shopify-theme-schema" />
-  </a>
-
-  <a href="#" target="_blank">
-    <img alt="Typescript" height="20px" src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white" />
-  </a>
-
-  <a href="#" target="_blank">
-    <img alt="RollupJS" height="20px" src="https://img.shields.io/badge/RollupJS-ef3335?style=for-the-badge&logo=rollup.js&logoColor=white" />
-  </a>
+ <img alt="Version" src="https://img.shields.io/npm/v/@snailicide/vite-plugin-shopify-theme-schema"/>
+ <a href="#" target="_blank">
+  <img alt="License: MIT" src="https://img.shields.io/npm/l/@snailicide/vite-plugin-shopify-theme-schema"/>
+ </a>
+ <a href="#" target="_blank">
+  <img alt="Typescript" height="20px" src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white"/>
+ </a>
+ <a href="#" target="_blank">
+  <img alt="RollupJS" height="20px" src="https://img.shields.io/badge/RollupJS-ef3335?style=for-the-badge&logo=rollup.js&logoColor=white"/>
+ </a>
 </p>
 
 This plugin adds features to make it easier to manage the JSON schema files for
@@ -38,24 +35,6 @@ info and backstory!
 - [github](https://github.com/gbtunney)
 - [email](mailto:gbtunney@mac.com)
 
-## Contents
-
-- [🐌](#)
-- [Features](#features)
-  - [Dynamic Shopify Setting Schemas](#dynamic-shopify-setting-schemas)
-- [Examples](#examples)
-  - [Installation](#installation)
-  - [Tests](#tests)
-- [Usage](#usage)
-  - [Options](#options)
-- [Inspiration](#inspiration)
-  - [vite-plugin-shopify-theme-settings by Barrel NY](#vite-plugin-shopify-theme-settings-by-barrel-ny)
-- [Helpful Links](#helpful-links)
-- [To-Do](#to-do)
-- [Bugs](#bugs)
-- [Functions](#functions)
-- [Type Aliases](#type-aliases)
-
 ## 🐌
 
 - [🐌 Welcome to @snailicide/vite-plugin-shopify-theme-schema 🐌](#welcome-to--snailicide-vite-plugin-shopify-theme-schema---)
@@ -71,7 +50,7 @@ info and backstory!
   - [To-Do](#to-do)
   - [Bugs](#bugs)
 
-<small><i><a href="http://ecotrust-canada.github.io/markdown-toc/">Table of
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of
 contents generated with markdown-toc</a></i></small>
 
 ## Features
@@ -183,7 +162,7 @@ and instead used an 'entryPoint' approach.
 
 ## To-Do
 
-- [ ] Unit Tests
+- \[ ] Unit Tests
 
 ## Bugs
 
@@ -198,7 +177,7 @@ Please create an issue if you found any bugs, to help us improve this project!
 
 ## Type Aliases
 
-| Type alias                                                                             | Description |
+| Type Alias                                                                             | Description |
 | -------------------------------------------------------------------------------------- | ----------- |
 | [ShopifyThemeSchemaOptions](type-aliases/ShopifyThemeSchemaOptions.md)                 | -           |
 | [ResolvedShopifyThemeSchemaOptions](type-aliases/ResolvedShopifyThemeSchemaOptions.md) | -           |

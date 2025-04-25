@@ -1,14 +1,17 @@
-[**@snailicide/cli-app v0.4.0**](../README.md) • **Docs**
+[**@snailicide/cli-app v0.4.0**](../README.md)
 
 ---
 
-[@snailicide/cli-app v0.4.0](../README.md) / wrapSchema
+[@snailicide/cli-app](../README.md) / wrapSchema
 
 # Function: wrapSchema()
 
 ```ts
 function wrapSchema<Schema>(schema): Schema
 ```
+
+Defined in:
+[packages/cli-app/src/helpers.ts:6](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/helpers.ts#L6)
 
 ## Type Parameters
 
@@ -25,7 +28,3 @@ function wrapSchema<Schema>(schema): Schema
 ## Returns
 
 `Schema`
-
-## Defined in
-
-[packages/cli-app/src/helpers.ts:6](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/helpers.ts#L6)

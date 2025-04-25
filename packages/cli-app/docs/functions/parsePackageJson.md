@@ -1,8 +1,8 @@
-[**@snailicide/cli-app v0.4.0**](../README.md) • **Docs**
+[**@snailicide/cli-app v0.4.0**](../README.md)
 
 ---
 
-[@snailicide/cli-app v0.4.0](../README.md) / parsePackageJson
+[@snailicide/cli-app](../README.md) / parsePackageJson
 
 # Function: parsePackageJson()
 
@@ -10,11 +10,14 @@
 function parsePackageJson(pkg):
   | undefined
   | {
-      description: string
+      description?: string
       name: string
       version: string
     }
 ```
+
+Defined in:
+[packages/cli-app/src/app-config.ts:145](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L145)
 
 ## Parameters
 
@@ -24,9 +27,5 @@ function parsePackageJson(pkg):
 
 ## Returns
 
-`undefined` | \{ `description`: `string`; `name`: `string`; `version`: `string`;
-}
-
-## Defined in
-
-[packages/cli-app/src/app-config.ts:144](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L144)
+| `undefined` | { `description?`: `string`; `name`: `string`; `version`:
+`string`; }
