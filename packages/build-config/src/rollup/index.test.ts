@@ -43,7 +43,7 @@ describe('Rolluup Config Test', () => {
         const result = `/*
  * g-libttest v1.0.2
  * Module: hhhhhGTESTLIB
- * (c) 2024 - Gillian Tunney
+ * (c) ${new Date().getFullYear().toString()} - Gillian Tunney
  * Description: Description,
  * Github: git+https://github.com/gbtunney/snailicide-monorepo.git`
         expect(getBanner('hhhhhGTESTLIB', example_package, false)).toContain(
