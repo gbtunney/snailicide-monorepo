@@ -1,5 +1,6 @@
 /**
  * Prettier Configuration
+ *
  * @see [Prettier - Opinionated Code Formatter](https://prettier.io/)
  */
 import { Config, Options } from 'prettier'
@@ -54,7 +55,7 @@ export const getScaledWidth = (
 const getDefaultOptions = (): PrettierOptions => {
     return {
         bracketSameLine: true,
-        jsdocPreferCodeFences: true,
+
         /** JS Doc */
         jsdocPrintWidth: getScaledWidth('comments'),
         printWidth: getScaledWidth('code'),
@@ -99,7 +100,7 @@ export const prettierConfiguration = (
     }
 }
 
-/* * @hidden * */
+/** @ignore */
 export const Prettier: {
     config: PrettierConfig
     options: PrettierOptions
