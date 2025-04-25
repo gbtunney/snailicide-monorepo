@@ -1,17 +1,8 @@
 # @snailicide/vite-plugin-shopify-liquid-modules 🐌
 
-<p align="center">
- <img alt="Version" src="https://img.shields.io/npm/v/@snailicide/vite-plugin-shopify-liquid-modules"/>
- <a href="#" target="_blank">
-  <img alt="License: MIT" src="https://img.shields.io/npm/l/@snailicide/vite-plugin-shopify-liquid-modules"/>
- </a>
- <a href="#" target="_blank">
-  <img alt="Typescript" height="20px" src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white"/>
- </a>
- <a href="#" target="_blank">
-  <img alt="RollupJS" height="20px" src="https://img.shields.io/badge/RollupJS-ef3335?style=for-the-badge&logo=rollup.js&logoColor=white"/>
- </a>
-</p>
+[![NPM](https://img.shields.io/npm/v/@snailicide/vite-plugin-shopify-liquid-modules)](http://www.npmjs.com/package/@snailicide/vite-plugin-shopify-liquid-modules)
+![License: MIT](https://img.shields.io/npm/l/@snailicide/vite-plugin-shopify-liquid-modules)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 _This plugin enables Shopify theme developers to structure their code into
 "module" folders which keep Liquid template files (snippets and sections)
@@ -35,7 +26,7 @@ standard file structure of Shopify themes. Please see
 > Many thanks to [barrel-shopify](https://github.com/barrel/barrel-shopify) by
 > Barrel NY for readme inspiration.
 
-- [🐌 Welcome to @snailicide/vite-plugin-shopify-liquid-modules 🐌](#welcome-to--snailicide-vite-plugin-shopify-liquid-modules---)
+- 🐌 Welcome to @snailicide/vite-plugin-shopify-liquid-modules 🐌
   - [Author](#author)
   - [Features](#features)
     - [Installation](#installation)
@@ -50,8 +41,7 @@ standard file structure of Shopify themes. Please see
   - [To-Do](#to-do)
   - [Bugs](#bugs)
 
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of
-contents generated with markdown-toc</a></i></small>
+[Table of contents generated with markdown-toc](http://ecotrust-canada.github.io/markdown-toc)
 
 ## Features
 
