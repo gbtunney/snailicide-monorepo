@@ -51,7 +51,7 @@
     "dependencies": {
         "@snailicide/g-library": "workspace:*",
         "@types/ramda": "^0.30.1",
-        "@vueuse/core": "^11.0.1",
+        "@vueuse/core": "^13.1.0",
         "chroma.ts": "^1.0.10",
         "ramda": "^0.30.1",
         "ramda-adjunct": "^5.0.1",
@@ -66,7 +66,7 @@
         "rollup": "^4.18.1",
         "ts-node": "^10.9.1",
         "typescript": "^5.2.2",
-        "vitest": "^2.0.3"
+        "vitest": "^3.1.2"
     },
     "homepage": "https://github.com/gbtunney/snailicide-monorepo/tree/main/packages/g-windi#readme",
     "bugs": {
