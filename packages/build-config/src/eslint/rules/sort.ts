@@ -1,4 +1,3 @@
-// @ts-expect-error: No declaration file or types for this
 import sortPlugin from 'eslint-plugin-sort'
 import type { Config } from 'typescript-eslint'
 

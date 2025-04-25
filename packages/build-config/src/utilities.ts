@@ -1,5 +1,6 @@
 /** Utility functions (mainly for working with lintstaged,file extensions and JSON data) */
 import {
+    ensureArray,
     isArray,
     isNotUndefined,
     isPlainObject as RAisPlainObject,
@@ -55,11 +56,11 @@ export const getFileExtensionList = <
     extensions: AllowedExtensions<IncludePrettierExtentions>,
     joined: boolean = true,
     prefix: string = '',
-): string | Array<string> => {
+): Array<string> => {
     const list = extensions.map((value: string): string => {
         return `${prefix}${value}`
     })
-    return joined ? list.join(',') : list
+    return ensureArray(joined ? list.join(',') : list)
 }
 
 //sh,html,json,yaml,yml,graphql,md

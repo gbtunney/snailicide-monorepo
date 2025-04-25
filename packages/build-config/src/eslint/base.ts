@@ -1,4 +1,3 @@
-//@ts-expect-error No declaration file or types for this
 import pluginJs from '@eslint/js'
 import globals from 'globals'
 import type { Config } from 'typescript-eslint'
