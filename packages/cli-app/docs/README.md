@@ -1,4 +1,4 @@
-**@snailicide/cli-app v0.4.0** • **Docs**
+**@snailicide/cli-app v0.4.0**
 
 ---
 
@@ -32,16 +32,6 @@ Node Cli App Boilerplate with yargs, zod, chalk
 > Recommended package manager is [pnpm](http://pnpm.io)
 >
 > [![PNPM](https://img.shields.io/badge/pnpm-%234a4a4a.svg?style=for-the-badge&logo=pnpm&logoColor=f69220)](http://pnpm.io)
-
-## Contents
-
-- [@snailicide/cli-app 🐌](#snailicidecli-app--1)
-  - [Installation](#installation)
-  - [Example Usage](#example-usage)
-  - [Helpful Links](#helpful-links)
-- [Functions](#functions)
-- [Type Aliases](#type-aliases)
-- [Variables](#variables)
 
 ## @snailicide/cli-app 🐌
 
@@ -183,12 +173,11 @@ export default initialize()
 | ------------------------------------------------- | ------------------------------------------------------------------------------- |
 | [parsePackageJson](functions/parsePackageJson.md) | -                                                                               |
 | [initApp](functions/initApp.md)                   | Initializes the application with the provided configuration and options schema. |
-| [initializeApp](functions/initializeApp.md)       | Initializes the application with the provided configuration and options schema. |
 | [wrapSchema](functions/wrapSchema.md)             | -                                                                               |
 
 ## Type Aliases
 
-| Type alias                                                 | Description                                                                                                                      |
+| Type Alias                                                 | Description                                                                                                                      |
 | ---------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | [AppFlagAliases](type-aliases/AppFlagAliases.md)           | This type is used to autocomplete the yargs aliases property. This creates shorthand values for option flags.                    |
 | [AppHidden](type-aliases/AppHidden.md)                     | -                                                                                                                                |
@@ -208,3 +197,4 @@ export default initialize()
 | --------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | [appConfigSchema](variables/appConfigSchema.md)     | This is the schema used to configure the Cli Application, these should NOT used in cli arguments when running the client cli app |
 | [commonFlagsSchema](variables/commonFlagsSchema.md) | -                                                                                                                                |
+| [initializeApp](variables/initializeApp.md)         | -                                                                                                                                |

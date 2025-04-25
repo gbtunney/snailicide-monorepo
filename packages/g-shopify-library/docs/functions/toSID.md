@@ -1,8 +1,8 @@
-[**@snailicide/g-shopify-library v0.3.5**](../README.md) • **Docs**
+[**@snailicide/g-shopify-library v0.3.5**](../README.md)
 
 ---
 
-[@snailicide/g-shopify-library v0.3.5](../README.md) / toSID
+[@snailicide/g-shopify-library](../README.md) / toSID
 
 # Function: toSID()
 
@@ -10,8 +10,13 @@
 function toSID<Type>(value, min_digits?): undefined | number
 ```
 
+Defined in:
+[packages/g-shopify-library/src/scripts/index.ts:80](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/g-shopify-library/src/scripts/index.ts#L80)
+
 Converts a GID to a Shopify ID (SID) if possible, considering a minimum number
 of digits.
+
+toSID
 
 ## Type Parameters
 
@@ -24,18 +29,10 @@ of digits.
 | Parameter     | Type     | Default value | Description                                                       |
 | ------------- | -------- | ------------- | ----------------------------------------------------------------- |
 | `value`       | `Type`   | `undefined`   | The GID to convert.                                               |
-| `min_digits`? | `number` | `9`           | The minimum number of digits required for the SID. Default is `9` |
+| `min_digits?` | `number` | `9`           | The minimum number of digits required for the SID. Default is `9` |
 
 ## Returns
 
 `undefined` | `number`
 
 The SID if conversion is possible, otherwise undefined.
-
-## Function
-
-toSID
-
-## Defined in
-
-[packages/g-shopify-library/src/scripts/index.ts:75](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/g-shopify-library/src/scripts/index.ts#L75)

@@ -39,7 +39,7 @@
         "wip:docs:preview": "pnpm run docs:typedoc && vitepress preview",
         "wip:docs:typedoc": "pnpm run build && pnpm run build:self && pnpm exec typedoc",
         "\n========== PUBLISH >> ==========": "",
-        "pre:release": "pnpm build:self && pnpm run fix && pnpm build && pnpm docs",
+        "pre:release": "pnpm build:self && pnpm run fix && pnpm build && pnpm docs:build",
         "release": "pnpm run pre:release && pnpm changeset",
         "\n========== NX >> ==========": "",
         "nx:graph": "pnpm nx graph",
@@ -47,12 +47,12 @@
         "nx:reset": "pnpm exec nx reset",
         "\n========== LIFECYCLE >> ==========": "",
         "prepare": "husky",
-        "lint:staged": "pnpm exec lint-staged --debug",
+        "lint:staged": "pnpm exec lint-staged --relative --debug",
         "postinstall": "pnpm nx:build:config && pnpm build:self",
         "\n========== CODE STYLE >> ==========": "",
-        "prettier": "cross-var prettier {*,**/*}.{ts,js,cjs,mjs,cts,mts,sh,html,json,yaml,yml,graphql,md} ./.husky/* --ignore-path ./.gitignore --no-error-on-unmatched-pattern --write",
+        "prettier": "cross-var prettier {*,**/*}.{ts,js,cts,cjs,mts,mjs,tsx,jsx,sh,html,json,yaml,yml,graphql,md} ./.husky/* --ignore-path ./.gitignore --no-error-on-unmatched-pattern --write",
         "lint": "cross-var eslint -c $npm_package_config_eslint_config",
-        "lint:md": "pnpm exec markdownlint-cli2 '{./*,./**/*}.md' '#**/{node_modules,.changeset,docs}/**' '#packages/{vite-plugin-shopify-liquid-modules,vite-plugin-shopify-theme-schema,g-shopify-library,cli-template}/**/*' ",
+        "lint:md": "pnpm exec markdownlint-cli2 '{./*,./**/*}.md' '#**/{node_modules,.changeset,docs}/**' '#packages/cli-template/templates/**/*'",
         "\n========== CHECK >> ==========": "",
         "check": "pnpm check:self",
         "check:md": "pnpm run lint:md",
@@ -109,8 +109,6 @@
     "prettier": "@snailicide/build-config/prettier",
     "config": {
         "eslint": {
-            "extensions": "ts,js,cjs,mjs",
-            "path": "*",
             "config": "eslint.config.js"
         },
         "commitizen": {

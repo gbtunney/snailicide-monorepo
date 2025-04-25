@@ -2,22 +2,22 @@
 
 ---
 
-[@snailicide/cli-app](../README.md) / initApp
+[@snailicide/cli-app](../README.md) / initializeApp
 
-# Function: initApp()
+# Variable: initializeApp()
 
 ```ts
-function initApp<AppOptionsSchema>(
+const initializeApp: <AppOptionsSchema>(
   optionsSchema,
   config,
   initFunction,
   skip_interactive?,
   _yargs?,
-): Promise<undefined | Argv<{}>>
+) => Promise<undefined | Argv<{}>> = initApp
 ```
 
 Defined in:
-[packages/cli-app/src/app.ts:54](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app.ts#L54)
+[packages/cli-app/src/app.ts:169](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app.ts#L169)
 
 Initializes the application with the provided configuration and options schema.
 

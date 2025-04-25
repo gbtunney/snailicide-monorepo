@@ -1,8 +1,8 @@
-[**@snailicide/cli-app v0.4.0**](../README.md) • **Docs**
+[**@snailicide/cli-app v0.4.0**](../README.md)
 
 ---
 
-[@snailicide/cli-app v0.4.0](../README.md) / commonFlagsSchema
+[@snailicide/cli-app](../README.md) / commonFlagsSchema
 
 # Variable: commonFlagsSchema
 
@@ -10,6 +10,5 @@
 const commonFlagsSchema: ZodObject<CommonFlagsOutput>
 ```
 
-## Defined in
-
+Defined in:
 [packages/cli-app/src/app-options.ts:5](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-options.ts#L5)
