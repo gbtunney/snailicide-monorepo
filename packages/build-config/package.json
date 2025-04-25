@@ -29,7 +29,7 @@
     "scripts": {
         "\n========== BUILD >> ==========": "",
         "build": " pnpm build:ts && pnpm build:rollup",
-        "build:rollup": "rollup --config ./rollup.config.js",
+        "build:rollup": "rollup --config ./rollup.config.js  ",
         "build:cp": "cp ./src/tsconfig/tsconfig-base.json .",
         "build:ts": "tsc --build",
         "\n========== DEV >> ==========": "",

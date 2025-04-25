@@ -34,11 +34,11 @@ describe('JSON serialize', () => {
                 name: number
                 age: number
             }>()
-            expectTypeOf(result).toMatchTypeOf<TestJson>()
+            expectTypeOf(result).toMatchObjectType<TestJson>()
         }
     })
 
-    test("demosafeSerializeJson should return a serialized JSON string with the tag or 'ERROR'", () => {
+    test("SerializeJson should return a serialized JSON string with the tag or 'ERROR'", () => {
         const obj = { age: 30, name: 'John' }
         const expected = `{"name":"John","age":30}`
         const result = demosafeSerializeJson(obj)

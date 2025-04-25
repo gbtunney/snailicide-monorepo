@@ -10,6 +10,7 @@ import {
 /**
  * Trims characters from the start and/or end of a string based on the provided pattern(s). If multiple patterns are
  * provided, each pattern is applied in sequence.
+ *
  * @category Trim
  * @see {@link batchTrimCharacters}
  */
@@ -36,6 +37,7 @@ export const trimCharacters = ({
 /**
  * Applies the trimCharacters function to each string in an array or a single string. This function allows for batch
  * processing of multiple strings with the same trimming parameters.
+ *
  * @category Trim
  * @see {@link trimCharacters}
  */
@@ -63,6 +65,7 @@ export const batchTrimCharacters = ({
 /**
  * Trims characters from the start of a string based on the provided pattern(s). This is a convenience function
  * specifically for trimming the start of a string.
+ *
  * @category Trim
  * @see {@link trimCharacters}
  */
@@ -83,6 +86,7 @@ export const trimCharactersStart = ({
 /**
  * Trims characters from the end of a string based on the provided pattern(s). This is a convenience function
  * specifically for trimming the end of a string.
+ *
  * @category Trim
  * @see {@link trimCharacters}
  */

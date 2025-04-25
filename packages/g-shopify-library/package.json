@@ -53,7 +53,7 @@
         "\n========== CLEAN >> ==========": "",
         "clean": "pnpm clean:ts && pnpm clean:build",
         "clean:ts": "tsc --build --clean",
-        "clean:build": "rm -R -f dist types docs"
+        "clean:build": "rm -R -f dist types"
     },
     "dependencies": {
         "@shopify/admin-graphql-api-utilities": "^2.0.1",

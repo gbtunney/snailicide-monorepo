@@ -1,4 +1,3 @@
-//@ts-expect-error No declaration file or types for this
 import pluginJs from '@eslint/js'
 import globals from 'globals'
 import type { Config } from 'typescript-eslint'
@@ -67,6 +66,7 @@ export const flatEslintConfig = async (__dirname: string): Promise<Config> => {
 
         /**
          * No multiple empty lines should ERROR
+         *
          * @todo: not even sure if this works?
          */
         {

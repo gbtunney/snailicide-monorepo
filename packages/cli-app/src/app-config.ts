@@ -60,6 +60,7 @@ export const appConfigSchema = z.object({
         .describe('Get title using lg ascii text w/FIGfont spec'),
     /**
      * Shorthand Option Aliases (--help , -h )
+     *
      * @exqmple
      * ```sh
      *    pnpm test:example -h

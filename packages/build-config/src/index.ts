@@ -17,6 +17,7 @@ export type * from './eslint/index.js'
 
 /**
  * A Node.js command line interface and style checker / lint tool for Markdown files.
+ *
  * @see [igorshubovych/markdownlint-cli:](https://github.com/igorshubovych/markdownlint-cli)
  * @see [davidAnson/markdownlint](https://github.com/DavidAnson/markdownlint)
  */

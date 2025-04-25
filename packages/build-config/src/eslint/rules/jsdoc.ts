@@ -9,6 +9,7 @@ export const jsdocRules = (): Config => [
         name: 'JSDoc: ERROR',
         rules: {
             /** Indentation and alignment */
+
             'jsdoc/check-alignment': 'error',
             'jsdoc/check-indentation': ['error', { excludeTags: ['example'] }],
             'jsdoc/check-line-alignment': [
@@ -25,11 +26,18 @@ export const jsdocRules = (): Config => [
                     minimumLengthForMultiline: Math.floor(
                         getScaledWidth('comments') / 3,
                     ),
-                    noMultilineBlocks: true,
+                    noMultilineBlocks: false,
                     noZeroLineText: true,
+                    noFinalLineText: true,
                 },
             ],
-            'jsdoc/tag-lines': ['error', 'always', { count: 0 }],
+
+            /** Tags */
+            'jsdoc/tag-lines': ['error', 'any', { startLines: 1 }],
+            'jsdoc/check-tag-names': [
+                'warn',
+                { definedTags: ['group', 'category'] },
+            ],
 
             /** Blank Lines */
             'jsdoc/no-blank-block-descriptions': 'error',
@@ -37,6 +45,7 @@ export const jsdocRules = (): Config => [
 
             /**
              * Asterisks
+             *
              * @todo : jsdoc/no-multi-asterisks is messed up, prettier turns to hyphens
              */
             'jsdoc/require-asterisk-prefix': 'error',
@@ -52,9 +61,12 @@ export const jsdocRules = (): Config => [
     {
         name: 'JSDoc: OFF',
         rules: {
-            'jsdoc/lines-before-block': 'off',
+            /** Require */
+            'jsdoc/require-jsdoc': 'off',
+            'jsdoc/require-property-description': 'off',
             'jsdoc/require-param': 'off',
             'jsdoc/require-returns': 'off',
+            'jsdoc/lines-before-block': 'off',
         },
     },
 ]

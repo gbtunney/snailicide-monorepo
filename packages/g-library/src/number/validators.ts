@@ -64,6 +64,7 @@ export const isNumeric = <Type extends Numeric>(
 
 /**
  * Guard function to determine if value is an exact integer (ie not 12.001 but 12.00 is allowed)
+ *
  * @category Numeric
  * @example
  *     const number_to_test_int = 22.000
@@ -78,6 +79,7 @@ export const isNumericInteger = <Type extends Numeric>(
 
 /**
  * Guard function to determine if value is an exact float (ie not 12 or 12.00)
+ *
  * @category Numeric
  * @example
  *     const number_to_test = 22.25

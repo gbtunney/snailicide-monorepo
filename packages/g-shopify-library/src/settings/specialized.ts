@@ -2,6 +2,7 @@ import { zod } from '@snailicide/g-library/node'
 
 /**
  * Basic_settings_schema_map Basic Settings Schema Definition Map
+ *
  * @type {Record<string, z.ZodSchema>}
  * @property {z.ZodSchema} text
  * @property {z.ZodSchema} textarea

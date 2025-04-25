@@ -4,6 +4,7 @@ import { z } from 'zod'
 
 /**
  * Text_base Schema Definition (Composable Schemas)
+ *
  * @type {z.infer<typeof text_base>}
  * @property {z.ZodString} default
  * @property {z.ZodString} placeholder
@@ -15,6 +16,7 @@ export const text_base = z.object({
 
 /**
  * Select_option Schema Definition (Composable Schemas)
+ *
  * @type {z.infer<typeof select_option>}
  * @property {z.ZodString} value
  * @property {z.ZodString} label

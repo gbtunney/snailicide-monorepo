@@ -17,6 +17,7 @@ export namespace Json {
 
 /**
  * PrettyPrint a JSON object.
+ *
  * @category Json
  */
 export const prettyPrintJSON = <Type extends Jsonifiable>(

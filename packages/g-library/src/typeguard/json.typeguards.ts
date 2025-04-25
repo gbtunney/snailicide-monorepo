@@ -5,6 +5,7 @@ import { Json, PlainObject } from '../types/utility.js'
 
 /**
  * Checks if a value is Jsonifiable.
+ *
  * @category Object
  * @category Json
  */
@@ -22,6 +23,7 @@ export const isJsonifiable = <Type extends Jsonifiable>(
 
 /**
  * Checks if a value is a valid Json value.
+ *
  * @category Object
  * @category Json
  */
@@ -39,6 +41,7 @@ export const isJsonValue = <Type extends Json.Value>(
 
 /**
  * Checks if a value is a JSONifiable object-like structure (object or array).
+ *
  * @category Object
  * @category Json
  */
@@ -50,6 +53,7 @@ export const isJsonifiableObjectLike = <Type extends Json.Object | Json.Array>(
 
 /**
  * Checks if a value is a JSONifiable object.
+ *
  * @category Object
  * @category Json
  */
@@ -61,6 +65,7 @@ export const isJsonifiableObject = <Type extends PlainObject>(
 
 /**
  * Checks if a value is a JSONifiable array.
+ *
  * @category Array
  * @category Json
  */

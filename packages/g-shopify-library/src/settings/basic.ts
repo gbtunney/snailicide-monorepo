@@ -4,6 +4,7 @@ import { z } from 'zod'
 import { select_option, text_base } from './composable.js'
 /**
  * Basic_settings_schema_map Basic Settings Schema Definition Map
+ *
  * @type {Record<string, z.ZodSchema>}
  * @property {z.ZodSchema} text
  * @property {z.ZodSchema} textarea

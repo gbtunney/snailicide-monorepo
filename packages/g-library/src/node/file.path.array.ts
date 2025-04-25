@@ -22,6 +22,7 @@ export type FilePath = {
 export type FileType = 'directory' | 'file' | 'symlink' | 'glob' | undefined
 /**
  * Get Array of FilePaths from a glob string
+ *
  * @example
  *     getFilePathArr('./*.json')
  *
