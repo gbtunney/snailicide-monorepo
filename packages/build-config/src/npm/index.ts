@@ -1,5 +1,6 @@
 /**
  * Collection of Generic NPM Package Utility Schemas and Typeguards
+ *
  * @see [NPM - Node Package Manager](https://www.npmjs.com/)
  */
 import {

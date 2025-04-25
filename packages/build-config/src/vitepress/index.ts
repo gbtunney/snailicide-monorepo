@@ -1,5 +1,6 @@
 /**
  * Vitepress Configuration
+ *
  * @see [VitePress | Vite & Vue Powered Static Site Generator](https://vitepress.dev/)
  */
 import { merge as deepmerge } from 'ts-deepmerge'

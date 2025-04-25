@@ -34,6 +34,7 @@ export const parseToNumeric = <Type extends PossibleNumeric>(
 
 /**
  * Parse value if is numeric ( like result of parseFloat ). Will remove whitespace,letter and punctuation
+ *
  * @group Parse
  */
 export const parseStringToNumeric = <Type extends string>(

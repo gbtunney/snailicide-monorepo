@@ -66,6 +66,7 @@ export const flatEslintConfig = async (__dirname: string): Promise<Config> => {
 
         /**
          * No multiple empty lines should ERROR
+         *
          * @todo: not even sure if this works?
          */
         {

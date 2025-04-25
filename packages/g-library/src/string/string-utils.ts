@@ -5,6 +5,7 @@ import { isNotNull } from './../typeguard/utility.typeguards.js'
 
 /**
  * Removes non-word characters from a string.
+ *
  * @category Remove Characters
  */
 export const removeNonWord = (value: string): string =>
@@ -23,6 +24,7 @@ export const uuidv4 = (): string => {
 }
 /**
  * Normalizes line breaks in a string to a specified line ending.
+ *
  * @category Remove Characters
  */
 export const normalizeLineBreaks = (value: string, lineEnd = '\n'): string =>
@@ -34,6 +36,7 @@ export const normalizeLineBreaks = (value: string, lineEnd = '\n'): string =>
 
 /**
  * Replaces accented characters in a string with their non-accented equivalents.
+ *
  * @category Remove Characters
  */
 export const replaceAccents = (value: string): string => {
@@ -76,6 +79,7 @@ export const abbreviate = (value: string): string => {
 
 /**
  * Removes HTML tags from a string.
+ *
  * @category Remove Characters
  */
 export const stripHtmlTags = (value: string): string =>
@@ -83,6 +87,7 @@ export const stripHtmlTags = (value: string): string =>
 
 /**
  * Removes non-printable ASCII characters from a string.
+ *
  * @category Remove Characters
  * @see {@link http://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters}
  */
@@ -91,6 +96,7 @@ export const removeNonASCII = (value: string): string =>
 
 /**
  * Removes all newlines from a string.
+ *
  * @category Remove Characters
  */
 export const removeAllNewlines = (value: string): string =>
@@ -98,6 +104,7 @@ export const removeAllNewlines = (value: string): string =>
 
 /**
  * Removes whitespace from the start and end of a string.
+ *
  * @category Remove Characters
  * @category Trim
  */

@@ -5,11 +5,13 @@ import type { LiteralUnion } from 'type-fest'
 
 /**
  * DURATION date / time
+ *
  * @category Format
  */
 export const format_date_time_short = `MM-DD-YYYY, h:mm:ss a`
 /**
  * DURATION date / time
+ *
  * @category Format
  */
 export const format_date_time_long = 'MMMM Do YYYY, h:mm:ss a'
@@ -19,6 +21,7 @@ export type ISO_8601 = 'ISO_8601'
 
 /**
  * Date input ISO 8601 format or leave empty for current
+ *
  * @category Format
  */
 export const formatIsoDate = (
@@ -41,18 +44,21 @@ export const isValidIsoDate = (value: string): boolean =>
 
 /**
  * DURATION Presets
+ *
  * @category Duration
  * @category Format
  */
 export const format_duration_long = 'HH:mm:ss.SS'
 /**
  * DURATION Presets
+ *
  * @category Duration
  * @category Format
  */
 export const format_duration_truncated = 'mm:ss'
 /**
  * DURATION Presets
+ *
  * @category Duration
  * @category Format
  */
@@ -61,6 +67,7 @@ const format_duration_basic = 'mm:ss.SS'
 
 /**
  * Milliseconds to ISO String
+ *
  * @category Duration
  */
 export const msToIsoString = (ms_value: number): string =>
@@ -74,6 +81,7 @@ export const formatISOtoDuration = (
 
 /**
  * HIGH RES TIMESTAMP STUFF convert nano seconds to milliseconds (1,000,000 nanoseconds/millisecond.)
+ *
  * @category Duration
  */
 export const nsToMs = (ns_value: number): number => ns_value / 1000000

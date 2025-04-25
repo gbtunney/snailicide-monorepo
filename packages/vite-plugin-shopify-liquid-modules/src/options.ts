@@ -3,6 +3,7 @@ import { z } from 'zod'
 
 /**
  * Plugin Options Schema
+ *
  * @param {string} themeRoot ['./theme'] - file path to shopify theme root.
  * @param {string} modulesDir ['./modules'] - description
  */

@@ -11,6 +11,7 @@ export const escapeStringRegexp = (value: string): string => {
 
 /**
  * Escapes special characters in a string to create a valid regular expression pattern.
+ *
  * @param value - The string to escape.
  * @param escape - Optional. Specifies whether to escape the string if it is invalid RegExp. Default is true.
  * @returns If the string is not a valid regexp and escape is set to false, will return undefined

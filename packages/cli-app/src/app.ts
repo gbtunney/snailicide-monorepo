@@ -29,6 +29,7 @@ import {
 
 /**
  * A callback type that is invoked upon successful initialization of the application.
+ *
  * @template AppOptionsSchema - The schema for app options, either a ZodObject or a ZodEffects schema.
  * @param {z.infer<AppOptionsSchema>} resolvedFlags - The resolved and validated flags based on the provided schema.
  * @param {string | undefined} help - The help string, if available, otherwise undefined.
@@ -41,6 +42,7 @@ export type InitSuccessCallback<
 
 /**
  * Initializes the application with the provided configuration and options schema.
+ *
  * @template AppOptionsSchema - The schema for the application options.
  * @param {AppOptionsSchema} optionsSchema - The schema for validating the application options.
  * @param {AppConfigIn<AppOptionsSchema>} config - The configuration object for the application.

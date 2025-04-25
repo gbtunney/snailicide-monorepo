@@ -2,6 +2,7 @@ import { isRegExp, isString } from '../typeguard/utility.typeguards.js'
 
 /**
  * Checks if a value is a valid regular expression.
+ *
  * @param value - The value to be checked. It can be a string or a RegExp object.
  * @returns A boolean indicating whether the value is a valid regular expression.
  */

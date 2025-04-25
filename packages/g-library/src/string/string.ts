@@ -2,6 +2,7 @@ import { trim } from 'ramda'
 
 /**
  * Insert a string at an index
+ *
  * @category Replace Characters
  */
 export const insert = (
@@ -16,6 +17,7 @@ export const insert = (
 
 /**
  * Truncates a string to a specified length, appending '...' if truncated.
+ *
  * @category Remove Characters
  */
 export const truncate = (

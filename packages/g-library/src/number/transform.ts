@@ -12,6 +12,7 @@ import {
 
 /**
  * Convert a string to a numeric value
+ *
  * @group Transform
  */
 export const toStringNumeric = <Type extends string>(
@@ -75,6 +76,7 @@ export const toStringNumeric = <Type extends string>(
 
 /**
  * Convert a value to a valid number type
+ *
  * @group Transform
  * @see {@link parseToNumeric}
  * @see {@link parseToInteger}
@@ -94,6 +96,7 @@ export const toNumeric = <Type extends PossibleNumeric>(
 
 /**
  * Converts a valid number to a float
+ *
  * @group Transform
  */
 export const numericToFloat = <Type extends Numeric>(
@@ -102,6 +105,7 @@ export const numericToFloat = <Type extends Numeric>(
 
 /**
  * Converts a integer number to a exact Integer using parseInt (ie not 12.001 but 12.00 is allowed)
+ *
  * @example
  *     const number_to_test_int = 22.000
  *     numericToInteger<typeof number_to_test_int, true>(number_to_test_int)

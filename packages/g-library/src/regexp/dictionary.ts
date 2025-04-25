@@ -4,6 +4,7 @@ import type { Writable } from 'type-fest'
 
 /**
  * Name field in package.json
+ *
  * @example
  *     '@snailicide/g-library'
  *     #bad
@@ -14,6 +15,7 @@ export const validPackageName =
 
 /**
  * PackageManager field in package.json
+ *
  * @see {@link https://stackoverflow.com/questions/71747609/how-to-specify-packagemanager-in-package-json|node.js - How to specify "packageManager" in package.json - Stack Overflow}
  */
 export const packageManager = /(npm|pnpm|yarn)@\d+\.\d+\.\d+(-.+)?/
@@ -388,6 +390,7 @@ export const urlScheme = (
  * US PHONE NUMBER
  *
  * Works in: ECMAScript, PCRE, Google Forms
+ *
  * @category GoogleAppScript
  * @see {@link https://regex101.com/r/CYCMEc/1 | regexp101 examples}
  */
@@ -398,6 +401,7 @@ export const phoneNumber =
  * US ZIP CODE
  *
  * Works in: ECMAScript, PCRE, Google Forms
+ *
  * @category GoogleAppScript
  * @see {@link https://regex101.com/r/VFnoSZ/2 | regexp101 examples}
  */

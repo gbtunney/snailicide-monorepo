@@ -10,6 +10,7 @@ export const schemaForType =
 
 /**
  * So that it doesnt lose its schema typing after a transform or merge function
+ *
  * @category Zod
  */
 export const wrapSchema = <Schema extends z.Schema>(schema: Schema): Schema => {
@@ -17,6 +18,7 @@ export const wrapSchema = <Schema extends z.Schema>(schema: Schema): Schema => {
 }
 /**
  * Get zod data typed
+ *
  * @category Zod
  * @example
  *     getZodData( z.object({
@@ -42,6 +44,7 @@ export const parseZodData = <Schema extends z.ZodSchema>(
 }
 /**
  * Guard function to determine if value is parseable according to schema
+ *
  * @category Zod
  * @example
  *     tg_Zod( z.object({

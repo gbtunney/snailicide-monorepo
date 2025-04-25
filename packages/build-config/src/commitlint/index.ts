@@ -1,5 +1,6 @@
 /**
  * Commitlint configuration for use in Monorepo.
+ *
  * @see [commitlint - Lint commit messages](https://commitlint.js.org/#/)
  * @see [commitlint-config-conventional - Shareable commitlint config](https://www.npmjs.com/package/@commitlint/config-conventional)
  * @see [Commitizen](https://commitizen-tools.github.io/commitizen/)

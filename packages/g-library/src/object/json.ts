@@ -5,6 +5,7 @@ import { Json } from '../types/utility.js'
 
 /**
  * PrettyPrint a JSON object.
+ *
  * @category Json
  */
 export const prettyPrintJSON = <Type extends Jsonifiable>(
@@ -20,6 +21,7 @@ export const prettyPrintJSON = <Type extends Jsonifiable>(
 
 /**
  * Safely serializes a JSON object, with an option for pretty printing.
+ *
  * @category Json
  */
 export const safeSerializeJson = <Type extends Json.Value>(
@@ -33,6 +35,7 @@ export const safeSerializeJson = <Type extends Json.Value>(
 
 /**
  * Safely deserializes a JSON string.
+ *
  * @category Json
  */
 export const safeDeserializeJson = (data: string): Json.Value | undefined => {
