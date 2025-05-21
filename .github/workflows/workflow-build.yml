@@ -1,31 +1,23 @@
-name: 🐌 Snailicide
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [push]
+name: 🧱 Build Workflow
+
+on:
+    push:
+
 jobs:
-    build:
-        name: 'Build / Archive 🏗️'
+    setup:
+        uses: ./.github/workflows/setup-node-pnpm.yml
+        with:
+            install: true
+            build: true
+            fix: true
+            test: true
+            check: true
+            DEBUG: false
+
+    validate:
+        name: ✅ Continue if clean
         runs-on: ubuntu-latest
+        needs: setup
+        if: needs.log.outputs.dirty == 'false'
         steps:
-            - run: echo 'Archive Snailicide Monorepo 🐌';
-
-            - name: Checkout 🛎️
-              uses: actions/checkout@v3
-
-            - name: Setup Node.js environment 🛎️
-              uses: actions/setup-node@v3.8.1
-              with:
-                  node-version: '20.11.1'
-
-            - name: Install pnpm 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
-              run: |
-                  npm install -g pnpm
-                  pnpm install --no-frozen-lockfile
-
-            - name: Build, Lint and Unit Tests 🚨
-              run: |
-                  pnpm run build && pnpm run fix && pnpm run check && pnpm test
-                  - run: |
-                      git status
-                      git branch
-
-            - run: echo "🍏 This job's status is ${{ job.status }}."
+            - run: echo "Repo is clean, build successful!"

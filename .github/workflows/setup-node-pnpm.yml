@@ -1,0 +1,160 @@
+name: setup-node-pnpm
+
+on:
+    workflow_call:
+        inputs:
+            install:
+                type: boolean
+                default: true
+            build:
+                type: boolean
+                default: true
+            fix:
+                type: boolean
+                default: false
+            test:
+                type: boolean
+                default: false
+            check:
+                type: boolean
+                default: false
+            LOG_DIRTY_FILES:
+                type: boolean
+                default: true
+            LOG_IGNORED:
+                type: boolean
+                default: true
+            DEBUG:
+                type: boolean
+                default: false
+            includes:
+                type: string
+                default: 'node_modules,dist,docs,storybook-static,types'
+
+        outputs:
+            status:
+                value: ${{ jobs.check.outputs.status }}
+            dirty:
+                value: ${{ jobs.check.outputs.dirty }}
+            files:
+                value: ${{ jobs.check.outputs.files }}
+            ignored_files:
+                value: ${{ jobs.check.outputs.ignored_files }}
+            count:
+                value: ${{ jobs.check.outputs.count }}
+            changed:
+                value: ${{ jobs.check.outputs.changed }}
+            changed_all:
+                value: ${{ jobs.check.outputs.changed_all }}
+jobs:
+    setup:
+        runs-on: ubuntu-latest
+        outputs:
+            status: ${{ steps.collect.outputs.status }}
+            dirty: ${{ steps.collect.outputs.dirty }}
+            files: ${{ steps.collect.outputs.dirty_files }}
+            ignored_files: ${{ steps.collect.outputs.ignored_filtered }}
+            count: ${{ steps.collect.outputs.counts }}
+            changed: ${{ steps.collect.outputs.changed }}
+            changed_all: ${{ steps.collect.outputs.changed_all }}
+
+        steps:
+            - name: 🛎️ Checkout repository
+              uses: actions/checkout@v4
+
+            - name: 🧰 Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20.11.1'
+
+            - name: 📦 Install pnpm
+              run: npm install -g pnpm
+
+            - name: 📥 Install dependencies
+              if: ${{ inputs.install }}
+              run: pnpm install --frozen-lockfile
+
+            - name: 🛠️ Build packages
+              if: ${{ inputs.build }}
+              run: pnpm build
+
+            - name: 🔧 Auto-fix code
+              if: ${{ inputs.fix }}
+              run: pnpm fix
+
+            - name: 🧪 Run tests
+              if: ${{ inputs.test }}
+              run: pnpm test
+
+            - name: ✅ Lint and check
+              if: ${{ inputs.check }}
+              run: pnpm check
+
+            - name: 🧼 Detect uncommitted changes
+              id: detect
+              run: |
+                  if [ -n "$(git status --porcelain)" ]; then
+                  echo "status=dirty" >> $GITHUB_OUTPUT
+                  echo "dirty=true" >> $GITHUB_OUTPUT
+                  echo "⚠️ Repo has uncommitted changes."
+                  [[ "${{ inputs.LOG_DIRTY_FILES }}" == "true" ]] && git status --porcelain
+                  else
+                  echo "status=clean" >> $GITHUB_OUTPUT
+                  echo "dirty=false" >> $GITHUB_OUTPUT
+                  echo "✅ Repo is clean."
+                  fi
+
+            - name: 📂 List dirty files
+              id: list_dirty
+              run: |
+                  git status --porcelain | awk '{print $2}' | jq -R -s -c 'split("\n")[:-1]' > dirty.json
+                  echo "dirty_files=$(cat dirty.json)" >> $GITHUB_OUTPUT
+
+            - name: 🚫 List ignored files (filtered & raw)
+              id: list_ignored
+              run: |
+                  includes="${{ inputs.includes }}"
+                  IFS=',' read -ra patterns <<< "$includes"
+
+                  all_ignored=$(git ls-files --others -i --exclude-standard | sort | uniq)
+                  echo "$all_ignored" | jq -R -s -c 'split("\n")[:-1]' > ignored_all.json
+
+                  echo "$all_ignored" > all.tmp
+                  echo "" > match.tmp
+                  for pattern in "${patterns[@]}"; do
+                    grep -E "$pattern" all.tmp >> match.tmp 2>/dev/null || true
+                  done
+                  sort -u match.tmp | jq -R -s -c 'split("\n")[:-1]' > ignored_filtered.json
+
+                  echo "ignored_all=$(cat ignored_all.json)" >> $GITHUB_OUTPUT
+                  echo "ignored_filtered=$(cat ignored_filtered.json)" >> $GITHUB_OUTPUT
+
+                  [[ "${{ inputs.LOG_IGNORED }}" == "true" ]] && jq . < ignored_filtered.json
+                  [[ "${{ inputs.DEBUG }}" == "true" ]] && jq . < ignored_all.json
+
+            - name: 📊 Summarize repo status
+              id: collect
+              run: |
+                  dirty=$(cat dirty.json)
+                  ignored_filtered=$(cat ignored_filtered.json)
+                  ignored_all=$(cat ignored_all.json)
+
+                  changed=$(jq -s 'add' <(echo "$dirty") <(echo "$ignored_filtered"))
+                  changed_all=$(jq -s 'add' <(echo "$dirty") <(echo "$ignored_all"))
+
+                  count_dirty=$(echo "$dirty" | jq length)
+                  count_ignored=$(echo "$ignored_filtered" | jq length)
+                  count_ignored_all=$(echo "$ignored_all" | jq length)
+                  count_changed=$(echo "$changed" | jq length)
+                  count_changed_all=$(echo "$changed_all" | jq length)
+
+                  counts=$(jq -n \
+                    --argjson d $count_dirty \
+                    --argjson i $count_ignored \
+                    --argjson ia $count_ignored_all \
+                    --argjson c $count_changed \
+                    --argjson ca $count_changed_all \
+                    '{dirty: $d, ignored: $i, ignored_all: $ia, changed: $c, changed_all: $ca}')
+                  echo $counts;
+                  echo "status=${{ steps.detect.outputs.status }}" >> $GITHUB_OUTPUT
+                  echo "dirty=${{ steps.detect.outputs.dirty }}" >> $GITHUB_OUTPUT
