@@ -32,6 +32,10 @@ export const sortRules = (): Config => [
                     pathGroupsExcludedImportTypes: ['internal'],
                 },
             ],
+            'sort/destructuring-properties': [
+                'error',
+                { caseSensitive: false, natural: true },
+            ],
             'sort/exports': [
                 'error',
                 {
