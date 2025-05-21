@@ -24,6 +24,8 @@ packages._
   • [`snailicide-monorepo`](https://github.com/gbtunney/snailicide-monorepo.git)
 - **CDN**:
   [jsdeliver](https://cdn.jsdelivr.net/npm/@snailicide/build-config/dist/index.min.js)
+- **Documentation**:
+  [@snailicide/build-config docs](https://build-config.snailicide.com)
 
 ### Author
 

@@ -22,7 +22,7 @@ Utility function library written in typescript
 - **CDN**:
   [jsdeliver](https://cdn.jsdelivr.net/npm/@snailicide/g-library/dist/cdn-index-iife.min.js)
 - **Documentation**:
-  [@snailicide/g-library docs](http://gilliantunney.com/docs-snailicide/)
+  [@snailicide/g-library docs](https://g-library.snailicide.com)
 
 ### Author
 
