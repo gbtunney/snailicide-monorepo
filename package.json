@@ -40,7 +40,7 @@
         "wip:docs:typedoc": "pnpm run build && pnpm run build:self && pnpm exec typedoc",
         "\n========== PUBLISH >> ==========": "",
         "release": "pnpm release:check && pnpm run pre:release && pnpm changeset",
-        "pre:release": "pnpm build:self && pnpm run fix && pnpm docs:build && pnpm release:check",
+        "pre:release": "pnpm build:self && pnpm docs:build && pnpm release:check",
         "release:check": "sh -c 'git diff --quiet || (echo \"🛑  Uncommitted changes — aborting.\" && exit 1)'",
         "\n========== NX >> ==========": "",
         "nx:graph": "pnpm nx graph",
