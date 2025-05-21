@@ -1,4 +1,5 @@
 /** Utility functions (mainly for working with lintstaged,file extensions and JSON data) */
+import micromatch from 'micromatch'
 import {
     ensureArray,
     isArray,
@@ -63,8 +64,20 @@ export const getFileExtensionList = <
     return ensureArray(joined ? list.join(',') : list)
 }
 
+export const globFileFilter = (
+    files: string | Array<string>,
+    globs: string | Array<string>,
+): Array<string> => {
+    const globArr = ensureArray(globs)
+    const result: Array<string> = ensureArray(files)
+        .map<string>((file: string) => path.resolve(file))
+        .filter((file: string): file is string =>
+            globArr.every((glob: string) => micromatch.capture(glob, file)),
+        )
+    return result
+}
+
 //sh,html,json,yaml,yml,graphql,md
-getFileExtensionList<true>(PRETTIER_FILE_EXTENSIONS)
 
 /*
 export type JSONExportEntry<Type extends Jsonifiable = JsonArray | JsonObject> =

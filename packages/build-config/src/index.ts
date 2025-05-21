@@ -55,6 +55,7 @@ export type * from './typedoc/index.js'
 /* *  UTILITIES *  */
 export {
     getFileExtensionList,
+    globFileFilter,
     importJSON,
     isPlainObject,
     JS_FILE_EXTENSIONS,
