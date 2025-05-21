@@ -163,6 +163,9 @@ importers:
             markdownlint:
                 specifier: ^0.37.4
                 version: 0.37.4
+            micromatch:
+                specifier: ^4.0.8
+                version: 4.0.8
             prettier:
                 specifier: ^3.5.3
                 version: 3.5.3
@@ -187,6 +190,9 @@ importers:
             semver:
                 specifier: ^7.7.1
                 version: 7.7.2
+            shelljs:
+                specifier: ^0.9.2
+                version: 0.9.2
             shiki:
                 specifier: ^3.3.0
                 version: 3.4.2
@@ -218,6 +224,9 @@ importers:
             '@rollup/plugin-typescript':
                 specifier: ^12.1.2
                 version: 12.1.2(rollup@4.41.0)(tslib@2.8.1)(typescript@5.8.3)
+            '@types/micromatch':
+                specifier: ^4.0.9
+                version: 4.0.9
             '@types/node':
                 specifier: ^22.15.1
                 version: 22.15.21
@@ -248,9 +257,6 @@ importers:
             remark-toc:
                 specifier: ^9.0.0
                 version: 9.0.0
-            shelljs:
-                specifier: ^0.9.2
-                version: 0.9.2
             ts-node:
                 specifier: ^10.9.2
                 version: 10.9.2(@types/node@22.15.21)(typescript@5.8.3)
@@ -2418,6 +2424,12 @@ packages:
                 integrity: sha512-6+7nlbMVX/PVDCwaIQ8nTOPveOcFLSt8GcXdx8hD0bt39uWxYT88uXzqTd4fTvqta7oeUJqudepapKNt2DYJFw==,
             }
 
+    '@types/braces@3.0.5':
+        resolution:
+            {
+                integrity: sha512-SQFof9H+LXeWNz8wDe7oN5zu7ket0qwMu5vZubW4GCJ8Kkeh6nBWUz87+KTz/G3Kqsrp0j/W253XJb3KMEeg3w==,
+            }
+
     '@types/clear@0.1.4':
         resolution:
             {
@@ -2536,6 +2548,12 @@ packages:
         resolution:
             {
                 integrity: sha512-RGdgjQUZba5p6QEFAVx2OGb8rQDL/cPRG7GiedRzMcJ1tYnUANBncjbSB1NRGwbvjcPeikRABz2nshyPk1bhWg==,
+            }
+
+    '@types/micromatch@4.0.9':
+        resolution:
+            {
+                integrity: sha512-7V+8ncr22h4UoYRLnLXSpTxjQrNUXtWHGeMPRJt1nULXI57G9bIcpyrHlmrQ7QK24EyyuXvYcSSWAM8GA9nqCg==,
             }
 
     '@types/minimatch@5.1.2':
@@ -12449,6 +12467,8 @@ snapshots:
         dependencies:
             tslib: 2.8.1
 
+    '@types/braces@3.0.5': {}
+
     '@types/clear@0.1.4': {}
 
     '@types/conventional-commits-parser@5.0.1':
@@ -12514,6 +12534,10 @@ snapshots:
             '@types/unist': 3.0.3
 
     '@types/mdurl@2.0.0': {}
+
+    '@types/micromatch@4.0.9':
+        dependencies:
+            '@types/braces': 3.0.5
 
     '@types/minimatch@5.1.2': {}
 
