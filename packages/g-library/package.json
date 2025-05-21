@@ -84,7 +84,7 @@
         "type-fest": "^4.22.0",
         "typedoc-material-theme": "^1.1.0",
         "yargs": "^17.7.2",
-        "zod": "^3.23.8"
+        "zod": "3.25.13"
     },
     "devDependencies": {
         "@snailicide/build-config": "workspace:*",
@@ -102,22 +102,17 @@
     "type": "module",
     "exports": {
         ".": {
-            "default": "./dist/index.js",
             "import": "./dist/index.mjs",
             "require": "./dist/index.cjs",
-            "types": "./dist/index.d.ts",
-            "browser": {
-                "import": "./dist/cdn-index.js",
-                "default": "./dist/cdn-index-iife.js",
-                "umd": "./dist/cdn-index-umd.js",
-                "types": "./dist/cdn-index.d.ts"
-            }
+            "default": "./dist/index.js"
         },
         "./node": {
-            "default": "./dist/node.js",
             "import": "./dist/node.mjs",
             "require": "./dist/node.cjs",
-            "types": "./dist/node.d.ts"
+            "default": "./dist/node.js"
+        },
+        "./cdn": {
+            "default": "./dist/cdn-index-iife.min.js"
         }
     },
     "main": "./dist/index.js",
