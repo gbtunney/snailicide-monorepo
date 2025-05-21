@@ -4,18 +4,9 @@
 
 # @snailicide/vite-plugin-shopify-theme-schema 🐌
 
-<p align="center">
- <img alt="Version" src="https://img.shields.io/npm/v/@snailicide/vite-plugin-shopify-theme-schema"/>
- <a href="#" target="_blank">
-  <img alt="License: MIT" src="https://img.shields.io/npm/l/@snailicide/vite-plugin-shopify-theme-schema"/>
- </a>
- <a href="#" target="_blank">
-  <img alt="Typescript" height="20px" src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white"/>
- </a>
- <a href="#" target="_blank">
-  <img alt="RollupJS" height="20px" src="https://img.shields.io/badge/RollupJS-ef3335?style=for-the-badge&logo=rollup.js&logoColor=white"/>
- </a>
-</p>
+[![NPM](https://img.shields.io/npm/v/@snailicide/vite-plugin-shopify-theme-schema)](http://www.npmjs.com/package/@snailicide/vite-plugin-shopify-theme-schema)
+![License: MIT](https://img.shields.io/npm/l/@snailicide/vite-plugin-shopify-theme-schema)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 This plugin adds features to make it easier to manage the JSON schema files for
 Shopify Theme Settings. Please see [Inspiration](#inspiration) section for more
@@ -37,7 +28,7 @@ info and backstory!
 
 ## 🐌
 
-- [🐌 Welcome to @snailicide/vite-plugin-shopify-theme-schema 🐌](#welcome-to--snailicide-vite-plugin-shopify-theme-schema---)
+- 🐌 Welcome to @snailicide/vite-plugin-shopify-theme-schema 🐌
   - [Features](#features)
   - [Examples](#examples)
     - [Installation](#installation)
@@ -50,8 +41,7 @@ info and backstory!
   - [To-Do](#to-do)
   - [Bugs](#bugs)
 
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of
-contents generated with markdown-toc</a></i></small>
+[Table of contents generated with markdown-toc](http://ecotrust-canada.github.io/markdown-toc)
 
 ## Features
 

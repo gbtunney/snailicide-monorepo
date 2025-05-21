@@ -5,16 +5,16 @@
 # @snailicide/vite-plugin-shopify-liquid-modules 🐌
 
 <p align="center">
-	<img alt="Version" src="https://img.shields.io/npm/v/@snailicide/vite-plugin-shopify-liquid-modules"/>
-	<a href="#" target="_blank">
-		<img alt="License: MIT" src="https://img.shields.io/npm/l/@snailicide/vite-plugin-shopify-liquid-modules"/>
-	</a>
-	<a href="#" target="_blank">
-		<img alt="Typescript" height="20px" src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white"/>
-	</a>
-	<a href="#" target="_blank">
-		<img alt="RollupJS" height="20px" src="https://img.shields.io/badge/RollupJS-ef3335?style=for-the-badge&logo=rollup.js&logoColor=white"/>
-	</a>
+ <img alt="Version" src="https://img.shields.io/npm/v/@snailicide/vite-plugin-shopify-liquid-modules"/>
+ <a href="#" target="_blank">
+  <img alt="License: MIT" src="https://img.shields.io/npm/l/@snailicide/vite-plugin-shopify-liquid-modules"/>
+ </a>
+ <a href="#" target="_blank">
+  <img alt="Typescript" height="20px" src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white"/>
+ </a>
+ <a href="#" target="_blank">
+  <img alt="RollupJS" height="20px" src="https://img.shields.io/badge/RollupJS-ef3335?style=for-the-badge&logo=rollup.js&logoColor=white"/>
+ </a>
 </p>
 
 _This plugin enables Shopify theme developers to structure their code into
@@ -264,7 +264,7 @@ defining separate directories for **liquid** and **schema** hindered a modular
 style approach. I decided on using globs to select the files and added a parent
 directory key. Thus, my fork born.
 
-####[GitHub - gbtunney/liquid-schema-plugin: Build reusable section schemas using Javascript](https://github.com/gbtunney/liquid-schema-plugin)
+#### [GitHub - gbtunney/liquid-schema-plugin: Build reusable section schemas using Javascript](https://github.com/gbtunney/liquid-schema-plugin)
 
 Here is how the plugin options was defined instead in my fork:
 

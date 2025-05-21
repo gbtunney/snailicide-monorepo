@@ -3,7 +3,7 @@ import { RollupOptions } from 'rollup'
 
 import pkg from './package.json' assert { type: 'json' }
 
-const PRINT_EXPORTS: boolean = true
+const PRINT_EXPORTS: boolean = false
 
 const directory_paths = {
     output_dir: './dist/',

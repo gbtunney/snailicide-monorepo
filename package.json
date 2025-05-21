@@ -52,7 +52,7 @@
         "\n========== CODE STYLE >> ==========": "",
         "prettier": "cross-var prettier {*,**/*}.{ts,js,cts,cjs,mts,mjs,tsx,jsx,sh,html,json,yaml,yml,graphql,md} ./.husky/* --ignore-path ./.gitignore --no-error-on-unmatched-pattern --write",
         "lint": "cross-var eslint -c $npm_package_config_eslint_config",
-        "lint:md": "pnpm exec markdownlint-cli2 '{./*,./**/*}.md' '#**/{node_modules,.changeset,docs}/**' '#packages/cli-template/templates/**/*'",
+        "lint:md": "pnpm exec markdownlint-cli2 '{./*,./**/*}.md' '#**/{node_modules,.changeset,docs}/**' '#packages/cli-template/templates/**/*' 'docs/notes/**/*.md'",
         "\n========== CHECK >> ==========": "",
         "check": "pnpm check:self",
         "check:md": "pnpm run lint:md",
@@ -114,5 +114,6 @@
         "commitizen": {
             "path": "@commitlint/cz-commitlint"
         }
-    }
+    },
+    "packageManager": "pnpm@10.9.0+sha512.0486e394640d3c1fb3c9d43d49cf92879ff74f8516959c235308f5a8f62e2e19528a65cdc2a3058f587cde71eba3d5b56327c8c33a97e4c4051ca48a10ca2d5f"
 }

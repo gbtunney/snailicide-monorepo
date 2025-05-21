@@ -3,9 +3,6 @@
     "version": "1.2.0",
     "description": "Function library written in typescript",
     "private": false,
-    "bin": {
-        "g-library-docs": "./docs.server.mjs"
-    },
     "keywords": [
         "typescript",
         "js",
@@ -22,12 +19,14 @@
         "build": "pnpm build:ts && pnpm build:rollup",
         "build:rollup": "rollup --config ./rollup.config.js",
         "build:ts": "tsc --build",
+        "build:nx": "cross-var nx run $npm_package_name:build",
         "\n========== DEV >> ==========": "",
         "dev": "tsc --build --watch",
         "dev:rollup": "nodemon --exec 'pnpm build' --watch ./rollup.config.ts ./src",
         "\n========== TEST >> ==========": "",
         "test": "vitest run",
         "test:watch": "vitest watch",
+        "test:nx": "cross-var nx run $npm_package_name:test",
         "test:workflow": "open /Applications/Docker.app && pnpm test:workflow:release",
         "test:workflow:release": "cross-var pnpm exec gh act --workflows  $(git rev-parse --show-toplevel)/workflows/workflow-release-package.yml  --input PACKAGE_NAME='$npm_package_name' --reuse",
         "\n========== CODE STYLE >> ==========": "",
@@ -44,6 +43,8 @@
         "docs:build": "pnpm build:ts && pnpm exec typedoc",
         "docs:serve": "vite --config ./vite.docs.config.ts",
         "docs:dev": "pnpm build:ts && pnpm typedoc --watch",
+        "docs:nx": "cross-var nx run $npm_package_name:docs:build",
+        "docs:open": "cross-var pnpm exec open $npm_package_config_docs_url",
         "\n========== PUBLISH >> ==========": "",
         "release": "pnpm prerelease && pnpm publish --access public --report-summary",
         "test:release": "pnpm prerelease && cross-var pnpm publish --access public --report-summary --no-git-checks --registry $npm_package_config_publish_private",
@@ -52,7 +53,7 @@
         "release:archive": "mkdir -p ./releases &&  pnpm exec npm pack --pack-destination='./releases'",
         "\n========== DEPLOY >> ==========": "",
         "deploy": "pnpm prerelease && pnpm deploy:docs",
-        "deploy:docs": "cross-var scp -r $npm_package_config_deploy_docs_local $npm_package_config_deploy_docs_remote",
+        "deploy:docs": "cross-var scp -r $npm_package_config_docs_deploy_local $npm_package_config_docs_deploy_remote",
         "\n========== CLEAN >> ==========": "",
         "clean": "pnpm clean:ts && pnpm clean:build",
         "clean:ts": "tsc --build --clean",
@@ -84,7 +85,7 @@
         "type-fest": "^4.22.0",
         "typedoc-material-theme": "^1.1.0",
         "yargs": "^17.7.2",
-        "zod": "^3.23.8"
+        "zod": "3.25.13"
     },
     "devDependencies": {
         "@snailicide/build-config": "workspace:*",
@@ -102,22 +103,17 @@
     "type": "module",
     "exports": {
         ".": {
-            "default": "./dist/index.js",
             "import": "./dist/index.mjs",
             "require": "./dist/index.cjs",
-            "types": "./dist/index.d.ts",
-            "browser": {
-                "import": "./dist/cdn-index.js",
-                "default": "./dist/cdn-index-iife.js",
-                "umd": "./dist/cdn-index-umd.js",
-                "types": "./dist/cdn-index.d.ts"
-            }
+            "default": "./dist/index.js"
         },
         "./node": {
-            "default": "./dist/node.js",
             "import": "./dist/node.mjs",
             "require": "./dist/node.cjs",
-            "types": "./dist/node.d.ts"
+            "default": "./dist/node.js"
+        },
+        "./cdn": {
+            "default": "./dist/cdn-index-iife.min.js"
         }
     },
     "main": "./dist/index.js",
@@ -139,9 +135,10 @@
         "publish": {
             "private": "http://localhost:4873"
         },
-        "deploy": {
-            "docs": {
-                "remote": "bluehost:~/public_html/docs-snailicide",
+        "docs": {
+            "url": "https://g-library.snailicide.com",
+            "deploy": {
+                "remote": "bluehost:~/g-library.snailicide.com",
                 "local": "./docs/*"
             }
         },

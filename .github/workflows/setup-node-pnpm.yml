@@ -1,0 +1,106 @@
+name: setup-node-pnpm
+
+on:
+    workflow_call:
+        inputs:
+            install:
+                type: boolean
+                default: true
+            build:
+                type: boolean
+                default: true
+            fix:
+                type: boolean
+                default: false
+            test:
+                type: boolean
+                default: false
+            check:
+                type: boolean
+                default: false
+            LOG_DIRTY_FILES:
+                type: boolean
+                default: true
+            LOG_IGNORED:
+                type: boolean
+                default: true
+            DEBUG:
+                type: boolean
+                default: false
+            includes:
+                type: string
+                default: 'node_modules,dist,docs,storybook-static,types'
+
+        outputs:
+            status:
+                value: ${{ jobs.check.outputs.status }}
+            dirty:
+                value: ${{ jobs.check.outputs.dirty }}
+            files:
+                value: ${{ jobs.check.outputs.files }}
+            ignored_files:
+                value: ${{ jobs.check.outputs.ignored_files }}
+            count:
+                value: ${{ jobs.check.outputs.count }}
+            changed:
+                value: ${{ jobs.check.outputs.changed }}
+            changed_all:
+                value: ${{ jobs.check.outputs.changed_all }}
+jobs:
+    setup:
+        runs-on: ubuntu-latest
+        outputs:
+            status: ${{ steps.collect.outputs.status }}
+            dirty: ${{ steps.collect.outputs.dirty }}
+            files: ${{ steps.collect.outputs.dirty_files }}
+            ignored_files: ${{ steps.collect.outputs.ignored_filtered }}
+            count: ${{ steps.collect.outputs.counts }}
+            changed: ${{ steps.collect.outputs.changed }}
+            changed_all: ${{ steps.collect.outputs.changed_all }}
+
+        steps:
+            - name: 🛎️ Checkout repository
+              uses: actions/checkout@v4
+
+            - name: 🧰 Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20.11.1'
+
+            - name: 📦 Install pnpm
+              run: npm install -g pnpm
+
+            - name: 📥 Install dependencies
+              if: ${{ inputs.install }}
+              run: pnpm install --frozen-lockfile
+
+            - name: 🛠️ Build packages
+              if: ${{ inputs.build }}
+              run: pnpm build
+
+            - name: 🔧 Auto-fix code
+              if: ${{ inputs.fix }}
+              run: pnpm fix
+
+            - name: 🧪 Run tests
+              if: ${{ inputs.test }}
+              run: pnpm test
+
+            - name: ✅ Lint and check
+              if: ${{ inputs.check }}
+              run: pnpm check
+
+            - name: 🔍 Check for dirty files
+              id: check_dirty
+              run: |
+                  dirty=$(git status --porcelain | awk '{print $2}')
+
+                  if [[ -z "$dirty" ]]; then
+                    echo "✅ No dirty files."
+                    echo "is_dirty=false" >> $GITHUB_OUTPUT
+                  else
+                    echo "⚠️ Repo has uncommitted changes."
+                    echo "🚨 Dirty files detected:"
+                    echo "$dirty" | sed 's/^/ - /'
+                    echo "is_dirty=true" >> $GITHUB_OUTPUT
+                  fi

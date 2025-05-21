@@ -9,10 +9,9 @@
     },
     "exports": {
         ".": {
-            "types": "./dist/index.d.ts",
-            "default": "./dist/index.js",
             "import": "./dist/index.mjs",
-            "require": "./dist/index.cjs"
+            "require": "./dist/index.cjs",
+            "default": "./dist/index.js"
         }
     },
     "main": "./dist/index.js",
