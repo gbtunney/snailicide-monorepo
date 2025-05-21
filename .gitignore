@@ -128,7 +128,7 @@ package.lock
 # pnpm's lockfile, workspace definitions and hooks.
 # We're using npm, and it provides its lockfile and settings.
 #todo: remove for prod
-pnpm-lock.yaml
+#pnpm-lock.yaml
 #pnpm-workspace.yaml
 pnpmfile.js
 
