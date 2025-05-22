@@ -93,14 +93,8 @@ jobs:
             - name: 🔍 Check for dirty files
               id: check_dirty
               run: |
-                  dirty=$(git status --porcelain | awk '{print $2}')
+            - id: collect
+              run:
+                  echo "dirty=${{ steps.check_dirty.outputs.is_dirty }}" >> $GITHUB_OUTPUT dirty=$(git status --porcelain | awk '{print $2}')
 
-                  if [[ -z "$dirty" ]]; then
-                    echo "✅ No dirty files."
-                    echo "is_dirty=false" >> $GITHUB_OUTPUT
-                  else
-                    echo "⚠️ Repo has uncommitted changes."
-                    echo "🚨 Dirty files detected:"
-                    echo "$dirty" | sed 's/^/ - /'
-                    echo "is_dirty=true" >> $GITHUB_OUTPUT
-                  fi
+                  if [[ -z "$dirty" ]]; then echo "✅ No dirty files." echo "is_dirty=false" >> $GITHUB_OUTPUT else echo "⚠️ Repo has uncommitted changes." echo "🚨 Dirty files detected:" echo "$dirty" | sed 's/^/ - /' echo "is_dirty=true" >> $GITHUB_OUTPUT fi
