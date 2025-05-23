@@ -30,6 +30,9 @@ on:
             includes:
                 type: string
                 default: 'node_modules,dist,docs,storybook-static,types'
+            node_version:
+                type: string
+                default: '21.7.3'
 
         outputs:
             dirty:
@@ -50,7 +53,7 @@ jobs:
             - name: 🧰 Set up Node.js
               uses: actions/setup-node@v4
               with:
-                  node-version: '21.7.3'
+                  node-version: ${{ inputs.node_version }}
 
             - name: 📦 Install pnpm
               run: npm install -g pnpm
