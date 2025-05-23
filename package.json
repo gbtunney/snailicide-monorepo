@@ -15,7 +15,7 @@
     },
     "scripts": {
         "\n========== COMMIT >> ==========": "",
-        "commit": "pnpm run commit:before && pnpm exec git-cz",
+        "commit": "pnpm run commit:before && pnpm exec git-cz && pnpm --filter=@snailicide/build-config build:nx",
         "commit:before": "pnpm build:self && pnpm run lint:staged",
         "commit:build-config": "pnpm nx:build:config && pnpm build:self && pnpm exec git-cz",
         "\n========== BUILD >> ==========": "",

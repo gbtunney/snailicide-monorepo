@@ -32,32 +32,17 @@ on:
                 default: 'node_modules,dist,docs,storybook-static,types'
 
         outputs:
-            status:
-                value: ${{ jobs.check.outputs.status }}
             dirty:
                 value: ${{ jobs.check.outputs.dirty }}
-            files:
-                value: ${{ jobs.check.outputs.files }}
-            ignored_files:
-                value: ${{ jobs.check.outputs.ignored_files }}
-            count:
-                value: ${{ jobs.check.outputs.count }}
-            changed:
-                value: ${{ jobs.check.outputs.changed }}
-            changed_all:
-                value: ${{ jobs.check.outputs.changed_all }}
+            dirty_files:
+                value: ${{ jobs.check.outputs.dirty_files }}
+
 jobs:
-    setup:
+    check:
         runs-on: ubuntu-latest
         outputs:
-            status: ${{ steps.collect.outputs.status }}
-            dirty: ${{ steps.collect.outputs.dirty }}
-            files: ${{ steps.collect.outputs.dirty_files }}
-            ignored_files: ${{ steps.collect.outputs.ignored_filtered }}
-            count: ${{ steps.collect.outputs.counts }}
-            changed: ${{ steps.collect.outputs.changed }}
-            changed_all: ${{ steps.collect.outputs.changed_all }}
-
+            dirty: ${{ steps.collect.outputs.is_dirty }}
+            dirty_files: ${{ steps.collect.outputs.dirty_files }}
         steps:
             - name: 🛎️ Checkout repository
               uses: actions/checkout@v4
@@ -90,17 +75,19 @@ jobs:
               if: ${{ inputs.check }}
               run: pnpm check
 
-            - name: 🔍 Check for dirty files
-              id: check_dirty
+            - name: 🔍 Check for dirty files and set outputs
+              id: collect
               run: |
-                  dirty=$(git status --porcelain | awk '{print $2}')
-
-                  if [[ -z "$dirty" ]]; then
-                    echo "✅ No dirty files."
+                  dirty_files=$(git status --porcelain | awk '{print $2}')
+                  if [[ -z "$dirty_files" ]]; then
                     echo "is_dirty=false" >> $GITHUB_OUTPUT
+                    echo "dirty_files=" >> $GITHUB_OUTPUT
+                    echo "✅ No dirty files."
                   else
-                    echo "⚠️ Repo has uncommitted changes."
-                    echo "🚨 Dirty files detected:"
-                    echo "$dirty" | sed 's/^/ - /'
                     echo "is_dirty=true" >> $GITHUB_OUTPUT
+                    echo "dirty_files=$dirty_files" >> $GITHUB_OUTPUT
+                    if [[ "${{ inputs.LOG_DIRTY_FILES }}" == "true" ]]; then
+                      echo "🚨 Dirty files detected:"
+                      echo "$dirty_files" | sed 's/^/ - /'
+                    fi
                   fi

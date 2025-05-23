@@ -18,8 +18,6 @@ jobs:
             test: true
             check: true
             DEBUG: false
-        outputs:
-            dirty: ${{ steps.check_dirty.outputs.is_dirty }}
 
     validate:
         name: 🚨 Validate cleanliness
