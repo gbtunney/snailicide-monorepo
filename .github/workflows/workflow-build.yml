@@ -18,6 +18,6 @@ jobs:
         name: ✅ Continue if clean
         runs-on: ubuntu-latest
         needs: setup
-        if: needs.log.outputs.dirty == 'false'
+        if: needs.setup.outputs.dirty == 'false'
         steps:
             - run: echo "Repo is clean, build successful!"

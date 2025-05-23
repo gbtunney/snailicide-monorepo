@@ -163,6 +163,10 @@ docs/private
 packages/**/releases/*
 .nx
 .ssh
+.secrets
 .history
 .env
 **/.vitepress/cache
+
+.cursor/rules/nx-rules.mdc
+.github/instructions/nx.instructions.md
