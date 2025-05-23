@@ -1,51 +1,43 @@
 name: 🐌 Snailicide Release
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-
 on:
     push:
         branches:
             - 'main'
-
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
-    setup:
-        uses: ./.github/workflows/setup-node-pnpm.yml
-        with:
-            install: true
-            build: true
-            fix: true
-            test: true
-            check: true
-            DEBUG: false
-
-    validate:
-        name: 🚨 Validate cleanliness
-        runs-on: ubuntu-latest
-        needs: setup
-        steps:
-            - name: 🧼 Check for dirty repo state
-              run: |
-                  if [[ "${{ needs.setup.outputs.dirty }}" == "true" ]]; then
-                    echo "🛑 Dirty files detected on main — CI will now fail."
-                    exit 1
-                  else
-                    echo "✅ Repo is clean, continuing."
-                  fi
-
     release:
-        name: 🚀 Release (only if clean)
+        name: 'Changeset 🚀'
         runs-on: ubuntu-latest
-        needs: [setup, validate]
-        if: needs.setup.outputs.dirty == 'false'
         permissions:
             contents: write
             pull-requests: write
             repository-projects: write
-
+        env:
+            HUSKY: 0
         steps:
-            - name: Checkout repository
-              uses: actions/checkout@v4
+            - name: Checkout Repo 🛎️
+              uses: actions/checkout@v3
+
+            - name: Setup Node.js environment 🛎️
+              uses: actions/setup-node@v3.8.1
+              with:
+                  node-version: '20.11.1'
+
+            - name: Install pnpm 🔧
+              env:
+                  HUSKY: 0
+              run: |
+                  npm install -g pnpm
+                  pnpm install
+
+            - name: Build, Lint and Unit Tests 🚨
+              run: |
+                  pnpm run build && pnpm run fix && pnpm run check && pnpm test
+            - run: |
+                  git status
+                  git branch
 
             - name: Create Release Pull Request
               uses: changesets/action@v1
@@ -56,6 +48,7 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
             - name: Tag Versions 🏷️
+              # You can do something when a publish should happen.
               run: |
                   pnpm changeset tag
                   git push origin --tags
