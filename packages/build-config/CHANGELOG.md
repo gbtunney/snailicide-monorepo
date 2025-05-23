@@ -1,5 +1,11 @@
 # @snailicide/build-config
 
+## 1.4.2
+
+### Patch Changes
+
+- 50ef4ff: fixed bug with missing viitepress dependency
+
 ## 1.4.1
 
 ### Patch Changes
