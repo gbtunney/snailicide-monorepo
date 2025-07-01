@@ -96,7 +96,14 @@ export const prettierConfiguration = (
     return {
         ...myoption,
         ...(overrides !== undefined ? { overrides } : {}),
-        plugins: ['prettier-plugin-jsdoc', 'prettier-plugin-sh'],
+        plugins: [
+            '@prettier/plugin-xml',
+            '@prettier/plugin-php',
+            'prettier-plugin-jsdoc',
+            'prettier-plugin-sh',
+            'prettier-plugin-packagejson',
+            'prettier-plugin-tailwindcss',
+        ],
     }
 }
 

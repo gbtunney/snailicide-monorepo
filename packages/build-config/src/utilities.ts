@@ -27,13 +27,16 @@ export const JSLIKE_FILE_EXTENSIONS = [
     ...TS_FILE_EXTENSIONS,
 ] as const
 export const PRETTIER_FILE_EXTENSIONS = [
-    'md',
     'json',
+    'xml',
+    'php',
+    'html',
+    'css',
+    'md',
+    'sh',
     'yaml',
     'yml',
     'graphql',
-    'sh',
-    'html',
 ] as const
 
 export type JSFileExtensions = ArrayValues<typeof JS_FILE_EXTENSIONS>
