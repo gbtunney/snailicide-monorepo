@@ -101,8 +101,8 @@ export const prettierConfiguration = (
             '@prettier/plugin-php',
             'prettier-plugin-jsdoc',
             'prettier-plugin-sh',
-            'prettier-plugin-packagejson',
-            'prettier-plugin-tailwindcss',
+            //   'prettier-plugin-packagejson',
+            //  'prettier-plugin-tailwindcss',
         ],
     }
 }

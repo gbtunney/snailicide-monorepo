@@ -25,6 +25,12 @@ importers:
             '@eslint/config-inspector':
                 specifier: ^1.0.2
                 version: 1.0.2(eslint@9.27.0(jiti@2.4.2))
+            '@prettier/plugin-php':
+                specifier: ^0.22.4
+                version: 0.22.4(prettier@3.5.3)
+            '@prettier/plugin-xml':
+                specifier: ^3.4.2
+                version: 3.4.2(prettier@3.5.3)
             '@snailicide/build-config':
                 specifier: workspace:^
                 version: link:packages/build-config
@@ -198,7 +204,7 @@ importers:
                 version: 3.4.2
             sort-package-json:
                 specifier: ^3.0.0
-                version: 3.2.1
+                version: 3.4.0
             ts-deepmerge:
                 specifier: ^7.0.2
                 version: 7.0.3
@@ -221,6 +227,12 @@ importers:
                 specifier: ^3.24.3
                 version: 3.25.13
         devDependencies:
+            '@prettier/plugin-php':
+                specifier: ^0.22.4
+                version: 0.22.4(prettier@3.5.3)
+            '@prettier/plugin-xml':
+                specifier: ^3.4.1
+                version: 3.4.2(prettier@3.5.3)
             '@rollup/plugin-typescript':
                 specifier: ^12.1.2
                 version: 12.1.2(rollup@4.41.0)(tslib@2.8.1)(typescript@5.8.3)
@@ -248,9 +260,15 @@ importers:
             prettier-plugin-jsdoc:
                 specifier: ^1.3.2
                 version: 1.3.2(prettier@3.5.3)
+            prettier-plugin-packagejson:
+                specifier: ^2.5.17
+                version: 2.5.19(prettier@3.5.3)
             prettier-plugin-sh:
                 specifier: ^0.17.2
                 version: 0.17.4(prettier@3.5.3)
+            prettier-plugin-tailwindcss:
+                specifier: ^0.6.13
+                version: 0.6.14(prettier-plugin-jsdoc@1.3.2(prettier@3.5.3))(prettier@3.5.3)
             remark-github:
                 specifier: ^12.0.0
                 version: 12.0.0
@@ -2004,11 +2022,34 @@ packages:
             }
         engines: { node: '>=14' }
 
+    '@pkgr/core@0.2.9':
+        resolution:
+            {
+                integrity: sha512-QNqXyfVS2wm9hweSYD2O7F0G06uurj9kZ96TRQE5Y9hU7+tgdZwIkbAKc5Ocy1HxEY2kuDQa6cQ1WRs/O5LFKA==,
+            }
+        engines: { node: ^12.20.0 || ^14.18.0 || >=16.0.0 }
+
     '@polka/url@1.0.0-next.29':
         resolution:
             {
                 integrity: sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww==,
             }
+
+    '@prettier/plugin-php@0.22.4':
+        resolution:
+            {
+                integrity: sha512-uZWqfyrwsxScIYkmVcfnoQGFmKVMXTHD5pqYT4l8fxzm5P3XY94hTPbf8X6TFCi2QTZBIot7GS8lfIjQjldc2g==,
+            }
+        peerDependencies:
+            prettier: ^3.0.0
+
+    '@prettier/plugin-xml@3.4.2':
+        resolution:
+            {
+                integrity: sha512-/UyNlHfkuLXG6Ed85KB0WBF283xn2yavR+UtRibBRUcvEJId2DSLdGXwJ/cDa1X++SWDPzq3+GSFniHjkNy7yg==,
+            }
+        peerDependencies:
+            prettier: ^3.0.0
 
     '@reteps/dockerfmt@0.3.6':
         resolution:
@@ -3153,6 +3194,12 @@ packages:
                 integrity: sha512-9AZHVXWlpN8Cn9k5BC/O0Dzb9E9xfEMXzYrNunwvkUTvuK7xgQPVRZpLo+jWCOZ5r8oBa8NIrHuPEu1hzbb6bg==,
             }
         engines: { node: '>=8.0.0' }
+
+    '@xml-tools/parser@1.0.11':
+        resolution:
+            {
+                integrity: sha512-aKqQ077XnR+oQtHJlrAflaZaL7qZsulWc/i/ZEooar5JiWj1eLt0+Wg28cpa+XLney107wXqneC+oG1IZvxkTA==,
+            }
 
     '@yarnpkg/lockfile@1.1.0':
         resolution:
@@ -4321,6 +4368,12 @@ packages:
                 integrity: sha512-OAlb+T7V4Op9OwdkjmguYRqncdlx5JiofwOAUkmTF+jNdHwzTaTs4sRAGpzLF3oOz5xAyDGrPgeIDFQmDOTiJw==,
             }
         engines: { node: '>= 16' }
+
+    chevrotain@7.1.1:
+        resolution:
+            {
+                integrity: sha512-wy3mC1x4ye+O+QkEinVJkPf5u2vsrDIYW9G7ZuwFl6v/Yu0LwUuT2POsb+NUWApebyxfkQq6+yDfRExbnI5rcw==,
+            }
 
     chokidar@4.0.3:
         resolution:
@@ -7386,6 +7439,12 @@ packages:
             }
         engines: { node: ^12.20.0 || ^14.13.1 || >=16.0.0 }
 
+    linguist-languages@7.31.2:
+        resolution:
+            {
+                integrity: sha512-UQv5iuzEcGoYWdc/Ea2yqLiFbe8rQmIa5uD1FLwF5vBYmwbTvJlPJfHaIVtfYZTQf2wg7pzhxkwkGPP3q+v+EA==,
+            }
+
     linkify-it@5.0.0:
         resolution:
             {
@@ -8895,6 +8954,12 @@ packages:
                 integrity: sha512-7EAHlyLHI56VEIdK57uwHdHKIaAGbnXPiw0yWbarQZOKaKpvUIgW0jWRVLiatnM+XXlSwsanIBH/hzGMJulMow==,
             }
 
+    php-parser@3.2.5:
+        resolution:
+            {
+                integrity: sha512-M1ZYlALFFnESbSdmRtTQrBFUHSriHgPhgqtTF/LCbZM4h7swR5PHtUceB2Kzby5CfqcsYwBn7OXTJ0+8Sajwkw==,
+            }
+
     picocolors@1.1.1:
         resolution:
             {
@@ -9040,6 +9105,17 @@ packages:
         peerDependencies:
             prettier: ^3.0.0
 
+    prettier-plugin-packagejson@2.5.19:
+        resolution:
+            {
+                integrity: sha512-Qsqp4+jsZbKMpEGZB1UP1pxeAT8sCzne2IwnKkr+QhUe665EXUo3BAvTf1kAPCqyMv9kg3ZmO0+7eOni/C6Uag==,
+            }
+        peerDependencies:
+            prettier: '>= 1.16.0'
+        peerDependenciesMeta:
+            prettier:
+                optional: true
+
     prettier-plugin-sh@0.17.4:
         resolution:
             {
@@ -9048,6 +9124,70 @@ packages:
         engines: { node: '>=16.0.0' }
         peerDependencies:
             prettier: ^3.0.3
+
+    prettier-plugin-tailwindcss@0.6.14:
+        resolution:
+            {
+                integrity: sha512-pi2e/+ZygeIqntN+vC573BcW5Cve8zUB0SSAGxqpB4f96boZF4M3phPVoOFCeypwkpRYdi7+jQ5YJJUwrkGUAg==,
+            }
+        engines: { node: '>=14.21.3' }
+        peerDependencies:
+            '@ianvs/prettier-plugin-sort-imports': '*'
+            '@prettier/plugin-hermes': '*'
+            '@prettier/plugin-oxc': '*'
+            '@prettier/plugin-pug': '*'
+            '@shopify/prettier-plugin-liquid': '*'
+            '@trivago/prettier-plugin-sort-imports': '*'
+            '@zackad/prettier-plugin-twig': '*'
+            prettier: ^3.0
+            prettier-plugin-astro: '*'
+            prettier-plugin-css-order: '*'
+            prettier-plugin-import-sort: '*'
+            prettier-plugin-jsdoc: '*'
+            prettier-plugin-marko: '*'
+            prettier-plugin-multiline-arrays: '*'
+            prettier-plugin-organize-attributes: '*'
+            prettier-plugin-organize-imports: '*'
+            prettier-plugin-sort-imports: '*'
+            prettier-plugin-style-order: '*'
+            prettier-plugin-svelte: '*'
+        peerDependenciesMeta:
+            '@ianvs/prettier-plugin-sort-imports':
+                optional: true
+            '@prettier/plugin-hermes':
+                optional: true
+            '@prettier/plugin-oxc':
+                optional: true
+            '@prettier/plugin-pug':
+                optional: true
+            '@shopify/prettier-plugin-liquid':
+                optional: true
+            '@trivago/prettier-plugin-sort-imports':
+                optional: true
+            '@zackad/prettier-plugin-twig':
+                optional: true
+            prettier-plugin-astro:
+                optional: true
+            prettier-plugin-css-order:
+                optional: true
+            prettier-plugin-import-sort:
+                optional: true
+            prettier-plugin-jsdoc:
+                optional: true
+            prettier-plugin-marko:
+                optional: true
+            prettier-plugin-multiline-arrays:
+                optional: true
+            prettier-plugin-organize-attributes:
+                optional: true
+            prettier-plugin-organize-imports:
+                optional: true
+            prettier-plugin-sort-imports:
+                optional: true
+            prettier-plugin-style-order:
+                optional: true
+            prettier-plugin-svelte:
+                optional: true
 
     prettier@2.8.8:
         resolution:
@@ -9336,6 +9476,12 @@ packages:
         resolution:
             {
                 integrity: sha512-uorlqlzAKjKQZ5P+kTJr3eeJGSVroLKoHmquUj4zHWuR+hEyNqlXsSKlYYF5F4NI6nl7tWCs0apKJ0lmfsXAPA==,
+            }
+
+    regexp-to-ast@0.5.0:
+        resolution:
+            {
+                integrity: sha512-tlbJqcMHnPKI9zSrystikWKwHkBqu2a/Sgw01h3zFjvYrMxEDYHzzoMZnUrbIfpTFEsoRnnviOXNCzFiSc54Qw==,
             }
 
     regexp.prototype.flags@1.5.4:
@@ -9965,11 +10111,12 @@ packages:
                 integrity: sha512-855pvK+VkU7PaKYPc+Jjnmt4EzejQHyhhF33q31qG8x7maDzkeFhAAThdCYay11CISO+qAMwjOBP+fPZe0IPyg==,
             }
 
-    sort-package-json@3.2.1:
+    sort-package-json@3.4.0:
         resolution:
             {
-                integrity: sha512-rTfRdb20vuoAn7LDlEtCqOkYfl2X+Qze6cLbNOzcDpbmKEhJI30tTN44d5shbKJnXsvz24QQhlCm81Bag7EOKg==,
+                integrity: sha512-97oFRRMM2/Js4oEA9LJhjyMlde+2ewpZQf53pgue27UkbEXfHJnDzHlUxQ/DWUkzqmp7DFwJp8D+wi/TYeQhpA==,
             }
+        engines: { node: '>=20' }
         hasBin: true
 
     source-map-js@1.2.1:
@@ -10291,6 +10438,13 @@ packages:
                 integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==,
             }
         engines: { node: '>= 0.4' }
+
+    synckit@0.11.11:
+        resolution:
+            {
+                integrity: sha512-MeQTA1r0litLUf0Rp/iisCaL8761lKAZHaimlbGK4j0HysC4PLfqygQj9srcs0m2RdtDYnF8UuYyKpbjHYp7Jw==,
+            }
+        engines: { node: ^14.18.0 || >=16.0.0 }
 
     tabbable@6.2.0:
         resolution:
@@ -12234,7 +12388,20 @@ snapshots:
     '@pkgjs/parseargs@0.11.0':
         optional: true
 
+    '@pkgr/core@0.2.9': {}
+
     '@polka/url@1.0.0-next.29': {}
+
+    '@prettier/plugin-php@0.22.4(prettier@3.5.3)':
+        dependencies:
+            linguist-languages: 7.31.2
+            php-parser: 3.2.5
+            prettier: 3.5.3
+
+    '@prettier/plugin-xml@3.4.2(prettier@3.5.3)':
+        dependencies:
+            '@xml-tools/parser': 1.0.11
+            prettier: 3.5.3
 
     '@reteps/dockerfmt@0.3.6': {}
 
@@ -13030,6 +13197,10 @@ snapshots:
             vue: 3.5.14(typescript@5.8.3)
 
     '@wessberg/stringutil@1.0.19': {}
+
+    '@xml-tools/parser@1.0.11':
+        dependencies:
+            chevrotain: 7.1.1
 
     '@yarnpkg/lockfile@1.1.0': {}
 
@@ -13977,6 +14148,10 @@ snapshots:
     chardet@0.7.0: {}
 
     check-error@2.1.1: {}
+
+    chevrotain@7.1.1:
+        dependencies:
+            regexp-to-ast: 0.5.0
 
     chokidar@4.0.3:
         dependencies:
@@ -15886,6 +16061,8 @@ snapshots:
 
     lines-and-columns@2.0.3: {}
 
+    linguist-languages@7.31.2: {}
+
     linkify-it@5.0.0:
         dependencies:
             uc.micro: 2.1.0
@@ -16933,6 +17110,8 @@ snapshots:
 
     performance-now@2.1.0: {}
 
+    php-parser@3.2.5: {}
+
     picocolors@1.1.1: {}
 
     picomatch@2.3.1: {}
@@ -17018,11 +17197,24 @@ snapshots:
         transitivePeerDependencies:
             - supports-color
 
+    prettier-plugin-packagejson@2.5.19(prettier@3.5.3):
+        dependencies:
+            sort-package-json: 3.4.0
+            synckit: 0.11.11
+        optionalDependencies:
+            prettier: 3.5.3
+
     prettier-plugin-sh@0.17.4(prettier@3.5.3):
         dependencies:
             '@reteps/dockerfmt': 0.3.6
             prettier: 3.5.3
             sh-syntax: 0.5.8
+
+    prettier-plugin-tailwindcss@0.6.14(prettier-plugin-jsdoc@1.3.2(prettier@3.5.3))(prettier@3.5.3):
+        dependencies:
+            prettier: 3.5.3
+        optionalDependencies:
+            prettier-plugin-jsdoc: 1.3.2(prettier@3.5.3)
 
     prettier@2.8.8: {}
 
@@ -17185,6 +17377,8 @@ snapshots:
     regex@6.0.1:
         dependencies:
             regex-utilities: 2.3.0
+
+    regexp-to-ast@0.5.0: {}
 
     regexp.prototype.flags@1.5.4:
         dependencies:
@@ -17609,7 +17803,7 @@ snapshots:
 
     sort-object-keys@1.1.3: {}
 
-    sort-package-json@3.2.1:
+    sort-package-json@3.4.0:
         dependencies:
             detect-indent: 7.0.1
             detect-newline: 4.0.1
@@ -17803,6 +17997,10 @@ snapshots:
             has-flag: 4.0.0
 
     supports-preserve-symlinks-flag@1.0.0: {}
+
+    synckit@0.11.11:
+        dependencies:
+            '@pkgr/core': 0.2.9
 
     tabbable@6.2.0: {}
 
