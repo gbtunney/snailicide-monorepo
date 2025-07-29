@@ -49,7 +49,7 @@
     },
     "dependencies": {
         "@snailicide/g-library": "workspace:*",
-        "@types/ramda": "^0.30.1",
+        "@types/ramda": "^0.31.0",
         "@vueuse/core": "^13.1.0",
         "chroma.ts": "^1.0.10",
         "ramda": "^0.31.3",

@@ -60,7 +60,7 @@
         "@snailicide/g-library": "workspace:*",
         "@snailicide/g-shopify-library": "workspace:*",
         "@types/node": "^24.0.10",
-        "@types/ramda": "^0.30.0",
+        "@types/ramda": "^0.31.0",
         "ramda": "^0.31.3",
         "ramda-adjunct": "^5.0.0",
         "shelljs": "^0.10.0",

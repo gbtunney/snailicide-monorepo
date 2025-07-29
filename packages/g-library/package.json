@@ -60,11 +60,10 @@
         "clean:build": "rm -R -f dist types docs"
     },
     "dependencies": {
-        "@types/glob": "^9.0.0",
         "@types/is-glob": "^4.0.4",
         "@types/markdown-it": "^14.1.1",
         "@types/node": "^24.0.10",
-        "@types/ramda": "^0.30.0",
+        "@types/ramda": "^0.31.0",
         "@types/semver": "^7.5.8",
         "@types/yargs": "^17.0.32",
         "chroma.ts": "^1.0.10",
