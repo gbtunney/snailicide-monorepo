@@ -16,8 +16,8 @@ export default function shopifyModules(
     options: ShopifyLiquidModulesOptions = {},
 ): Plugin {
     const resolvedOptions = resolveOptions(options)
-    if (tg.isNotUndefined<ResolvedShopifyLiquidModulesOptions>(resolvedOptions))
-        processModules(resolvedOptions)
+    if (tg.isNotUndefined(resolvedOptions))
+        processModules(resolvedOptions as ResolvedShopifyLiquidModulesOptions)
 
     return {
         name: 'vite-plugin-shopify-liquid-modules',
@@ -107,7 +107,7 @@ const replaceSchemaTags = async (
     const result = fileContents.match(replaceableSchemaRegex)
     if (result !== null) {
         const [match, importableFilePath, , contents] = result
-        if (tg.isNotUndefined<string>(importableFilePath)) {
+        if (importableFilePath !== undefined) {
             const _importableFilePath: string = importableFilePath.replace(
                 /(^('|"))|(('|")$)/g,
                 '',

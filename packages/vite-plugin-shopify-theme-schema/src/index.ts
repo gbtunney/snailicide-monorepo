@@ -10,8 +10,9 @@ export default function shopifyModules(
 ): Plugin {
     const resolvedOptions = resolveOptions(options)
     let _config: ResolvedConfig
-    if (tg.isNotUndefined<ShopifyThemeSchemaOptions>(resolvedOptions))
-        processModules(resolvedOptions)
+    if (tg.isNotUndefined(resolvedOptions)) {
+        processModules(resolvedOptions as ResolvedShopifyThemeSchemaOptions)
+    }
     return {
         name: 'vite-plugin-shopify-theme-schema',
     }

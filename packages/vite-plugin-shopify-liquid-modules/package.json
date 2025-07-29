@@ -59,13 +59,13 @@
         "@shopify/admin-graphql-api-utilities": "^2.0.1",
         "@snailicide/g-library": "workspace:*",
         "@snailicide/g-shopify-library": "workspace:*",
-        "@types/node": "^22.5.0",
+        "@types/node": "^24.0.10",
         "@types/ramda": "^0.30.0",
-        "ramda": "^0.30.0",
+        "ramda": "^0.31.3",
         "ramda-adjunct": "^5.0.0",
-        "shelljs": "^0.9.2",
+        "shelljs": "^0.10.0",
         "type-fest": "^4.22.1",
-        "vite": "^6.3.3",
+        "vite": "^7.0.2",
         "zod": "^3.23.8"
     },
     "devDependencies": {
