@@ -43,7 +43,7 @@ export const getArrayKeys = <AppOptionsSchema extends ZodObjectSchema>(
 const getDescription = (key: string, value: z.ZodTypeAny): string => {
     const __desc = value.description
     const desc: string =
-        tg.isString(__desc) && __desc.length > 0
+        tg.isString(__desc) && __desc && __desc.length > 0
             ? __desc
             : stringUtils.capitalizeWords(key)
 
