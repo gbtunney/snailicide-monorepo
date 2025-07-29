@@ -52,7 +52,7 @@
         "@types/ramda": "^0.30.1",
         "@vueuse/core": "^13.1.0",
         "chroma.ts": "^1.0.10",
-        "ramda": "^0.30.1",
+        "ramda": "^0.31.3",
         "ramda-adjunct": "^5.0.1",
         "type-fest": "^4.22.0",
         "vue": "^3.4.32",
@@ -60,7 +60,7 @@
     },
     "devDependencies": {
         "@snailicide/build-config": "workspace:*",
-        "@types/node": "^22.5.0",
+        "@types/node": "^24.0.10",
         "prettier": "^3.0.3",
         "rollup": "^4.18.1",
         "ts-node": "^10.9.1",
