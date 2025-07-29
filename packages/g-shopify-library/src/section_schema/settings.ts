@@ -111,8 +111,7 @@ export const defineSettings = (
         (accumulator: LocalSchema.Settings, [_key, _value]) => {
             return {
                 ...accumulator,
-                [`${tg.isNotUndefined<string>(_prefix) ? _prefix : ''}${_key}`]:
-                    _value,
+                [`${tg.isNotUndefined(_prefix) ? _prefix : ''}${_key}`]: _value,
             }
         },
         {},
@@ -123,28 +122,26 @@ export const defineBlocks = (
     value: LocalSchema.Blocks,
     _prefix: Array<string> | string | undefined = undefined,
 ) => {
-    const prefixArr: Array<string> | undefined = tg.isNotUndefined<
-        string | Array<string>
-    >(_prefix)
-        ? RA.ensureArray(_prefix)
+    const prefixArr: Array<string> | undefined = tg.isNotUndefined(_prefix)
+        ? (RA.ensureArray(_prefix) as Array<string>)
         : undefined
     return Object.entries(value).reduce<LocalSchema.Blocks | {}>(
         (accumulator, [_key, _value], index) => {
             const _type: string = _key
             let newPrefixValue: undefined | string = undefined
             if (tg.isNotUndefined(_value.settings)) {
-                if (tg.isNotUndefined<Array<string>>(prefixArr)) {
+                if (prefixArr !== undefined) {
                     if (prefixArr[index]) {
                         newPrefixValue = prefixArr[index]
                     } else if (prefixArr.length > 0)
                         newPrefixValue = prefixArr[0]
                 }
                 if (
-                    tg.isNotUndefined<LocalSchema.Settings>(_value.settings) &&
-                    tg.isNonEmptyObject<LocalSchema.Settings>(_value.settings)
+                    tg.isNotUndefined(_value.settings) &&
+                    tg.isNonEmptyObject(_value.settings)
                 ) {
                     const settings: LocalSchema.Settings = defineSettings(
-                        _value.settings,
+                        _value.settings as LocalSchema.Settings,
                         newPrefixValue,
                     )
                     return { ...accumulator, [_type]: { ..._value, settings } }
@@ -169,7 +166,7 @@ export const defineSchemaPreset = (
                 array,
             ) => {
                 // if (tg.isNotUndefined(_value)) {
-                if (tg.isNotUndefined<string>(_prefix)) {
+                if (tg.isNotUndefined(_prefix)) {
                     return { ...accumulator, [`${_prefix}${_key}`]: _value }
                 } else {
                     return { ...accumulator, [_key]: _value }

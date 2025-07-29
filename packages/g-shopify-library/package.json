@@ -57,9 +57,9 @@
     "dependencies": {
         "@shopify/admin-graphql-api-utilities": "^2.0.1",
         "@snailicide/g-library": "workspace:*",
-        "@types/node": "^22.5.0",
-        "@types/ramda": "^0.30.0",
-        "ramda": "^0.30.0",
+        "@types/node": "^24.1.0",
+        "@types/ramda": "^0.31.0",
+        "ramda": "^0.31.3",
         "ramda-adjunct": "^5.0.0",
         "type-fest": "^4.22.0",
         "zod": "^3.23.8"

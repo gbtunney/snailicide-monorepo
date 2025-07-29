@@ -27,7 +27,7 @@ const CONFIG_OBJ = [
         ],
         rollup.DEFAULT_PLUGINS_BUNDLED,
         pkg,
-    ),
+    ) /*
     ...rollup.getConfigEntries(
         directory_paths,
         [
@@ -46,9 +46,9 @@ const CONFIG_OBJ = [
                 },
             },
         ],
-        rollup.CDN_PLUGINS_BUNDLED,
+       // rollup.CDN_PLUGINS_BUNDLED,
         pkg,
-    ),
+    ),*/,
 ]
 
 /*  export_types: [

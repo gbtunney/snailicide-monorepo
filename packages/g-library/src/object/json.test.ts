@@ -30,7 +30,7 @@ describe('JSON serialize', () => {
         if (serialized_result !== 'ERROR') {
             const ppExample = testprettyPrintJSON(serialized_result)
             const result = demoDeserializeJSON(serialized_result)
-            expectTypeOf(result).not.toMatchTypeOf<{
+            expectTypeOf(result).not.toMatchObjectType<{
                 name: number
                 age: number
             }>()
@@ -47,7 +47,7 @@ describe('JSON serialize', () => {
         const invalidObj = { age: 'thirty', name: 'John' }
         const errorResult = demosafeSerializeJson(invalidObj)
         expect(errorResult).toEqual(JSON.stringify(invalidObj))
-        expectTypeOf(errorResult).not.toMatchTypeOf<typeof obj>(obj)
+        expectTypeOf(obj).not.toMatchObjectType()
 
         if (errorResult !== 'ERROR') {
             const errorResultLat4est = demoDeserializeJSON(errorResult)
