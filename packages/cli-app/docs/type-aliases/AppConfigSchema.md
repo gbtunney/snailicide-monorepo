@@ -2,13 +2,16 @@
 
 ---
 
-[@snailicide/cli-app](../README.md) / AppConfigSchema
+[@snailicide/cli-app](../README.md) / appConfigSchema
 
-# Type Alias: AppConfigSchema
+# Type Alias: appConfigSchema
 
 ```ts
-type AppConfigSchema = typeof appConfigSchema
+type appConfigSchema = ZodObject<AppConfigOut>
 ```
 
 Defined in:
-[packages/cli-app/src/app-config.ts:120](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L120)
+[packages/cli-app/src/app-config.ts:43](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L43)
+
+This is the schema used to configure the Cli Application, these should NOT used
+in cli arguments when running the client cli app
