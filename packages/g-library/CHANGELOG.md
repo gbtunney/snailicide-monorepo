@@ -1,5 +1,11 @@
 # @snailicide/g-library@0.2.1
 
+## 1.2.2
+
+### Patch Changes
+
+- d16db7d: testing release workflow
+
 ## 1.2.1
 
 ### Patch Changes

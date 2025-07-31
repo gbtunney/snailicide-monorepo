@@ -1,5 +1,13 @@
 # @snailicide/g-windi
 
+## 0.0.12
+
+### Patch Changes
+
+- d16db7d: testing release workflow
+- Updated dependencies [d16db7d]
+  - @snailicide/g-library@1.2.2
+
 ## 0.0.11
 
 ### Patch Changes

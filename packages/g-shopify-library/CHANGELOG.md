@@ -1,5 +1,13 @@
 # @snailicide/g-shopify-library
 
+## 0.3.7
+
+### Patch Changes
+
+- d16db7d: testing release workflow
+- Updated dependencies [d16db7d]
+  - @snailicide/g-library@1.2.2
+
 ## 0.3.6
 
 ### Patch Changes

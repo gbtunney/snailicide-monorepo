@@ -1,5 +1,13 @@
 # @snailicide/cli-app
 
+## 0.4.2
+
+### Patch Changes
+
+- d16db7d: testing release workflow
+- Updated dependencies [d16db7d]
+  - @snailicide/g-library@1.2.2
+
 ## 0.4.1
 
 ### Patch Changes
