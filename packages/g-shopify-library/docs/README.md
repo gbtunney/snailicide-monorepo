@@ -1,4 +1,4 @@
-**@snailicide/g-shopify-library v0.3.5**
+**@snailicide/g-shopify-library v0.3.6**
 
 ---
 
