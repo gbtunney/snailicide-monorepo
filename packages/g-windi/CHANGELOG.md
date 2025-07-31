@@ -1,5 +1,13 @@
 # @snailicide/g-windi
 
+## 0.0.11
+
+### Patch Changes
+
+- ce1e3cf: updated dependencies
+- Updated dependencies [ce1e3cf]
+  - @snailicide/g-library@1.2.1
+
 ## 0.0.10
 
 ### Patch Changes

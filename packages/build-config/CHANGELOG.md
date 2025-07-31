@@ -1,5 +1,11 @@
 # @snailicide/build-config
 
+## 1.4.3
+
+### Patch Changes
+
+- ce1e3cf: updated dependencies
+
 ## 1.4.2
 
 ### Patch Changes

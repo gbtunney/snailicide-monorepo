@@ -1,5 +1,13 @@
 # @snailicide/cli-app
 
+## 0.4.1
+
+### Patch Changes
+
+- ce1e3cf: updated dependencies
+- Updated dependencies [ce1e3cf]
+  - @snailicide/g-library@1.2.1
+
 ## 0.4.0
 
 ### Minor Changes

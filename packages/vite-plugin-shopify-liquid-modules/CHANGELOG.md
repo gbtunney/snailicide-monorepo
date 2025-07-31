@@ -1,5 +1,14 @@
 # @snailicide/vite-plugin-shopify-liquid-modules
 
+## 0.2.6
+
+### Patch Changes
+
+- ce1e3cf: updated dependencies
+- Updated dependencies [ce1e3cf]
+  - @snailicide/g-library@1.2.1
+  - @snailicide/g-shopify-library@0.3.6
+
 ## 0.2.5
 
 ### Patch Changes
