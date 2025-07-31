@@ -107,7 +107,7 @@
         "remark-toc": "^9.0.0",
         "ts-node": "^10.9.2",
         "typedoc": "^0.28.3",
-        "typedoc-plugin-markdown": "4.7.1",
+        "typedoc-plugin-markdown": "4.8.0",
         "typedoc-plugin-remark": "^2.0.0",
         "typedoc-plugin-zod": "^1.4.1",
         "typedoc-vitepress-theme": "^1.1.2",
