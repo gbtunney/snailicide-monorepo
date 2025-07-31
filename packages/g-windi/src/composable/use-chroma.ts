@@ -87,10 +87,10 @@ export const useChroma = () => {
     ): Color | undefined => {
         if (tg.isUndefined(value) || tg_isCSSColorSpecial(value))
             return undefined
-        if (tg.isNotUndefined<string>(value)) {
-            if (chroma.color(value)) {
+        if (tg.isNotUndefined(value)) {
+            if (chroma.color(value as any)) {
                 //TODO:make typegaurd for chroma
-                return chroma.color(value).darker(3)
+                return chroma.color(value as any).darker(3)
             }
         }
         return undefined

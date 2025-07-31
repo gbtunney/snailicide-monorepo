@@ -4,10 +4,10 @@
 
 [@snailicide/cli-app](../README.md) / appConfigSchema
 
-# Variable: appConfigSchema
+# Type Alias: appConfigSchema
 
 ```ts
-const appConfigSchema: ZodObject<AppConfigOut>
+type appConfigSchema = ZodObject<AppConfigOut>
 ```
 
 Defined in:

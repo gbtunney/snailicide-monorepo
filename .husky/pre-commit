@@ -1,29 +1,36 @@
-#!/bin/bash
+#!/bin/sh
 
-# Protect master from accidental commits.
-
-BRANCH=$(git rev-parse --abbrev-ref HEAD) PROTECTED_BRANCHES="^(master|main)"
+# Protect master/main from accidental commits.
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+PROTECTED_BRANCHES="master main"
 
 echo "\n===\n>> Running in shell:: $SHELL"
 echo ">> Pre-commit Hook:: Checking BRANCH: $BRANCH\n===\n"
 
-if [[ "$BRANCH" =~ $PROTECTED_BRANCHES ]]; then
-    echo "\n🚫 Commit directly to BRANCH: $BRANCH is not allowed!\n" && exit 1
-fi
+for protected in $PROTECTED_BRANCHES; do
+    if [ "$BRANCH" = "$protected" ]; then
+        echo "\n🚫 Commit directly to BRANCH: $BRANCH is not allowed!\n"
+        exit 1
+    fi
+done
 
-if [[ "$BRANCH" =~ ^[a-z]*([/-][a-z]+)*$ ]]; then
-    echo "🐛 Branch name is valid!!"
-else
-    echo "\n🚫Branch name should be lowercase and NOT have any characters besides - or / :::: please rename your branch $BRANCH\n" && exit 1
+# Validate branch name: only lowercase letters, dashes, and slashes
+case "$BRANCH" in
+    # valid: lowercase, dashes, slashes
+    [a-z][a-z0-9/-]*)
+        echo "🐛 Branch name is valid!!"
+        ;;
+    *)
+        echo "\n🚫Branch name should be lowercase and NOT have any characters besides - or / :::: please rename your branch $BRANCH\n"
+        exit 1
+        ;;
+esac
 
-fi
-
-# if we are on DEVELOPMENT branch, in order to commit we need to lint all the files to test them before commiting.
-
-if [[ "$BRANCH" == 'development' ]]; then
-    echo -e "\n🚫 $BRANCH is DEVELOPMENT, checking + fixing ALL FILES  before commit \n"
+# If on development branch, lint all files before commit
+if [ "$BRANCH" = "development" ]; then
+    echo "\n🚫 $BRANCH is DEVELOPMENT, checking + fixing ALL FILES before commit \n"
     pnpm run prepare:all
-    #re add the fixed files that were staged
+    # re-add the fixed files that were staged
     git add "$(git diff HEAD --diff-filter=MAR --cached --name-only)"
 fi
 

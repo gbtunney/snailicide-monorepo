@@ -83,10 +83,10 @@ export const toSID = <Type extends string>(
 ): number | undefined => {
     if (isGID(value)) {
         const __gid = toGID(value)
-        if (tg.isNotUndefined<string>(__gid)) {
-            const _possible_sid = parseGid(__gid)
+        if (tg.isNotUndefined(__gid)) {
+            const _possible_sid = parseGid(__gid as string)
             if (
-                tg.isNotUndefined<string>(_possible_sid) &&
+                tg.isNotUndefined(_possible_sid) &&
                 isSID(_possible_sid, min_digits)
             ) {
                 return numeric.parseStringToInteger(_possible_sid)
@@ -111,8 +111,8 @@ export const isSID = <Type extends number | string>(
 ): value is Type => {
     if (numeric.isParsableToNumeric(value)) {
         const sidInt = numeric.parseStringToInteger(value.toString())
-        return tg.isNotUndefined<number>(sidInt) &&
-            numeric.getIntegerDigitCount(sidInt) >= min_digits
+        return tg.isNotUndefined(sidInt) &&
+            numeric.getIntegerDigitCount(sidInt as number) >= min_digits
             ? true
             : false
     }
@@ -144,34 +144,35 @@ export const shopifyMediaURL = (
     scale = false,
 ): string | undefined => {
     if (
-        tg.isNotUndefined<string>(src) &&
-        stringUtils.isValidUrl(src) &&
-        /\.jpg|\.png|\.gif|\.jpeg/g.test(src)
+        tg.isNotUndefined(src) &&
+        stringUtils.isValidUrl(src as string) &&
+        /\.jpg|\.png|\.gif|\.jpeg/g.test(src as string)
     ) {
-        if (tg.isUndefined(width)) return src
+        const validSrc = src as string
+        if (tg.isUndefined(width)) return validSrc
         let _width: number | undefined = undefined
         let _height: number | undefined = undefined
         if (
-            tg.isNotUndefined<string | number>(width) &&
-            numeric.isParsableToNumeric(width)
+            tg.isNotUndefined(width) &&
+            numeric.isParsableToNumeric(width as string | number)
         ) {
-            const __width = numeric.parseToNumeric(width)
-            _width = tg.isNumber(__width) ? __width : undefined
+            const __width = numeric.parseToNumeric(width as string | number)
+            _width = tg.isNumber(__width) ? (__width as number) : undefined
         }
         if (
-            tg.isNotUndefined<string | number>(height) &&
-            numeric.isParsableToNumeric(height)
+            tg.isNotUndefined(height) &&
+            numeric.isParsableToNumeric(height as string | number)
         ) {
-            const __height = numeric.parseToNumeric(height)
-            _height = tg.isNumber(__height) ? __height : undefined
+            const __height = numeric.parseToNumeric(height as string | number)
+            _height = tg.isNumber(__height) ? (__height as number) : undefined
         }
         if (_height === 0) _height = _width
-        const dimensions = `${tg.isNotUndefined<number>(_width) ? _width.toString() : ''}${
-            tg.isNotUndefined<number>(_height) ? `x${_height.toString()}` : ''
+        const dimensions = `${_width !== undefined ? _width.toString() : ''}${
+            _height !== undefined ? `x${_height.toString()}` : ''
         }`
         let str = dimensions
         if (tg.isNotUndefined(crop)) str = `${str}_crop_${crop}`
-        return src
+        return validSrc
             .replace(
                 /_(pico|icon|thumb|small|compact|medium|large|grande|original|1024x1024|2048x2048|master)+\./g,
                 '.',

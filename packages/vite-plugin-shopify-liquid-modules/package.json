@@ -1,33 +1,8 @@
 {
     "name": "@snailicide/vite-plugin-shopify-liquid-modules",
     "version": "0.2.5",
-    "description": "This vite plugin enables Shopify theme developers to structure their code into module folders ",
     "private": false,
-    "type": "module",
-    "keywords": [
-        "vite",
-        "shopify",
-        "vite-plugin"
-    ],
-    "files": [
-        "types",
-        "dist",
-        "CHANGELOG.md",
-        "vite.config.ts",
-        "example_modules/**/*.ts",
-        "!example_modules/**/*.d.ts"
-    ],
-    "exports": {
-        ".": {
-            "import": "./dist/index.mjs",
-            "require": "./dist/index.cjs",
-            "default": "./dist/index.js"
-        }
-    },
-    "main": "./dist/index.js",
-    "types": "./dist/index.d.ts",
-    "module": "./dist/index.mjs",
-    "commonjs": "./dist/index.cjs",
+    "description": "This vite plugin enables Shopify theme developers to structure their code into module folders ",
     "scripts": {
         "\n========== BUILD >> ==========": "",
         "build": "pnpm build:ts && pnpm build:rollup",
@@ -55,17 +30,20 @@
         "clean:example": "rm -R -f example_theme/**/g-* && rm -R -f example_theme/*.html",
         "clean:build": "rm -R -f dist types"
     },
+    "main": "./dist/index.js",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
     "dependencies": {
         "@shopify/admin-graphql-api-utilities": "^2.0.1",
         "@snailicide/g-library": "workspace:*",
         "@snailicide/g-shopify-library": "workspace:*",
-        "@types/node": "^22.5.0",
-        "@types/ramda": "^0.30.0",
-        "ramda": "^0.30.0",
+        "@types/node": "^24.1.0",
+        "@types/ramda": "^0.31.0",
+        "ramda": "^0.31.3",
         "ramda-adjunct": "^5.0.0",
-        "shelljs": "^0.9.2",
+        "shelljs": "^0.10.0",
         "type-fest": "^4.22.1",
-        "vite": "^6.3.3",
+        "vite": "^7.0.2",
         "zod": "^3.23.8"
     },
     "devDependencies": {
@@ -77,18 +55,40 @@
         "typescript": "^5.4.5",
         "vitest": "^3.1.2"
     },
-    "prettier": "@snailicide/build-config/prettier",
-    "homepage": "https://github.com/gbtunney/snailicide-monorepo/tree/main/packages/vite-plugin-shopify-liquid-modules#readme",
-    "bugs": {
-        "url": "https://github.com/gbtunney/snailicide-monorepo/issues"
+    "type": "module",
+    "exports": {
+        ".": {
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.cjs",
+            "default": "./dist/index.js"
+        }
     },
+    "author": {
+        "name": "Gillian Tunney",
+        "email": "gbtunney@mac.com"
+    },
+    "license": "MIT",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/gbtunney/snailicide-monorepo.git"
     },
-    "license": "MIT",
-    "author": {
-        "name": "Gillian Tunney",
-        "email": "gbtunney@mac.com"
-    }
+    "homepage": "https://github.com/gbtunney/snailicide-monorepo/tree/main/packages/vite-plugin-shopify-liquid-modules#readme",
+    "bugs": {
+        "url": "https://github.com/gbtunney/snailicide-monorepo/issues"
+    },
+    "files": [
+        "CHANGELOG.md",
+        "dist",
+        "example_modules/**/*.ts",
+        "types",
+        "vite.config.ts",
+        "!example_modules/**/*.d.ts"
+    ],
+    "keywords": [
+        "vite",
+        "shopify",
+        "vite-plugin"
+    ],
+    "commonjs": "./dist/index.cjs",
+    "prettier": "@snailicide/build-config/prettier"
 }

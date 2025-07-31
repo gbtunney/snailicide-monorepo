@@ -59,7 +59,7 @@ info and backstory!
 
 ## Examples
 
-See [**example_theme_config**](./example_theme_config/) folder for usage
+See [**example_theme_config**](_media/example_theme_config) folder for usage
 examples of [validators](_media/settings_colors.ts) and
 [types](_media/settings_typography.ts).
 
@@ -160,10 +160,9 @@ Please create an issue if you found any bugs, to help us improve this project!
 
 ## Functions
 
-| Function                                      | Description |
-| --------------------------------------------- | ----------- |
-| [default](functions/default.md)               | -           |
-| [resolveOptions](functions/resolveOptions.md) | -           |
+| Function                        | Description |
+| ------------------------------- | ----------- |
+| [default](functions/default.md) | -           |
 
 ## Type Aliases
 
@@ -171,3 +170,4 @@ Please create an issue if you found any bugs, to help us improve this project!
 | -------------------------------------------------------------------------------------- | ----------- |
 | [ShopifyThemeSchemaOptions](type-aliases/ShopifyThemeSchemaOptions.md)                 | -           |
 | [ResolvedShopifyThemeSchemaOptions](type-aliases/ResolvedShopifyThemeSchemaOptions.md) | -           |
+| [resolveOptions](type-aliases/resolveOptions.md)                                       | -           |

@@ -1,18 +1,8 @@
 {
     "name": "@snailicide/root",
     "version": "0.0.1",
-    "description": "Snailicide Monorepo",
     "private": true,
-    "type": "module",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/gbtunney/snailicide-monorepo.git"
-    },
-    "license": "MIT",
-    "author": {
-        "name": "Gillian Tunney",
-        "email": "gbtunney@mac.com"
-    },
+    "description": "Snailicide Monorepo",
     "scripts": {
         "\n========== COMMIT >> ==========": "",
         "commit": "pnpm run commit:before && pnpm exec git-cz && pnpm --filter=@snailicide/build-config build:nx",
@@ -53,7 +43,7 @@
         "\n========== CODE STYLE >> ==========": "",
         "prettier": "cross-var prettier {*,**/*}.{ts,js,cts,cjs,mts,mjs,tsx,jsx,sh,html,json,yaml,yml,graphql,md} ./.husky/* --ignore-path ./.gitignore --no-error-on-unmatched-pattern --write",
         "lint": "cross-var eslint -c $npm_package_config_eslint_config",
-        "lint:md": "pnpm exec markdownlint-cli2 '{./*,./**/*}.md' '#**/{node_modules,.changeset,docs}/**' '#packages/cli-template/templates/**/*' 'docs/notes/**/*.md'",
+        "lint:md": "pnpm exec markdownlint-cli2 '{./*,./**/*}.md' '#**/{node_modules,.github/instructions/**,history,.changeset,docs}/**' '#packages/cli-template/templates/**/*' 'docs/notes/**/*.md'",
         "\n========== CHECK >> ==========": "",
         "check": "pnpm check:self",
         "check:md": "pnpm run lint:md",
@@ -83,22 +73,25 @@
         "@commitlint/cz-commitlint": "^19.2.0",
         "@commitlint/types": "^19.0.3",
         "@eslint/config-inspector": "^1.0.2",
+        "@prettier/plugin-php": "^0.24.0",
+        "@prettier/plugin-xml": "^3.4.2",
         "@snailicide/build-config": "workspace:^",
-        "@types/node": "^22.5.0",
+        "@types/node": "^24.1.0",
         "@vitest/ui": "^3.1.2",
         "commitizen": "^4.3.0",
         "cross-var": "^1.1.0",
         "eslint": "^9.8.0",
         "git-branch-is": "^4.0.0",
         "husky": "^9.1.5",
-        "lint-staged": "^15.2.7",
-        "markdownlint-cli2": "^0.17.2",
-        "nx": "20.8.1",
+        "lint-staged": "^16.1.2",
+        "markdownlint-cli2": "^0.18.1",
+        "nx": "21.3.8",
         "prettier": "^3.3.3",
         "prettier-plugin-jsdoc": "^1.3.2",
-        "prettier-plugin-sh": "^0.17.2",
+        "prettier-plugin-pkg": "^0.21.2",
+        "prettier-plugin-sh": "^0.18.0",
         "typedoc": "^0.28.3",
-        "typedoc-plugin-markdown": "^4.2.6",
+        "typedoc-plugin-markdown": "^4.8.0",
         "typedoc-plugin-zod": "^1.2.0",
         "typedoc-vitepress-theme": "^1.0.1",
         "typescript": "^5.5.4",
@@ -107,7 +100,17 @@
         "vitepress": "^1.3.4",
         "vitest": "^3.1.2"
     },
-    "prettier": "@snailicide/build-config/prettier",
+    "type": "module",
+    "author": {
+        "name": "Gillian Tunney",
+        "email": "gbtunney@mac.com"
+    },
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/gbtunney/snailicide-monorepo.git"
+    },
+    "packageManager": "pnpm@10.9.0+sha512.0486e394640d3c1fb3c9d43d49cf92879ff74f8516959c235308f5a8f62e2e19528a65cdc2a3058f587cde71eba3d5b56327c8c33a97e4c4051ca48a10ca2d5f",
     "config": {
         "eslint": {
             "config": "eslint.config.js"
@@ -116,5 +119,5 @@
             "path": "@commitlint/cz-commitlint"
         }
     },
-    "packageManager": "pnpm@10.9.0+sha512.0486e394640d3c1fb3c9d43d49cf92879ff74f8516959c235308f5a8f62e2e19528a65cdc2a3058f587cde71eba3d5b56327c8c33a97e4c4051ca48a10ca2d5f"
+    "prettier": "@snailicide/build-config/prettier"
 }

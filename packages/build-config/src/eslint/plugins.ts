@@ -1,7 +1,6 @@
 // @ts-expect-error: no types
 import eslintCommentsPlugin from 'eslint-plugin-eslint-comments'
 import simpleFilenamesPlugin from 'eslint-plugin-filenames-simple'
-//@ts-expect-error No declaration file or types for this
 import importPlugin from 'eslint-plugin-import'
 import jsdocPlugin from 'eslint-plugin-jsdoc'
 import sortPlugin from 'eslint-plugin-sort'

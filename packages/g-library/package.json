@@ -1,19 +1,8 @@
 {
     "name": "@snailicide/g-library",
     "version": "1.2.0",
-    "description": "Function library written in typescript",
     "private": false,
-    "keywords": [
-        "typescript",
-        "js",
-        "ts",
-        "javascript",
-        "function library",
-        "type library",
-        "typeguards",
-        "typeguard",
-        "utilities"
-    ],
+    "description": "Function library written in typescript",
     "scripts": {
         "\n========== BUILD >> ==========": "",
         "build": "pnpm build:ts && pnpm build:rollup",
@@ -59,12 +48,14 @@
         "clean:ts": "tsc --build --clean",
         "clean:build": "rm -R -f dist types docs"
     },
+    "main": "./dist/index.js",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
     "dependencies": {
-        "@types/glob": "^8.1.0",
         "@types/is-glob": "^4.0.4",
         "@types/markdown-it": "^14.1.1",
-        "@types/node": "^22.5.0",
-        "@types/ramda": "^0.30.0",
+        "@types/node": "^24.1.0",
+        "@types/ramda": "^0.31.0",
         "@types/semver": "^7.5.8",
         "@types/yargs": "^17.0.32",
         "chroma.ts": "^1.0.10",
@@ -78,26 +69,26 @@
         "markdown-it": "^14.1.0",
         "minimatch": "^10.0.1",
         "moment": "^2.30.1",
-        "ramda": "^0.30.0",
+        "ramda": "^0.31.3",
         "ramda-adjunct": "^5.0.0",
         "semver": "^7.6.3",
         "ts-deepmerge": "^7.0.0",
         "type-fest": "^4.22.0",
         "typedoc-material-theme": "^1.1.0",
-        "yargs": "^17.7.2",
-        "zod": "3.25.13"
+        "yargs": "^18.0.0",
+        "zod": "^3.23.8"
     },
     "devDependencies": {
         "@snailicide/build-config": "workspace:*",
         "@types/shelljs": "^0.8.15",
         "cross-var": "^1.1.0",
         "rollup": "^4.18.0",
-        "shelljs": "^0.9.2",
+        "shelljs": "^0.10.0",
         "ts-node": "^10.9.2",
         "typedoc": "^0.28.3",
         "typedoc-plugin-remove-references": "^0.0.6",
         "typescript": "^5.4.5",
-        "vite": "^6.3.3",
+        "vite": "^7.0.2",
         "vitest": "^3.1.2"
     },
     "type": "module",
@@ -111,26 +102,37 @@
             "import": "./dist/node.mjs",
             "require": "./dist/node.cjs",
             "default": "./dist/node.js"
-        },
-        "./cdn": {
-            "default": "./dist/cdn-index-iife.min.js"
         }
     },
-    "main": "./dist/index.js",
-    "types": "./dist/index.d.ts",
-    "module": "./dist/index.mjs",
-    "commonjs": "./dist/index.cjs",
-    "umd:main": "./dist/cdn-index-umd.min.js",
-    "cdn": "./dist/cdn-index-iife.min.js",
+    "author": {
+        "name": "Gillian Tunney",
+        "email": "gbtunney@mac.com"
+    },
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/gbtunney/snailicide-monorepo.git"
+    },
+    "homepage": "https://github.com/gbtunney/snailicide-monorepo/tree/main/packages/g-library",
     "files": [
-        "docs",
-        "types",
-        "dist",
         "CHANGELOG.md",
-        "vite.docs.config.ts",
-        "docs.server.mjs"
+        "dist",
+        "docs",
+        "docs.server.mjs",
+        "types",
+        "vite.docs.config.ts"
     ],
-    "prettier": "@snailicide/build-config/prettier",
+    "keywords": [
+        "typescript",
+        "js",
+        "ts",
+        "javascript",
+        "function library",
+        "type library",
+        "typeguards",
+        "typeguard",
+        "utilities"
+    ],
     "config": {
         "publish": {
             "private": "http://localhost:4873"
@@ -153,14 +155,8 @@
             "config": "eslint.config.js"
         }
     },
-    "homepage": "https://github.com/gbtunney/snailicide-monorepo/tree/main/packages/g-library",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/gbtunney/snailicide-monorepo.git"
-    },
-    "license": "MIT",
-    "author": {
-        "name": "Gillian Tunney",
-        "email": "gbtunney@mac.com"
-    }
+    "cdn": "./dist/cdn-index-iife.min.js",
+    "commonjs": "./dist/index.cjs",
+    "prettier": "@snailicide/build-config/prettier",
+    "umd:main": "./dist/cdn-index-umd.min.js"
 }

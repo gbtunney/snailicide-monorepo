@@ -4,8 +4,7 @@
  * @see [Prettier - Opinionated Code Formatter](https://prettier.io/)
  */
 import { Config, Options } from 'prettier'
-import * as JsdocPlugin from 'prettier-plugin-jsdoc'
-import { merge as deepmerge } from 'ts-deepmerge'
+import type { Options as JsDocOptions } from 'prettier-plugin-jsdoc'
 import type { IterableElement, Merge } from 'type-fest'
 
 const PRETTIER_WIDTH_BASE: PrettierConfig['tabWidth'] = 100
@@ -16,11 +15,7 @@ const PRETTIER_WIDTH_SCALE = {
     markdown: 0.8,
 } as const
 
-// @ts-expect-error: "idk this is annoying"
-export type JsDocOptions = (typeof JsdocPlugin)['Options']
-
-export type PrettierOptions = Merge<Options, JsDocOptions> //dont have shell options
-
+export type PrettierOptions = Options & JsDocOptions
 export type PrettierOverrides = Array<
     Merge<IterableElement<Config['overrides']>, { options: PrettierOptions }>
 >
@@ -36,7 +31,7 @@ export const SHARED_FORMATTING_RULES: Merge<
     PrettierOptions,
     {
         maxEmptyLines: number
-        markdownTabWidth: PrettierConfig['tabWidth']
+        markdownTabWidth: number
     }
 > = {
     markdownTabWidth: 2,
@@ -58,13 +53,31 @@ const getDefaultOptions = (): PrettierOptions => {
 
         /** JS Doc */
         jsdocPrintWidth: getScaledWidth('comments'),
+        packageIgnoreSort: ['scripts'],
+        //SHARED_FORMATTING_RULES.tabWidth,
+        packageSortOrder: [
+            'name',
+            'version',
+            'private',
+            'description',
+            'scripts',
+            'main',
+            'module',
+            'types',
+            'dependencies',
+            'devDependencies',
+            'type',
+            'exports',
+            'author',
+            'license',
+        ],
         printWidth: getScaledWidth('code'),
         proseWrap: 'never',
+
         quoteProps: 'consistent',
         semi: false,
-
         singleQuote: true,
-        tabWidth: SHARED_FORMATTING_RULES.tabWidth,
+        tabWidth: 4,
     } as const
 }
 
@@ -89,14 +102,21 @@ export const prettierConfiguration = (
             ? { ...getDefaultOptions(), ..._options }
             : getDefaultOptions()
 
-    const overrides: PrettierOverrides =
+    const __overrides: PrettierOverrides =
         _overrides !== undefined
-            ? (deepmerge(defaultOverrides, _overrides) as PrettierOverrides)
-            : defaultOverrides
+            ? [...defaultOverrides, ..._overrides]
+            : [...defaultOverrides]
     return {
         ...myoption,
-        ...(overrides !== undefined ? { overrides } : {}),
-        plugins: ['prettier-plugin-jsdoc', 'prettier-plugin-sh'],
+        overrides: __overrides, //(overrides !== undefined ? { overrides } : []),
+        plugins: [
+            '@prettier/plugin-xml',
+            '@prettier/plugin-php',
+            'prettier-plugin-jsdoc',
+            'prettier-plugin-sh',
+            'prettier-plugin-pkg',
+            //  'prettier-plugin-tailwindcss',
+        ],
     }
 }
 

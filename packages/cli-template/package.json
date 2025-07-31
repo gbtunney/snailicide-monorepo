@@ -1,10 +1,8 @@
 {
     "name": "@snailicide/cli-template",
     "version": "0.0.1",
-    "description": "Template Generator",
-    "main": "index.js",
-    "type": "module",
     "private": true,
+    "description": "Template Generator",
     "scripts": {
         "\n========== BUILD >> ==========": "",
         "build": "pnpm build:ts",
@@ -22,24 +20,26 @@
         "clean:generated": "rm -R -f generated",
         "test": "echo \"Error: This is template. \""
     },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
+    "main": "index.js",
+    "dependencies": {
+        "ts-node": "^10.9.1"
+    },
     "devDependencies": {
         "@brunorb/semverjs": "^1.0.4",
         "@snailicide/build-config": "workspace:*",
-        "@types/node": "^22.5.0",
+        "@types/node": "^24.1.0",
         "@types/yargs": "^17.0.24",
         "deepmerge": "^4.3.1",
         "inquirer-file-path": "^1.0.1",
         "node-plop": "^0.32.0",
         "plop": "^4.0.0",
         "typescript": "^5.2.2",
-        "yargs": "^17.7.2",
+        "yargs": "^18.0.0",
         "zod": "^3.22.2"
     },
-    "prettier": "@snailicide/build-config/prettier",
-    "dependencies": {
-        "ts-node": "^10.9.1"
-    }
+    "type": "module",
+    "author": "",
+    "license": "ISC",
+    "keywords": [],
+    "prettier": "@snailicide/build-config/prettier"
 }

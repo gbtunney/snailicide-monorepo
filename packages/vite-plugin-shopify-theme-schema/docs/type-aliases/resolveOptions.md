@@ -4,10 +4,10 @@
 
 [@snailicide/vite-plugin-shopify-theme-schema](../README.md) / resolveOptions
 
-# Function: resolveOptions()
+# Type Alias: resolveOptions()
 
 ```ts
-function resolveOptions(options):
+type resolveOptions = (options) =>
   | undefined
   | {
       entryPoints: Record<string, string>

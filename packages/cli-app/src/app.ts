@@ -63,8 +63,8 @@ export const initApp = async <AppOptionsSchema extends ZodObjectSchema>(
         appConfigSchema,
     )
 
-    if (tg.isNotUndefined<AppConfig>(resolved_app_config)) {
-        const app_config: AppConfig = resolved_app_config
+    if (tg.isNotUndefined(resolved_app_config)) {
+        const app_config = resolved_app_config as AppConfig
         const option_schema: AppOptionsSchema =
             wrapSchema<AppOptionsSchema>(optionsSchema)
 

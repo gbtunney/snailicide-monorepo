@@ -14,19 +14,20 @@ export const useConfigDefaults = () => {
             let my_new_value: string | undefined = undefined
             if (tg.isString(value)) {
                 if (tg_isCSSColorSpecial(value)) my_new_value = value
-                else if (chroma.color(value))
-                    my_new_value = chroma.color(value).hex()
+                else if (chroma.color(value as any))
+                    my_new_value = chroma.color(value as any).hex()
                 else return accumulator
                 return { ...accumulator, [key]: my_new_value }
             } else {
-                if (tg.isNotUndefined<string>(value['DEFAULT']))
-                    my_new_value = value['DEFAULT']
-                else if (tg.isNotUndefined<string>(value['500']))
-                    my_new_value = value['500']
+                const colorObj = value as Record<string, string>
+                if (tg.isNotUndefined(colorObj['DEFAULT']))
+                    my_new_value = colorObj['DEFAULT']
+                else if (tg.isNotUndefined(colorObj['500']))
+                    my_new_value = colorObj['500']
                 else return accumulator
                 return {
                     ...accumulator,
-                    ...{ [key]: { ...value, DEFAULT: my_new_value } },
+                    ...{ [key]: { ...colorObj, DEFAULT: my_new_value } },
                 }
             }
             return accumulator

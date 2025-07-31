@@ -184,7 +184,8 @@ export default initialize()
 | [AppConfigOut](type-aliases/AppConfigOut.md)               | This is the schema used to configure the Cli Application, these should NOT used in cli arguments when running the client cli app |
 | [AppConfig](type-aliases/AppConfig.md)                     | -                                                                                                                                |
 | [AppConfigIn](type-aliases/AppConfigIn.md)                 | -                                                                                                                                |
-| [AppConfigSchema](type-aliases/AppConfigSchema.md)         | -                                                                                                                                |
+| [appConfigSchema](type-aliases/appConfigSchema.md)         | This is the schema used to configure the Cli Application, these should NOT used in cli arguments when running the client cli app |
+| [AppConfigSchema](type-aliases/AppConfigSchema-1.md)       | -                                                                                                                                |
 | [CommonFlagsOutput](type-aliases/CommonFlagsOutput.md)     | -                                                                                                                                |
 | [CommonFlagsInput](type-aliases/CommonFlagsInput.md)       | -                                                                                                                                |
 | [InitSuccessCallback](type-aliases/InitSuccessCallback.md) | A callback type that is invoked upon successful initialization of the application.                                               |
@@ -193,8 +194,7 @@ export default initialize()
 
 ## Variables
 
-| Variable                                            | Description                                                                                                                      |
-| --------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| [appConfigSchema](variables/appConfigSchema.md)     | This is the schema used to configure the Cli Application, these should NOT used in cli arguments when running the client cli app |
-| [commonFlagsSchema](variables/commonFlagsSchema.md) | -                                                                                                                                |
-| [initializeApp](variables/initializeApp.md)         | -                                                                                                                                |
+| Variable                                            | Description |
+| --------------------------------------------------- | ----------- |
+| [commonFlagsSchema](variables/commonFlagsSchema.md) | -           |
+| [initializeApp](variables/initializeApp.md)         | -           |

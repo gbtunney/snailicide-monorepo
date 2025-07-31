@@ -64,13 +64,11 @@ const export_key_lookup: Record<ExportType, KeyData> = {
     - "." : index.js || "module_name": "{fileName}".js
       - "browser.default": {{output_dir}}/{{fileName}}-iife{{?min}}.js
 - commonjs: (format) cjs
-
   - Exports
     - "." : index.cjs || "module_name": "{fileName}".cjs
       - "require": {{output_dir}}/{{fileName}}.{{?min}}.cjs
 
 - esmodule: (format) mjs
-
   - Exports
     - "." : index.mjs || "module_name": "{fileName}".mjs
       - "import": {{output_dir}}/{{fileName}}.{{?min}}.mjs
