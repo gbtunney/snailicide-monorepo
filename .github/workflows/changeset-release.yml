@@ -47,6 +47,10 @@ jobs:
                   HUSKY: 0
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+            - name: Pull latest main before push
+              run: |
+                  git pull --rebase origin main || true
+
             - name: Build Docs and Commit
               run: |
                   pnpm run docs:build
