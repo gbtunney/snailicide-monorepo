@@ -1,18 +1,8 @@
 {
     "name": "@snailicide/root",
     "version": "0.0.1",
-    "description": "Snailicide Monorepo",
     "private": true,
-    "type": "module",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/gbtunney/snailicide-monorepo.git"
-    },
-    "license": "MIT",
-    "author": {
-        "name": "Gillian Tunney",
-        "email": "gbtunney@mac.com"
-    },
+    "description": "Snailicide Monorepo",
     "scripts": {
         "\n========== COMMIT >> ==========": "",
         "commit": "pnpm run commit:before && pnpm exec git-cz && pnpm --filter=@snailicide/build-config build:nx",
@@ -98,6 +88,7 @@
         "nx": "21.3.8",
         "prettier": "^3.3.3",
         "prettier-plugin-jsdoc": "^1.3.2",
+        "prettier-plugin-pkg": "^0.21.2",
         "prettier-plugin-sh": "^0.18.0",
         "typedoc": "^0.28.3",
         "typedoc-plugin-markdown": "^4.2.6",
@@ -109,7 +100,17 @@
         "vitepress": "^1.3.4",
         "vitest": "^3.1.2"
     },
-    "prettier": "@snailicide/build-config/prettier",
+    "type": "module",
+    "author": {
+        "name": "Gillian Tunney",
+        "email": "gbtunney@mac.com"
+    },
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/gbtunney/snailicide-monorepo.git"
+    },
+    "packageManager": "pnpm@10.9.0+sha512.0486e394640d3c1fb3c9d43d49cf92879ff74f8516959c235308f5a8f62e2e19528a65cdc2a3058f587cde71eba3d5b56327c8c33a97e4c4051ca48a10ca2d5f",
     "config": {
         "eslint": {
             "config": "eslint.config.js"
@@ -118,5 +119,5 @@
             "path": "@commitlint/cz-commitlint"
         }
     },
-    "packageManager": "pnpm@10.9.0+sha512.0486e394640d3c1fb3c9d43d49cf92879ff74f8516959c235308f5a8f62e2e19528a65cdc2a3058f587cde71eba3d5b56327c8c33a97e4c4051ca48a10ca2d5f"
+    "prettier": "@snailicide/build-config/prettier"
 }

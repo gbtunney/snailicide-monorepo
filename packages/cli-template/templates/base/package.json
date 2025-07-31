@@ -1,9 +1,8 @@
 {
     "name": "{{packageName}}",
     "version": "{{version}}",
-    "description": "{{description}}",
     "private": false,
-    "keywords": [],
+    "description": "{{description}}",
     "scripts": {
         "test": "echo \"Error: This is template. \"",
         "\n========== BUILD >> ==========": "",
@@ -21,19 +20,6 @@
         "clean": "pnpm clean:ts",
         "clean:ts": "tsc --build --clean"
     },
-    "homepage": "https://github.com/{{repositoryOwner}}/{{repositoryName}}#readme",
-    "bugs": {
-        "url": "https://github.com/{{repositoryOwner}}/{{repositoryName}}/issues"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/{{repositoryOwner}}/{{repositoryName}}.git"
-    },
-    "license": "{{license}}",
-    "author": {
-        "name": "{{author_name}}",
-        "email": "{{author_email}}"
-    },
     "devDependencies": {
         "@snailicide/build-config": "0.1.0",
         "@types/node": "^18.7.18",
@@ -41,7 +27,20 @@
         "prettier": "^2.7.1",
         "typescript": "^4.8.3"
     },
-    "prettier": "@snailicide/build-config/prettier",
+    "author": {
+        "name": "{{author_name}}",
+        "email": "{{author_email}}"
+    },
+    "license": "{{license}}",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/{{repositoryOwner}}/{{repositoryName}}.git"
+    },
+    "homepage": "https://github.com/{{repositoryOwner}}/{{repositoryName}}#readme",
+    "bugs": {
+        "url": "https://github.com/{{repositoryOwner}}/{{repositoryName}}/issues"
+    },
+    "keywords": [],
     "config": {
         "eslint": {
             "extensions": "ts,js,cjs,mjs",
@@ -52,5 +51,6 @@
             "extensions": "ts,js,cjs,mjs,cts,json,yaml,yml,graphql,md",
             "path": "*,**/*"
         }
-    }
+    },
+    "prettier": "@snailicide/build-config/prettier"
 }

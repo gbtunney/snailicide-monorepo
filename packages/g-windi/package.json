@@ -1,32 +1,8 @@
 {
     "name": "@snailicide/g-windi",
     "version": "0.0.10",
-    "description": "Function library for Windicss/UnoCSS and Vue 3",
     "private": false,
-    "type": "module",
-    "files": [
-        "docs",
-        "types",
-        "dist",
-        "CHANGELOG.md",
-        "exampleNodeScript.ts"
-    ],
-    "exports": {
-        ".": {
-            "import": "./dist/index.mjs",
-            "require": "./dist/index.cjs",
-            "default": "./dist/index.js"
-        }
-    },
-    "main": "./dist/index.js",
-    "types": "./dist/index.d.ts",
-    "module": "./dist/index.mjs",
-    "commonjs": "./dist/index.cjs",
-    "keywords": [
-        "typescript",
-        "windicss",
-        "unocss"
-    ],
+    "description": "Function library for Windicss/UnoCSS and Vue 3",
     "scripts": {
         "\n========== BUILD >> ==========": "",
         "build": "pnpm build:ts && pnpm build:rollup",
@@ -47,6 +23,9 @@
         "clean:ts": "tsc --build --clean",
         "clean:build": "rm -R -f dist types docs"
     },
+    "main": "./dist/index.js",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
     "dependencies": {
         "@snailicide/g-library": "workspace:*",
         "@types/ramda": "^0.31.0",
@@ -67,17 +46,38 @@
         "typescript": "^5.2.2",
         "vitest": "^3.1.2"
     },
-    "homepage": "https://github.com/gbtunney/snailicide-monorepo/tree/main/packages/g-windi#readme",
-    "bugs": {
-        "url": "https://github.com/gbtunney/snailicide-monorepo/issues"
+    "type": "module",
+    "exports": {
+        ".": {
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.cjs",
+            "default": "./dist/index.js"
+        }
     },
+    "author": {
+        "name": "Gillian Tunney",
+        "email": "gbtunney@mac.com"
+    },
+    "license": "MIT",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/gbtunney/snailicide-monorepo.git"
     },
-    "license": "MIT",
-    "author": {
-        "name": "Gillian Tunney",
-        "email": "gbtunney@mac.com"
-    }
+    "homepage": "https://github.com/gbtunney/snailicide-monorepo/tree/main/packages/g-windi#readme",
+    "bugs": {
+        "url": "https://github.com/gbtunney/snailicide-monorepo/issues"
+    },
+    "files": [
+        "CHANGELOG.md",
+        "dist",
+        "docs",
+        "exampleNodeScript.ts",
+        "types"
+    ],
+    "keywords": [
+        "typescript",
+        "windicss",
+        "unocss"
+    ],
+    "commonjs": "./dist/index.cjs"
 }

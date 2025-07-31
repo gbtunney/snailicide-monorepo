@@ -1,33 +1,8 @@
 {
     "name": "@snailicide/vite-plugin-shopify-theme-schema",
     "version": "0.2.5",
-    "description": "This vite plugin enables Shopify theme developers to better manage the JSON schema files for Shopify Theme Settings",
     "private": false,
-    "type": "module",
-    "keywords": [
-        "vite",
-        "shopify",
-        "vite-plugin"
-    ],
-    "files": [
-        "types",
-        "dist",
-        "CHANGELOG.md",
-        "vite.config.ts",
-        "example_theme_config/**/*.ts",
-        "!example_theme_config/**/*.d.ts"
-    ],
-    "exports": {
-        ".": {
-            "import": "./dist/index.mjs",
-            "require": "./dist/index.cjs",
-            "default": "./dist/index.js"
-        }
-    },
-    "main": "./dist/index.js",
-    "types": "./dist/index.d.ts",
-    "module": "./dist/index.mjs",
-    "commonjs": "./dist/index.cjs",
+    "description": "This vite plugin enables Shopify theme developers to better manage the JSON schema files for Shopify Theme Settings",
     "scripts": {
         "\n========== BUILD >> ==========": "",
         "build": "pnpm build:ts && pnpm build:rollup",
@@ -55,6 +30,9 @@
         "clean:example": "rm -R -f example_theme/*",
         "clean:build": "rm -R -f dist types"
     },
+    "main": "./dist/index.js",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
     "dependencies": {
         "@shopify/admin-graphql-api-utilities": "^2.0.1",
         "@snailicide/g-library": "workspace:*",
@@ -77,17 +55,39 @@
         "typescript": "^5.4.5",
         "vitest": "^3.1.2"
     },
-    "homepage": "https://github.com/gbtunney/snailicide-monorepo/tree/main/packages/vite-plugin-shopify-theme-schema#readme",
-    "bugs": {
-        "url": "https://github.com/gbtunney/snailicide-monorepo/issues"
+    "type": "module",
+    "exports": {
+        ".": {
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.cjs",
+            "default": "./dist/index.js"
+        }
     },
+    "author": {
+        "name": "Gillian Tunney",
+        "email": "gbtunney@mac.com"
+    },
+    "license": "MIT",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/gbtunney/snailicide-monorepo.git"
     },
-    "license": "MIT",
-    "author": {
-        "name": "Gillian Tunney",
-        "email": "gbtunney@mac.com"
-    }
+    "homepage": "https://github.com/gbtunney/snailicide-monorepo/tree/main/packages/vite-plugin-shopify-theme-schema#readme",
+    "bugs": {
+        "url": "https://github.com/gbtunney/snailicide-monorepo/issues"
+    },
+    "files": [
+        "CHANGELOG.md",
+        "dist",
+        "example_theme_config/**/*.ts",
+        "types",
+        "vite.config.ts",
+        "!example_theme_config/**/*.d.ts"
+    ],
+    "keywords": [
+        "vite",
+        "shopify",
+        "vite-plugin"
+    ],
+    "commonjs": "./dist/index.cjs"
 }

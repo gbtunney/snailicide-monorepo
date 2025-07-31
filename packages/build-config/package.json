@@ -1,30 +1,8 @@
 {
     "name": "@snailicide/build-config",
-    "private": false,
     "version": "1.4.2",
+    "private": false,
     "description": "Snailicide Shared Build Configuration",
-    "type": "module",
-    "files": [
-        "./tsconfig-base.json",
-        "dist",
-        "types",
-        "CHANGELOG.md"
-    ],
-    "exports": {
-        ".": [
-            {
-                "import": "./dist/index.mjs",
-                "require": "./dist/index.cjs",
-                "default": "./dist/index.js"
-            }
-        ],
-        "./tsconfig-base": "./tsconfig-base.json",
-        "./eslint": "./dist/.eslintrc.json",
-        "./markdownlint": "./dist/.markdownlint.json",
-        "./prettier": "./dist/.prettierrc.json"
-    },
-    "main": "./dist/index.js",
-    "types": "./dist/index.d.ts",
     "scripts": {
         "\n========== BUILD >> ==========": "",
         "build": " pnpm build:ts && pnpm build:rollup",
@@ -66,25 +44,8 @@
         "clean:ts": "tsc --build --clean && rm -R -f tsconfig-base.json",
         "clean:build": "rm -R -f dist types docs"
     },
-    "keywords": [
-        "eslint",
-        "lint",
-        "code style",
-        "format",
-        "prettier",
-        "tsconfig",
-        "typescript"
-    ],
-    "homepage": "https://www.npmjs.com/package/@snailicide/build-config",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/gbtunney/snailicide-monorepo.git"
-    },
-    "license": "MIT",
-    "author": {
-        "name": "Gillian Tunney",
-        "email": "gbtunney@mac.com"
-    },
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
     "dependencies": {
         "@eslint/js": "^9.25.1",
         "@rollup/plugin-commonjs": "^28.0.3",
@@ -127,16 +88,6 @@
         "vue": "^3.5.13",
         "zod": "^3.25.67"
     },
-    "peerDependencies": {
-        "eslint": "^9.25.1",
-        "prettier": "^3.5.3",
-        "prettier-plugin-jsdoc": "^1.3.2",
-        "prettier-plugin-sh": "^0.17.2",
-        "rollup": "^4.40.0",
-        "vite": "^6.3.3",
-        "vitepress": "^1.6.3",
-        "vitest": "^3.1.2"
-    },
     "devDependencies": {
         "@prettier/plugin-php": "^0.24.0",
         "@prettier/plugin-xml": "^3.4.1",
@@ -149,7 +100,7 @@
         "cross-var": "^1.1.0",
         "markdownlint-cli": "^0.45.0",
         "prettier-plugin-jsdoc": "^1.3.2",
-        "prettier-plugin-packagejson": "^2.5.17",
+        "prettier-plugin-pkg": "^0.21.2",
         "prettier-plugin-sh": "^0.18.0",
         "prettier-plugin-tailwindcss": "^0.6.13",
         "remark-github": "^12.0.0",
@@ -164,7 +115,45 @@
         "unified-prettier": "^2.0.1",
         "vitepress": "^1.6.3"
     },
-    "prettier": "./dist/.prettierrc.json",
+    "type": "module",
+    "exports": {
+        ".": [
+            {
+                "import": "./dist/index.mjs",
+                "require": "./dist/index.cjs",
+                "default": "./dist/index.js"
+            }
+        ],
+        "./tsconfig-base": "./tsconfig-base.json",
+        "./eslint": "./dist/.eslintrc.json",
+        "./markdownlint": "./dist/.markdownlint.json",
+        "./prettier": "./dist/.prettierrc.json"
+    },
+    "author": {
+        "name": "Gillian Tunney",
+        "email": "gbtunney@mac.com"
+    },
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/gbtunney/snailicide-monorepo.git"
+    },
+    "homepage": "https://www.npmjs.com/package/@snailicide/build-config",
+    "files": [
+        "./tsconfig-base.json",
+        "CHANGELOG.md",
+        "dist",
+        "types"
+    ],
+    "keywords": [
+        "eslint",
+        "lint",
+        "code style",
+        "format",
+        "prettier",
+        "tsconfig",
+        "typescript"
+    ],
     "config": {
         "prettier": {
             "extensions": "ts,js,cjs,mjs,cts,mts,sh,html,json,yaml,yml,graphql,md",
@@ -183,5 +172,16 @@
                 "local": "./.vitepress/dist/*"
             }
         }
-    }
+    },
+    "peerDependencies": {
+        "eslint": "^9.25.1",
+        "prettier": "^3.5.3",
+        "prettier-plugin-jsdoc": "^1.3.2",
+        "prettier-plugin-sh": "^0.17.2",
+        "rollup": "^4.40.0",
+        "vite": "^6.3.3",
+        "vitepress": "^1.6.3",
+        "vitest": "^3.1.2"
+    },
+    "prettier": "./dist/.prettierrc.json"
 }

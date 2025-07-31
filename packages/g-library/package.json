@@ -1,19 +1,8 @@
 {
     "name": "@snailicide/g-library",
     "version": "1.2.0",
-    "description": "Function library written in typescript",
     "private": false,
-    "keywords": [
-        "typescript",
-        "js",
-        "ts",
-        "javascript",
-        "function library",
-        "type library",
-        "typeguards",
-        "typeguard",
-        "utilities"
-    ],
+    "description": "Function library written in typescript",
     "scripts": {
         "\n========== BUILD >> ==========": "",
         "build": "pnpm build:ts && pnpm build:rollup",
@@ -59,6 +48,9 @@
         "clean:ts": "tsc --build --clean",
         "clean:build": "rm -R -f dist types docs"
     },
+    "main": "./dist/index.js",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
     "dependencies": {
         "@types/is-glob": "^4.0.4",
         "@types/markdown-it": "^14.1.1",
@@ -112,21 +104,35 @@
             "default": "./dist/node.js"
         }
     },
-    "main": "./dist/index.js",
-    "types": "./dist/index.d.ts",
-    "module": "./dist/index.mjs",
-    "commonjs": "./dist/index.cjs",
-    "umd:main": "./dist/cdn-index-umd.min.js",
-    "cdn": "./dist/cdn-index-iife.min.js",
+    "author": {
+        "name": "Gillian Tunney",
+        "email": "gbtunney@mac.com"
+    },
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/gbtunney/snailicide-monorepo.git"
+    },
+    "homepage": "https://github.com/gbtunney/snailicide-monorepo/tree/main/packages/g-library",
     "files": [
-        "docs",
-        "types",
-        "dist",
         "CHANGELOG.md",
-        "vite.docs.config.ts",
-        "docs.server.mjs"
+        "dist",
+        "docs",
+        "docs.server.mjs",
+        "types",
+        "vite.docs.config.ts"
     ],
-    "prettier": "@snailicide/build-config/prettier",
+    "keywords": [
+        "typescript",
+        "js",
+        "ts",
+        "javascript",
+        "function library",
+        "type library",
+        "typeguards",
+        "typeguard",
+        "utilities"
+    ],
     "config": {
         "publish": {
             "private": "http://localhost:4873"
@@ -149,14 +155,8 @@
             "config": "eslint.config.js"
         }
     },
-    "homepage": "https://github.com/gbtunney/snailicide-monorepo/tree/main/packages/g-library",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/gbtunney/snailicide-monorepo.git"
-    },
-    "license": "MIT",
-    "author": {
-        "name": "Gillian Tunney",
-        "email": "gbtunney@mac.com"
-    }
+    "cdn": "./dist/cdn-index-iife.min.js",
+    "commonjs": "./dist/index.cjs",
+    "prettier": "@snailicide/build-config/prettier",
+    "umd:main": "./dist/cdn-index-umd.min.js"
 }
