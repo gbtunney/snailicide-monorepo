@@ -1,6 +1,6 @@
 {
     "name": "@snailicide/cli-app",
-    "version": "0.4.1",
+    "version": "0.4.2",
     "private": false,
     "description": "Node Cli App Boilerplate with yargs, zod, chalk",
     "scripts": {
