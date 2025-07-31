@@ -1,5 +1,11 @@
 # @snailicide/g-library@0.2.1
 
+## 1.2.1
+
+### Patch Changes
+
+- ce1e3cf: updated dependencies
+
 ## 1.2.0
 
 ### Minor Changes
