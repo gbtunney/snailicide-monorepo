@@ -41,6 +41,18 @@
     "main": "./dist/index.js",
     "module": "./dist/index.mjs",
     "types": "./dist/index.d.ts",
+    "dependencies": {
+        "@types/culori": "^4.0.0",
+        "@types/ramda": "^0.31.0",
+        "@unocss/core": "^66.3.3",
+        "@unocss/preset-wind4": "^66.3.3",
+        "chalk": "^5.4.1",
+        "colorjs.io": "^0.5.2",
+        "culori": "^4.0.2",
+        "ramda": "^0.31.3",
+        "ramda-adjunct": "^5.1.0",
+        "type-fest": "^4.41.0"
+    },
     "devDependencies": {
         "@snailicide/build-config": "^1.4.0",
         "@types/node": "^22.13.1",
@@ -48,6 +60,7 @@
         "eslint": "^9.20.0",
         "rollup": "^4.34.6",
         "typescript": "^5.7.3",
+        "unocss": "^66.3.3",
         "vitest": "^3.0.5"
     },
     "type": "module",
