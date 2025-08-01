@@ -1,3 +1,4 @@
+import chalk from 'chalk'
 import {
     clampGamut,
     type Color,
@@ -5,12 +6,11 @@ import {
     displayable,
     type Mode as ColorMode,
 } from 'culori'
+import { formatHex } from 'culori'
 
-import type {
-    OklchColor,
-    ValidOklchColor,
-} from './types.js'
-
+import { findOptimalPairMeta } from './contrast.js'
+import type { OklchColor, ValidOklchColor } from './types.js'
+import { validateOklchColor } from './validators.js'
 export const rgbConverter: ReturnType<typeof converter<'rgb'>> =
     converter('rgb')
 
@@ -66,4 +66,34 @@ export const clampIfNeeded = (
         return clamped
     }
     return color
+}
+
+export const printSwatchWithChalk = (
+    text: string,
+    bg_color: ValidOklchColor,
+    fg_color: ValidOklchColor | undefined = undefined,
+    dim: string | undefined = undefined,
+    _log: boolean = true,
+): string => {
+    /* Force truecolor mode */
+    chalk.level = 3
+    let textColor: ValidOklchColor
+    try {
+        /* Pick contrasting foreground if not provided */
+        textColor = fg_color ?? findOptimalPairMeta(bg_color).result.fg_color
+    } catch (e) {
+        console.log('unable to find a contrast pair for ', formatHex(bg_color))
+        textColor = validateOklchColor('white')
+    }
+
+    const bgHex = formatHex(bg_color)
+    const fgHex = formatHex(textColor)
+
+    const block = chalk.bgHex(bgHex).hex(fgHex)(` ${text} `)
+    const info = dim ? chalk.dim(dim) : ''
+
+    const output = `${block} ${info}`
+
+    if (_log) console.log(output)
+    return output
 }

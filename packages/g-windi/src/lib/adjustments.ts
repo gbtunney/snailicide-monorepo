@@ -1,9 +1,4 @@
-
-import type {
-    ChromaPreset,
-    LightnessPreset,
-    ValidOklchColor,
-} from './types.js'
+import type { ChromaPreset, LightnessPreset, ValidOklchColor } from './types.js'
 import { validateOklchColor } from './validators.js'
 
 // ----------------------
@@ -24,9 +19,7 @@ const lightnessPresets: Record<Exclude<LightnessPreset, number>, number> = {
     mid: 0.6,
 }
 
-/**
- * Adjust Functions
- */
+/** Adjust Functions */
 export const adjustChroma = (
     color: ValidOklchColor,
     adjustment: number | ChromaPreset = 0,

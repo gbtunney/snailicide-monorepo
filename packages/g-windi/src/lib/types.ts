@@ -25,6 +25,7 @@ export type ChromaPreset =
 export type LightnessPreset = 'dark' | 'mid' | 'light' | number
 
 export type ColorLumMode = 'dark' | 'light'
+export type ColorSearchLumDirection = ColorLumMode
 export type ContrastPeak = {
     contrastToWhite: number
     contrastToBlack: number
@@ -46,13 +47,22 @@ export type ContrastInfo = {
     wcag: number
     apac_inverted: number
     distance: number
+    /** Normalized?: boolean, */
+    fallback?: boolean
     mode: ColorLumMode
-    source: OklchColorPair
+    // source: ValidOklchColor
+    // source: OklchColorPair
 }
 
 export type ColorComparatorFunc<
     ReturnType extends ContrastInfo | number = number,
 > = (bg_color: ValidOklchColor, fg_color: ValidOklchColor) => ReturnType
+
+export type ContrastPairMeta = ContrastInfo & {
+    source: ValidOklchColor
+    result: OklchColorPair
+    normalized: boolean
+}
 
 export type OklchColorOptions = {
     round?: boolean | number
