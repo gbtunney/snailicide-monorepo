@@ -35,6 +35,8 @@ export type ContrastPeakInfo = {
     luminance: number
     source: ValidOklchColor
 }
+export type ContrastMode = 'apac' | 'wcag'
+
 export type OklchColorPair = {
     fg_color: ValidOklchColor
     bg_color: ValidOklchColor
@@ -56,3 +58,13 @@ export type OklchColorOptions = {
     round?: boolean | number
     clamp?: boolean
 }
+
+export type ContrastSearchOptions = {
+    threshold?: number
+    step?: number
+    mode?: 'apac' | 'wcag'
+}
+export type ColorPairFinderOptions = {
+    normalize?: boolean
+} & OklchColorOptions &
+    ContrastSearchOptions
