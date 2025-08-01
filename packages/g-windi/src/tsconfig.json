@@ -2,9 +2,11 @@
     "extends": "@snailicide/build-config/tsconfig-base",
     "compilerOptions": {
         "outDir": "./../types" /* Specify an output folder for all emitted files. */,
-        "rootDir": ".",
+        "sourceMap": true,
+        "declaration": true,
         "declarationDir": "./../types",
-        "moduleResolution": "Node"
+        "declarationMap": true,
+        "lib": ["ESNext", "DOM"]
     },
     "include": ["**/*.ts", "**/*.cts", "**/*.mts"]
 }

@@ -2,11 +2,10 @@
     "extends": "@snailicide/build-config/tsconfig-base",
     "compilerOptions": {
         "rootDir": ".",
-        "types": ["node"],
-        "moduleResolution": "Node"
+        "types": ["node"]
     },
-    "exclude": ["./src/**/*.ts"],
-    "files": ["./package.json"],
-    "include": ["./*.ts"],
+    "exclude": ["./node_modules"],
+    "files": ["package.json"],
+    "include": ["./*.ts", "./*.cts", "./**/*.mts"],
     "references": [{ "path": "./src" }]
 }

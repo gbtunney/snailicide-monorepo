@@ -1,5 +1,5 @@
 import { rollup } from '@snailicide/build-config'
-import { RollupOptions } from 'rollup'
+import type { RollupOptions } from 'rollup'
 
 import pkg from './package.json' assert { type: 'json' }
 
@@ -17,7 +17,7 @@ const CONFIG_OBJ = [
             {
                 export_key: '*',
                 export_types: ['default', 'import', 'require', 'types'],
-                library_name: 'gWindi',
+                library_name: 'gbtBoilerplate',
             },
         ],
         rollup.DEFAULT_PLUGINS_BUNDLED,

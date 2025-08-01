@@ -2,58 +2,61 @@
     "name": "@snailicide/g-windi",
     "version": "0.0.12",
     "private": false,
-    "description": "Function library for Windicss/UnoCSS and Vue 3",
+    "description": "Example monorepo package",
     "scripts": {
+        "\n========== DEVELOPMENT >> ==========": "",
+        "dev": "pnpm build:ts --watch",
+        "dev:ts": "pnpm build:ts --watch",
+        "dev:rollup": "rollup --watch --config ./rollup.config.js",
+        "dev:vite": "pnpm exec vite --config ./vite.config.ts",
         "\n========== BUILD >> ==========": "",
         "build": "pnpm build:ts && pnpm build:rollup",
+        "build:ts": "pnpm exec tsc --build",
         "build:rollup": "rollup --config ./rollup.config.js",
-        "build:ts": "tsc --build",
-        "build:nx": "cross-var nx run $npm_package_name:build",
-        "\n========== DEV >> ==========": "",
-        "dev": "tsc --build --watch",
-        "dev:rollup": "nodemon --exec 'pnpm build' --watch ./rollup.config.ts ./src",
+        "build:vite": "pnpm exec vite build --config ./vite.config.ts",
         "\n========== TEST >> ==========": "",
         "test": "vitest run",
         "test:watch": "vitest watch",
-        "test:nx": "cross-var nx run $npm_package_name:test",
-        "\n========== PUBLISH >> ==========": "",
-        "release": "pnpm prerelease && pnpm publish --access public --report-summary",
-        "prerelease": "pnpm run test:nx && pnpm run release:archive",
-        "release:archive": "mkdir -p ./releases &&  pnpm exec npm pack --pack-destination='./releases'",
+        "test:repo": "pnpm exec ls $(git rev-parse --show-toplevel)",
         "\n========== CLEAN >> ==========": "",
         "clean": "pnpm clean:ts && pnpm clean:build",
-        "clean:ts": "tsc --build --clean",
-        "clean:build": "rm -R -f dist types docs"
+        "clean:ts": "pnpm exec tsc --build --clean",
+        "clean:build": "pnpm exec rm -rf ./dist ./types",
+        "\n========== PUBLISH >> ==========": "",
+        "release": "pnpm run prerelease && pnpm changeset",
+        "prerelease": "pnpm run build && pnpm run fix && pnpm run check && pnpm test",
+        "\n========== CHECK >> ==========": "",
+        "check": "pnpm check:self",
+        "check:md": "pnpm run lint:md",
+        "check:self": "pnpm lint",
+        "\n========== FIX >> ==========": "",
+        "fix": "pnpm fix:self",
+        "fix:md": "pnpm run lint:md --fix",
+        "fix:self": "pnpm prettier --write && pnpm lint --fix",
+        "\n========== CODE STYLE >> ==========": "",
+        "prettier": "prettier --ignore-path ./.gitignore --no-error-on-unmatched-pattern .",
+        "lint": "pnpm exec eslint .",
+        "lint:md": "pnpm exec markdownlint-cli2 '{./*,./**/*}.md' '#**/node_modules/**' '#packages/test-package/**/*' "
     },
     "main": "./dist/index.js",
     "module": "./dist/index.mjs",
     "types": "./dist/index.d.ts",
-    "dependencies": {
-        "@snailicide/g-library": "workspace:*",
-        "@types/ramda": "^0.31.0",
-        "@vueuse/core": "^13.1.0",
-        "chroma.ts": "^1.0.10",
-        "ramda": "^0.31.3",
-        "ramda-adjunct": "^5.0.1",
-        "type-fest": "^4.22.0",
-        "vue": "^3.4.32",
-        "windicss": "^3.5.6"
-    },
     "devDependencies": {
-        "@snailicide/build-config": "workspace:*",
-        "@types/node": "^24.1.0",
-        "prettier": "^3.0.3",
-        "rollup": "^4.18.1",
-        "ts-node": "^10.9.1",
-        "typescript": "^5.2.2",
-        "vitest": "^3.1.2"
+        "@snailicide/build-config": "^1.4.0",
+        "@types/node": "^22.13.1",
+        "cross-var": "^1.1.0",
+        "eslint": "^9.20.0",
+        "rollup": "^4.34.6",
+        "typescript": "^5.7.3",
+        "vitest": "^3.0.5"
     },
     "type": "module",
     "exports": {
         ".": {
+            "default": "./dist/index.js",
             "import": "./dist/index.mjs",
             "require": "./dist/index.cjs",
-            "default": "./dist/index.js"
+            "types": "./dist/index.d.ts"
         }
     },
     "author": {
@@ -63,23 +66,33 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/gbtunney/snailicide-monorepo.git"
+        "url": "https://github.com/gbtunney/gbt-boilerplate"
     },
-    "homepage": "https://github.com/gbtunney/snailicide-monorepo/tree/main/packages/g-windi#readme",
-    "bugs": {
-        "url": "https://github.com/gbtunney/snailicide-monorepo/issues"
+    "homepage": "https://github.com/gbtunney/gbt-boilerplate",
+    "packageManager": "pnpm@10.9.0",
+    "engines": {
+        "node": ">=18.7.0 <22.0.0",
+        "pnpm": ">=9.0.0"
     },
     "files": [
         "CHANGELOG.md",
         "dist",
-        "docs",
-        "exampleNodeScript.ts",
         "types"
     ],
     "keywords": [
-        "typescript",
-        "windicss",
-        "unocss"
+        "boilerplate"
     ],
+    "config": {
+        "prettier": {
+            "extensions": "ts,js,cjs,mjs,cts,mts,sh,html,json,yaml,yml,graphql,md",
+            "path": "*,**/*",
+            "config": "prettier.config.js"
+        },
+        "eslint": {
+            "extensions": "ts,js,cjs,mjs",
+            "path": "*",
+            "config": "eslint.config.js"
+        }
+    },
     "commonjs": "./dist/index.cjs"
 }
