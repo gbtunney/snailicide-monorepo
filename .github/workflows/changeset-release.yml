@@ -47,19 +47,6 @@ jobs:
                   HUSKY: 0
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-            - name: Pull latest main before push
-              run: |
-                  git pull --rebase origin main || true
-
-            - name: Build Docs and Commit
-              run: |
-                  pnpm run docs:build
-                  git config user.name "github-actions[bot]"
-                  git config user.email "github-actions[bot]@users.noreply.github.com"
-                  git add .
-                  git commit -m "docs(root): update generated docs [skip ci]" || true
-                  git push origin HEAD:main
-
             - name: Tag Versions 🏷️
               run: |
                   pnpm changeset tag
