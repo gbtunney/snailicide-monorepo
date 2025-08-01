@@ -1,4 +1,4 @@
-[**@snailicide/cli-app v0.4.0**](../README.md)
+[**@snailicide/cli-app v0.4.1**](../README.md)
 
 ---
 
