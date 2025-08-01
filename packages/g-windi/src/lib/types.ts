@@ -1,7 +1,4 @@
-import {
-    type Oklch,
-    type Rgb,
-} from 'culori'
+import { type Oklch, type Rgb } from 'culori'
 
 export type OklchColor = Oklch
 export type RgbColor = Rgb
@@ -24,18 +21,38 @@ export type ChromaPreset =
     | 'normal'
     | 'vibrant'
     | number
-const chromaPresets: Record<Exclude<ChromaPreset, number>, number> = {
-    greyscale: 0,
-    muted: 0.4,
-    neutral: 0,
-    normal: 1,
-    subtle: 0.2,
-    vibrant: 1.25,
-}
 
 export type LightnessPreset = 'dark' | 'mid' | 'light' | number
-const lightnessPresets: Record<Exclude<LightnessPreset, number>, number> = {
-    dark: 0.3,
-    light: 0.85,
-    mid: 0.6,
+
+export type ColorLumMode = 'dark' | 'light'
+export type ContrastPeak = {
+    contrastToWhite: number
+    contrastToBlack: number
+}
+export type ContrastPeakInfo = {
+    apac: ContrastPeak
+    wcag: ContrastPeak
+    luminance: number
+    source: ValidOklchColor
+}
+export type OklchColorPair = {
+    fg_color: ValidOklchColor
+    bg_color: ValidOklchColor
+}
+export type ContrastInfo = {
+    apac: number
+    wcag: number
+    apac_inverted: number
+    distance: number
+    mode: ColorLumMode
+    source: OklchColorPair
+}
+
+export type ColorComparatorFunc<
+    ReturnType extends ContrastInfo | number = number,
+> = (bg_color: ValidOklchColor, fg_color: ValidOklchColor) => ReturnType
+
+export type OklchColorOptions = {
+    round?: boolean | number
+    clamp?: boolean
 }
