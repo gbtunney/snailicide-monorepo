@@ -1,5 +1,14 @@
 # @snailicide/vite-plugin-shopify-liquid-modules
 
+## 0.2.7
+
+### Patch Changes
+
+- d16db7d: testing release workflow
+- Updated dependencies [d16db7d]
+  - @snailicide/g-shopify-library@0.3.7
+  - @snailicide/g-library@1.2.2
+
 ## 0.2.6
 
 ### Patch Changes

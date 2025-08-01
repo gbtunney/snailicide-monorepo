@@ -1,5 +1,11 @@
 # @snailicide/build-config
 
+## 1.4.4
+
+### Patch Changes
+
+- d16db7d: testing release workflow
+
 ## 1.4.3
 
 ### Patch Changes
