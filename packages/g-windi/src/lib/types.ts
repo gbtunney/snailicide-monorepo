@@ -33,6 +33,7 @@ export type ContrastPeak = {
 export type ContrastPeakInfo = {
     apac: ContrastPeak
     wcag: ContrastPeak
+    distance?: ContrastPeak
     luminance: number
     source: ValidOklchColor
 }
@@ -73,6 +74,7 @@ export type ContrastSearchOptions = {
     threshold?: number
     step?: number
     mode?: 'apac' | 'wcag'
+    verbose?: boolean
 }
 export type ColorPairFinderOptions = {
     normalize?: boolean

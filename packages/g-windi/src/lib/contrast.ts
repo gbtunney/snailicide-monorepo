@@ -1,6 +1,5 @@
 import colorjs from 'colorjs.io'
 import { wcagContrast } from 'culori'
-import { rangeStep } from 'ramda-adjunct'
 
 import type {
     ColorComparatorFunc,
@@ -49,7 +48,9 @@ const getOptimalLuminanceDirection = (
     // Prefer direction with higher existing contrast
     let direction: ColorSearchLumDirection
     if (contrastToWhite !== contrastToBlack) {
-        direction = contrastToWhite > contrastToBlack ? 'light' : 'dark'
+        // If contrast to white is higher, we should go toward black (dark direction)
+        // If contrast to black is higher, we should go toward white (light direction)
+        direction = contrastToWhite > contrastToBlack ? 'dark' : 'light'
     } else {
         // Fallback to distance only when contrast values are equal
         const distanceToWhite = 1 - info.luminance
@@ -66,13 +67,19 @@ export const getColorContrastPeakInfo = (
     const white = validateOklchColor({ ...input, l: 1 })
     const black = validateOklchColor({ ...input, l: 0 })
     const luminance = input.l
+
     const result = {
         apac: {
             contrastToBlack: getContrastRatioAPCA(input, black),
             contrastToWhite: getContrastRatioAPCA(input, white),
         },
+        distance: {
+            contrastToBlack: getColorDistance(input, black),
+            contrastToWhite: getColorDistance(input, white),
+        },
         luminance,
         source: input,
+
         wcag: {
             contrastToBlack: getContrastRatioWCAG(input, black),
             contrastToWhite: getContrastRatioWCAG(input, white),
@@ -89,7 +96,7 @@ export const getColorContrast: ColorComparatorFunc<
     apac_inverted: getContrastRatioAPCA(fg_color, bg_color),
     distance: getColorDistance(bg_color, fg_color),
     /* This is the mode, like the theme.  not the search direction */
-    mode: bg_color.l > fg_color.l ? 'dark' : 'light',
+    mode: bg_color.l > fg_color.l ? 'light' : 'dark',
     source: { bg_color, fg_color },
     wcag: getContrastRatioWCAG(bg_color, fg_color),
 })
@@ -99,26 +106,60 @@ export const searchForContrastPair = (
     direction: ColorLumMode,
     _options: ContrastSearchOptions,
 ): ValidOklchColor | undefined => {
-    const { mode, step, threshold }: Required<ContrastSearchOptions> = {
-        mode: 'apac',
-        step: 0.01,
-        threshold: 50,
-        ..._options,
+    const { mode, step, threshold, verbose }: Required<ContrastSearchOptions> =
+        {
+            mode: 'wcag',
+            step: 0.01,
+            threshold: 4.5,
+            verbose: false,
+            ..._options,
+        }
+
+    if (verbose) {
+        console.log(
+            `   🔍 Searching ${direction} from L=${base.l.toFixed(3)} for ${mode.toUpperCase()} ≥ ${threshold}`,
+        )
     }
 
-    const [start, end] = direction === 'light' ? [base.l, 1] : [base.l, 0]
+    // Generate steps manually to handle both directions properly
+    const steps: Array<number> = []
+    if (direction === 'light') {
+        // Going from base.l towards 1
+        for (let l = base.l; l <= 1; l += step) {
+            steps.push(Math.min(l, 1))
+        }
+    } else {
+        // Going from base.l towards 0
+        for (let l = base.l; l >= 0; l -= step) {
+            steps.push(Math.max(l, 0))
+        }
+    }
 
-    const steps = rangeStep(step, start, end)
-
-    return steps.reduce<ValidOklchColor | undefined>((found, l) => {
+    const result = steps.reduce<ValidOklchColor | undefined>((found, l) => {
         if (found) return found
 
         const candidate = validateOklchColor({ ...base, l })
+        const meetsThreshold = meetsContrastPeakThreshold(candidate, {
+            mode,
+            threshold,
+        })
 
-        return meetsContrastPeakThreshold(candidate, { mode, threshold })
-            ? candidate
-            : undefined
+        return meetsThreshold ? candidate : undefined
     }, undefined)
+
+    if (verbose) {
+        if (result) {
+            console.log(
+                `   ✓ Found solution at L=${result.l.toFixed(3)} after ${steps.findIndex((l) => l === result.l) + 1} steps`,
+            )
+        } else {
+            console.log(
+                `   ✗ No solution found in ${direction} direction (${steps.length} steps checked)`,
+            )
+        }
+    }
+
+    return result
 }
 
 export const meetsContrastPeakThreshold = (
@@ -128,9 +169,11 @@ export const meetsContrastPeakThreshold = (
     const {
         mode,
         threshold,
+        verbose,
     }: Omit<Required<ContrastSearchOptions>, 'step'> = {
-        mode: 'apac',
+        mode: 'wcag',
         threshold: 4.5,
+        verbose: false,
         ..._options,
     }
 
@@ -155,19 +198,38 @@ export const findOptimalPairMeta = (
         normalize,
         step,
         threshold,
+        verbose,
     }: Required<ColorPairFinderOptions> = {
         clamp: true,
-        mode: 'apac',
+        mode: 'wcag',
         normalize: true,
         round: false,
         step: 0.01,
-        threshold: 50,
+        threshold: 4.5,
+        verbose: false,
         ..._options,
     }
 
-    const searchOptions: ContrastSearchOptions = { mode, step, threshold }
+    const searchOptions: ContrastSearchOptions = {
+        mode,
+        step,
+        threshold,
+        verbose,
+    }
     const doNormalize =
         normalize && !meetsContrastPeakThreshold(base, searchOptions)
+
+    if (verbose) {
+        console.log(
+            `🎯 Finding optimal contrast pair for color L=${base.l.toFixed(3)} C=${base.c.toFixed(3)} H=${base.h?.toFixed(1) || 'none'}`,
+        )
+        if (doNormalize) {
+            console.log(
+                `   🔧 Color needs normalization (doesn't meet ${threshold} ${mode.toUpperCase()} threshold)`,
+            )
+        }
+    }
+
     const bg_color = doNormalize
         ? normalizeColorForContrast(base, searchOptions)
         : base
@@ -181,9 +243,19 @@ export const findOptimalPairMeta = (
     let fallback = false
     let direction = optimalDirection
 
+    if (verbose) {
+        console.log(
+            `   📍 Optimal direction: ${optimalDirection} (contrast to white: ${info.wcag.contrastToWhite.toFixed(2)}, to black: ${info.wcag.contrastToBlack.toFixed(2)})`,
+        )
+    }
+
     fg_color = searchForContrastPair(bg_color, optimalDirection, searchOptions)
 
     if (!fg_color) {
+        if (verbose)
+            console.log(
+                `   🔄 Primary direction failed, trying ${secondaryDirection}`,
+            )
         fg_color = searchForContrastPair(
             bg_color,
             secondaryDirection,
@@ -193,6 +265,10 @@ export const findOptimalPairMeta = (
     }
 
     if (!fg_color) {
+        if (verbose)
+            console.log(
+                `   ⚠️  Fallback to ${optimalDirection === 'light' ? 'white' : 'black'}`,
+            )
         fg_color =
             optimalDirection === 'light'
                 ? validateOklchColor('white')
@@ -201,6 +277,12 @@ export const findOptimalPairMeta = (
     }
 
     const finalContrastInfo: ContrastInfo = getColorContrast(bg_color, fg_color)
+
+    if (verbose) {
+        console.log(
+            `   ✅ Final pair: BG L=${bg_color.l.toFixed(3)} → FG L=${fg_color.l.toFixed(3)} (${mode.toUpperCase()}: ${finalContrastInfo.wcag.toFixed(2)})`,
+        )
+    }
 
     const _result: ContrastPairMeta = {
         ...finalContrastInfo,
@@ -221,20 +303,25 @@ export const normalizeColorForContrast = (
         mode,
         step,
         threshold,
+        verbose,
     }: Omit<Required<ColorPairFinderOptions>, 'normalize'> = {
         clamp: true,
-        mode: 'apac',
+        mode: 'wcag',
         round: false,
         step: 0.01,
-        threshold: 50,
+        threshold: 4.5,
+        verbose: false,
         ..._options,
     }
+    const __options: ContrastSearchOptions = { mode, step, threshold, verbose }
 
     const input = validateOklchColor(base)
 
-    if (meetsContrastPeakThreshold(input, { mode, threshold })) return input
+    // If color already meets threshold, return it
+    if (meetsContrastPeakThreshold(input, __options)) return input
 
     const info = getColorContrastPeakInfo(input)
+
     const optimalDirection = getOptimalLuminanceDirection(info, false, mode)
     const searchOptions = { mode, step, threshold }
 
@@ -263,6 +350,7 @@ export const normalizeColorForContrast = (
             ? Math.abs(info.apac.contrastToBlack)
             : info.wcag.contrastToBlack
 
+    // If no solution found, return the color with the highest contrast
     return contrastToWhite >= contrastToBlack
         ? validateOklchColor('white')
         : validateOklchColor('black')
