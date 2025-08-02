@@ -1,6 +1,12 @@
 import colorjs from 'colorjs.io'
 import { wcagContrast } from 'culori'
-
+import { omit } from 'ramda'
+import { adjustChroma, adjustHue } from './adjustments.js'
+import {
+    CONTRAST_DEFAULTS,
+    CONTRAST_PRESET_ADJUSTMENTS,
+    getDefaultThreshold,
+} from './constants.js'
 import type {
     ColorComparatorFunc,
     ColorLumMode,
@@ -8,6 +14,7 @@ import type {
     ColorSearchLumDirection,
     ContrastInfo,
     ContrastPairMeta,
+    ContrastPairPreset,
     ContrastPeakInfo,
     ContrastSearchOptions,
     OklchColorPair,
@@ -15,17 +22,13 @@ import type {
 } from './types.js'
 import { toColorJS, validateOklchColor } from './validators.js'
 
-export const getContrastRatioAPCA: ColorComparatorFunc<number> = (
-    bg_color,
-    fg_color,
-) => colorjs.contrastAPCA(toColorJS(bg_color), toColorJS(fg_color))
+export const getContrastRatioAPCA: ColorComparatorFunc = (bg_color, fg_color) =>
+    colorjs.contrastAPCA(toColorJS(bg_color), toColorJS(fg_color))
 
-export const getContrastRatioWCAG: ColorComparatorFunc<number> = (
-    bg_color,
-    fg_color,
-) => wcagContrast(bg_color, fg_color)
+export const getContrastRatioWCAG: ColorComparatorFunc = (bg_color, fg_color) =>
+    wcagContrast(bg_color, fg_color)
 
-export const getColorDistance: ColorComparatorFunc<number> = (
+export const getColorDistance: ColorComparatorFunc = (
     bg_color,
     fg_color,
 ): number => {
@@ -34,8 +37,20 @@ export const getColorDistance: ColorComparatorFunc<number> = (
 const getOptimalLuminanceDirection = (
     info: ContrastPeakInfo,
     invert: boolean,
-    mode: 'apac' | 'wcag',
+    mode: 'apac' | 'wcag' | 'distance',
 ): ColorSearchLumDirection => {
+    if (mode === 'distance') {
+        // For distance mode, use distance values from peak info
+        const distanceToWhite =
+            info.distance?.contrastToWhite || 1 - info.luminance
+        const distanceToBlack = info.distance?.contrastToBlack || info.luminance
+
+        // Prefer direction with higher distance (less similar)
+        const direction: ColorSearchLumDirection =
+            distanceToWhite > distanceToBlack ? 'light' : 'dark'
+        return invert ? (direction === 'light' ? 'dark' : 'light') : direction
+    }
+
     const contrastToWhite =
         mode === 'apac'
             ? Math.abs(info.apac.contrastToWhite)
@@ -108,10 +123,12 @@ export const searchForContrastPair = (
 ): ValidOklchColor | undefined => {
     const { mode, step, threshold, verbose }: Required<ContrastSearchOptions> =
         {
-            mode: 'wcag',
-            step: 0.01,
-            threshold: 4.5,
-            verbose: false,
+            mode: CONTRAST_DEFAULTS.MODE,
+            step: CONTRAST_DEFAULTS.STEP,
+            threshold:
+                _options.threshold ??
+                getDefaultThreshold(_options.mode || CONTRAST_DEFAULTS.MODE),
+            verbose: CONTRAST_DEFAULTS.VERBOSE,
             ..._options,
         }
 
@@ -171,13 +188,22 @@ export const meetsContrastPeakThreshold = (
         threshold,
         verbose,
     }: Omit<Required<ContrastSearchOptions>, 'step'> = {
-        mode: 'wcag',
-        threshold: 4.5,
-        verbose: false,
+        mode: CONTRAST_DEFAULTS.MODE,
+        threshold:
+            _options.threshold ??
+            getDefaultThreshold(_options.mode || CONTRAST_DEFAULTS.MODE),
+        verbose: CONTRAST_DEFAULTS.VERBOSE,
         ..._options,
     }
 
     const info = getColorContrastPeakInfo(base)
+
+    if (mode === 'distance') {
+        const distanceToWhite = info.distance?.contrastToWhite || 0
+        const distanceToBlack = info.distance?.contrastToBlack || 0
+        return distanceToWhite >= threshold || distanceToBlack >= threshold
+    }
+
     const contrastToWhite =
         mode === 'apac'
             ? Math.abs(info.apac.contrastToWhite)
@@ -200,13 +226,15 @@ export const findOptimalPairMeta = (
         threshold,
         verbose,
     }: Required<ColorPairFinderOptions> = {
-        clamp: true,
-        mode: 'wcag',
-        normalize: true,
-        round: false,
-        step: 0.01,
-        threshold: 4.5,
-        verbose: false,
+        clamp: CONTRAST_DEFAULTS.CLAMP,
+        mode: CONTRAST_DEFAULTS.MODE,
+        normalize: CONTRAST_DEFAULTS.NORMALIZE,
+        round: CONTRAST_DEFAULTS.ROUND,
+        step: CONTRAST_DEFAULTS.STEP,
+        threshold:
+            _options.threshold ??
+            getDefaultThreshold(_options.mode || CONTRAST_DEFAULTS.MODE),
+        verbose: CONTRAST_DEFAULTS.VERBOSE,
         ..._options,
     }
 
@@ -298,19 +326,21 @@ export const findOptimalPairMeta = (
 export const normalizeColorForContrast = (
     base: ValidOklchColor,
     _options: Omit<ColorPairFinderOptions, 'normalize'> = {},
-) => {
+): ValidOklchColor => {
     const {
         mode,
         step,
         threshold,
         verbose,
     }: Omit<Required<ColorPairFinderOptions>, 'normalize'> = {
-        clamp: true,
-        mode: 'wcag',
-        round: false,
-        step: 0.01,
-        threshold: 4.5,
-        verbose: false,
+        clamp: CONTRAST_DEFAULTS.CLAMP,
+        mode: CONTRAST_DEFAULTS.MODE,
+        round: CONTRAST_DEFAULTS.ROUND,
+        step: CONTRAST_DEFAULTS.STEP,
+        threshold:
+            _options.threshold ??
+            getDefaultThreshold(_options.mode || CONTRAST_DEFAULTS.MODE),
+        verbose: CONTRAST_DEFAULTS.VERBOSE,
         ..._options,
     }
     const __options: ContrastSearchOptions = { mode, step, threshold, verbose }
@@ -341,6 +371,15 @@ export const normalizeColorForContrast = (
     )
     if (fallbackResult) return fallbackResult
 
+    if (mode === 'distance') {
+        const distanceToWhite = info.distance?.contrastToWhite || 0
+        const distanceToBlack = info.distance?.contrastToBlack || 0
+        // If no solution found, return the color with the highest distance
+        return distanceToWhite >= distanceToBlack
+            ? validateOklchColor('white')
+            : validateOklchColor('black')
+    }
+
     const contrastToWhite =
         mode === 'apac'
             ? Math.abs(info.apac.contrastToWhite)
@@ -354,4 +393,86 @@ export const normalizeColorForContrast = (
     return contrastToWhite >= contrastToBlack
         ? validateOklchColor('white')
         : validateOklchColor('black')
+}
+
+export const getContrastPair = (
+    base: ValidOklchColor,
+    _options: ColorPairFinderOptions & { preset?: ContrastPairPreset } = {},
+): ContrastPairMeta => {
+    const __options: Required<
+        ColorPairFinderOptions & { preset?: ContrastPairPreset }
+    > = {
+        clamp: CONTRAST_DEFAULTS.CLAMP,
+        mode: CONTRAST_DEFAULTS.MODE,
+        normalize: CONTRAST_DEFAULTS.NORMALIZE,
+        preset: CONTRAST_DEFAULTS.PRESET,
+        round: CONTRAST_DEFAULTS.ROUND,
+        step: CONTRAST_DEFAULTS.STEP,
+        threshold:
+            _options.threshold ??
+            getDefaultThreshold(_options.mode || CONTRAST_DEFAULTS.MODE),
+        verbose: CONTRAST_DEFAULTS.VERBOSE,
+        ..._options,
+    }
+
+    const { mode, preset, verbose } = __options
+
+    if (verbose) {
+        console.log(`🎨 Getting contrast pair with preset: ${preset}`)
+    }
+
+    const basePair = findOptimalPairMeta(base, omit(['preset'], __options))
+    const minPair = basePair.result.fg_color
+    const subtlePairColor = adjustChroma(
+        basePair.result.fg_color,
+        CONTRAST_PRESET_ADJUSTMENTS.SUBTLE_CHROMA_ADJUSTMENT,
+        false,
+    )
+    const complementPairColor = adjustHue(
+        basePair.result.fg_color,
+        CONTRAST_PRESET_ADJUSTMENTS.COMPLEMENT_HUE_ADJUSTMENT,
+    )
+
+    // Use the luminance direction function to determine optimal directions
+    const maxColor: ValidOklchColor = validateOklchColor(
+        getOptimalLuminanceDirection(
+            getColorContrastPeakInfo(basePair.result.bg_color),
+            true,
+            mode,
+        ) === 'light'
+            ? 'white'
+            : 'black',
+    )
+
+    const __color: OklchColorPair = {
+        bg_color: basePair.result.bg_color,
+        fg_color:
+            preset === 'maxPair'
+                ? maxColor
+                : preset === 'subtle'
+                  ? subtlePairColor
+                  : preset === 'complement'
+                    ? complementPairColor
+                    : minPair,
+    }
+
+    const resultContrastInfo = getColorContrast(
+        __color.bg_color,
+        __color.fg_color,
+    )
+
+    const _result: ContrastPairMeta = {
+        ...basePair,
+        ...resultContrastInfo,
+        result: __color,
+        source: base,
+    }
+
+    if (verbose) {
+        console.log(
+            `✅ Selected ${preset} pair: FG L=${__color.fg_color.l.toFixed(3)}, BG L=${__color.bg_color.l.toFixed(3)}`,
+        )
+    }
+
+    return _result
 }

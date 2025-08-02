@@ -35,21 +35,24 @@ describe('clampIfNeeded', () => {
             c: 0.5,
             // Very high chroma - likely out of gamut
             h: 0,
-            l: 0.7, mode: 'oklch', // Red hue
+            l: 0.7,
+            mode: 'oklch', // Red hue
         })
 
         const oversaturatedGreen = validateOklchColor({
             c: 0.4,
             // High chroma
             h: 120,
-            l: 0.8, mode: 'oklch', // Green hue
+            l: 0.8,
+            mode: 'oklch', // Green hue
         })
 
         const oversaturatedBlue = validateOklchColor({
             c: 0.45,
             // High chroma
             h: 240,
-            l: 0.6, mode: 'oklch', // Blue hue
+            l: 0.6,
+            mode: 'oklch', // Blue hue
         })
 
         // Test that the function processes out-of-gamut colors
@@ -72,7 +75,8 @@ describe('clampIfNeeded', () => {
         const veryBright = validateOklchColor({
             // Above 1.0
             c: 0.3,
-            h: 90, l: 1.2,
+            h: 90,
+            l: 1.2,
             mode: 'oklch',
         })
 
@@ -80,7 +84,8 @@ describe('clampIfNeeded', () => {
         const veryDark = validateOklchColor({
             // Below 0.0
             c: 0.2,
-            h: 270, l: -0.1,
+            h: 270,
+            l: -0.1,
             mode: 'oklch',
         })
 
@@ -107,7 +112,9 @@ describe('clampIfNeeded', () => {
             alpha: 0.8,
             c: 0.6,
             // Extremely high chroma
-            h: 60, l: 0.75, mode: 'oklch',
+            h: 60,
+            l: 0.75,
+            mode: 'oklch',
         })
 
         const processed = clampIfNeeded(outOfGamut)
@@ -194,10 +201,8 @@ describe('roundOklchColor', () => {
             mode: 'oklch',
         })
 
-        /**
-         * Default to 2 decimals
-         */
-        const rounded = roundOklchColor(color, true) 
+        /** Default to 2 decimals */
+        const rounded = roundOklchColor(color, true)
 
         expect(rounded.l).toBe(0.12)
         expect(rounded.c).toBe(0.99)

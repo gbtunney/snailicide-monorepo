@@ -15,13 +15,7 @@ export const rgbConverter: ReturnType<typeof converter<'rgb'>> =
 
 export const okchlConverter: ReturnType<typeof converter<'oklch'>> =
     converter('oklch')
-/**
- * Rounds a number to the specified number of decimal places.
- *
- * @param value The number to round.
- * @param decimals The number of decimal places.
- * @returns The rounded number.
- */
+/** Rounds a number to the specified number of decimal places. */
 export const roundToDecimals = (value: number, decimals: number): number => {
     if (decimals <= 0) return value
     const factor = 10 ** decimals
@@ -53,7 +47,7 @@ export const clampIfNeeded = (
     color: ValidOklchColor,
     _mode: ColorMode = 'rgb',
     options?: { verbose?: boolean },
-) => {
+): ValidOklchColor => {
     const verbose = options?.verbose ?? false
 
     if (!displayable(color)) {

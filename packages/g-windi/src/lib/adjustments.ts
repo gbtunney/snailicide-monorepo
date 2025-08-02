@@ -44,8 +44,7 @@ export const adjustLightness = (
             ? adjustment
             : lightnessPresets[adjustment]
 
-    const l: number =
-        _relative === true ? color.l * (1 + _adjustment) : _adjustment
+    const l: number = _relative ? color.l * (1 + _adjustment) : _adjustment
     const _result: ValidOklchColor = validateOklchColor({
         ...color,
         l: Math.min(1, Math.max(0, l)),
@@ -55,11 +54,16 @@ export const adjustLightness = (
 
 export const adjustHue = (
     color: ValidOklchColor,
-    degrees: number = 0,
+    adjustment: number = 0,
     relative: boolean = true,
 ): ValidOklchColor => {
-    const _hue_value: number = !color.h ? 0 : color.h
-    const h = (_hue_value + degrees + 360) % 360
+    const currentHue: number = color.h ?? 0
+
+    /** Set absolute hue */
+    const h = relative
+        ? (currentHue + adjustment + 360) % 360 // Add to current hue
+        : (adjustment + 360) % 360
+
     const _result: ValidOklchColor = validateOklchColor({ ...color, h })
     return _result
 }
