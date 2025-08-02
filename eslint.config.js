@@ -12,6 +12,7 @@ export default [
             'packages/**/docs/**/*',
             '.history/**/*',
             '**/.vitepress/cache',
+            '**/coverage/**',
         ],
     },
     ...tseslint.config({

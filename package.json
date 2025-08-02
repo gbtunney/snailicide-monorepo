@@ -51,7 +51,7 @@
         "\n========== FIX >> ==========": "",
         "fix": "pnpm fix:self",
         "fix:md": "pnpm run lint:md --fix",
-        "fix:self": "pnpm prettier --write && pnpm lint --fix && pnpm fix:md",
+        "fix:self": "pnpm prettier --write && pnpm lint --fix --debug && pnpm fix:md",
         "nx:fix": "pnpm exec nx run-many --target=fix --all",
         "\n========== CLEAN >> ==========": "",
         "clean": "pnpm run clean:self && pnpm run clean:pkg",
