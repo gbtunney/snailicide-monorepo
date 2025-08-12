@@ -58,10 +58,6 @@ export const validateOklchColorJS = <T extends ValidColorJSInput>(
     if (parsedColor !== undefined && parsedColor.spaceId !== 'oklch') {
         const _before = parsedColor
         parsedColor = parsedColor.clone().to('oklch')
-        console.log(
-            `AFTER-------CONVERTING ${_before.toString()}. TO OKLCH!!`,
-            parsedColor.toString(),
-        )
     }
     return parsedColor as ValidOklchColor
 }
@@ -101,19 +97,37 @@ export function toCssString(
 export function toColorHex<Type extends ColorJSInstance>(
     color: Type,
     includeAlpha = false,
+    enableLogging = false, // New parameter to control logging
 ): string {
+    //TODO: this had a problem with cclamping, lets make a check to assure somethiing is a valid RGBB for it sets passed in ?
+    if (enableLogging) console.log('Input color:', color.toString())
+
     // Convert to sRGB and ensure valid coordinates
-    const srgbColor = toClampedColor(validateOklchColorJS(color))
-        .clone()
-        .to('srgb')
-    if (srgbColor.inGamut('srgb')) {
+    const validatedColor = validateOklchColorJS(color)
+    if (enableLogging)
+        console.log('After validateOklchColorJS:', validatedColor.toString())
+
+    const clampedColor = toClampedColor(validatedColor)
+    if (enableLogging)
+        console.log('After toClampedColor:', clampedColor.toString())
+
+    const srgbColor = clampedColor.clone().to('srgb')
+    if (enableLogging)
+        console.log('After conversion to sRGB:', srgbColor.toString())
+
+    if (!srgbColor.inGamut('srgb')) {
         throw new Error(`sRGB color is not in gamut ${color.toString()}`)
     }
+
     const [r, g, b] = srgbColor.coords.map((v) => {
-        if (v === undefined || v < 0 || v > 1) {
-            throw new Error(`Invalid sRGB coordinate: ${v}`)
+        if (v === undefined) {
+            throw new Error(
+                `Invalid sRGB coordinate: ${v} --${color.toString()}`,
+            )
         }
-        return Math.round(v * 255)
+        // Clamp the value to [0, 1] to handle precision issues
+        const clamped = Math.max(0, Math.min(1, v))
+        return Math.round(clamped * 255)
     })
 
     // Handle alpha channel
@@ -129,6 +143,7 @@ export function toColorHex<Type extends ColorJSInstance>(
         hex += a.toString(16).padStart(2, '0')
     }
 
+    if (enableLogging) console.log('Final hex value:', hex)
     return hex.toUpperCase()
 }
 export const toClampedColor = (
@@ -144,13 +159,13 @@ export const toClampedColor = (
         return color as unknown as ValidOklchColor
     }
     if (!_is_displayable) {
-        console.log(
+        /*  console.log(
             'THE COLOR NOT IN GAMUT SHOULD BE CLAMPED!! ',
             "inGamut('srgb')",
             _is_displayable,
             'Color (source):::',
             color.toString(),
-        )
+        )*/
     }
 
     const _oklchColor: ValidOklchColor = color
@@ -158,7 +173,7 @@ export const toClampedColor = (
         .toGamut(_gamut) as ValidOklchColor
 
     const _post_is_displayable = isDisplayable(_oklchColor, _gamut)
-    console.log(
+    /*console.log(
         '\nBEFORE CLAMP ',
         color.toString(),
         '--displayable',
@@ -167,7 +182,7 @@ export const toClampedColor = (
         _oklchColor.toString(),
         '--displayable',
         _post_is_displayable,
-    )
+    )*/
     if (!_post_is_displayable) {
         throw new Error(`OKCHl Color UNCLAMPABLE!!!`)
     }

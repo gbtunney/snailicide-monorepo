@@ -38,8 +38,9 @@ export const printSwatchWithChalk = (
 
     const block = chalk.bgHex(bgHex).hex(fgHex)(` ${text} `)
     const info = dim ? chalk.dim(dim) : ''
+    const blockRev = chalk.bgHex(fgHex).hex(bgHex)(` ${text} `)
 
-    const output = `${block} ${info}`
+    const output = `${block} ${info} ${text}`
 
     if (_log) console.log(output)
     return output

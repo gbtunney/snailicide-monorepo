@@ -14,9 +14,15 @@ import {
     getDoubleComplementPalette,
     getHexadicPalette,
     getPentadicPalette,
+    getShades,
+    getTints,
+    getTones,
 } from './src/lib/palattes.js'
 import type { ValidOklchColor } from './src/lib/types.js'
 import { printSwatchWithChalk } from './src/lib/utilities.js'
+
+// Global verbose flag for all tests
+const VERBOSE = true
 
 console.log('=== Testing printSwatchWithChalk ===')
 
@@ -26,7 +32,7 @@ const red = validateOklchColorJS('red')
 const green = validateOklchColorJS('green')
 
 console.log('\n1. Basic color swatches:')
-printSwatchWithChalk('Blue', blue)
+printSwatchWithChalk('Blue', blue, validateOklchColorJS('white'))
 printSwatchWithChalk('Red', red)
 printSwatchWithChalk('Green', green)
 
@@ -34,12 +40,9 @@ console.log('\n2. With custom foreground:')
 printSwatchWithChalk('Blue + White', blue, validateOklchColorJS('white'))
 printSwatchWithChalk('Red + Black', red, validateOklchColorJS('black'))
 
-console.log('\n3. With dim text:')
-printSwatchWithChalk('Info', blue, undefined, 'This is dim info text')
-
-console.log('\n4. With verbose logging:')
-printSwatchWithChalk('Verbose', red, undefined, 'verbose mode', true, {
-    verbose: true,
+console.log('\n3. With verbose logging:')
+printSwatchWithChalk('Verbose', red, undefined, undefined, true, {
+    verbose: VERBOSE,
 })
 
 console.log('\n5. Custom OKLCH colors:')
@@ -49,17 +52,24 @@ const customColor = validateOklchColorJS({
     l: 0.7,
     mode: 'oklch',
 })
-printSwatchWithChalk('Custom', customColor, undefined, 'L=0.7 C=0.3 H=120')
+printSwatchWithChalk('Custom', customColor)
 
-console.log('\n6. Testing distance mode:')
+console.log('\n5. Testing debug fallback color:')
 printSwatchWithChalk(
-    'Distance Mode',
+    'Debug Fallback',
     customColor,
     undefined,
-    'Using distance mode for contrast',
+    undefined,
     true,
-    { verbose: true },
+    {
+        verbose: VERBOSE,
+    },
 )
+
+console.log('\n4. Testing distance mode:')
+printSwatchWithChalk('Distance Mode', customColor, undefined, undefined, true, {
+    verbose: VERBOSE,
+})
 
 console.log('\n\n=== CONTRAST PAIR PRESETS SHOWCASE ===')
 
@@ -98,17 +108,12 @@ testColors.forEach(({ color, name }) => {
     console.log(`\n--- ${name.toUpperCase()} PRESETS ---`)
 
     // Show the base color first
-    printSwatchWithChalk(
-        `${name} (base)`,
-        color,
-        undefined,
-        `L=${color.l.toFixed(2)} C=${color.c.toFixed(2)} H=${color.h?.toFixed(0) || 'none'}°`,
-    )
+    printSwatchWithChalk(`${name} (base)`, color)
 
     // Show all presets for this color
     presets.forEach((preset) => {
         try {
-            const result = getContrastPair(color, { preset, verbose: false })
+            const result = getContrastPair(color, { preset, verbose: VERBOSE })
             const bgColor = result.result.bg_color
             const fgColor = result.result.fg_color
 
@@ -116,15 +121,34 @@ testColors.forEach(({ color, name }) => {
             const bgInfo = `BG L=${bgColor.l.toFixed(2)} C=${bgColor.c.toFixed(2)} H=${bgColor.h?.toFixed(0) || 'none'}°`
             const fgInfo = `FG L=${fgColor.l.toFixed(2)} C=${fgColor.c.toFixed(2)} H=${fgColor.h?.toFixed(0) || 'none'}°`
 
-            printSwatchWithChalk(
-                preset,
-                bgColor,
-                fgColor,
-                `${contrastInfo} | ${bgInfo} → ${fgInfo}`,
-            )
+            printSwatchWithChalk(preset, bgColor, fgColor, undefined)
         } catch (error) {
             console.log(`❌ Error with ${preset}:`, error)
         }
+    })
+
+    // Add tints, shades, and tones for each color
+    console.log(`\n🎨 ${name} Variations:`)
+
+    // Tints (mix with white)
+    const tints = getTints(color, 3)
+    console.log(`  Tints (lighter):`)
+    tints.forEach((tint, i) => {
+        printSwatchWithChalk(`  Tint ${i + 1}`, tint)
+    })
+
+    // Shades (mix with black)
+    const shades = getShades(color, 3)
+    console.log(`  Shades (darker):`)
+    shades.forEach((shade, i) => {
+        printSwatchWithChalk(`  Shade ${i + 1}`, shade)
+    })
+
+    // Tones (mix with desaturated)
+    const tones = getTones(color, 3)
+    console.log(`  Tones (desaturated):`)
+    tones.forEach((tone, i) => {
+        printSwatchWithChalk(`  Tone ${i + 1}`, tone)
     })
 })
 
@@ -151,7 +175,7 @@ modes.forEach((mode) => {
             const result = getContrastPair(sampleColor, {
                 mode,
                 preset,
-                verbose: false,
+                verbose: VERBOSE,
             })
             const bgColor = result.result.bg_color
             const fgColor = result.result.fg_color
@@ -166,12 +190,7 @@ modes.forEach((mode) => {
             const bgInfo = `${bgColor.l.toFixed(2)}/${bgColor.c.toFixed(2)}/${bgColor.h?.toFixed(0) || 'none'}°`
             const fgInfo = `${fgColor.l.toFixed(2)}/${fgColor.c.toFixed(2)}/${fgColor.h?.toFixed(0) || 'none'}°`
 
-            printSwatchWithChalk(
-                `${mode}-${preset}`,
-                bgColor,
-                fgColor,
-                `${mode.toUpperCase()}: ${modeValue} | BG ${bgInfo} → FG ${fgInfo}`,
-            )
+            printSwatchWithChalk(`${mode}-${preset}`, bgColor, fgColor)
         } catch (error) {
             console.log(`❌ Error with ${mode}-${preset}:`, error)
         }
@@ -236,12 +255,7 @@ const harmonyTestColor = validateOklchColorJS({
     mode: 'oklch',
 })
 console.log('\n🎨 Base Color for Harmonies:')
-printSwatchWithChalk(
-    'Base Color',
-    harmonyTestColor,
-    undefined,
-    'L=0.65 C=0.18 H=200°',
-)
+printSwatchWithChalk('Base Color', harmonyTestColor)
 
 console.log('\n--- CLASSIC HARMONIES ---')
 
@@ -249,60 +263,35 @@ console.log('\n--- CLASSIC HARMONIES ---')
 const monochromatic = monochromaticHarmony(harmonyTestColor, { count: 5 })
 console.log('\n🔵 Monochromatic (5 variations):')
 monochromatic.forEach((color: ValidOklchColor, i: number) => {
-    printSwatchWithChalk(
-        `Mono ${i + 1}`,
-        color,
-        undefined,
-        `L=${color.l.toFixed(2)} C=${color.c.toFixed(2)} H=${color.h?.toFixed(0)}°`,
-    )
+    printSwatchWithChalk(`Mono ${i + 1}`, color)
 })
 
 // Complementary
 const complementary = complementaryHarmony(harmonyTestColor)
 console.log('\n🟡 Complementary:')
 complementary.forEach((color: ValidOklchColor, i: number) => {
-    printSwatchWithChalk(
-        `Comp ${i + 1}`,
-        color,
-        undefined,
-        `L=${color.l.toFixed(2)} C=${color.c.toFixed(2)} H=${color.h?.toFixed(0)}°`,
-    )
+    printSwatchWithChalk(`Comp ${i + 1}`, color)
 })
 
 // Split Complementary
 const splitComp = splitComplementaryHarmony(harmonyTestColor)
 console.log('\n🟠 Split Complementary:')
 splitComp.forEach((color: ValidOklchColor, i: number) => {
-    printSwatchWithChalk(
-        `Split ${i + 1}`,
-        color,
-        undefined,
-        `L=${color.l.toFixed(2)} C=${color.c.toFixed(2)} H=${color.h?.toFixed(0)}°`,
-    )
+    printSwatchWithChalk(`Split ${i + 1}`, color)
 })
 
 // Triadic
 const triadic = triadicHarmony(harmonyTestColor)
 console.log('\n🔺 Triadic:')
 triadic.forEach((color: ValidOklchColor, i: number) => {
-    printSwatchWithChalk(
-        `Tri ${i + 1}`,
-        color,
-        undefined,
-        `L=${color.l.toFixed(2)} C=${color.c.toFixed(2)} H=${color.h?.toFixed(0)}°`,
-    )
+    printSwatchWithChalk(`Tri ${i + 1}`, color)
 })
 
 // Analogous
 const analogous = analogousHarmony(harmonyTestColor, { angle: 45 })
 console.log('\n🌈 Analogous (45° angle):')
 analogous.forEach((color: ValidOklchColor, i: number) => {
-    printSwatchWithChalk(
-        `Ana ${i + 1}`,
-        color,
-        undefined,
-        `L=${color.l.toFixed(2)} C=${color.c.toFixed(2)} H=${color.h?.toFixed(0)}°`,
-    )
+    printSwatchWithChalk(`Ana ${i + 1}`, color)
 })
 
 console.log('\n--- ADVANCED HARMONIES ---')
@@ -314,48 +303,28 @@ const compound = getCompoundPalette(harmonyTestColor, {
 })
 console.log('\n⭐ Compound (analogous + complement):')
 compound.forEach((color, i) => {
-    printSwatchWithChalk(
-        `Comp ${i + 1}`,
-        color,
-        undefined,
-        `L=${color.l.toFixed(2)} C=${color.c.toFixed(2)} H=${color.h?.toFixed(0)}°`,
-    )
+    printSwatchWithChalk(`Comp ${i + 1}`, color)
 })
 
 // Double Complement
 const doubleComp = getDoubleComplementPalette(harmonyTestColor, { offset: 25 })
 console.log('\n💫 Double Complement (25° offset):')
 doubleComp.forEach((color, i) => {
-    printSwatchWithChalk(
-        `DblComp ${i + 1}`,
-        color,
-        undefined,
-        `L=${color.l.toFixed(2)} C=${color.c.toFixed(2)} H=${color.h?.toFixed(0)}°`,
-    )
+    printSwatchWithChalk(`DblComp ${i + 1}`, color)
 })
 
 // Pentadic
 const pentadic = getPentadicPalette(harmonyTestColor)
 console.log('\n⭐ Pentadic (5 evenly spaced):')
 pentadic.forEach((color, i) => {
-    printSwatchWithChalk(
-        `Pent ${i + 1}`,
-        color,
-        undefined,
-        `L=${color.l.toFixed(2)} C=${color.c.toFixed(2)} H=${color.h?.toFixed(0)}°`,
-    )
+    printSwatchWithChalk(`Pent ${i + 1}`, color)
 })
 
 // Hexadic
 const hexadic = getHexadicPalette(harmonyTestColor)
 console.log('\n🌟 Hexadic (6 evenly spaced):')
 hexadic.forEach((color, i) => {
-    printSwatchWithChalk(
-        `Hex ${i + 1}`,
-        color,
-        undefined,
-        `L=${color.l.toFixed(2)} C=${color.c.toFixed(2)} H=${color.h?.toFixed(0)}°`,
-    )
+    printSwatchWithChalk(`Hex ${i + 1}`, color)
 })
 
 console.log('\n=== END HARMONY SHOWCASE ===')
