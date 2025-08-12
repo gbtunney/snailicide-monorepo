@@ -1,5 +1,6 @@
 /** Color harmony and palette constants */
 
+export const ROUND_DECIMALS_DEFAULT = 2
 // ----------------------------------------
 // Contrast Constants
 // ----------------------------------------

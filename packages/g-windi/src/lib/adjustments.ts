@@ -1,5 +1,5 @@
+import { validateOklchColorJS } from './core.js'
 import type { ChromaPreset, LightnessPreset, ValidOklchColor } from './types.js'
-import { validateOklchColor } from './validators.js'
 
 // ----------------------
 // Chroma + Lightness Presets
@@ -29,7 +29,7 @@ export const adjustChroma = (
     const factor: number =
         typeof adjustment === 'number' ? adjustment : chromaPresets[adjustment]
     const chroma = _relative ? color.c * (1 + factor) : factor
-    const _result: ValidOklchColor = validateOklchColor({ ...color, c: chroma })
+    const _result = validateOklchColorJS({ ...color, c: chroma })
     return _result
 }
 
@@ -45,7 +45,7 @@ export const adjustLightness = (
             : lightnessPresets[adjustment]
 
     const l: number = _relative ? color.l * (1 + _adjustment) : _adjustment
-    const _result: ValidOklchColor = validateOklchColor({
+    const _result = validateOklchColorJS({
         ...color,
         l: Math.min(1, Math.max(0, l)),
     })
@@ -64,6 +64,6 @@ export const adjustHue = (
         ? (currentHue + adjustment + 360) % 360 // Add to current hue
         : (adjustment + 360) % 360
 
-    const _result: ValidOklchColor = validateOklchColor({ ...color, h })
+    const _result = validateOklchColorJS({ ...color, h })
     return _result
 }

@@ -1,5 +1,5 @@
-import { type Color, interpolate } from 'culori'
 import { PALETTE_DEFAULTS } from './constants.js'
+import { validateOklchColorJS } from './core.js'
 import type {
     AnalogousOptions,
     ComplementOptions,
@@ -12,7 +12,6 @@ import type {
     TriadicOptions,
     ValidOklchColor,
 } from './types.js'
-import { validateOklchColor } from './validators.js'
 
 /** Generate range of values ensuring exact number of steps */
 export function generateRange(options: RangeOptions): Array<number> {
@@ -63,15 +62,17 @@ export function getSingleStep(options: SingleStepOptions): number {
 
 /** @file Color Mix Utility Functions Mix colors and create gradients with OKLCH color space */
 
-/** Mix two colors with specified steps */
+/** Mix two colors with specified steps using ColorJS */
 export function mixColors(
-    from: string | Color,
-    to: string | Color,
+    from: ValidOklchColor,
+    to: ValidOklchColor,
     steps = 5,
 ): Array<ValidOklchColor> {
-    const start = validateOklchColor(from)
-    const end = validateOklchColor(to)
-    const mixer = interpolate([start, end], 'oklch')
+    const start = validateOklchColorJS(from)
+    const end = validateOklchColorJS(to)
+
+    // Use ColorJS's range function
+    const mixer = start.range(end, { space: 'oklch' })
 
     // Use generateRange for consistent step generation
     const range = generateRange({
@@ -81,7 +82,7 @@ export function mixColors(
         steps,
     })
 
-    return range.map((t) => validateOklchColor(mixer(t)))
+    return range.map((t) => validateOklchColorJS(mixer(t)))
 }
 
 /** Gradient Helpers */
@@ -91,7 +92,7 @@ export function getTints(
     source: ValidOklchColor,
     steps = 5,
 ): Array<ValidOklchColor> {
-    return mixColors(source, 'white', steps)
+    return mixColors(source, validateOklchColorJS('white'), steps)
 }
 
 /** Get shades of a color (mix with black) */
@@ -99,7 +100,7 @@ export function getShades(
     source: ValidOklchColor,
     steps = 5,
 ): Array<ValidOklchColor> {
-    return mixColors(source, 'black', steps)
+    return mixColors(source, validateOklchColorJS('black'), steps)
 }
 
 /** Get tones of a color (mix with desaturated version) */
@@ -107,8 +108,8 @@ export function getTones(
     source: ValidOklchColor,
     steps = 5,
 ): Array<ValidOklchColor> {
-    const parsed = validateOklchColor(source)
-    const gray = { ...parsed, c: 0 }
+    const parsed = validateOklchColorJS(source)
+    const gray = validateOklchColorJS({ ...parsed, c: 0 })
     return mixColors(parsed, gray, steps)
 }
 
@@ -258,7 +259,7 @@ export function createColorPalette(
         const hues = getHueVariants(baseHue, hueOptions)
         colors.push(
             ...hues.map((h) =>
-                validateOklchColor({
+                validateOklchColorJS({
                     ...source,
                     h,
                     mode: 'oklch',
@@ -274,7 +275,7 @@ export function createColorPalette(
         )
         colors.push(
             ...lightnesses.map((l) =>
-                validateOklchColor({
+                validateOklchColorJS({
                     ...source,
                     l,
                     mode: 'oklch',
@@ -287,7 +288,7 @@ export function createColorPalette(
         const chromas = getChromaVariants(baseChroma, chromaOptions)
         colors.push(
             ...chromas.map((c) =>
-                validateOklchColor({
+                validateOklchColorJS({
                     ...source,
                     c,
                     mode: 'oklch',
@@ -322,7 +323,7 @@ function getAnalogousPalette(
     })
     const c = source.c * chromaScale
     return hues.map((h) =>
-        validateOklchColor({ c, h, l: lightness, mode: 'oklch' }),
+        validateOklchColorJS({ c, h, l: lightness, mode: 'oklch' }),
     )
 }
 
@@ -348,7 +349,7 @@ function getMonochromePalette(
     const h = source.h ?? 0
 
     return lightnesses.map((l) =>
-        validateOklchColor({ c, h, l, mode: 'oklch' }),
+        validateOklchColorJS({ c, h, l, mode: 'oklch' }),
     )
 }
 
@@ -366,7 +367,7 @@ function getComplementPalette(
 
     return [
         source,
-        validateOklchColor({
+        validateOklchColorJS({
             c,
             h: (baseHue + 180) % 360,
             l: lightness,
@@ -389,13 +390,13 @@ function getSplitComplementPalette(
 
     return [
         source,
-        validateOklchColor({
+        validateOklchColorJS({
             c,
             h: (baseHue + 150) % 360,
             l: lightness,
             mode: 'oklch',
         }),
-        validateOklchColor({
+        validateOklchColorJS({
             c,
             h: (baseHue + 210) % 360,
             l: lightness,
@@ -418,13 +419,13 @@ function getTriadicPalette(
 
     return [
         source,
-        validateOklchColor({
+        validateOklchColorJS({
             c,
             h: (baseHue + 120) % 360,
             l: lightness,
             mode: 'oklch',
         }),
-        validateOklchColor({
+        validateOklchColorJS({
             c,
             h: (baseHue + 240) % 360,
             l: lightness,
@@ -449,19 +450,19 @@ function getTetradicSquarePalette(
         /** Square: 90° intervals */
         return [
             source,
-            validateOklchColor({
+            validateOklchColorJS({
                 c,
                 h: (baseHue + 90) % 360,
                 l: lightness,
                 mode: 'oklch',
             }),
-            validateOklchColor({
+            validateOklchColorJS({
                 c,
                 h: (baseHue + 180) % 360,
                 l: lightness,
                 mode: 'oklch',
             }),
-            validateOklchColor({
+            validateOklchColorJS({
                 c,
                 h: (baseHue + 270) % 360,
                 l: lightness,
@@ -472,19 +473,19 @@ function getTetradicSquarePalette(
         /** Tetradic: 60°, 180°, 240° (creates rectangle) */
         return [
             source,
-            validateOklchColor({
+            validateOklchColorJS({
                 c,
                 h: (baseHue + 60) % 360,
                 l: lightness,
                 mode: 'oklch',
             }),
-            validateOklchColor({
+            validateOklchColorJS({
                 c,
                 h: (baseHue + 180) % 360,
                 l: lightness,
                 mode: 'oklch',
             }),
-            validateOklchColor({
+            validateOklchColorJS({
                 c,
                 h: (baseHue + 240) % 360,
                 l: lightness,
@@ -526,7 +527,7 @@ export function getCompoundPalette(
     })
 
     // Add complement
-    const complement = validateOklchColor({
+    const complement = validateOklchColorJS({
         c,
         h: (baseHue + 180) % 360,
         l: lightness,
@@ -555,25 +556,25 @@ export function getDoubleComplementPalette(
     const c = source.c * chromaScale
 
     return [
-        validateOklchColor({
+        validateOklchColorJS({
             c,
             h: baseHue,
             l: lightness,
             mode: 'oklch',
         }),
-        validateOklchColor({
+        validateOklchColorJS({
             c,
             h: (baseHue + offset) % 360,
             l: lightness,
             mode: 'oklch',
         }),
-        validateOklchColor({
+        validateOklchColorJS({
             c,
             h: (baseHue + 180) % 360,
             l: lightness,
             mode: 'oklch',
         }),
-        validateOklchColor({
+        validateOklchColorJS({
             c,
             h: (baseHue + 180 + offset) % 360,
             l: lightness,
@@ -599,7 +600,7 @@ export function getPentadicPalette(
 
     return Array.from({ length: 5 }, (_, i) => {
         const hue = (baseHue + i * 72) % 360
-        return validateOklchColor({
+        return validateOklchColorJS({
             c,
             h: hue,
             l: lightness,
@@ -625,7 +626,7 @@ export function getHexadicPalette(
 
     return Array.from({ length: 6 }, (_, i) => {
         const hue = (baseHue + i * 60) % 360
-        return validateOklchColor({
+        return validateOklchColorJS({
             c,
             h: hue,
             l: lightness,

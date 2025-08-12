@@ -6,7 +6,11 @@ const sampleFunc = (value: HelloWorld): HelloWorld => {
     console.log('sampleFunc:: ', value)
     return value
 }
+export * as adjustments from './lib/adjustments.js'
+
 export * as contrast from './lib/contrast.js'
+
+export * as core from './lib/core.js'
 
 export * as harmonies from './lib/harmonies.js'
 
@@ -15,5 +19,3 @@ export * as palattes from './lib/palattes.js'
 export * from './lib/types.js'
 
 export * as utilities from './lib/utilities.js'
-
-export * as validators from './lib/validators.js'

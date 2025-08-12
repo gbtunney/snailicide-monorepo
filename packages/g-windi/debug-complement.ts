@@ -1,10 +1,15 @@
 import { getContrastPair } from './src/lib/contrast.js'
-import { validateOklchColor } from './src/lib/validators.js'
+import { validateOklchColorJS } from './src/lib/core.js'
 
 console.log('=== Testing Complement Preset ===')
 
 // Test with a color that has a clear hue
-const testColor = validateOklchColor({ c: 0.15, h: 120, l: 0.5, mode: 'oklch' })
+const testColor = validateOklchColorJS({
+    c: 0.15,
+    h: 120,
+    l: 0.5,
+    mode: 'oklch',
+})
 console.log('\nBase color (Green):')
 console.log(`  L=${testColor.l} C=${testColor.c} H=${testColor.h}°`)
 
@@ -43,15 +48,15 @@ console.log('\n=== Testing with different base colors ===')
 
 const testColors = [
     {
-        color: validateOklchColor({ c: 0.2, h: 0, l: 0.6, mode: 'oklch' }),
+        color: validateOklchColorJS({ c: 0.2, h: 0, l: 0.6, mode: 'oklch' }),
         name: 'Red',
     },
     {
-        color: validateOklchColor({ c: 0.15, h: 240, l: 0.5, mode: 'oklch' }),
+        color: validateOklchColorJS({ c: 0.15, h: 240, l: 0.5, mode: 'oklch' }),
         name: 'Blue',
     },
     {
-        color: validateOklchColor({ c: 0.12, h: 90, l: 0.8, mode: 'oklch' }),
+        color: validateOklchColorJS({ c: 0.12, h: 90, l: 0.8, mode: 'oklch' }),
         name: 'Yellow',
     },
 ]

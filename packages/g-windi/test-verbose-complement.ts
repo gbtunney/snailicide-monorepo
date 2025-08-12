@@ -1,9 +1,14 @@
 import { getContrastPair } from './src/lib/contrast.js'
-import { validateOklchColor } from './src/lib/validators.js'
+import { validateOklchColorJS } from './src/lib/core.js'
 
 console.log('=== Testing Complement with Verbose Logging ===')
 
-const testColor = validateOklchColor({ c: 0.15, h: 120, l: 0.5, mode: 'oklch' })
+const testColor = validateOklchColorJS({
+    c: 0.15,
+    h: 120,
+    l: 0.5,
+    mode: 'oklch',
+})
 console.log('\nBase color:')
 console.log(`L=${testColor.l} C=${testColor.c} H=${testColor.h}°`)
 

@@ -1,4 +1,5 @@
 import { getContrastPair } from './src/lib/contrast.js'
+import { validateOklchColorJS } from './src/lib/core.js'
 import {
     analogousHarmony,
     complementaryHarmony,
@@ -16,14 +17,13 @@ import {
 } from './src/lib/palattes.js'
 import type { ValidOklchColor } from './src/lib/types.js'
 import { printSwatchWithChalk } from './src/lib/utilities.js'
-import { validateOklchColor } from './src/lib/validators.js'
 
 console.log('=== Testing printSwatchWithChalk ===')
 
 // Test with basic colors
-const blue = validateOklchColor('blue')
-const red = validateOklchColor('red')
-const green = validateOklchColor('green')
+const blue = validateOklchColorJS('blue')
+const red = validateOklchColorJS('red')
+const green = validateOklchColorJS('green')
 
 console.log('\n1. Basic color swatches:')
 printSwatchWithChalk('Blue', blue)
@@ -31,8 +31,8 @@ printSwatchWithChalk('Red', red)
 printSwatchWithChalk('Green', green)
 
 console.log('\n2. With custom foreground:')
-printSwatchWithChalk('Blue + White', blue, validateOklchColor('white'))
-printSwatchWithChalk('Red + Black', red, validateOklchColor('black'))
+printSwatchWithChalk('Blue + White', blue, validateOklchColorJS('white'))
+printSwatchWithChalk('Red + Black', red, validateOklchColorJS('black'))
 
 console.log('\n3. With dim text:')
 printSwatchWithChalk('Info', blue, undefined, 'This is dim info text')
@@ -43,7 +43,7 @@ printSwatchWithChalk('Verbose', red, undefined, 'verbose mode', true, {
 })
 
 console.log('\n5. Custom OKLCH colors:')
-const customColor = validateOklchColor({
+const customColor = validateOklchColorJS({
     c: 0.3,
     h: 120,
     l: 0.7,
@@ -66,23 +66,23 @@ console.log('\n\n=== CONTRAST PAIR PRESETS SHOWCASE ===')
 // Test all presets with a variety of base colors
 const testColors = [
     {
-        color: validateOklchColor({ c: 0.15, h: 240, l: 0.5, mode: 'oklch' }),
+        color: validateOklchColorJS({ c: 0.15, h: 240, l: 0.5, mode: 'oklch' }),
         name: 'Medium Blue',
     },
     {
-        color: validateOklchColor({ c: 0.2, h: 0, l: 0.6, mode: 'oklch' }),
+        color: validateOklchColorJS({ c: 0.2, h: 0, l: 0.6, mode: 'oklch' }),
         name: 'Bright Red',
     },
     {
-        color: validateOklchColor({ c: 0.12, h: 120, l: 0.4, mode: 'oklch' }),
+        color: validateOklchColorJS({ c: 0.12, h: 120, l: 0.4, mode: 'oklch' }),
         name: 'Forest Green',
     },
     {
-        color: validateOklchColor({ c: 0.18, h: 280, l: 0.5, mode: 'oklch' }),
+        color: validateOklchColorJS({ c: 0.18, h: 280, l: 0.5, mode: 'oklch' }),
         name: 'Purple',
     },
     {
-        color: validateOklchColor({ c: 0.16, h: 40, l: 0.65, mode: 'oklch' }),
+        color: validateOklchColorJS({ c: 0.16, h: 40, l: 0.65, mode: 'oklch' }),
         name: 'Orange',
     },
 ]
@@ -129,7 +129,7 @@ testColors.forEach(({ color, name }) => {
 })
 
 console.log('\n\n=== CONTRAST MODE COMPARISON ===')
-const sampleColor = validateOklchColor({
+const sampleColor = validateOklchColorJS({
     c: 0.15,
     h: 180,
     l: 0.5,
@@ -183,7 +183,7 @@ console.log('\n=== END PRESET SHOWCASE ===')
 /* --------------------------------- PALETTE RANGE SYSTEM SHOWCASE -------------------------------- */
 
 console.log('\n🎨 FLEXIBLE PALETTE GENERATION:')
-const basePalette = validateOklchColor({
+const basePalette = validateOklchColorJS({
     c: 0.15,
     h: 220,
     l: 0.6,
@@ -229,7 +229,7 @@ console.log('\n✅ All palette functions now use the flexible range system!')
 console.log('\n\n=== COLOR HARMONY PALETTES SHOWCASE ===')
 
 // Test color for harmonies
-const harmonyTestColor = validateOklchColor({
+const harmonyTestColor = validateOklchColorJS({
     c: 0.18,
     h: 200,
     l: 0.65,

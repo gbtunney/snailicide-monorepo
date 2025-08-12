@@ -1,8 +1,13 @@
 import { getContrastPair } from './src/lib/contrast.js'
-import { validateOklchColor } from './src/lib/validators.js'
+import { validateOklchColorJS } from './src/lib/core.js'
 
 /** Medium green */
-const baseColor = validateOklchColor({ c: 0.1, h: 120, l: 0.5, mode: 'oklch' })
+const baseColor = validateOklchColorJS({
+    c: 0.1,
+    h: 120,
+    l: 0.5,
+    mode: 'oklch',
+})
 
 console.log('Base color:', baseColor)
 

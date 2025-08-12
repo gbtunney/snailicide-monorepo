@@ -1,6 +1,6 @@
+import { validateOklchColorJS } from './core.js'
 import { generateRange } from './palattes.js'
 import type { ValidOklchColor } from './types.js'
-import { validateOklchColor } from './validators.js'
 
 // ----------------------------------------
 // ColorAide-inspired Harmony Functions
@@ -36,7 +36,7 @@ export function monochromaticHarmony(
 
     // Start with source color, then add variations
     const variations = lightnessRange.map((l) =>
-        validateOklchColor({
+        validateOklchColorJS({
             c: baseC,
             h: baseH,
             l,
@@ -61,7 +61,7 @@ export function complementaryHarmony(
 
     return [
         source,
-        validateOklchColor({
+        validateOklchColorJS({
             c,
             h: (baseHue + 180) % 360,
             l: lightness,
@@ -86,13 +86,13 @@ export function splitComplementaryHarmony(
 
     return [
         source,
-        validateOklchColor({
+        validateOklchColorJS({
             c,
             h: (complementHue - angle + 360) % 360,
             l: lightness,
             mode: 'oklch',
         }),
-        validateOklchColor({
+        validateOklchColorJS({
             c,
             h: (complementHue + angle) % 360,
             l: lightness,
@@ -115,14 +115,14 @@ export function analogousHarmony(
     const c = source.c * chromaScale
 
     return [
-        validateOklchColor({
+        validateOklchColorJS({
             c,
             h: (baseHue - angle + 360) % 360,
             l: lightness,
             mode: 'oklch',
         }),
         source,
-        validateOklchColor({
+        validateOklchColorJS({
             c,
             h: (baseHue + angle) % 360,
             l: lightness,
@@ -145,13 +145,13 @@ export function triadicHarmony(
 
     return [
         source,
-        validateOklchColor({
+        validateOklchColorJS({
             c,
             h: (baseHue + 120) % 360,
             l: lightness,
             mode: 'oklch',
         }),
-        validateOklchColor({
+        validateOklchColorJS({
             c,
             h: (baseHue + 240) % 360,
             l: lightness,
@@ -174,19 +174,19 @@ export function tetradicSquareHarmony(
 
     return [
         source,
-        validateOklchColor({
+        validateOklchColorJS({
             c,
             h: (baseHue + 90) % 360,
             l: lightness,
             mode: 'oklch',
         }),
-        validateOklchColor({
+        validateOklchColorJS({
             c,
             h: (baseHue + 180) % 360,
             l: lightness,
             mode: 'oklch',
         }),
-        validateOklchColor({
+        validateOklchColorJS({
             c,
             h: (baseHue + 270) % 360,
             l: lightness,
@@ -210,19 +210,19 @@ export function tetradicRectangularHarmony(
 
     return [
         source,
-        validateOklchColor({
+        validateOklchColorJS({
             c,
             h: (baseHue + offset) % 360,
             l: lightness,
             mode: 'oklch',
         }),
-        validateOklchColor({
+        validateOklchColorJS({
             c,
             h: (baseHue + 180) % 360,
             l: lightness,
             mode: 'oklch',
         }),
-        validateOklchColor({
+        validateOklchColorJS({
             c,
             h: (baseHue + 180 + offset) % 360,
             l: lightness,
@@ -255,7 +255,7 @@ export function compoundHarmony(
     // Add analogous colors
     for (let i = 1; i <= analogousCount; i++) {
         colors.push(
-            validateOklchColor({
+            validateOklchColorJS({
                 c,
                 h: (baseHue + i * analogousSpread) % 360,
                 l: lightness,
@@ -266,7 +266,7 @@ export function compoundHarmony(
 
     // Add complement
     colors.push(
-        validateOklchColor({
+        validateOklchColorJS({
             c,
             h: (baseHue + 180) % 360,
             l: lightness,
@@ -291,25 +291,25 @@ export function pentadicHarmony(
 
     return [
         source,
-        validateOklchColor({
+        validateOklchColorJS({
             c,
             h: (baseHue + 72) % 360,
             l: lightness,
             mode: 'oklch',
         }),
-        validateOklchColor({
+        validateOklchColorJS({
             c,
             h: (baseHue + 144) % 360,
             l: lightness,
             mode: 'oklch',
         }),
-        validateOklchColor({
+        validateOklchColorJS({
             c,
             h: (baseHue + 216) % 360,
             l: lightness,
             mode: 'oklch',
         }),
-        validateOklchColor({
+        validateOklchColorJS({
             c,
             h: (baseHue + 288) % 360,
             l: lightness,
@@ -336,7 +336,7 @@ export function hexadicHarmony(
         start: baseHue,
         steps: 6,
     }).map((h) =>
-        validateOklchColor({
+        validateOklchColorJS({
             c,
             h: h % 360,
             l: lightness,

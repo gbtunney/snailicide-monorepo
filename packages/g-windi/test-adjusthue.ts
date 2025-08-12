@@ -1,9 +1,14 @@
 import { adjustHue } from './src/lib/adjustments.js'
-import { validateOklchColor } from './src/lib/validators.js'
+import { validateOklchColorJS } from './src/lib/core.js'
 
 console.log('=== Testing adjustHue with relative parameter ===')
 
-const baseColor = validateOklchColor({ c: 0.15, h: 120, l: 0.5, mode: 'oklch' })
+const baseColor = validateOklchColorJS({
+    c: 0.15,
+    h: 120,
+    l: 0.5,
+    mode: 'oklch',
+})
 
 console.log('Base color:', baseColor)
 console.log(`Base hue: ${baseColor.h}°`)

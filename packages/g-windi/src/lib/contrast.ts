@@ -1,5 +1,4 @@
 import colorjs from 'colorjs.io'
-import { wcagContrast } from 'culori'
 import { omit } from 'ramda'
 import { adjustChroma, adjustHue } from './adjustments.js'
 import {
@@ -7,6 +6,7 @@ import {
     CONTRAST_PRESET_ADJUSTMENTS,
     getDefaultThreshold,
 } from './constants.js'
+import { validateOklchColorJS } from './core.js'
 import type {
     ColorComparatorFunc,
     ColorLumMode,
@@ -20,19 +20,18 @@ import type {
     OklchColorPair,
     ValidOklchColor,
 } from './types.js'
-import { toColorJS, validateOklchColor } from './validators.js'
 
 export const getContrastRatioAPCA: ColorComparatorFunc = (bg_color, fg_color) =>
-    colorjs.contrastAPCA(toColorJS(bg_color), toColorJS(fg_color))
+    colorjs.contrastAPCA(bg_color, fg_color)
 
 export const getContrastRatioWCAG: ColorComparatorFunc = (bg_color, fg_color) =>
-    wcagContrast(bg_color, fg_color)
+    colorjs.contrastWCAG21(bg_color, fg_color)
 
 export const getColorDistance: ColorComparatorFunc = (
     bg_color,
     fg_color,
 ): number => {
-    return toColorJS(bg_color).distance(toColorJS(fg_color))
+    return bg_color.distance(fg_color)
 }
 const getOptimalLuminanceDirection = (
     info: ContrastPeakInfo,
@@ -78,9 +77,9 @@ const getOptimalLuminanceDirection = (
 export const getColorContrastPeakInfo = (
     color: ValidOklchColor,
 ): ContrastPeakInfo => {
-    const input = validateOklchColor(color)
-    const white = validateOklchColor({ ...input, l: 1 })
-    const black = validateOklchColor({ ...input, l: 0 })
+    const input = validateOklchColorJS(color)
+    const white = validateOklchColorJS({ ...input, l: 1 })
+    const black = validateOklchColorJS({ ...input, l: 0 })
     const luminance = input.l
 
     const result = {
@@ -155,7 +154,7 @@ export const searchForContrastPair = (
     const result = steps.reduce<ValidOklchColor | undefined>((found, l) => {
         if (found) return found
 
-        const candidate = validateOklchColor({ ...base, l })
+        const candidate = validateOklchColorJS({ ...base, l })
         const meetsThreshold = meetsContrastPeakThreshold(candidate, {
             mode,
             threshold,
@@ -299,8 +298,8 @@ export const findOptimalPairMeta = (
             )
         fg_color =
             optimalDirection === 'light'
-                ? validateOklchColor('white')
-                : validateOklchColor('black')
+                ? validateOklchColorJS('white')
+                : validateOklchColorJS('black')
         fallback = true
     }
 
@@ -345,7 +344,7 @@ export const normalizeColorForContrast = (
     }
     const __options: ContrastSearchOptions = { mode, step, threshold, verbose }
 
-    const input = validateOklchColor(base)
+    const input = validateOklchColorJS(base)
 
     // If color already meets threshold, return it
     if (meetsContrastPeakThreshold(input, __options)) return input
@@ -376,8 +375,8 @@ export const normalizeColorForContrast = (
         const distanceToBlack = info.distance?.contrastToBlack || 0
         // If no solution found, return the color with the highest distance
         return distanceToWhite >= distanceToBlack
-            ? validateOklchColor('white')
-            : validateOklchColor('black')
+            ? validateOklchColorJS('white')
+            : validateOklchColorJS('black')
     }
 
     const contrastToWhite =
@@ -391,8 +390,8 @@ export const normalizeColorForContrast = (
 
     // If no solution found, return the color with the highest contrast
     return contrastToWhite >= contrastToBlack
-        ? validateOklchColor('white')
-        : validateOklchColor('black')
+        ? validateOklchColorJS('white')
+        : validateOklchColorJS('black')
 }
 
 export const getContrastPair = (
@@ -434,7 +433,7 @@ export const getContrastPair = (
     )
 
     // Use the luminance direction function to determine optimal directions
-    const maxColor: ValidOklchColor = validateOklchColor(
+    const maxColor: ValidOklchColor = validateOklchColorJS(
         getOptimalLuminanceDirection(
             getColorContrastPeakInfo(basePair.result.bg_color),
             true,
