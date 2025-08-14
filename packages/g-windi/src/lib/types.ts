@@ -24,6 +24,13 @@ export type ValidOklchColor = Branded<ColorJSInstance, 'ColorJSOklch'>
 
 type Branded<T, B> = T & { __brand: B }
 
+export type Range = { min: number; max: number }
+export type RangeKeys = 'float' | 'deg' | 'percent' | 'scale'
+export type RangeType<Omittedkeys extends RangeKeys | false = false> = Exclude<
+    RangeKeys,
+    Omittedkeys
+>
+
 export type ValidColorJSInput =
     | string
     | ColorJSInstance
@@ -52,6 +59,14 @@ export type CuloriColor =
     | CuloriHSL
     | CuloriP3
     | (CuloriBase & Record<string, unknown>)
+
+type _ColorTypesMode = {
+    [K in CuloriColor as K extends { mode: infer M extends string }
+        ? M
+        : never]: K
+}
+
+export type ColorTypeMode = Exclude<keyof _ColorTypesMode, 'rgb' | 'display-p3'>
 // fallback
 
 // ----------------------

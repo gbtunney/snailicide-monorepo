@@ -1,16 +1,19 @@
 import type { SerializeOptions } from 'colorjs.io'
-
+import { parse } from 'culori'
 import { culoriToColorObject, isCuloriColor } from './convert.js'
+
 import type {
     ColorJSInstance,
     ColorJSObject,
     ColorJSSpaceKey,
+    ColorTypeMode,
     CuloriColor,
     OklchColorOptions,
     ValidColorJSInput,
     ValidOklchColor,
 } from './types.js'
 import { ColorJS } from './types.js'
+import { hasCss5OrVars } from './utilities.js'
 
 export const validateOklchColorJS = <T extends ValidColorJSInput>(
     value: T,
@@ -26,7 +29,12 @@ export const validateOklchColorJS = <T extends ValidColorJSInput>(
 
     if (typeof value === 'string') {
         try {
-            parsedColor = new ColorJS(value)
+            //this is an attempt to catch string like 'oklch(.33.33 .233333 180.43412323355434)'
+            //but allow CSS5 'from' or variables "oklch(from red l .233333 180.43412323355434)"
+            //@todo: this should be a future improvement, maybe a quick way to make a from string?
+            if (!hasCss5OrVars(value) && parse(value) !== undefined) {
+                parsedColor = new ColorJS(value)
+            }
         } catch (error) {
             throw new TypeError(
                 `COLORJS STRING PARSE ERROR: Could not parse string ${value} as a color. Ensure the input is valid and all required plugins are loaded. Original error: ${error}`,
@@ -66,6 +74,7 @@ type CssStringOptions = Pick<SerializeOptions, 'precision'> & {
     gamut?: ColorJSSpaceKey
     includeAlpha?: boolean
     clamped?: boolean
+    type?: ColorTypeMode
 }
 export function toCssString(
     color: ColorJSInstance,
@@ -76,7 +85,8 @@ export function toCssString(
         gamut = 'srgb',
         includeAlpha = false,
         precision = 3,
-    } = options
+        type = 'oklch',
+    }: CssStringOptions = options
 
     if (!(gamut in ColorJS.spaces)) {
         throw new Error(`Invalid color space key: ${gamut}`)
@@ -84,7 +94,7 @@ export function toCssString(
     const srgbColor = toClampedColor(
         validateOklchColorJS(color.clone()),
         gamut,
-    ).to('srgb')
+    ).to(type)
     const _is_displayable = isDisplayable(srgbColor, gamut)
     if (!_is_displayable) {
         throw new Error(`sRGB color is not in gamut ${color.toString()}`)

@@ -1,9 +1,20 @@
 import chalk from 'chalk'
 
-import { ROUND_DECIMALS_DEFAULT } from './constants.js'
+import {
+    RANGE_DEGREE,
+    RANGE_FLOAT,
+    RANGE_PERCENT,
+    RANGE_SCALE,
+    ROUND_DECIMALS_DEFAULT,
+} from './constants.js'
 import { findOptimalPairMeta } from './contrast.js'
 import { toColorHex, validateOklchColorJS } from './core.js'
-import type { ColorJSInstance, ValidOklchColor } from './types.js'
+import type {
+    ColorJSInstance,
+    Range,
+    RangeType,
+    ValidOklchColor,
+} from './types.js'
 
 export const printSwatchWithChalk = (
     text: string,
@@ -49,6 +60,36 @@ export const printSwatchWithChalk = (
 export function clamp(value: number, min: number, max: number): number {
     return Math.min(Math.max(value, min), max)
 }
+
+export const mapRange = (
+    value: number,
+    input: Range = { max: 1, min: 0 },
+    output: Range = { max: 1, min: -1 },
+): number => {
+    return (
+        ((value - input.min) * (output.max - output.min)) /
+            (input.max - input.min) +
+        output.min
+    )
+}
+
+export const getRange = <Omittedkeys extends RangeType | false = false>(
+    key: RangeType<Omittedkeys>,
+): Range => {
+    return key === 'float'
+        ? RANGE_FLOAT
+        : key === 'deg'
+          ? RANGE_DEGREE
+          : key === 'percent'
+            ? RANGE_PERCENT
+            : key === 'scale'
+              ? RANGE_SCALE
+              : RANGE_FLOAT
+}
+const iii = getRange<'float'>('scale')
+export const hasCss5OrVars = (str: string): boolean =>
+    /\bfrom\b/i.test(str) || /\bvar\s*\(/i.test(str)
+
 /** Rounds a number to the specified number of decimal places. */
 export const roundToDecimals = (
     value: number,

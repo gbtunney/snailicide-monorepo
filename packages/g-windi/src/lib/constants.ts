@@ -1,4 +1,10 @@
 /** Color harmony and palette constants */
+import { Range } from './types.js'
+
+export const RANGE_FLOAT: Range = { max: 1, min: 0 } as const
+export const RANGE_DEGREE: Range = { max: 360, min: 0 } as const
+export const RANGE_PERCENT: Range = { max: 1, min: 0 } as const
+export const RANGE_SCALE: Range = { max: 2, min: 1 } as const
 
 export const ROUND_DECIMALS_DEFAULT = 2
 // ----------------------------------------
