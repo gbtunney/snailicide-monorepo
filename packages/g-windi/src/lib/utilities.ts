@@ -1,5 +1,6 @@
 import chalk from 'chalk'
 
+import { inRange } from 'ramda-adjunct'
 import {
     RANGE_DEGREE,
     RANGE_FLOAT,
@@ -57,9 +58,26 @@ export const printSwatchWithChalk = (
     return output
 }
 
-export function clamp(value: number, min: number, max: number): number {
+export const clampInRange = (value: number, range: Range): number => {
+    const { max, min } = range
     return Math.min(Math.max(value, min), max)
 }
+
+export const wrapInRange = (value: number, range: Range): number => {
+    const { max, min } = range
+    const width = max - min
+
+    if (width <= 0) {
+        throw new Error(
+            `Invalid range: max (${max}) must be greater than min (${min})`,
+        )
+    }
+
+    return ((((value - min) % width) + width) % width) + min
+}
+
+export const isInRange = (value: number, range: Range): boolean =>
+    inRange(range.min, range.max, value)
 
 export const mapRange = (
     value: number,
@@ -128,9 +146,9 @@ export function roundColor(
         /** Access metadata using the key */
         const coordMeta = space.coords[key]
 
-        const minRange: number =
+        const min: number =
             coordMeta?.refRange?.[0] !== undefined ? coordMeta.refRange[0] : 0
-        const maxRange: number =
+        const max: number =
             coordMeta?.refRange?.[1] !== undefined ? coordMeta.refRange[1] : 1
         if (!coordMeta) {
             console.warn(
@@ -141,7 +159,7 @@ export function roundColor(
         }
         console.log('Coordinate metadata:', factor, val, coordMeta)
         // Clamp the value to the valid range
-        const clampedValue = clamp(val, minRange, maxRange)
+        const clampedValue = clampInRange(val, { max, min })
         //TODO: thiis was for percentages, but i dont think itts neeeded.
         // const _factor = ( clampedValue < 1 && clampedValue>0 && minRange ===0 && maxRange === 1) ?  1000 ** decimals : factor
         const _factor = factor

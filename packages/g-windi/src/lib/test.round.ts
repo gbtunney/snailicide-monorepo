@@ -1,16 +1,20 @@
 import Color from 'colorjs.io'
 import {
     adjustLightness,
-    setHue,
+    shiftChroma,
     shiftHue,
+    shiftHue2,
 } from './adjustments.js'
+
 import {
     toClampedColor,
     toColorHex,
     toCssString,
     validateOklchColorJS,
+    ValidOklchColor,
 } from './core.js'
 
+import { ExpandedColorJSObject } from './types.js'
 import { mapRange } from './utilities.js'
 
 type ColorSpaceKey = keyof typeof Color.spaces
@@ -23,7 +27,7 @@ const tealTest = validateOklchColorJS('red')
 
 //onsole.log("RANGE @@ .2", mapRange(20,{min: 0 ,max: 100},{min: 0,max: 1} ) )
 //console.log("tteal valiid", "!!!MY TEAL parse" ,parse('oklch(gggg .233333 180.43412323355434)'))
-const adjTeal = adjustLightness(tealTest, 0.1)
+const adjTeal = adjustLightness(tealTest, 'dark')
 
 //const adjTeal2 = adjustLightness(tealTest,.5)
 
@@ -31,7 +35,7 @@ const adjTeal = adjustLightness(tealTest, 0.1)
 //const adjTeal3 = adjustLightness(tealTest,-.2)
 
 ///this should be .60
-const adjTeal5 = adjustLightness(tealTest, 3)
+const adjTeal5 = adjustLightness(tealTest, 0.3)
 
 const adjTeal6 = tealTest.clone().lighten(0.1)
 
@@ -53,8 +57,9 @@ console.log(
     'TEAL----',
     toCssString(hueTest),
     '----',
-    toCssString(setHue(hueTest, 0, 'deg')),
-    toCssString(tealTest),
+    //' toCssString(setHue(hueTest, 0, 'deg')),
+    'LATEST--',
+    toCssString(adjTeal),
     toCssString(validateOklchColorJS(tealTest.lighten(0.2))),
     toCssString(validateOklchColorJS(tealTest.lighten(0.2))),
 
@@ -80,7 +85,29 @@ console.log(
 //console.log("THE RED ",toClampedOklchColor(tealTest ).toString() , toHex( redtest))
 
 console.log('=== Testing printSwatchWithChalk ===')
+const testColor: ValidOklchColor = validateOklchColorJS({
+    c: 0,
+    h: 120,
+    l: 0.5,
+    mode: 'oklch',
+}) as ValidOklchColor
 
+const colorjsOObj: ExpandedColorJSObject = {
+    coords: [50, '10%', 90],
+    space: 'oklch',
+}
+
+const newval = shiftHue2(validateOklchColorJS(colorjsOObj), '-50%')
+
+//const ttt = validateOklchColorJS(newval)
+
+const result = shiftChroma(testColor, 0.25, 'linear')
+console.log('NORMALIXING ,---', toCssString(newval), 'color obj')
+
+const teeeeeee = toClampedColor(
+    validateOklchColorJS('oklch(none none 180.43412323355434)'),
+)
+//console.log("reDSULT IIS ",toCssString(result),toCssString(toClampedColor(teeeeeee)))
 // Test with basic colors
 const blue = toClampedColor(validateOklchColorJS('blue'))
 const red = validateOklchColorJS('red')

@@ -1,3 +1,4 @@
+import { Falsy } from '@snailicide/g-library'
 import colorjs from 'colorjs.io'
 import type { ColorObject as ColorJSObject, ColorTypes } from 'colorjs.io'
 import {
@@ -12,7 +13,6 @@ import {
     type Rgb,
 } from 'culori'
 import { Merge } from 'type-fest'
-
 export const ColorJS = colorjs
 export type ColorJSInstance = InstanceType<typeof ColorJS>
 export type ColorJSTypes = ColorTypes
@@ -24,6 +24,7 @@ export type ValidOklchColor = Branded<ColorJSInstance, 'ColorJSOklch'>
 
 type Branded<T, B> = T & { __brand: B }
 
+export type None = 'none'
 export type Range = { min: number; max: number }
 export type RangeKeys = 'float' | 'deg' | 'percent' | 'scale'
 export type RangeType<Omittedkeys extends RangeKeys | false = false> = Exclude<
@@ -31,10 +32,18 @@ export type RangeType<Omittedkeys extends RangeKeys | false = false> = Exclude<
     Omittedkeys
 >
 
+export type ExpandedCoordinate = number | string | None | Falsy
+export type ExpandedColorJSObject = Merge<
+    ColorJSObject,
+    {
+        coords: [ExpandedCoordinate, ExpandedCoordinate, ExpandedCoordinate]
+    }
+>
+
 export type ValidColorJSInput =
     | string
     | ColorJSInstance
-    | ColorJSObject
+    | ExpandedColorJSObject /*ColorJSObject*/
     | CuloriColor
 export type ColorHexCode = Branded<string, 'ColorJSHex'>
 

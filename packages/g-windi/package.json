@@ -53,6 +53,7 @@
     "module": "./dist/index.mjs",
     "types": "./dist/index.d.ts",
     "dependencies": {
+        "@snailicide/g-library": "workspace:*",
         "@types/culori": "^4.0.0",
         "@types/ramda": "^0.31.0",
         "@unocss/core": "^66.3.3",

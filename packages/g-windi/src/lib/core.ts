@@ -1,20 +1,33 @@
+import { numeric, tg } from '@snailicide/g-library'
 import type { SerializeOptions } from 'colorjs.io'
 import { parse } from 'culori'
+import { RANGE_DEGREE } from './constants.js'
 import { culoriToColorObject, isCuloriColor } from './convert.js'
-
 import type {
     ColorJSInstance,
     ColorJSObject,
     ColorJSSpaceKey,
     ColorTypeMode,
     CuloriColor,
+    ExpandedColorJSObject,
+    ExpandedCoordinate,
     OklchColorOptions,
+    RangeKeys,
     ValidColorJSInput,
     ValidOklchColor,
 } from './types.js'
 import { ColorJS } from './types.js'
-import { hasCss5OrVars } from './utilities.js'
+import {
+    getRange,
+    hasCss5OrVars,
+    mapRange,
+    wrapInRange,
+} from './utilities.js'
 
+const myttt: ExpandedColorJSObject = {
+    coords: [null, null, null],
+    space: 'oklch',
+}
 export const validateOklchColorJS = <T extends ValidColorJSInput>(
     value: T,
     _options: OklchColorOptions = {},
@@ -43,7 +56,8 @@ export const validateOklchColorJS = <T extends ValidColorJSInput>(
     } else {
         try {
             if (isColorInstance(value)) parsedColor = value.clone()
-            if (isColorObject(value)) parsedColor = new ColorJS(value)
+            if (isColorObject(value))
+                parsedColor = new ColorJS(normalizeColorJSObject(value))
         } catch {
             throw new TypeError(
                 `OBJECT PARSE ERROR Could not parse MODE: as a color. ${JSON.stringify(value, undefined, 2)} \nEnsure the input is valid and all required plugins are loaded. Original error: `,
@@ -211,3 +225,67 @@ const isColorObject = (x: unknown): x is ColorJSObject =>
     typeof x === 'object' &&
     'space' in (x as { space: unknown }) &&
     'coords' in (x as { coords: unknown })
+
+export const normalizeColorJSObject = (
+    obj: ExpandedColorJSObject,
+): ColorJSObject => {
+    // Ensure coords is always a tuple of exactly 3 values
+    const coordsTuple: [
+        ExpandedCoordinate,
+        ExpandedCoordinate,
+        ExpandedCoordinate,
+    ] = [obj.coords[0] ?? 0, obj.coords[1] ?? 0, obj.coords[2] ?? 0]
+
+    const resultCoordMap = coordsTuple.map(
+        (value: ExpandedCoordinate, _index: number) =>
+            normalizeCoordinate(value, _index),
+    ) as [number, number, number]
+    //console.log("---before",obj.coords ,  "after", resultCoordMap)
+    return { ...obj, coords: resultCoordMap }
+}
+
+export const normalizeCoordinate = (
+    value: ExpandedCoordinate,
+    _index: number,
+): number => {
+    let _input_type: RangeKeys = 'float'
+    let _newNumber: number = 0
+    const _outputType: RangeKeys = _index === 2 ? 'deg' : 'float'
+    if (tg.isFalsy(value)) return 0
+    else if (typeof value === 'number') {
+        _newNumber = value as number
+    } else if (
+        typeof value === 'string' &&
+        numeric.isParsableToNumeric(value)
+    ) {
+        _newNumber = numeric.parseStringToNumeric(value) as number
+        ///if it has a perccent sign
+        if (/deg$/.test(value) === true) {
+            _input_type = 'deg'
+        } else if (/%$/.test(value) === true) {
+            _input_type = 'percent'
+        }
+    }
+    //note the direction
+    const direction = _newNumber < 0 ? -1 : 1
+    //set absolute value
+    _newNumber = Math.abs(_newNumber)
+
+    //assume this integer is hue. , else it stays FLOATT
+    if (_outputType === 'deg' && _newNumber > 1 && _input_type !== 'percent')
+        _input_type = 'deg'
+    ///assume > 1 is a percent
+    else if (_newNumber > 1) _input_type = 'percent'
+    const mappedValue = mapRange(
+        _newNumber,
+        getRange(_input_type),
+        getRange(_outputType),
+    )
+    const result =
+        _outputType === 'deg'
+            ? wrapInRange(mappedValue, RANGE_DEGREE)
+            : mappedValue
+    // console.log("___________________________" , _input_type,"output" ,_outputType , _newNumber, "mapped",result)
+    return result * direction
+}
+export type { ValidOklchColor } from './types.ts'
