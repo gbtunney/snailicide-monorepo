@@ -87,7 +87,7 @@ export const fsPathTypeExists = (
 export const fsPathArrayHasFiles = (
     getDirectoryFileContents = false,
     root: string | undefined = undefined,
-): z.ZodType<Array<FilePath>, any> => {
+): z.ZodType<Array<FilePath>, string> => {
     return fsPathArray(root, getDirectoryFileContents).refine(
         (val: Array<FilePath>) => {
             if (val.length > 0 && val[0] !== undefined) {
