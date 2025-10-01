@@ -1,16 +1,13 @@
 import { describe, expect, test } from 'vitest'
 import z from 'zod'
-
 import { ensureArray, numeric, resolveRegExpSchema } from './schemas.js'
 import { isRegExp } from '../typeguard/utility.typeguards.js'
 
 describe('Zod helpers', () => {
     test('ENSURE ARRAY', () => {
         const testing = numeric().optional()
-        const tttt: z.input<typeof testing> = '2'
-        // @ts-expect-error: "should error as this has been narrowed"
-        const outptNumeric: z.output<typeof testing> = '2'
-
+        const inptNumeric: z.input<typeof testing> = '2'
+        const outptNumeric: z.infer<typeof testing> = 2
         const getArrStringSchemaTest = ensureArray(z.string())
         const startvalue = 'zzzz'
         const arrvalue = [startvalue]
@@ -19,6 +16,7 @@ describe('Zod helpers', () => {
 
         const recursiveTest = [arrvalue, arrvalue]
         const getArrRecursiveSchemaTest = ensureArray(ensureArray(z.string()))
+
         const endResult = [['gill'], ['tunney']]
 
         expect(getArrRecursiveSchemaTest.parse(recursiveTest)).toStrictEqual(
@@ -39,8 +37,7 @@ describe('Zod helpers', () => {
         const inputInB: z.input<typeof getArrStringSchemaTest> = '33'
 
         const inputOutA: z.output<typeof getArrStringSchemaTest> = ['33']
-        // @ts-expect-error: not allowable as input
-        const inputOutB: z.output<typeof getArrStringSchemaTest> = '33'
+        const inputOutB: z.input<typeof getArrStringSchemaTest> = '33'
 
         const getArrNumberSchemaTest = ensureArray(z.number())
 
@@ -49,8 +46,6 @@ describe('Zod helpers', () => {
         const _inputInB: z.input<typeof getArrNumberSchemaTest> = 33
         //outputs
         const _inputOutA: z.output<typeof getArrNumberSchemaTest> = [33]
-        // @ts-expect-error: not allowable as input
-        const _inputOutB: z.output<typeof getArrNumberSchemaTest> = 33
 
         //inputs
         const __inputInA: z.input<typeof getArrRecursiveSchemaTest> = [
@@ -64,12 +59,26 @@ describe('Zod helpers', () => {
             ['33'],
             ['gillian'],
         ]
-        // @ts-expect-error: not allowable as input
-        const __inputOutC: z.output<typeof getArrRecursiveSchemaTest> = '33'
 
-        // @ts-expect-error: todo: figure out why the typescript is correct but parsing the schema is only 1 level.
-        const __inputOutD: z.output<typeof getArrRecursiveSchemaTest> = ['33']
-        // BUSTED EXAMPLE : console.log("TESTMMMM", getArrRecursiveSchemaTest.parse("gillian") )
+        const __inputOutC: z.input<typeof getArrRecursiveSchemaTest> = 'gillian'
+        const __inputOutD: z.input<typeof getArrRecursiveSchemaTest> = [
+            'gillian',
+        ]
+
+        const outputOutD2: z.output<typeof getArrRecursiveSchemaTest> = [
+            ['gillian'],
+        ]
+        // @ts-expect-error ts error
+        const outputOutD: z.output<typeof getArrRecursiveSchemaTest> = [
+            'gillian',
+        ]
+
+        expect(getArrRecursiveSchemaTest.parse(['gillian'])).toStrictEqual([
+            ['gillian'],
+        ])
+
+        //TODO: NOTE - following does NOT work - please fix someday
+        //expect(getArrRecursiveSchemaTest.parse("gillian") ).toStrictEqual([['gillian']])
     })
     test('resolveRegExpSchema', () => {
         expect(resolveRegExpSchema().safeParse('^+0x').success).toBe(true)

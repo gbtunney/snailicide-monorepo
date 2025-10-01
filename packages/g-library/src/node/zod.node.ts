@@ -1,6 +1,6 @@
 /* eslint  @typescript-eslint/explicit-function-return-type: "warn" */
 import { isString } from 'ramda-adjunct'
-import { z, ZodEffects, ZodString } from 'zod'
+import { z } from 'zod'
 
 import {
     doesFileExist,
@@ -16,7 +16,7 @@ import {
 /** @group Zod Schemas */
 export const fsPath = (
     root: string | undefined = undefined,
-): ZodEffects<ZodEffects<ZodString, string>, string> => {
+): z.ZodType<string, string> => {
     return z
         .string()
         .transform((value) => getFullPath(value, root))
@@ -26,10 +26,7 @@ export const fsPath = (
 export const fsPathArray = (
     root: string | undefined = undefined,
     getDirectoryFileContents = false,
-): ZodEffects<
-    ZodEffects<ZodEffects<ZodString, string>, string>,
-    Array<FilePath>
-> => {
+): z.ZodType<Array<FilePath>, string> => {
     return fsPath(root).transform((value) =>
         getFilePathArr(value, getDirectoryFileContents),
     )
@@ -54,7 +51,11 @@ export const fsPathTypeExists = (
         | 'any'
         | 'none' = 'any',
     root: string | undefined = undefined,
-): ZodEffects<ZodEffects<ZodEffects<ZodString, string>, string>, string> => {
+): z.ZodType<string, string> => {
+    const allowedLabel = Array.isArray(allowedType)
+        ? allowedType.join(' | ')
+        : allowedType
+
     return fsPath(root).refine(
         (value) => {
             let _inner_result = false
@@ -73,13 +74,8 @@ export const fsPathTypeExists = (
             }
             return _inner_result
         },
-        (value) => {
-            return {
-                message: `File path ${(value
-                    ? 'does not'
-                    : 'does'
-                ).toString()} exist (type: ${allowedType.toString()})`,
-            }
+        {
+            message: `File path does not meet existence/type requirements (allowed: ${allowedLabel})`,
         },
     )
 }
@@ -91,13 +87,7 @@ export const fsPathTypeExists = (
 export const fsPathArrayHasFiles = (
     getDirectoryFileContents = false,
     root: string | undefined = undefined,
-): ZodEffects<
-    ZodEffects<
-        ZodEffects<ZodEffects<ZodString, string>, string>,
-        Array<FilePath>
-    >,
-    Array<FilePath>
-> => {
+): z.ZodType<Array<FilePath>, any> => {
     return fsPathArray(root, getDirectoryFileContents).refine(
         (val: Array<FilePath>) => {
             if (val.length > 0 && val[0] !== undefined) {
