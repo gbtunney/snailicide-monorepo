@@ -85,7 +85,7 @@ export const isString = <Type extends string>(value: unknown): value is Type =>
  */
 export const isNotString = <Type = unknown>(
     value: Type | string,
-): value is Type => RA.isNotString(value)
+): value is Exclude<Type, 'string'> => RA.isNotString(value)
 
 /**
  * Checks if a value is a bigint.
@@ -114,12 +114,9 @@ export const isNumber = <Type extends number>(value: unknown): value is Type =>
  * @group Numeric
  * @see {@link isNumber}
  */
-export const isNotNumber = <
-    Type extends number,
-    TypeNumber = Type extends number ? never : Type,
->(
+export const isNotNumber = <Type extends number>(
     value: unknown,
-): value is TypeNumber => !RA.isValidNumber(value)
+): value is Exclude<Type, number> => !RA.isValidNumber(value)
 
 /**
  * Checks if a value is an integer.

@@ -68,10 +68,7 @@ describe('Zod helpers', () => {
         const outputOutD2: z.output<typeof getArrRecursiveSchemaTest> = [
             ['gillian'],
         ]
-        // @ts-expect-error ts error
-        const outputOutD: z.output<typeof getArrRecursiveSchemaTest> = [
-            'gillian',
-        ]
+        const outputOutD: z.input<typeof getArrRecursiveSchemaTest> = 'gillian'
 
         expect(getArrRecursiveSchemaTest.parse(['gillian'])).toStrictEqual([
             ['gillian'],

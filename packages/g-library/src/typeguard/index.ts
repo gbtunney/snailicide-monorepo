@@ -10,6 +10,7 @@ import {
     isValidScientificNumber,
 } from './../number/validators.js'
 import { isZodParsable } from './../zod_helpers/index.js'
+import { guardToAssertion, predicateToAssertion } from './assertation.js'
 import * as tgJson from './json.typeguards.js'
 import * as _tg from './utility.typeguards.js'
 
@@ -17,6 +18,7 @@ import * as _tg from './utility.typeguards.js'
 export const tg = {
     ..._tg,
     ...tgJson,
+    guardToAssertion,
     isCSSColorSpecial,
     isNotCSSColorSpecial,
     isNumeric,
@@ -28,5 +30,6 @@ export const tg = {
     isTrueNumeric,
     isValidScientificNumber,
     isZodParsable,
+    predicateToAssertion,
 }
 export default tg
