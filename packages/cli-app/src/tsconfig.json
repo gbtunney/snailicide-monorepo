@@ -4,8 +4,12 @@
         "outDir": "./../types" /* Specify an output folder for all emitted files. */,
         // Output settings.
         "rootDir": "./",
+        "composite": true,
         "types": ["node"],
+        // "esModuleInterop": true,
+        "declaration": true,
         "declarationDir": "./../types"
     },
+    "files": ["./meta.ts"],
     "include": ["**/*.ts", "**/*.cts", "**/*.mts"]
 }

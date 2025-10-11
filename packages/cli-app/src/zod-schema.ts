@@ -1,77 +1,102 @@
-import { stringUtils, tg } from '@snailicide/g-library'
-import { Options } from 'yargs'
+import { Options as SingleYarg, PositionalOptionsType } from 'yargs'
+import yargsInteractive from 'yargs-interactive'
 import { z } from 'zod'
-import { getZodType, wrapSchema, ZodObjectSchema } from './helpers.js'
+import {
+    formatValue,
+    getDefaultValue,
+    getValueSchema,
+    isOptionalType,
+    prettify,
+    wrapAnyZodSchema,
+    wrapSchema,
+    ZodObjectSchema,
+} from './helpers.js'
 
-export const getIterableTopLevelRawShape = <
-    AppOptionsSchema extends ZodObjectSchema,
->(
-    optionsSchema: AppOptionsSchema,
-): z.ZodRawShape => {
-    const option_schema: AppOptionsSchema =
-        wrapSchema<AppOptionsSchema>(optionsSchema)
+import { getLogger } from './logger.js'
+import { CLIAppMeta, updateMetaForSchema } from './meta.js'
 
-    const iterateOptions: z.ZodRawShape =
-        option_schema instanceof z.ZodObject
-            ? option_schema._def.shape() //.keyof().options
-            : option_schema instanceof z.ZodEffects
-              ? option_schema._def.schema._def.shape() //.innerType().shape() //.innerType().keyof().options
-              : []
-    return iterateOptions
+import {
+    convertZodTypeToYargs,
+    getArraySchemaString,
+    getEnumValuesString,
+    wrapString,
+} from './string-utils.js'
+
+type YargsTypes = 'array' | 'count' | PositionalOptionsType | undefined
+type YargAppOption = Pick<SingleYarg, 'describe' | 'default' | 'type'>
+type YargAppOptions = Record<string, SingleYarg> // Pick<Options, 'describe' | 'default' | 'type'>
+
+export const getYargsInteractive = (): yargsInteractive.Interactive => {
+    return yargsInteractive()
 }
 
-export const getArrayKeys = <AppOptionsSchema extends ZodObjectSchema>(
-    iterableOptions: z.ZodRawShape,
-): Array<string> => {
-    let array_keys: Array<string> = []
-    Object.entries(iterableOptions).forEach(([key, value]) => {
-        const schema: Record<string, any> = <Record<string, any>>value
-        if (schema && schema['_def'] && schema['_def']['typeName']) {
-            if (schema['_def']['typeName'] === 'ZodArray') {
-                array_keys = [...array_keys, key]
-            } else if (
-                schema['_def']['typeName'] === 'ZodDefault' &&
-                schema['_def']['innerType']['_def']['typeName'] === 'ZodArray'
-            ) {
-                array_keys = [...array_keys, key]
-            }
-        }
-    }, {})
-    return array_keys
+export const getYargs = (): yargsInteractive.Interactive => {
+    return yargsInteractive()
 }
 
-const getDescription = (key: string, value: z.ZodTypeAny): string => {
-    const __desc = value.description
-    const desc: string =
-        tg.isString(__desc) && __desc && __desc.length > 0
-            ? __desc
-            : stringUtils.capitalizeWords(key)
-
-    const req: string = !value.isOptional() ? '[required]' : ''
-    return `${desc} ${req}`
-}
-type YargAppOption = Pick<Options, 'describe' | 'default' | 'type'>
-
+/** Convert a zod schema to a yargs options object */
 export const getYargAppOptionObject = <
     AppOptionsSchema extends ZodObjectSchema,
 >(
-    iterableOptions: z.ZodRawShape,
-): Record<string, YargAppOption> => {
-    const OPTIONS_OBJ: Record<string, YargAppOption> = Array.from(
-        Object.entries(iterableOptions),
-    ).reduce((accum, [key, value]) => {
-        return {
-            ...accum,
-            [key]: {
-                default:
-                    value instanceof z.ZodDefault
-                        ? value._def.defaultValue()
-                        : undefined,
-                // NOTE: this works in the help but makes yargs throw error required:!(value as z.ZodTypeAny).isOptional(),
-                describe: getDescription(key, value),
-                type: getZodType(value),
-            },
-        }
-    }, {})
-    return OPTIONS_OBJ
+    optionsSchema: AppOptionsSchema,
+): YargAppOptions => {
+    const LOGGER = getLogger()
+
+    const option_schema: AppOptionsSchema =
+        wrapSchema<AppOptionsSchema>(optionsSchema)
+
+    const keyList: Array<string> = Object.keys(option_schema.shape)
+    const rawEntries = Array.from(
+        Object.entries(option_schema.shape) as Array<[string, z.ZodType]>,
+    )
+
+    LOGGER.info(`------KEY LIST IS" , ${keyList.join(', ')}`)
+
+    const result: YargAppOptions = rawEntries.reduce(
+        (accum, [_key, value]: [string, z.ZodType]) => {
+            const wrapperSchema = wrapAnyZodSchema<z.ZodType>(value)
+
+            const outerSchema = getValueSchema(wrapperSchema)
+            const innerSchema = getValueSchema(outerSchema)
+
+            if (innerSchema.type === 'default') {
+                console.log(
+                    'THE INNER SCHEMA IS DEFAULT  outer is ',
+                    innerSchema.type,
+                )
+            }
+            const innerContainerSchema = getValueSchema(value, true)
+            /* Set ids to the hash key and get meta*/
+            const optionMeta: CLIAppMeta | undefined = updateMetaForSchema(
+                wrapperSchema,
+                { id: _key },
+            )
+
+            // ...existing code...
+            LOGGER.info(
+                prettify`Schema: KEY:[${_key}] WRAPPER:[${wrapperSchema.type}]\n\tOUTER: ${outerSchema.type} INNER:[${innerSchema.type}] CONTAINER:[${innerContainerSchema.type}] \nREQUIRED: [${!isOptionalType(wrapperSchema)}] DEFAULT: [${getDefaultValue(wrapperSchema)}]`,
+            )
+
+            if (!optionMeta?.description) {
+                LOGGER.warn(prettify`\nNO Description META FOR ${_key}`)
+            }
+
+            const resultYargsConfig: SingleYarg = {
+                alias: optionMeta?.alias,
+                array: outerSchema.type === 'array',
+                default: getDefaultValue(wrapperSchema),
+                demandOption: !isOptionalType(wrapperSchema),
+                description: prettify`${formatValue(optionMeta?.description)} ${wrapString(getEnumValuesString(innerSchema))}${wrapString(getArraySchemaString(innerSchema))}`,
+                hidden: optionMeta?.hidden,
+                type: convertZodTypeToYargs(innerSchema.type) as YargsTypes,
+            }
+
+            return {
+                ...accum,
+                [_key]: resultYargsConfig,
+            }
+        },
+        {},
+    )
+    return result
 }
