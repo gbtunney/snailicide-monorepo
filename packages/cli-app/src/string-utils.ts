@@ -1,6 +1,3 @@
-import { z } from 'zod'
-import { getValueSchema } from './helpers.js'
-
 /** Capitalizes only the first letter of the string and LEAVES THE REST OF CHARACTERSS */
 export const modifyCaseIndexedLetter = (
     str: string,
@@ -43,38 +40,3 @@ const ansiRegex = ({ onlyFirst = false } = {}): RegExp => {
 
 export const removeAnsi = (value: string): string =>
     value.replace(ansiRegex(), '')
-
-export const getEnumValuesString = <Schema extends z.ZodType>(
-    schema: Schema,
-): string => {
-    return schema instanceof z.ZodEnum && schema.type === 'enum'
-        ? schema.options.map((v) => v.toString().trim()).join('|')
-        : ''
-}
-
-export const getArraySchemaString = (_schema: z.ZodType): string => {
-    const innerSchema = getValueSchema(_schema, true)
-
-    return _schema.type === 'array' ? `${innerSchema.type}[]` : ''
-}
-
-export const convertZodTypeToYargs = (type: string): string => {
-    ///TODO: add a count type ? more exhaustive list?
-    if (
-        /* Positional Arguments for Yargs*/
-        type === 'string' ||
-        type === 'boolean' ||
-        type === 'number' ||
-        /* Other types of arguments */
-        type === 'array' ||
-        type === 'object'
-    )
-        return type
-    //this returns the default type
-    console.warn('YARGS unfriendly type encountered', type)
-    return 'boolean'
-}
-
-export const spaceText = (value: string, delimiter: string = ' '): string => {
-    return Array.from(value).join(delimiter)
-}

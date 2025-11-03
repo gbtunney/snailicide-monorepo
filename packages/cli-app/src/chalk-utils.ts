@@ -8,7 +8,9 @@ import chalk, {
     modifierNames,
 } from 'chalk'
 import {
+    type ColorJS,
     HexColor,
+    parseColorJS,
     parseColorToHexStrict,
     readableTextHex,
 } from './color-utilities.js'
@@ -133,11 +135,15 @@ export const toChalkColorPresetInstance = (
     throw new Error(`Invalid Chalk color preset: ${value}`)
 }
 /** This converts a chalk color to hex so it can be used in browser */
-export const chalkToHex = (color: ChalkColorPreset): HexColor => {
+export const chalkPresetToHex = (color: ChalkColorPreset): HexColor => {
     const _processValue = stripBright(toForeground(color))
     return parseColorToHexStrict(_processValue)
 }
 
+export const chalkPresetToColorJS = (color: ChalkColorPreset): ColorJS => {
+    const _processValue = stripBright(toForeground(color))
+    return parseColorJS(_processValue)
+}
 export const wrapColorChalkInstanceText = (
     value: string,
     color: ChalkColor,

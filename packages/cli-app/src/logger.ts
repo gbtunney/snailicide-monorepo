@@ -8,7 +8,7 @@ import {
 } from './chalk-utils.js'
 
 import { parseColorToHexStrict } from './color-utilities.js'
-import { fmt } from './helpers.js'
+import { fmt, formatArgs } from './helpers.js'
 
 export type LevelColors = ChalkColor
 export const LEVEL_NAMES = [
@@ -41,24 +41,26 @@ export type LoggerRecord<Value> = ExhaustiveRecordFrom<
     typeof LEVEL_NAMES,
     Value
 >
+
+/* eslint sort/object-properties:off */
 export const LOG_LEVELS: LoggerRecord<number> = {
-    debug: 20,
+    trace: 10,
+    info: 30,
+    debug: 35,
+    warn: 40,
     error: 50,
     fatal: 60,
-    info: 30,
     silent: 99,
-    trace: 10,
-    warn: 40,
 }
 
 export const LEVEL_COLORS: LoggerRecord<ChalkColor> = {
-    debug: 'blue', //chalk.bgRedBright.bold,
+    trace: 'gray',
+    info: parseColorToHexStrict('#0bb806'),
+    debug: 'blue',
+    warn: 'yellow',
     error: 'red',
     fatal: 'magenta',
-    info: parseColorToHexStrict('#632020'),
     silent: 'white',
-    trace: 'gray',
-    warn: 'yellow',
 }
 const LEVEL_STYLES = modifierNames
 
@@ -107,7 +109,6 @@ export type Logger = {
     readonly name: string | undefined
     readonly level: LevelName
     setLevel: (level: LevelName) => void
-
     child: (
         name: string,
         overrides?: Partial<z.input<typeof schemaLoggerOpts>>,
@@ -171,8 +172,10 @@ export const createLogger = (
             out(fmt, css, reset, ...args)
         } else {
             //chalk.bgRed('THIS IS A COLOR ', color)
-
-            out(wrapColorChalkInstanceText(head, color, 'fg'), ...args)
+            out(
+                wrapColorChalkInstanceText(head, color, 'fg'),
+                formatArgs('', ...args),
+            )
         }
     }
 

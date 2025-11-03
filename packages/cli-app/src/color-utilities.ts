@@ -1,9 +1,9 @@
-import ColorJS, { ColorObject as Color, Coords } from 'colorjs.io'
+import ColorIO, { ColorObject as Color, Coords } from 'colorjs.io'
 import { fmt } from './helpers.js'
 import { mapRange, Range, roundToDecimals } from './numeric-utilities.js'
 // Branded hex type
 export type HexColor = `#${string}` & { readonly __hexBrand: 'HexColor' }
-
+export type ColorJS = ColorIO
 export function mapColorJSCoords(
     color: ColorJS,
     mapFunction: (value: number) => number,
@@ -43,7 +43,7 @@ export function parseColorJS(
 ): ColorJS {
     try {
         const _space = 'srgb'
-        const color = new ColorJS(input)
+        const color = new ColorIO(input)
             .to(_space)
             .toGamut({ method: 'clip', space: 'srgb' })
         return color

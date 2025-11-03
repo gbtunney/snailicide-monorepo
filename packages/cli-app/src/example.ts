@@ -2,7 +2,7 @@ import * as RA from 'ramda-adjunct'
 import yargsInteractive from 'yargs-interactive'
 import { z } from 'zod'
 import { AppConfig } from './app-config.js'
-import { mergeSchemas } from './helpers.js'
+import { fmt, mergeSchemas } from './helpers.js'
 import { getLogger } from './logger.js'
 import {
     AppConfigIn,
@@ -10,6 +10,14 @@ import {
     initApp,
     InitSuccessCallback,
 } from './index.js'
+
+const LOGGER = getLogger({
+    colors: {},
+    level: 'trace',
+    name: 'example',
+    time_stamp: true,
+})
+//LOGGER.setLevel('info')
 /** Define custom schema, wrapper is required to avoid typescript error */
 const transformTest: z.ZodType<Array<string>, Array<string>> = z.transform<
     Array<string>,
@@ -29,7 +37,8 @@ const transformTest2: z.ZodType<number, Array<string>> = z.transform<
 })
 const custom_schema = z.object({
     enumtest: z
-        .enum(['one', 'two', 'three'])
+        //.enum({'one':4444, 'two':555, 'three' :33333})
+        .enum(['one', 'two', 'three'] as const)
         .default('one')
         .optional()
         .meta({ description: '<<<test me enum' }),
@@ -41,7 +50,7 @@ const custom_schema = z.object({
             description: 'this is gillian',
         }),
     //.describe('test array'),
-    junk: z.number().meta({
+    junk: z.number().default(1).meta({
         description: 'TEST VAR',
     }),
 
@@ -59,7 +68,7 @@ const custom_schema = z.object({
         }),
     testarr4: z
         .array(z.string())
-        .default(['ff']) /*.pipe( transformTest )*/
+        /*.pipe( transformTest )*/
         .meta({
             description: 'GBT TEST HI',
         }),
@@ -77,9 +86,12 @@ const initFunc: InitSuccessCallback<typeof my_merged_schema> = async (
     args: z.infer<typeof my_merged_schema>,
     config: AppConfig,
 ): Promise<void> => {
+    // getLogger().setLevel('error')
     getLogger().debug(
-        `Resolved APP ARGS: ${JSON.stringify(args, undefined, 4)}`,
+        //  `Resolved APP ARGS: ${JSON.stringify(args, undefined, 4)}`,
+        fmt`!!!!!!!Resolved APP ARGS: ${args}`,
     )
+
     const test: Partial<z.infer<typeof my_merged_schema>> = args
 
     const options: yargsInteractive.Option = {
@@ -119,7 +131,6 @@ const exampleAppConfigOptions: AppConfigIn = {
 }
 /** Initialize App */
 const initialize = async (): Promise<'SUCCESS' | 'ERROR'> => {
-    console.log('INITIALIZING APP')
     const instance_yargs = await initApp<typeof my_merged_schema>(
         my_merged_schema,
         exampleAppConfigOptions,

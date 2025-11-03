@@ -1,16 +1,30 @@
-import chalk from 'chalk'
+import chalk, { ChalkInstance } from 'chalk'
 import yargs from 'yargs'
 import type { Argv, Options } from 'yargs'
 import yargsInteractive from 'yargs-interactive'
 import { z } from 'zod'
 import * as process from 'process'
 import { AppConfig, AppConfigIn, appConfigSchema } from './app-config.js'
+import { type ChalkColor, getColorChalkInstance } from './chalk-utils.js'
 import { doPrintHeader, getHeader } from './header.js'
-import { fmt, wrapSchema, ZodObjectSchema } from './helpers.js'
+import { fmt, formatValue, wrapSchema, ZodObjectSchema } from './helpers.js'
 import { getLogger } from './logger.js'
 import { removeAnsi } from './string-utils.js'
-
 import { getYargAppOptionObject } from './zod-schema.js'
+
+const prettyErrorLog = (
+    error: z.ZodError,
+    message: string,
+    color: ChalkColor | undefined = 'red',
+    theme: 'fg' | 'bg' = 'fg',
+): string => {
+    const _instance: ChalkInstance =
+        color !== undefined ? getColorChalkInstance(color, theme) : chalk
+    /* if (isChalkColorPreset(color)){
+        _color =  parseColorToHexStrict(chalkPresetToColorJS(color).darken(0.6))
+ } */
+    return `${_instance.underline(`\n------ ✖ ${message} ------`)}\n${z.prettifyError(error)}`
+}
 
 /**
  * A callback type that is invoked upon successful initialization of the application.
@@ -51,8 +65,8 @@ export const initApp = async <AppOptionsSchema extends ZodObjectSchema>(
         /* RESOLBED APP CONFIG */
         const app_config: AppConfig = _appConfigResult.data
         /** .child({ module: 'initApp' }) */
-        const LOGGER = getLogger()
-        LOGGER.setLevel('debug')
+        const LOGGER = getLogger().child('app_init')
+        ///LOGGER.setLevel('debug')
 
         const option_schema: z.ZodObject =
             wrapSchema<z.ZodObject>(optionsSchema)
@@ -74,6 +88,11 @@ export const initApp = async <AppOptionsSchema extends ZodObjectSchema>(
                   getHeader(app_config).divider
               }`
 
+        const getPlainArgsInstance = (
+            value = process.argv,
+        ): Argv<Record<string, unknown>> => {
+            return yargs(value)
+        }
         /** Function to Write commander like options from zod descriptions */
         const getArgsInstance = (
             value = process.argv,
@@ -91,23 +110,19 @@ export const initApp = async <AppOptionsSchema extends ZodObjectSchema>(
 
         // if (app_config.clear) clear()
         /* * Print the header if print ==true  * */
-        // console.log(header)
+        console.log(header)
+        const raw_arguments = getPlainArgsInstance(_yargs).argv
+        //const argSuccess2 = optionsSchema.parse(raw_arguments)
+        const argSuccess = optionsSchema.safeParse(raw_arguments)
 
         const yargsInstance = getArgsInstance(_yargs)
-        const raw_arguments = yargsInstance.argv
 
         /* i dont know what anything does after this */
 
-        const argSuccess = optionsSchema.safeParse(raw_arguments)
         if (argSuccess.success) {
             const resolvedArgs: z.output<AppOptionsSchema> = argSuccess.data
-
-            // if (resolvedArgs['debug']) {
-            LOGGER.debug(raw_arguments)
-            LOGGER.debug('DEBUG:: RESOLVED ARGUMENTS:: ', resolvedArgs)
-
+            LOGGER.debug(fmt`RESOLVED ARGUMENTS::${resolvedArgs}`)
             const _help: string = await yargsInstance.getHelp()
-
             await initFunction(resolvedArgs, app_config, removeAnsi(_help))
 
             return yargsInstance
@@ -115,16 +130,19 @@ export const initApp = async <AppOptionsSchema extends ZodObjectSchema>(
             /* IF WE ARE IN ERROR MODE , arggs did not parse */
         } else {
             const argParseError = argSuccess.error
-            LOGGER.error('------ Invalid command line arguments ------')
-            LOGGER.error(z.prettifyError(argParseError))
-
+            LOGGER.error(
+                prettyErrorLog(
+                    argParseError,
+                    'Invalid command line arguments',
+                    undefined,
+                ),
+            )
             /*  const interactive_bool = resolveAppOptionsSchema(
                 z.object({ interactive: z.boolean().default(true) }),
                 raw_arguments,
             )*/
             const interactive_bool = !_appConfigResult.data.skip_interactive
 
-            LOGGER.error(interactive_bool)
             if (!interactive_bool) return undefined
             else {
                 const options: yargsInteractive.Option = {
@@ -140,9 +158,15 @@ export const initApp = async <AppOptionsSchema extends ZodObjectSchema>(
                     .then((result) => {
                         if (result.errorlist === 'SHOW ERROR') {
                             if (!argSuccess.success) {
-                                console.log(z.prettifyError(argSuccess.error))
-                                //  LOGGER.error('ERROR ARGS', raw_arguments)
-                                //  LOGGER.error('ERROR', argSuccess.error)
+                                LOGGER.error(
+                                    prettyErrorLog(
+                                        argSuccess.error,
+                                        'Invalid command line arguments',
+                                    ),
+                                )
+                                LOGGER.error(
+                                    `Raw Yargs: \n ${formatValue(raw_arguments)}`,
+                                )
                                 return undefined
                             }
                         } else if (result.errorlist === 'HELP') {
@@ -154,8 +178,14 @@ export const initApp = async <AppOptionsSchema extends ZodObjectSchema>(
                     })
             }
         }
-    } else z.prettifyError(_appConfigResult.error)
-
+    } else
+        getLogger().fatal(
+            prettyErrorLog(
+                _appConfigResult.error,
+                'Invalid app configuration',
+                'magenta',
+            ),
+        )
     return undefined
 }
 export const initializeApp = initApp
