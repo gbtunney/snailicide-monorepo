@@ -22,7 +22,6 @@ export type CLIAppMeta = MetaOutput
 declare module 'zod' {
     interface GlobalMeta extends MetaInput {}
 }
-/* eslint-enable @typescript-eslint/consistent-type-definitions, @typescript-eslint/no-empty-object-type */
 
 const parseMeta = <Schema extends MetaSchema = MetaSchema>(
     data: unknown,

@@ -6,7 +6,7 @@ import { z } from 'zod'
 import * as process from 'process'
 import { AppConfig, AppConfigIn, appConfigSchema } from './app-config.js'
 import { doPrintHeader, getHeader } from './header.js'
-import { prettify, wrapSchema, ZodObjectSchema } from './helpers.js'
+import { fmt, wrapSchema, ZodObjectSchema } from './helpers.js'
 import { getLogger } from './logger.js'
 import { removeAnsi } from './string-utils.js'
 
@@ -70,7 +70,7 @@ export const initApp = async <AppOptionsSchema extends ZodObjectSchema>(
               : app_config.name
         const header: string = app_config.print
             ? doPrintHeader(getHeader(app_config))
-            : prettify`\nWelcome to ${app_config.name} ${
+            : fmt`\nWelcome to ${app_config.name} ${
                   getHeader(app_config).divider
               }`
 

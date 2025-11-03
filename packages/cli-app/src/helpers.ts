@@ -8,6 +8,7 @@ export type WrappedSchema<Schema extends ZodObjectSchema> =
     Schema extends ZodObjectSchema ? Schema : never
 // Detect effects (transform/refine/preprocess)
 
+/** TODO THIS HAS THE PRETTIFY HELPERS IN IT !!! */
 export const wrapSchema = <Schema extends ZodObjectSchema>(
     schema: Schema,
 ): Schema => {
@@ -125,12 +126,12 @@ export const getValueSchema = <Schema extends z.ZodType>(
             )
         } else if (_outputType.type === 'transform') {
             getLogger().info(
-                prettify`zod pipe TRANSFORM detected; unwrapping output:[${_outputType.type}] input:[${_inputType?.type}]`,
+                fmt`zod pipe TRANSFORM detected; unwrapping output:[${_outputType.type}] input:[${_inputType?.type}]`,
             )
 
             if (_inputType?.type !== 'transform') {
                 getLogger().debug(
-                    prettify`TRANSFORM outtype detected; ATTEMPTING TO SUBSTITUTE INPUT input:[${_inputType?.type}]`,
+                    fmt`TRANSFORM outtype detected; ATTEMPTING TO SUBSTITUTE INPUT input:[${_inputType?.type}]`,
                 )
 
                 //attempt to coerce inner type ( STUPID ZOD)
@@ -143,14 +144,14 @@ export const getValueSchema = <Schema extends z.ZodType>(
                     : undefined
                 if (myNewType) {
                     getLogger().debug(
-                        prettify`SUBSTITUTE SUCESS ${myNewType?.type} hasUnwrap: ${hasUnwrap(myNewType)} hasRemoveDefault:${hasRemoveDefault(myNewType)} hasInnerType:${hasInnerType(myNewType)}`,
+                        fmt`SUBSTITUTE SUCESS ${myNewType?.type} hasUnwrap: ${hasUnwrap(myNewType)} hasRemoveDefault:${hasRemoveDefault(myNewType)} hasInnerType:${hasInnerType(myNewType)}`,
                     )
                     return getValueSchema(myNewType, unwrapContainers)
                 }
             }
         } else {
             getLogger().info(
-                prettify`zod pipe detected; unwrapping output:[${_outputType.type}] input:[${_inputType?.type}]`,
+                fmt`zod pipe detected; unwrapping output:[${_outputType.type}] input:[${_inputType?.type}]`,
             )
             return getValueSchema(_outputType as z.ZodType, unwrapContainers)
         }
@@ -229,7 +230,7 @@ export const formatArgs = (
 ): string => vals.map((v) => formatValue(v)).join(delimiter)
 
 /** Tagged template: safely interpolate unknowns */
-export const prettify = (
+export const fmt = (
     strings: TemplateStringsArray,
     ...values: Array<unknown>
 ): string =>
@@ -240,4 +241,6 @@ export const prettify = (
     }, '')
 
 /** @deprecated Use fmt */
-export const pp = prettify
+export const prettify = fmt
+/** @deprecated Use fmt */
+export const pp = fmt

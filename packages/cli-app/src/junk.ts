@@ -8,9 +8,8 @@ const DEFAULT_LOGGER = getLogger({
     name: 'defaultlogger',
     time_stamp: true,
 })
-console.log('LATEST ', DEFAULT_LOGGER.name, DEFAULT_LOGGER.level)
 
-DEFAULT_LOGGER.setLevel('debug')
+DEFAULT_LOGGER.setLevel('error')
 
 const latestLogger = getLogger()
 
@@ -26,27 +25,10 @@ const LOGGER2 = getLogger(
     true,
 )
 
-console.log(LOGGER2.name, getLogger().name, getLogger().level)
-
 LOGGER2.info('HERP DERP LOGGIN CRAP!!')
-console.log(getLogger().name, getLogger().level)
-
 LOGGER2.warn('warn: %s', 'something odd')
 LOGGER2.debug('HERP DERP LOGGIN CRAP!!')
-
 LOGGER2.error('error with meta %o', { a: 1, b: [1, 2, 3] })
-
-// no filepath
-/*
-const log = createLogger({ name: 'APP', level: 'debug', time_stamp: true, time_format: 'HH:mm:ss' })
-log.info('hello %o', { a: 1 })
-
-const child = log.child('worker', { level: 'info' })
-child.warn('careful')*/
-/*
-const singleton = getLogger2({ name: 'SINGLE', level: 'warn' })
-singleton.error('boom')
-*/
 
 const schema = z.object({
     choice: z

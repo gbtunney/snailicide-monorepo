@@ -1,10 +1,16 @@
-import chalk, { type ColorName } from 'chalk'
-import ColorJS from 'colorjs.io'
+import chalk, { modifierNames } from 'chalk'
 import dayjs from 'dayjs'
 import z from 'zod'
+import {
+    type ChalkColor,
+    getColorChalkInstance,
+    wrapColorChalkInstanceText,
+} from './chalk-utils.js'
 
-/** "#F0E68C" */
-const ChalkColor: ColorName | `#${string}` = 'green'
+import { parseColorToHexStrict } from './color-utilities.js'
+import { fmt } from './helpers.js'
+
+export type LevelColors = ChalkColor
 export const LEVEL_NAMES = [
     'trace',
     'debug',
@@ -31,7 +37,11 @@ export type ExhaustiveRecordFrom<
     Value = unknown,
 > = Record<ExtractKeys<Type>, Value>
 
-const LOG_LEVELS: ExhaustiveRecordFrom<typeof LEVEL_NAMES, number> = {
+export type LoggerRecord<Value> = ExhaustiveRecordFrom<
+    typeof LEVEL_NAMES,
+    Value
+>
+export const LOG_LEVELS: LoggerRecord<number> = {
     debug: 20,
     error: 50,
     fatal: 60,
@@ -41,68 +51,28 @@ const LOG_LEVELS: ExhaustiveRecordFrom<typeof LEVEL_NAMES, number> = {
     warn: 40,
 }
 
-export type Color =
-    | 'gray'
-    | 'blue'
-    | 'cyan'
-    | 'green'
-    | 'yellow'
-    | 'magenta'
-    | 'red'
-    | 'white'
-    | `#${string}`
-
-const LEVEL_COLORS: ExhaustiveRecordFrom<typeof LEVEL_NAMES, Color> = {
-    debug: 'blue',
+export const LEVEL_COLORS: LoggerRecord<ChalkColor> = {
+    debug: 'blue', //chalk.bgRedBright.bold,
     error: 'red',
     fatal: 'magenta',
-    info: 'green',
+    info: parseColorToHexStrict('#632020'),
     silent: 'white',
     trace: 'gray',
     warn: 'yellow',
 }
-type Teyyyy = ExtractKeys<typeof LEVEL_COLORS>
-
-type LevelColors = ExhaustiveRecordFrom<typeof LEVEL_NAMES, Color>
-
-/** Normalize any color string to sRGB hex */
-const parseColorJSToHex = (input: string): string => {
-    if (input.startsWith('#')) return input as `#${string}`
-    try {
-        /** Parse CSS color (e.g., 'oklch(60% 0.15 30)', 'rebeccapurple') */
-        const myColor = new ColorJS(input)
-        //const srgb = c.to('srgb').toGamut({ method: 'clip' }) // ensure in sRGB gamut
-
-        const hexValue = myColor.to('srgb').toString({ format: 'hex' })
-        return hexValue
-        // return srgb.toString({ format: 'hex' }) as `#${string}`
-    } catch {
-        return '#FFFFFF' //TODO: add throw??
-    }
-}
+const LEVEL_STYLES = modifierNames
 
 const isBrowser = (): boolean =>
     typeof window !== 'undefined' && typeof window.document !== 'undefined'
 
 const RESET = '\x1b[0m'
 
-/**
- * Function colorizeNode(s: string, color: Color): string { if (color.startsWith('#')) return s; const code = ANSI[color
- * as keyof typeof ANSI]; return code ? `${code}${s}${RESET}` : s; }
- */
-function colorizeNode(value: string, color: Color): string {
-    const colorHex = parseColorJSToHex(color)
-    if (color.startsWith('#')) return chalk.bgHex(color)(colorHex)
-    const fn = (chalk as any)[color] as ((t: string) => string) | undefined
-    return fn ? fn(value) : value
-}
-
 /** TODO: use hex color in config */
 function colorizeBrowser(
     label: string,
-    color: Color,
+    color: LevelColors,
 ): [string, string, string] {
-    const css = `color:${color};font-weight:600`
+    const css = fmt`color:${color};font-weight:600`
     return [`%c${label}%c`, css, '']
 }
 
@@ -118,26 +88,18 @@ function pickConsole(level: LevelName): (...args: Array<unknown>) => void {
     }
 }
 
-const LEVEL_COLOR_DEFAULTS: Record<LevelName, Color> = {
-    debug: 'cyan',
-    error: 'red',
-    fatal: 'magenta',
-    info: 'green',
-    silent: 'white',
-    trace: 'gray',
-    warn: 'yellow',
-}
 const schemaLoggerOpts = z.object({
     colors: z
-        .transform<Partial<LevelColors>, LevelColors>((val = {}) => {
-            // console.log("COLOR PARSING TRANSFORM ", val )
+        .transform<
+            Partial<LoggerRecord<LevelColors>>,
+            LoggerRecord<LevelColors>
+        >((val) => {
             return { ...LEVEL_COLORS, ...val }
         })
         .prefault({}),
     level: z.enum(LEVEL_NAMES).default('info'),
     name: z.string().trim().optional(),
-    //.default(LEVEL_COLORS),
-    time_format: z.string().default('mm:ss:ms'),
+    time_format: z.string().default('hh:mm:ss'),
     time_stamp: z.boolean().default(false),
 })
 
@@ -178,7 +140,7 @@ export const createLogger = (
     const showTime: boolean = cfg.time_stamp
     const timeFormat = cfg.time_format
     // If your schema already merged colors, this is already LevelColors
-    const colors: Record<LevelName, Color> = {
+    const colors: LoggerRecord<LevelColors> = {
         ...LEVEL_COLORS,
         ...(cfg.colors ?? {}),
     }
@@ -187,10 +149,12 @@ export const createLogger = (
         LOG_LEVELS[level] >= minLevel && level !== 'silent'
 
     const prefix = (level: LevelName): string => {
+        const bg_color = getColorChalkInstance(colors[level], 'bg')
+        //assertChalkColor( color)
         return [
-            `----- ${level.toUpperCase()}`,
-            ...(showTime ? [dayjs().format(timeFormat)] : []),
-            ...(name ? [`[${name}]`] : []),
+            bg_color.bold(` ===> ${chalk.bold(level.toUpperCase())} `),
+            chalk.italic(showTime ? dayjs().format(timeFormat) : ''),
+            name ? [`[${name}]`] : [],
         ].join(' ')
     }
 
@@ -203,10 +167,12 @@ export const createLogger = (
         const head = prefix(level)
         const color = colors[level]
         if (isBrowser()) {
-            const [fmt, css, reset] = colorizeBrowser(head, color)
+            const [fmt, css, reset] = colorizeBrowser(head, 'red')
             out(fmt, css, reset, ...args)
         } else {
-            out(colorizeNode(head, color), ...args)
+            //chalk.bgRed('THIS IS A COLOR ', color)
+
+            out(wrapColorChalkInstanceText(head, color, 'fg'), ...args)
         }
     }
 

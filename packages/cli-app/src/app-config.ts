@@ -7,6 +7,9 @@ export type DefaultAliases = {
     help?: string
     version?: string
 }
+
+// ...existing code...
+
 const default_aliases: DefaultAliases = {
     help: 'h',
     version: 'v',

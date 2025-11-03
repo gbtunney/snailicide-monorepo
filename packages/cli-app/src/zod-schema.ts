@@ -2,11 +2,11 @@ import { Options as SingleYarg, PositionalOptionsType } from 'yargs'
 import yargsInteractive from 'yargs-interactive'
 import { z } from 'zod'
 import {
+    fmt,
     formatValue,
     getDefaultValue,
     getValueSchema,
     isOptionalType,
-    prettify,
     wrapAnyZodSchema,
     wrapSchema,
     ZodObjectSchema,
@@ -74,11 +74,11 @@ export const getYargAppOptionObject = <
 
             // ...existing code...
             LOGGER.info(
-                prettify`Schema: KEY:[${_key}] WRAPPER:[${wrapperSchema.type}]\n\tOUTER: ${outerSchema.type} INNER:[${innerSchema.type}] CONTAINER:[${innerContainerSchema.type}] \nREQUIRED: [${!isOptionalType(wrapperSchema)}] DEFAULT: [${getDefaultValue(wrapperSchema)}]`,
+                fmt`Schema: KEY:[${_key}] WRAPPER:[${wrapperSchema.type}]\n\tOUTER: ${outerSchema.type} INNER:[${innerSchema.type}] CONTAINER:[${innerContainerSchema.type}] \nREQUIRED: [${!isOptionalType(wrapperSchema)}] DEFAULT: [${getDefaultValue(wrapperSchema)}]`,
             )
 
             if (!optionMeta?.description) {
-                LOGGER.warn(prettify`\nNO Description META FOR ${_key}`)
+                LOGGER.warn(fmt`\nNO Description META FOR ${_key}`)
             }
 
             const resultYargsConfig: SingleYarg = {
@@ -86,7 +86,7 @@ export const getYargAppOptionObject = <
                 array: outerSchema.type === 'array',
                 default: getDefaultValue(wrapperSchema),
                 demandOption: !isOptionalType(wrapperSchema),
-                description: prettify`${formatValue(optionMeta?.description)} ${wrapString(getEnumValuesString(innerSchema))}${wrapString(getArraySchemaString(innerSchema))}`,
+                description: fmt`${formatValue(optionMeta?.description)} ${wrapString(getEnumValuesString(innerSchema))}${wrapString(getArraySchemaString(innerSchema))}`,
                 hidden: optionMeta?.hidden,
                 type: convertZodTypeToYargs(innerSchema.type) as YargsTypes,
             }
