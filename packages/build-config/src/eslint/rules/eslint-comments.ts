@@ -4,21 +4,21 @@ export const eslintCommentRules = (): Config => [
     {
         name: 'ESLint Comments : ERROR',
         rules: {
-            /* disallow a eslint-enable comment for multiple eslint-disable comments */
             'eslint-comments/no-aggregating-enable': 'error',
-            /*disallow duplicate eslint-disable comments*/
             'eslint-comments/no-duplicate-disable': 'error',
-            /*   disallow eslint-disable comments without rule names */
             'eslint-comments/no-unlimited-disable': 'error',
-            /* disallow unused eslint-disable comments*/
             'eslint-comments/no-unused-disable': 'error',
-            /* disallow unused eslint-enable comments*/
             'eslint-comments/no-unused-enable': 'error',
-            /*  disallow ESLint directive-comments*/
             'eslint-comments/no-use': [
                 'error',
                 {
-                    allow: ['eslint'],
+                    allow: [
+                        'eslint', // /* eslint ... */
+                        'eslint-disable', // /* eslint-disable rule */
+                        'eslint-enable', // /* eslint-enable rule */
+                        'eslint-disable-next-line', // // eslint-disable-next-line rule
+                        'eslint-disable-line', // // eslint-disable-line rule
+                    ],
                 },
             ],
         },
