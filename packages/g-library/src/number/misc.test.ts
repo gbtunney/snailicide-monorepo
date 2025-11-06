@@ -1,8 +1,8 @@
 import { describe, expect, test } from 'vitest'
 
-import { getIntegerDigitCount, randomIntInRange } from './index.js'
+import { getIntegerDigitCount, randomIntInRange } from './misc.js'
 
-describe('Numeric Test Generic Functions,', () => {
+describe('Numeric MISC Functions,', () => {
     test('TEST: getIntegerDigitCount:', () => {
         expect(getIntegerDigitCount(31)).toEqual(2.0)
         expect(getIntegerDigitCount(0)).toEqual(0)
