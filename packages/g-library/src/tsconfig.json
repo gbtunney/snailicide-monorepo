@@ -11,6 +11,6 @@
         "lib": ["ESNext", "ES2020", "DOM"]
     },
     /* TODO: Assetation test currently errors ts but passes test, please fix */
-    "exclude": ["./typeguard/assertation.test.ts"],
+    //  "exclude": ["./typeguard/assertation.test.ts"],
     "include": ["**/*.ts", "**/*.cts", "**/*.mts"]
 }

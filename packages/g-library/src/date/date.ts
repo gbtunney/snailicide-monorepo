@@ -19,10 +19,8 @@ export const format_date_time_short = 'MM-DD-YYYY, h:mm:ss a'
  *
  * @category Format
  */
-export /**
-        * Do -> D (Dayjs)
-        */
-const format_date_time_long = 'MMMM D YYYY, h:mm:ss a' 
+export /** Do -> D (Dayjs) */
+const format_date_time_long = 'MMMM D YYYY, h:mm:ss a'
 
 /** Dayjs uses ISO 8601 */
 export type ISO_8601 = 'ISO_8601'
@@ -151,4 +149,6 @@ const formatDateLikeDuration = (d: dayjs.Dayjs, pattern: string): string => {
     return formatDurationFromMs(ms, pattern)
 }
 
-export default formatIsoDate
+// Remove default export to satisfy import/no-default-export
+// export default formatIsoDate
+// Use named export already declared above

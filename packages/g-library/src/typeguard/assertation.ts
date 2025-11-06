@@ -1,4 +1,3 @@
-
 export type TypeGuardFunction = (
     value: unknown,
     ...args: Array<unknown>
