@@ -32,6 +32,7 @@
         "jacano.vscode-pnpm",
         "alefragnani.bookmarks",
         "adrianwilczynski.terminal-commands",
-        "github.vscode-github-actions"
+        "github.vscode-github-actions",
+        "anseki.vscode-color"
     ]
 }

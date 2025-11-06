@@ -27,8 +27,10 @@ Coding standards, domain knowledge, and preferences that AI should follow.
   or script after I have thought about it. I would prefer a single source of
   truth using canvas if possible, but please make me aware of suggestions you
   can do
-- i use monorepo and pnpm and try to avoid jumping around via cd to do things to
-  directories besides the root.
+- IMPORTANT - i use pnpm workspace monorepo. All terminal commands MUST stay in
+  root and use pnpm --filter=<package-name> <command> OR pnpm
+  --filter=<package-name> exec<package-root-dir> Please try to avoid jumping
+  around via cd to do things to directories besides the root.
 - zsh over bash for shell
 - please use the most up to date TypeScript/JS (ESM format, no CJS) and best
   practices.
@@ -39,6 +41,7 @@ Coding standards, domain knowledge, and preferences that AI should follow.
 - use tsx instead of (ts-)node whenever possible
 - suggest which devDeps and deps can be removed or utilized better
 - subpackages (or single) can be variable 'types' with a build
+-
 
 ## command preference for
 

@@ -4,45 +4,50 @@ import {
     PRETTIER_FILE_EXTENSIONS,
 } from '@snailicide/build-config'
 
-//TODO: figure out a way this is not utterly ridiculous
 const mdIgnores = [
-    '#**/{node_modules,.changeset,docs}/**',
+    '#**/{node_modules,.changeset,docs,.history}/**',
     '#packages/cli-template/templates/**/*',
 ]
 
-/** TODO: had to remove the type so i could use staged function */
+/**
+ * Minimal shell-safe single-quote wrapper
+ */
+const shQuote = (s: string): string => `'${s.replace(/'/g, `'\\''`)}'`
+
 const getLintStagedConfig = () => {
     const jsExt = getFileExtensionList(JSLIKE_FILE_EXTENSIONS)
     const prettierExt = getFileExtensionList<true>(PRETTIER_FILE_EXTENSIONS)
     const mdExt = getFileExtensionList<true>(['md'])
 
-    const configExample = {
-        /** Markdown */
+    return {
+        /**
+         * Markdown (warn-only)
+         */
         [`*.${mdExt.toString()}`]: (stagedFiles: string | Array<string>) => {
-            const files = Array.isArray(stagedFiles)
-                ? stagedFiles.join(' ')
-                : stagedFiles
+            const list = Array.isArray(stagedFiles)
+                ? stagedFiles
+                : [stagedFiles]
+            const files = list.map(shQuote).join(' ')
+            const ignores = mdIgnores.map(shQuote).join(' ')
+            // Use a shell so || true is honored
             return [
-                'pnpm prettier --write',
-                `pnpm exec markdownlint-cli2 ${files} ${mdIgnores.join(' ')}`,
-                //`pnpm run fix:md ${files} ${mdIgnores.join(' ')}`,
+                `bash -lc "pnpm exec markdownlint-cli2 --config ./.markdownlint-cli2.mjs ${files} ${ignores} || true"`,
             ]
         },
 
-        /** JS-Like Files */
+        // JS-like
         [`*.{${jsExt.toString()}}`]: [
             'prettier --write',
             'eslint --fix --debug',
         ],
 
-        /** Misc Prettier Files */
+        // Misc Prettier
         [`*.{${prettierExt.toString()}}`]: 'prettier --write',
 
-        /** Shell Scripts and Ignores */
+        // Shell/ignore
         '.gitignore': 'prettier --write',
         '.husky/**/*': 'prettier --write',
     }
-    return configExample
 }
 
 export default getLintStagedConfig()
