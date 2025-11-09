@@ -2,8 +2,9 @@ import { RollupOptions } from 'rollup'
 import shell from 'shelljs'
 import type { Jsonify, JsonObject } from 'type-fest'
 import _package from './package.json' assert { type: 'json' }
+import { Prettier } from './src/prettier/index.js'
+import * as rollup from './src/rollup/index.js'
 import { exportJSONFile } from './types/export.json.file.js'
-import { Prettier, rollup } from './types/index.js'
 import {
     MarkdownLintConfig,
     markdownLintConfigJson,
@@ -13,7 +14,8 @@ import { tsConfigBase } from './types/tsconfig/index.js'
 const LIBRARY_NAME: string = 'GBBuildConfig'
 const PRINT_EXPORTS: boolean = false
 
-const prettierConfig: Jsonify<typeof Prettier.config> = Prettier.config
+const _prettierConfig = JSON.stringify(Prettier.config)
+const prettierConfig: Jsonify<typeof _prettierConfig> = _prettierConfig
 
 const MARKDOWN_LINT_OPTIONS: MarkdownLintConfig = {}
 const _mdConfig = markdownLintConfigJson(MARKDOWN_LINT_OPTIONS)

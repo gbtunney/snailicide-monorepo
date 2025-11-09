@@ -9,6 +9,7 @@ import { InternalModuleFormat, OutputOptions, RollupOptions } from 'rollup'
 import { merge as deepmerge } from 'ts-deepmerge'
 import { JsonValue } from 'type-fest'
 import type { LiteralUnion } from 'type-fest'
+import z from 'zod'
 import path from 'path'
 import { BasePackage } from './../npm/index.js'
 import {
@@ -41,7 +42,7 @@ export const getBanner = (
  * Build: ${new Date().toLocaleString()}
  */`
     } else {
-        parseNPMPackage(package_json, undefined, show_error)
+        parseNPMPackage(package_json, z.object({}), show_error)
         return undefined
     }
 }

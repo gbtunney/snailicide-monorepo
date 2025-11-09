@@ -22,4 +22,5 @@ export const vitest = {
     config: viTestConfig,
 }
 
-export type { UserConfig as VitestUserConfig } from 'vitest/config'
+// Vitest v2+: avoid missing 'UserConfig' export by deriving the type
+export type VitestUserConfig = Parameters<typeof defineConfig>[0]
