@@ -23,6 +23,7 @@
         "docs:nx": "cross-var nx run $npm_package_name:docs:build",
         "docs:open": "cross-var pnpm exec open $npm_package_config_docs_url",
         "\n========== DEPLOY >> ==========": "",
+        "git:add": "pnpm exec git add .",
         "deploy": "pnpm prerelease && pnpm deploy:docs",
         "deploy:docs": "cross-var scp -r $npm_package_config_docs_deploy_local $npm_package_config_docs_deploy_remote",
         "\n========== PUBLISH >> ==========": "",

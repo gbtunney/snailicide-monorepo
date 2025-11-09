@@ -1,10 +1,10 @@
 /**
  * A Node.js command line interface and style checker / lint tool for Markdown files.
  *
- * @todo: validate the schema ! function! important!
  * @see [igorshubovych/markdownlint-cli:](https://github.com/igorshubovych/markdownlint-cli)
  * @see [davidAnson/markdownlint](https://github.com/DavidAnson/markdownlint)
  * todo: format front-matter?
+ * @todo Validate the schema ! function! important!
  */
 import type { Configuration } from 'markdownlint'
 import { JsonObject } from 'type-fest'

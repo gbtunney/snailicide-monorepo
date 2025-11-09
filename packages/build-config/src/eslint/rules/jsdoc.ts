@@ -36,7 +36,7 @@ export const jsdocRules = (): Config => [
             'jsdoc/tag-lines': ['error', 'any', { startLines: 1 }],
             'jsdoc/check-tag-names': [
                 'warn',
-                { definedTags: ['group', 'category'] },
+                { definedTags: ['group', 'category', 'todo'] },
             ],
 
             /** Blank Lines */

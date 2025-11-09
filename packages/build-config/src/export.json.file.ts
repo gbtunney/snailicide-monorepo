@@ -32,10 +32,9 @@ export const prettyPrintJSON = <Type extends Jsonifiable>(
 }
 
 export type JSONExportEntry<
-    Type = Json.Value,
-    DataType = Type extends Jsonifiable ? Type : never,
+    Type extends Jsonifiable = JsonValue, //  ? Type : never
 > = {
-    data: DataType
+    data: Type
     filename: string
 }
 
