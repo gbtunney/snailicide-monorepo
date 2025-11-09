@@ -11,5 +11,4 @@ const options = {
         MD046: false,
     },
 }
-
-export default { mdlint, ...options }
+export default { ...mdlint, ...options }

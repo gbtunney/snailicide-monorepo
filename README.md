@@ -4,7 +4,7 @@
 
 - [pnpm](https://pnpm.io/motivation)
 - [typescript](https://www.typescriptlang.org/docs/)
-- [JSdoc Cheatsheet](https://devhints.io/jsdoc) tes example:::
+- [JSdoc Cheatsheet](https://devhints.io/jsdoc) tes example:::gi
 
 ## Example monorepo project
 
