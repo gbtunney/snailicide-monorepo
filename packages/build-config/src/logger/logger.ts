@@ -11,10 +11,12 @@ import {
 import { parseColorToHexStrict } from './utilities/color.js'
 
 export type LevelColors = ChalkColor
+ 
 export const LEVEL_NAMES = [
     'trace',
-    'debug',
+
     'info',
+    'debug',
     'warn',
     'error',
     'fatal',
@@ -32,7 +34,7 @@ type ExtractKeys<
           : never
 
 /** Builds a Record<K, V> where K is inferred from array or object T. Enforces exhaustiveness: no extra or missing keys. */
-export type ExhaustiveRecordFrom<
+type ExhaustiveRecordFrom<
     Type extends ReadonlyArray<unknown> | Record<keyof unknown, unknown>,
     Value = unknown,
 > = Record<ExtractKeys<Type>, Value>
@@ -41,26 +43,25 @@ export type LoggerRecord<Value> = ExhaustiveRecordFrom<
     typeof LEVEL_NAMES,
     Value
 >
-
-/* eslint sort/object-properties:off */
+ 
 export const LOG_LEVELS: LoggerRecord<number> = {
-    trace: 10,
-    info: 30,
     debug: 35,
-    warn: 40,
     error: 50,
     fatal: 60,
+    info: 30,
     silent: 99,
+    trace: 10,
+    warn: 40,
 }
-
+ 
 export const LEVEL_COLORS: LoggerRecord<ChalkColor> = {
-    trace: 'gray',
-    info: parseColorToHexStrict('#0bb806'),
     debug: 'blue',
-    warn: 'yellow',
     error: 'red',
     fatal: 'magenta',
+    info: parseColorToHexStrict('#0bb806'),
     silent: 'white',
+    trace: 'gray',
+    warn: 'yellow',
 }
 const LEVEL_STYLES = modifierNames
 
@@ -85,6 +86,10 @@ function pickConsole(level: LevelName): (...args: Array<unknown>) => void {
             return console.error.bind(console)
         case 'warn':
             return console.warn.bind(console)
+        case 'info':
+            return console.info.bind(console)
+        case 'debug':
+            return console.debug.bind(console)
         default:
             return console.log.bind(console)
     }
@@ -120,9 +125,9 @@ export type Logger = {
     error: <Type extends Array<unknown>>(...a: Type) => void
     fatal: <Type extends Array<unknown>>(...a: Type) => void
 }
-export const createLogger = (
-    opts?: z.input<typeof schemaLoggerOpts>,
-): Logger => {
+
+export type LoggerOpts = z.input<typeof schemaLoggerOpts>
+export const createLogger = (opts?: LoggerOpts): Logger => {
     // Resolve/validate options
     const parsed = schemaLoggerOpts.safeParse(opts ?? {})
     if (!parsed.success) {

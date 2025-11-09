@@ -13,7 +13,9 @@ export type PackageJsonInput<
     BaseSchema extends AnyZodObject = typeof basePackage,
 > = z.input<Merge<BaseSchema, Schema>>
 
-const asObjectSchema = (schema: unknown): AnyZodObject => schema as AnyZodObject
+const asObjectSchema = <Type extends AnyZodObject = AnyZodObject>(
+    schema: Type,
+): Type => schema
 
 /** Export the base package.json output type */
 export type BasePackage = z.output<typeof basePackage>
@@ -23,31 +25,24 @@ export const packageStandardSchema = (
     baseSchema: AnyZodObject = asObjectSchema(basePackage),
 ): AnyZodObject => baseSchema
 
-/** IsNPMPackage overloads */
 export function isNPMPackage(
-    value: unknown,
-): value is z.output<typeof basePackage>
-export function isNPMPackage<SchemaType extends AnyZodObject>(
-    value: unknown,
-    customSchema: SchemaType,
-    showError?: boolean | 'safe',
-    passThrough?: boolean,
-): value is z.output<SchemaType>
-export function isNPMPackage(
-    value: unknown,
-    customSchema?: AnyZodObject,
-    showError: boolean | 'safe' = false,
-    passThrough: boolean = true,
-): boolean {
-    const base = asObjectSchema(basePackage)
-    let merged = customSchema ? base.extend(customSchema) : base
-    if (passThrough) merged = merged.loose()
+    value: z.input<typeof basePackage>,
+    custom_schema: AnyZodObject | undefined = undefined,
+): value is z.output<typeof basePackage> {
+    const base: typeof basePackage = asObjectSchema(basePackage)
 
-    const result = merged.safeParse(value)
-    if (showError === 'safe' && !result.success) console.log(result.error)
-    if (showError === true && !result.success) merged.parse(value) // will throw
+    //const merged :AnyZodObject = custom_schema !==undefined? base.extend(z.object({})):base
 
-    return result.success
+    //base.extend(z.object({}))
+
+    const extendedSchema =
+        custom_schema !== undefined
+            ? z.object({
+                  ...base.shape,
+                  ...custom_schema.shape,
+              })
+            : base
+    return extendedSchema.safeParse(value).success
 }
 
 /** ParseNPMPackage overloads */
@@ -67,7 +62,15 @@ export function parseNPMPackage(
     passThrough: boolean = true,
 ): unknown {
     const base = asObjectSchema(basePackage)
-    let merged = customSchema !== undefined ? base.extend(customSchema) : base
+
+    let merged: z.ZodObject =
+        customSchema !== undefined
+            ? z.object({
+                  ...base.shape,
+                  ...customSchema.shape,
+              })
+            : base
+
     if (passThrough) merged = merged.loose()
 
     const result = merged.safeParse(value)

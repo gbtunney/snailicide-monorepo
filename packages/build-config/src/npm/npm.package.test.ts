@@ -12,10 +12,10 @@ const example_package = {
     description: 'Description',
     license: 'MIT',
     main: 'index.js',
-    name: 'g-libttest',
+    name: 'g-libtlltest',
     repository: {
         type: 'git',
-        url: 'git+https://github.com/gbtunney/snailicide-monorepo.git',
+        url: 'https://github.com/gbtunney/snailicide-monorepo.git',
     },
     scripts: {},
     types: 'types/index.d.ts',
@@ -51,7 +51,7 @@ const example_package_bad_desc = omit(['description'], example_package)
 describe('isNPMPackage', () => {
     test('is valid package.json :', () => {
         const customSchema = z.object({
-            name: z.literal('g-libttest'),
+            //  name: z.literal('g-libttest'),
             scripts: z.object({
                 build: z.string(),
                 preinstall: z.string(),
@@ -66,6 +66,7 @@ describe('isNPMPackage', () => {
                 })
                 .strict(),
         })
+        expect(isNPMPackage(example_package2)).toBe(true)
         expect(isNPMPackage(example_package2, customSchema)).toBe(true)
         expect(isNPMPackage(example_package2, customSchemaStrict)).toBe(false)
 
@@ -86,8 +87,9 @@ describe('isNPMPackage', () => {
         ).toBe(false)
 
         expect(isNPMPackage(example_package_bad_name)).toEqual(false)
+        //@ts-expect-error  Intentional bad data for test
         expect(isNPMPackage(example_package_bad_email)).toEqual(false)
-
+        //@ts-expect-error  Intentional bad data for test
         expect(isNPMPackage(example_package_bad_desc)).toEqual(false)
         expect(isNPMPackage(example_package_bad_semver)).toEqual(false)
     })
