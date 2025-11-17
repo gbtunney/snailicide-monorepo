@@ -2,6 +2,7 @@ import * as _lookup from './dictionary.js'
 import * as escape from './escape.js'
 import * as helpers from './helpers.js'
 import * as strToRegexp from './string-to-regexp.js'
+import * as typedRegexp from './typed.regexp.js'
 import * as validators from './validators.js'
 
 /* eslint  @typescript-eslint/unbound-method: "warn" */
@@ -21,6 +22,7 @@ export const regexp = {
     ...helpers,
     ...validators,
     ...strToRegexp,
+    ...typedRegexp,
 }
 
 /* TODO: finish
