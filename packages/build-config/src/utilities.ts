@@ -109,40 +109,42 @@ export const isPlainObject = <Type extends UnknownRecord = UnknownRecord>(
     return isNotUndefined(value) && RAisPlainObject(value)
 }
 
-export const safeDeserializeJSON = <Type = UnknownRecord>(
-    data: any,
-): JSONCompatible<Type> | undefined => {
+export const safeDeserializeJSON = <Type extends JsonValue = JsonValue>(
+    data: unknown,
+): Type | undefined => {
     try {
-        const str: string = JSON.stringify(data)
-        const obj: JSONCompatible<Type> = JSON.parse(str)
-        return obj
-    } catch (e) {
+        // Only attempt to clone JSON-compatible values
+        return JSON.parse(JSON.stringify(data)) as Type
+    } catch {
         return undefined
     }
 }
+
 export const importJSON = async (
     filename: string,
-    returnValue: unknown = undefined,
-): Promise<undefined | JsonPrimitive | JsonArray | JsonObject> => {
-    const _path = path.resolve(filename)
-    if (!fs.existsSync(_path)) {
-        console.warn(`File not found: ${_path}`)
+): Promise<JsonValue | undefined> => {
+    const absolutePath = path.resolve(filename)
+    if (!fs.existsSync(absolutePath)) {
+        console.error(`File not found: ${absolutePath}`)
         return undefined
     }
-    const json: JsonObject = await import(_path, {
-        assert: { type: 'json' },
-    })
-    if (isArray(json['default'])) {
-        return json['default'] as JsonArray
+    try {
+    
+        console.log("trying to read ",absolutePath)
+        const raw = await fs.promises.readFile(absolutePath, 'utf8')
+        const parsed: unknown = JSON.parse(raw)
+
+        if (isArray(parsed)) return parsed as JsonArray
+        if (RAisPlainObject(parsed)) return parsed as JsonObject
+        if (isPrimitive(parsed)) return parsed as JsonPrimitive
+        // Fallback: still return (could be null)
+        return parsed as JsonValue
+    } catch (e) {
+        console.warn(`Failed to parse JSON file: ${absolutePath}`, e)
+        return undefined
     }
-    if (RAisPlainObject(json['default'])) {
-        return json['default'] as JsonObject
-    }
-    if (isPrimitive(json['default'])) {
-        return json['default'] as JsonPrimitive
-    }
-    return undefined
 }
+
 export default {}
 
 /** TYPEFEST TYPES */

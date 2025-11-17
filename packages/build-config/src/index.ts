@@ -58,13 +58,18 @@ export {
     globFileFilter,
     importJSON,
     isPlainObject,
+    TS_FILE_EXTENSIONS,
+
     JS_FILE_EXTENSIONS,
     JSLIKE_FILE_EXTENSIONS,
     PRETTIER_FILE_EXTENSIONS,
     safeDeserializeJSON,
-    TS_FILE_EXTENSIONS,
+
+  
 } from './utilities.js'
 export type * from './utilities.js'
+export {fmt,formatArgs,formatValue,prettify,prettyPrint} from './logger/index.js'
+
 
 /**
  * @namespace Vite Configuration ( only docserver for now )
@@ -82,5 +87,12 @@ export type * from './vitepress/index.js'
  */
 export { vitest } from './vitest/index.js'
 export type * from './vitest/index.js'
+
+/**
+ * @namespace Logger 
+ * A custom logger with colors!!
+ */
+export { logger } from './logger/index.js'
+export type * from './logger/index.js'
 
 export { merge } from 'ts-deepmerge'
