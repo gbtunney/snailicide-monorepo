@@ -78,7 +78,7 @@ export const getYargAppOptionObject = <
 
             LOGGER.debug(getEnumValues(innerSchema))
 
-            wrapString(getEnumValuesString(innerSchema))
+            //wrapString(getEnumValuesString(innerSchema))
             const resultYargsConfig: SingleYarg = {
                 alias: optionMeta?.alias,
                 array: outerSchema.type === 'array',

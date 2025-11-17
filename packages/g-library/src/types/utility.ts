@@ -64,3 +64,31 @@ export type SuffixProperties<Type extends object, Suffix extends string> = {
         ? Key
         : never}${Suffix}`]: Type[Key]
 }
+
+export type ExtractKeys<
+    Type extends ReadonlyArray<unknown> | Record<keyof unknown, unknown>,
+> =
+    Type extends ReadonlyArray<infer U>
+        ? Extract<U, PropertyKey>
+        : Type extends Record<keyof any, unknown>
+          ? keyof Type
+          : never
+
+/** Builds a Record<K, V> where K is inferred from array or object T. Enforces exhaustiveness: no extra or missing keys. */
+ export type ExhaustiveRecordFrom<
+    Type extends ReadonlyArray<unknown> | Record<keyof unknown, unknown>,
+    Value = unknown,
+> = Record<ExtractKeys<Type>, Value>
+
+export type WithoutIndexSignature<Type> = {
+    [Key in keyof Type as string extends Key
+      ? never
+      : number extends Key
+      ? never
+      : symbol extends Key
+      ? never
+      : Key]: Type[Key]
+  }
+  
+ export type RequireKeys<Type, Key extends keyof Type> = Type & { [Prop in Key]-?: Type[Prop] }
+  

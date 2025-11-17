@@ -2,6 +2,7 @@ import { MergeExclusive } from 'type-fest'
 import { z } from 'zod'
 import util from 'node:util'
 import { getLogger } from './logger.js'
+import { ensureArray as RAensureArray } from 'ramda-adjunct'
 // Example: Refactor sichema merging
 export type ZodObjectSchema = z.ZodObject //| z.ZodType<z.ZodObject>  //| z.ZodEffects<z.AnyZodObject>
 export type WrappedSchema<Schema extends ZodObjectSchema> =
@@ -240,7 +241,20 @@ export const fmt = (
         return accumulated + chunk + interpolated
     }, '')
 
-/** @deprecated Use fmt */
 export const prettify = fmt
+export const prettyPrint = fmt
 /** @deprecated Use fmt */
 export const pp = fmt
+
+function pick(): number
+function pick(b: true): number
+function pick(b: false): string
+function pick(b: boolean = true): number | string {
+    return b ? 123 : 'abc'
+}
+
+const testttt = pick()
+//  const _result:SplitFlag extends undefined ? number : string =   splitComma ? 3333 :"ddddd"
+// return _result
+
+// const myval :number= testMe(z.string(),false )
