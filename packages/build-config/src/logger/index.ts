@@ -7,23 +7,22 @@ import {
     resetLogger,
     setLogger,
 } from './logger.js'
-export {fmt,formatArgs,formatValue,prettify,prettyPrint} from './pretty.print.js'
-
 /** @internal */
 export const logger = {
-    create:createLogger,
-    get:getLogger,
-    set:setLogger,
-    reset: resetLogger,
+    create: createLogger,
+    get: getLogger,
     LEVEL_COLORS,
     LEVEL_NAMES,
-    LOG_LEVELS
+    LOG_LEVELS,
+    reset: resetLogger,
+    set: setLogger,
 }
 
 /** @internal */
 export default logger
 
 export type { LevelColors, LevelName, Logger, LoggerOpts } from './logger.js'
+
 export {
     createLogger,
     getLogger,
@@ -33,3 +32,10 @@ export {
     resetLogger,
     setLogger,
 } from './logger.js'
+export {
+    fmt,
+    formatArgs,
+    formatValue,
+    prettify,
+    prettyPrint,
+} from './pretty.print.js'

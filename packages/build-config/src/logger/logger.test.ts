@@ -15,7 +15,9 @@ type ConsoleLoggerMethodNameKey = 'debug' | 'info' | 'warn' | 'error'
 // Loosely typed spy instance to avoid constructor/function overload mismatch
 type LooseVitestConsoleSpyInstance = {
     mock: { calls: Array<Array<unknown>> }
-    mockImplementation: (...args: Array<unknown>) => LooseVitestConsoleSpyInstance
+    mockImplementation: (
+        ...args: Array<unknown>
+    ) => LooseVitestConsoleSpyInstance
 }
 
 type ConsoleSpyCollectionRecord = Record<
@@ -90,9 +92,9 @@ describe('constants', () => {
 
     it('LEVEL_COLORS has same keys as LEVEL_NAMES', () => {
         const levelColorKeys = Object.keys(LEVEL_COLORS)
-        LEVEL_NAMES.forEach((levelName) =>
-            { expect(levelColorKeys).toContain(levelName); },
-        )
+        LEVEL_NAMES.forEach((levelName) => {
+            expect(levelColorKeys).toContain(levelName)
+        })
     })
 
     it('LOG_LEVELS numeric ordering is ascending', () => {

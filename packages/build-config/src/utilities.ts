@@ -1,4 +1,5 @@
 /** Utility functions (mainly for working with lintstaged,file extensions and JSON data) */
+
 import micromatch from 'micromatch'
 import {
     ensureArray,
@@ -17,7 +18,9 @@ import type {
     UnknownRecord,
 } from 'type-fest'
 import fs from 'fs'
+import { fileURLToPath } from 'node:url'
 import path from 'path'
+import { getLogger } from './logger/index.js'
 
 export const JS_FILE_EXTENSIONS = ['js', 'mjs', 'cjs', 'jsx'] as const
 export const TS_FILE_EXTENSIONS = ['ts', 'mts', 'cts', 'tsx'] as const
@@ -112,10 +115,12 @@ export const isPlainObject = <Type extends UnknownRecord = UnknownRecord>(
 export const safeDeserializeJSON = <Type extends JsonValue = JsonValue>(
     data: unknown,
 ): Type | undefined => {
+    const LOGGER = getLogger().child('safeDeserializeJSON')
     try {
         // Only attempt to clone JSON-compatible values
         return JSON.parse(JSON.stringify(data)) as Type
     } catch {
+        LOGGER.error('JSON deserialization failed for data:', data)
         return undefined
     }
 }
@@ -124,13 +129,13 @@ export const importJSON = async (
     filename: string,
 ): Promise<JsonValue | undefined> => {
     const absolutePath = path.resolve(filename)
+    const LOGGER = getLogger().child('importJSON')
     if (!fs.existsSync(absolutePath)) {
-        console.error(`File not found: ${absolutePath}`)
+        LOGGER.error(`File not found: ${absolutePath}`)
         return undefined
     }
     try {
-    
-        console.log("trying to read ",absolutePath)
+        LOGGER.info(`Trying to read file: ${absolutePath}`)
         const raw = await fs.promises.readFile(absolutePath, 'utf8')
         const parsed: unknown = JSON.parse(raw)
 
@@ -140,11 +145,21 @@ export const importJSON = async (
         // Fallback: still return (could be null)
         return parsed as JsonValue
     } catch (e) {
-        console.warn(`Failed to parse JSON file: ${absolutePath}`, e)
+        LOGGER.error(`Failed to parse JSON file: ${absolutePath}`, e)
         return undefined
     }
 }
-
+/**
+ * GetParentDirectoryPath
+ *
+ * @param {meta} - Please use import.meta to get the callers file path
+ */
+export const getFilePath = (meta: ImportMeta, file_path: string): string => {
+    const __dirname = path.dirname(fileURLToPath(meta.url))
+    if (!fs.existsSync(path.resolve(__dirname)))
+        throw new Error(`Directory does not exist: ${path.resolve(__dirname)}`)
+    return path.resolve(`${__dirname}/${file_path}`)
+}
 export default {}
 
 /** TYPEFEST TYPES */

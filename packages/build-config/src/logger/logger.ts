@@ -11,7 +11,7 @@ import {
 import { parseColorToHexStrict } from './utilities/color.js'
 
 export type LevelColors = ChalkColor
- 
+
 export const LEVEL_NAMES = [
     'trace',
 
@@ -43,7 +43,7 @@ export type LoggerRecord<Value> = ExhaustiveRecordFrom<
     typeof LEVEL_NAMES,
     Value
 >
- 
+
 export const LOG_LEVELS: LoggerRecord<number> = {
     debug: 35,
     error: 50,
@@ -53,7 +53,7 @@ export const LOG_LEVELS: LoggerRecord<number> = {
     trace: 10,
     warn: 40,
 }
- 
+
 export const LEVEL_COLORS: LoggerRecord<ChalkColor> = {
     debug: 'blue',
     error: 'red',

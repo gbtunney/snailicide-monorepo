@@ -44,7 +44,7 @@ export const flatEslintConfig = async (__dirname: string): Promise<Config> => {
             languageOptions: {
                 globals: { ...globals.browser, ...globals.node },
                 parserOptions: {
-                    project: true,
+                    // project: true,
                     projectService: true,
                     tsconfigRootDir: __dirname,
                 },
