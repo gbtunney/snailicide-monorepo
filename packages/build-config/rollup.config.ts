@@ -5,8 +5,8 @@ import _package from './package.json' assert { type: 'json' }
 import { exportJSONFile } from './types/export.json.file.js'
 import { Prettier, rollup } from './types/index.js'
 import {
-    MarkdownLintConfig,
     markdownLintConfigJson,
+    MarkdownlintConfiguration,
 } from './types/markdownlint/index.js'
 import { tsConfigBase } from './types/tsconfig/index.js'
 
@@ -16,8 +16,8 @@ const PRINT_EXPORTS: boolean = false
 const _prettierConfig = JSON.parse(JSON.stringify(Prettier.config))
 const prettierConfig: Jsonify<typeof _prettierConfig> = _prettierConfig
 
-const MARKDOWN_LINT_OPTIONS: MarkdownLintConfig = {}
-const _mdConfig = markdownLintConfigJson(MARKDOWN_LINT_OPTIONS)
+const MARKDOWN_LINT_OPTIONS: MarkdownlintConfiguration = { config: {} }
+const _mdConfig = await markdownLintConfigJson(MARKDOWN_LINT_OPTIONS)
 const mdConfig: JsonObject = _mdConfig !== undefined ? _mdConfig : {}
 
 /** As const */
