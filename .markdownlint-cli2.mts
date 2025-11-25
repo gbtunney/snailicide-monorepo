@@ -1,25 +1,25 @@
-import { markdownlint } from '@snailicide/build-config'
-export const mdlint = { config: markdownlint.config({}) }
-// @ts-check
+import {
+    markdownlint,
+    MarkdownlintConfiguration,
+} from '@snailicide/build-config'
 
-const options = {
+const options: MarkdownlintConfiguration = {
     config: {
-        //'MD013/line-length': false,
-        // @TODO: Temporarily disabled rules - review later - has to do with fixer and prettier sucking
-        MD013: false,
-        // 'MD046/code-block-style': { style: 'indented' },
-        MD046: false,
-        'MD047/indent': 'false',
-    },ignores:[
-        '**/node_modules/**',
+        //"MD002": false,
+    },
+    gitignore: true,
+    ignores: [
         '**/dist/**',
         '**/build/**',
         '**/.git/**',
+        '**/.github/instructions/**',
         '**/.husky/**',
         '**/coverage/**',
-        '**/{.history,.changeset,docs}/**'
-       // '#**/{node_modules,.github/instructions/**,.history,.changeset,docs}/**' 
-    ],gitignore: true,
-
+        '**/{.changeset,docs}/**',
+        'packages/cli-template/templates/**/*',
+    ],
 }
-export default { ...mdlint, ...options }
+
+export default await markdownlint.config.get(options, { throwOnError: true })
+//@todo: this will take extra properties that are not in the schema wtf
+//console.log(await markdownlint.rules.validate(options.config,{throwOnError:true} ) )
