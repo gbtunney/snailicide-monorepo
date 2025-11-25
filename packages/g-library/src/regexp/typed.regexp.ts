@@ -1,6 +1,6 @@
 import type { EmptyObject } from 'type-fest'
 // Extract all (?<name> ...) group names from a pattern literal
-type ExtractGroupNames<Str extends string> =
+export type ExtractGroupNames<Str extends string> =
     Str extends `${string}(?<${infer Name}>${infer Rest}`
         ? Record<Name, string> & ExtractGroupNames<Rest>
         : EmptyObject
@@ -11,15 +11,13 @@ export type TypedRegexpMatch<Pattern extends string> = {
     index: number
     input: string
     groups: ExtractGroupNames<Pattern>
-} | null
+}
 
 export type MakeTypedRegexpReturn<PatternString extends string> = RegExp & {
     execTyped(inputText: string): TypedRegexpMatch<PatternString> | null
 }
 
-/**
- * Remove whitespace + comments from annotated regex
- */
+/** Remove whitespace + comments from annotated regex */
 export function cleanAnnotatedRegex(input: string): string {
     return input
         .replace(/#.*$/gm, '') // remove trailing comments

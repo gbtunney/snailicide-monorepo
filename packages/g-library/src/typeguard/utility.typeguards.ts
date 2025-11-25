@@ -1,9 +1,14 @@
-import { isEmpty, isNil, isNotEmpty } from 'ramda'
-import { IsLiteral, UnknownArray } from 'type-fest'
+import { isNil } from 'ramda'
+import {
+    Integer,
+    IsLiteral,
+    UnknownArray,
+    UnknownRecord,
+} from 'type-fest'
 
 import type {
-    EmptyArray,
-    EmptyObject,
+    // EmptyObject,
+    EmptyString,
     Falsy,
     NilLike,
     NilOrEmpty,
@@ -64,7 +69,7 @@ export const isNotNilOrEmpty = <Type>(
  * @category Primitive
  * @group Empty Types
  */
-export const isEmptyString = <Type extends string>(
+export const isEmptyString = <Type extends string = EmptyString>(
     value: Type,
 ): value is Type => RA.isEmptyString(value)
 
@@ -124,8 +129,9 @@ export const isNotNumber = <Type extends number>(
  * @category Primitive
  * @see {@link isNotInteger}
  */
-export const isInteger = <Type extends number>(value: unknown): value is Type =>
-    RA.isInteger(value)
+export const isInteger = <Type extends number>(
+    value: unknown,
+): value is Integer<Type> => RA.isInteger(value)
 
 /**
  * Checks if a value is NOT an integer.
@@ -210,7 +216,7 @@ export const isNull = (value: unknown): value is null => RA.isNull(value)
  * @category Empty Types
  * @see {@link isNull}
  */
-export const isNotNull = <Type extends NonNullable<any>>(
+export const isNotNull = <Type extends NonNullable<unknown>>(
     value: unknown,
 ): value is Type => RA.isNotNull(value)
 
@@ -229,7 +235,7 @@ export const isUndefined = <Type>(value: Type | Nullish): value is undefined =>
  * @category Empty Types
  * @see {@link isUndefined}
  */
-export const isNotUndefined = <Type>(value: unknown): value is Type =>
+export const isNotUndefined = <Type>(value: Type | Nullish): value is Type =>
     RA.isNotNil(value)
 
 /**
@@ -239,8 +245,8 @@ export const isNotUndefined = <Type>(value: unknown): value is Type =>
  * @category Empty Types
  * @see {@link isNonEmptyArray}
  */
-export const isEmptyArray = <Type extends EmptyArray>(
-    value: unknown,
+export const isEmptyArray = <Type extends UnknownArray>(
+    value: Type,
 ): value is Type => RA.isEmptyArray(value)
 
 /**
@@ -249,7 +255,7 @@ export const isEmptyArray = <Type extends EmptyArray>(
  * @category Array
  * @see {@link isEmptyArray}
  */
-export const isNonEmptyArray = <Type extends UnknownArray = EmptyArray>(
+export const isNonEmptyArray = <Type extends UnknownArray>(
     value: Type,
 ): value is Type => RA.isNonEmptyArray(value)
 
@@ -272,7 +278,7 @@ export const isNonEmptyObject = <
     Type extends PlainObject | Record<string, unknown>,
 >(
     value: Type,
-): value is Type => isNotEmpty(value) && RA.isNotArray(value)
+): value is Type => RA.isPlainObject(value) && !RA.isNilOrEmpty(value)
 
 /**
  * Checks if a value is an empty object.
@@ -281,9 +287,9 @@ export const isNonEmptyObject = <
  * @category Object
  * @see {@link isNonEmptyObject}
  */
-export const isEmptyObject = <Type extends EmptyObject>(
+export const isEmptyObject = <Type extends UnknownRecord>(
     value: Type,
-): value is Type => isEmpty(value)
+): value is Type => RA.isPlainObject(value) && RA.isNilOrEmpty(value)
 
 /**
  * Checks if a value is a plain object.

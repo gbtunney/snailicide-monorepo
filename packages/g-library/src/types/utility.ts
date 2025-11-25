@@ -1,11 +1,14 @@
 import type {
     UnknownArray,
+    UnknownRecord,
     Jsonifiable,
     Jsonify,
     JsonValue,
     JsonArray,
     JsonObject,
     JsonPrimitive,
+    Entries,
+    Entry,
 } from 'type-fest'
 
 /** TYPEFEST TYPES */
@@ -23,6 +26,10 @@ export type {
     PartialDeep,
     Jsonify,
     Jsonifiable,
+    Entries,
+    Entry,
+    UnknownRecord,
+    UnknownArray,
 } from 'type-fest'
 
 /* * UTILITY TYPES
@@ -75,20 +82,17 @@ export type ExtractKeys<
           : never
 
 /** Builds a Record<K, V> where K is inferred from array or object T. Enforces exhaustiveness: no extra or missing keys. */
- export type ExhaustiveRecordFrom<
+export type ExhaustiveRecordFrom<
     Type extends ReadonlyArray<unknown> | Record<keyof unknown, unknown>,
     Value = unknown,
 > = Record<ExtractKeys<Type>, Value>
 
-export type WithoutIndexSignature<Type> = {
-    [Key in keyof Type as string extends Key
-      ? never
-      : number extends Key
-      ? never
-      : symbol extends Key
-      ? never
-      : Key]: Type[Key]
-  }
-  
- export type RequireKeys<Type, Key extends keyof Type> = Type & { [Prop in Key]-?: Type[Prop] }
-  
+export type FromEntriesTuples<
+    TupleArrayType extends ReadonlyArray<readonly [PropertyKey, unknown]>,
+> = {
+    [Tuple in TupleArrayType[number] as Tuple[0] & PropertyKey]: Tuple[1]
+}
+
+export type EntriesOf<Type extends object> = Entries<Type>
+export type EntryOf<Type extends object> = Entry<Type>
+export type KeysOf<Type extends object> = keyof Type

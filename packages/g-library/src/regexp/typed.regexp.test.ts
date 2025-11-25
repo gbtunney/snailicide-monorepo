@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 
 import {
     asAnnotatedPattern,
-    cleanRegex,
+    cleanAnnotatedRegex,
     typedRegexp,
 } from './typed.regexp.js' // adjust filename
 
@@ -17,7 +17,7 @@ describe('cleanRegex', () => {
       ^ (?<prefix> foo )     # prefix
       (?<suffix> bar )       # suffix
     `
-        const result = cleanRegex(annotated)
+        const result = cleanAnnotatedRegex(annotated)
         expect(result).toBe('^(?<prefix>foo)(?<suffix>bar)')
     })
 })
@@ -79,7 +79,7 @@ describe('typedRegexp – type inference', () => {
         if (matchResult === null) throw new Error('unexpected')
 
         // @ts-expect-error – unknown group name
-         
+
         const wrong: string = matchResult.groups.notAGroup
         expect(true).toBe(true)
     })
