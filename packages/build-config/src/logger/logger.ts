@@ -14,7 +14,6 @@ export type LevelColors = ChalkColor
 
 export const LEVEL_NAMES = [
     'trace',
-
     'info',
     'debug',
     'warn',
