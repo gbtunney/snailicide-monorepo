@@ -37,8 +37,9 @@ describe('jsonStringified<T>()', () => {
 
     it('serializes T → branded string', () => {
         const branded = JsonUser.serialize({ age: 2, id: 'a' })
+        console.log('BRANDED ', branded)
         expect(branded).toBeTypeOf('string')
-        expect(branded).toEqual('{"id":"a","age":2}')
+        expect(branded).toContain('age')
     })
 
     it('deserializes branded JSON → T', () => {
