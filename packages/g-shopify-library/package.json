@@ -36,9 +36,9 @@
         "@snailicide/g-library": "workspace:*",
         "@types/node": "^24.1.0",
         "@types/ramda": "^0.31.0",
-        "ramda": "^0.31.3",
+        "ramda": "^0.32.0",
         "ramda-adjunct": "^5.0.0",
-        "type-fest": "^4.22.0",
+        "type-fest": "^5.2.0",
         "zod": "^3.23.8"
     },
     "devDependencies": {
@@ -47,7 +47,7 @@
         "ts-node": "^10.9.2",
         "typedoc": "^0.28.3",
         "typescript": "^5.4.5",
-        "vitest": "^3.1.2"
+        "vitest": "^4.0.14"
     },
     "type": "module",
     "exports": {
