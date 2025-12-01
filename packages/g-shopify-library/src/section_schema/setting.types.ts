@@ -1,4 +1,4 @@
-import type { Simplify, StringKeyOf } from 'type-fest'
+import type { KeyAsString, Simplify } from 'type-fest'
 
 export namespace SettingTypes {
     type _List = {
@@ -271,7 +271,7 @@ export namespace SettingTypes {
     type UnionValues = Simplify<SettingTypes.All[keyof All]>
 
     ///this is a list of the string types only  'text
-    export type TypeLiterals = StringKeyOf<All>
+    export type TypeLiterals = KeyAsString<All>
     export type SettingBase<Type = TypeLiterals> = Type extends keyof All
         ? All[Type]
         : Type extends Union

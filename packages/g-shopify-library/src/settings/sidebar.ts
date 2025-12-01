@@ -1,5 +1,4 @@
-import { zod } from '@snailicide/g-library/node'
-
+import { z } from 'zod'
 /*
  * sidebar_settings_schema_map
  * @type { Record<string,z.ZodSchema> }
@@ -7,13 +6,13 @@ import { zod } from '@snailicide/g-library/node'
  * @property {z.ZodSchema}  paragraph
  */
 export const sidebar_settings_schema_map = {
-    header: zod.object({
-        content: zod.string(),
-        type: zod.literal('header'), //todo:maybe a void type?
+    header: z.object({
+        content: z.string(),
+        type: z.literal('header'), //todo:maybe a void type?
     }),
-    paragraph: zod.object({
-        content: zod.string(),
-        type: zod.literal('paragraph'),
+    paragraph: z.object({
+        content: z.string(),
+        type: z.literal('paragraph'),
     }),
 }
 
