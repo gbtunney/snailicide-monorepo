@@ -12,6 +12,7 @@ const getSettings = () => {
         {
             id: 'publish_id',
             label: 'Curator Publish ID ( from embed code )',
+            type: 'text',
         },
     ]
 

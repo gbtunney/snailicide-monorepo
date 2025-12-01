@@ -1,8 +1,8 @@
 import { zod } from '@snailicide/g-library/node'
 import { z } from 'zod'
 
-const plugin_theme_schema = zod.object({
-    entryPoints: z.record(z.string()).default({
+const plugin_theme_schema = z.object({
+    entryPoints: z.record(z.string(), z.string()).default({
         'settings_schema.json': 'settings_schema.js',
     }),
     sourceCodeDir: zod.fsPathTypeExists('directory').default('./src'),
