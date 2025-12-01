@@ -1,9 +1,9 @@
+import { fmt, getLogger } from '@snailicide/build-config'
 import * as RA from 'ramda-adjunct'
 import yargsInteractive from 'yargs-interactive'
 import { z } from 'zod'
 import { AppConfig } from './app-config.js'
-import { fmt, mergeSchemas } from './helpers.js'
-import { getLogger } from './logger.js'
+import { mergeSchemas } from './helpers.js'
 import {
     AppConfigIn,
     commonFlagsSchema,

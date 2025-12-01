@@ -1,30 +1,15 @@
-import chalk, { ChalkInstance } from 'chalk'
+import { fmt, formatValue, getLogger } from '@snailicide/build-config'
+import chalk from 'chalk'
 import yargs from 'yargs'
 import type { Argv, Options } from 'yargs'
 import yargsInteractive from 'yargs-interactive'
 import { z } from 'zod'
 import * as process from 'process'
 import { AppConfig, AppConfigIn, appConfigSchema } from './app-config.js'
-import { type ChalkColor, getColorChalkInstance } from './chalk-utils.js'
 import { doPrintHeader, getHeader } from './header.js'
-import { fmt, formatValue, wrapSchema, ZodObjectSchema } from './helpers.js'
-import { getLogger } from './logger.js'
-import { removeAnsi } from './string-utils.js'
+import { wrapSchema, ZodObjectSchema } from './helpers.js'
+import { prettyErrorLog , removeAnsi } from './string-utils.js'
 import { getYargAppOptionObject } from './zod-schema.js'
-
-const prettyErrorLog = (
-    error: z.ZodError,
-    message: string,
-    color: ChalkColor | undefined = 'red',
-    theme: 'fg' | 'bg' = 'fg',
-): string => {
-    const _instance: ChalkInstance =
-        color !== undefined ? getColorChalkInstance(color, theme) : chalk
-    /* if (isChalkColorPreset(color)){
-        _color =  parseColorToHexStrict(chalkPresetToColorJS(color).darken(0.6))
- } */
-    return `${_instance.underline(`\n------ ✖ ${message} ------`)}\n${z.prettifyError(error)}`
-}
 
 /**
  * A callback type that is invoked upon successful initialization of the application.

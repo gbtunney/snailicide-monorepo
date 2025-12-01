@@ -1,10 +1,9 @@
+import { fmt, formatValue, getLogger } from '@snailicide/build-config'
 import type { ArrayValues, Primitive } from 'type-fest'
 import { Choices, Options as SingleYarg } from 'yargs'
 import yargsInteractive from 'yargs-interactive'
 import { util, z } from 'zod'
 import {
-    fmt,
-    formatValue,
     getDefaultValue,
     getValueSchema,
     isOptionalType,
@@ -12,7 +11,6 @@ import {
     wrapSchema,
     ZodObjectSchema,
 } from './helpers.js'
-import { getLogger } from './logger.js'
 import { CLIAppMeta, updateMetaForSchema } from './meta.js'
 
 import { wrapString } from './string-utils.js'

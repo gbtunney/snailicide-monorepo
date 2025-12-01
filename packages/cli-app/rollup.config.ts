@@ -13,8 +13,6 @@ const directory_paths = {
 const CONFIG_OBJ = [
     ...rollup.getConfigEntries(
         directory_paths,
-        //  external:["winston"],
-
         [
             {
                 export_key: '*',

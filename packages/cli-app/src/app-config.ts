@@ -1,8 +1,8 @@
+import { getLogger, logger } from '@snailicide/build-config'
 import { colorUtils, stringUtils } from '@snailicide/g-library'
 import { Merge } from 'type-fest'
 import { z } from 'zod'
 import { tgZodSchema, wrapSchema, ZodObjectSchema } from './helpers.js'
-import { getLogger, LEVEL_NAMES } from './logger.js'
 export type DefaultAliases = {
     help?: string
     version?: string
@@ -79,7 +79,7 @@ export const appConfigSchema = z.object({
             return { ...default_aliases, ...value }
         }),
 
-    log_level: z.enum(LEVEL_NAMES).default('info'),
+    log_level: z.enum(logger.LEVEL_NAMES).default('info'),
     /** Hide an option from the help screen */
     /* hidden: z
         .array(z.string())

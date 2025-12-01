@@ -1,4 +1,4 @@
-import { fmt } from './helpers.js'
+import { fmt } from '@snailicide/build-config'
 // ==============================
 // File: src/lib/units.ts
 // ==============================

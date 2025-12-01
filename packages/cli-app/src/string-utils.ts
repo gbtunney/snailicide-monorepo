@@ -1,25 +1,20 @@
-/** Capitalizes only the first letter of the string and LEAVES THE REST OF CHARACTERSS */
-export const modifyCaseIndexedLetter = (
-    str: string,
-    _case: 'upper' | 'lower',
-    index: number = 0,
-): string => {
-    if (str.length >= 0 && str.length >= index + 1 && str[index]) {
-        // const indexedElement =
-        const str_transformed: string =
-            _case === 'upper'
-                ? str[index].toUpperCase()
-                : str[index].toLowerCase()
+import {
+    ChalkColor,
+    logger,
+} from '@snailicide/build-config'
+import chalk, { ChalkInstance } from 'chalk'
+import { z } from 'zod'
 
-        return `${str_transformed}${str.slice(index + 1)}`
-    }
-    return str
+export const prettyErrorLog = (
+    error: z.ZodError,
+    message: string,
+    color: ChalkColor | undefined = 'red',
+    theme: 'fg' | 'bg' = 'fg',
+): string => {
+    const _instance: ChalkInstance =
+        color !== undefined ? logger.getChalkInstance(color, theme) : chalk
+    return `${_instance.underline(`\n------ ✖ ${message} ------`)}\n${z.prettifyError(error)}`
 }
-/** Lowercasea only the first letter of the string and LEAVES THE REST OF CHARACTERSS */
-export const lowerCaseFirstLetter = (str: string): string =>
-    modifyCaseIndexedLetter(str, 'lower', 0)
-export const upperCaseFirstLetter = (str: string): string =>
-    modifyCaseIndexedLetter(str, 'upper', 0)
 
 export const wrapString = (
     value: string,
