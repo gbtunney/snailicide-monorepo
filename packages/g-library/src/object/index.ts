@@ -45,12 +45,14 @@ export const tg = {
     isJsonValue,
 }
 
+export * from './entries.js'
+
 export {
     prettyPrintJSON,
     safeDeserializeJson,
     safeSerializeJson,
 } from './json.js'
 
+export * from './json-stringified.js'
 export { flatten, unflatten } from 'flat'
-
 export { merge as deepmerge } from 'ts-deepmerge'

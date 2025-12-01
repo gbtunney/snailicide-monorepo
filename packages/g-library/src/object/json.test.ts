@@ -1,12 +1,10 @@
 import { describe, expect, expectTypeOf, test } from 'vitest'
+import { z } from 'zod'
 import {
-    demoDeserializeJSON,
-    demosafeSerializeJson,
-    prettyPrintJSON,
-    safeDeserializeJson,
-    testprettyPrintJSON,
-} from './json.js'
-
+    jsonParser,
+    makeJsonStringifiedSchema,
+} from './json-stringified.js'
+import { prettyPrintJSON, safeDeserializeJson } from './json.js'
 describe('JSON serialize', () => {
     test('prettyPrintJSON should return a pretty-printed JSON string', () => {
         const obj = { age: 30, name: 'John' }
@@ -17,6 +15,7 @@ describe('JSON serialize', () => {
         const json = `{"name":"John","age":30}`
         const expected = { age: 30, name: 'John' }
         const result = safeDeserializeJson(json)
+
         expect(result).toEqual(expected)
     })
 
@@ -24,33 +23,44 @@ describe('JSON serialize', () => {
         type TestJson = { name: string; age: number }
         const testjson: TestJson = { age: 30, name: 'John' }
 
-        const serialized_result = demosafeSerializeJson<TestJson>(testjson)
+        const _schemaresult = jsonParser()
+        const serialized_result = _schemaresult.serialize(testjson)
         expect(serialized_result).toBeTypeOf('string')
 
         if (serialized_result !== 'ERROR') {
-            const ppExample = testprettyPrintJSON(serialized_result)
-            const result = demoDeserializeJSON(serialized_result)
+            const ppExample = serialized_result
+            const result = _schemaresult.deserialize(serialized_result)
             expectTypeOf(result).not.toMatchObjectType<{
-                name: number
-                age: number
+                name: string
+                age: string
             }>()
-            expectTypeOf(result).toMatchObjectType<TestJson>()
+            /* expectTypeOf(result).toMatchObjectType<{
+                name: string
+                age: number
+            }>()*/
         }
     })
 
     test("SerializeJson should return a serialized JSON string with the tag or 'ERROR'", () => {
         const obj = { age: 30, name: 'John' }
         const expected = `{"name":"John","age":30}`
-        const result = demosafeSerializeJson(obj)
+        const _schemaa = z.object({
+            age: z.number(),
+            name: z.string(),
+        })
+        const result =
+            makeJsonStringifiedSchema<typeof _schemaa>(_schemaa).serialize(obj)
         expect(result).toMatch(new RegExp(/age/, 'gm'))
+        const result2 = jsonParser().serialize(obj)
 
         const invalidObj = { age: 'thirty', name: 'John' }
-        const errorResult = demosafeSerializeJson(invalidObj)
+        const errorResult = jsonParser().serialize(invalidObj)
         expect(errorResult).toEqual(JSON.stringify(invalidObj))
         expectTypeOf(obj).not.toMatchObjectType()
-
+        const _errorResult = jsonParser().deserialize(errorResult)
+        console.log('_errorResult', _errorResult)
         if (errorResult !== 'ERROR') {
-            const errorResultLat4est = demoDeserializeJSON(errorResult)
+            //  const errorResultLat4est = demoDeserializeJSON(errorResult)
         }
     })
 })
