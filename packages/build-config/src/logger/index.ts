@@ -27,7 +27,12 @@ export const logger = {
 /** @internal */
 export default logger
 
-export type { LevelColors, LevelName, Logger, LoggerOpts } from './logger.js'
+export type {
+    Logger,
+    LoggerOpts,
+    LogLevelColors,
+    LogLevelName,
+} from './logger.js'
 export { getLogger, LOG_LEVELS } from './logger.js'
 
 export {

@@ -10,7 +10,7 @@ import {
 
 import { parseColorToHexStrict } from './utilities/color.js'
 
-export type LevelColors = ChalkColor
+export type LogLevelColors = ChalkColor
 
 export const LEVEL_NAMES = [
     'trace',
@@ -21,7 +21,7 @@ export const LEVEL_NAMES = [
     'fatal',
     'silent',
 ] as const
-export type LevelName = (typeof LEVEL_NAMES)[number]
+export type LogLevelName = (typeof LEVEL_NAMES)[number]
 
 type ExtractKeys<
     Type extends ReadonlyArray<unknown> | Record<keyof unknown, unknown>,
@@ -72,13 +72,13 @@ const RESET = '\x1b[0m'
 /** TODO: use hex color in config */
 function colorizeBrowser(
     label: string,
-    color: LevelColors,
+    color: LogLevelColors,
 ): [string, string, string] {
     const css = fmt`color:${color};font-weight:600`
     return [`%c${label}%c`, css, '']
 }
 
-function pickConsole(level: LevelName): (...args: Array<unknown>) => void {
+function pickConsole(level: LogLevelName): (...args: Array<unknown>) => void {
     switch (level) {
         case 'error':
         case 'fatal':
@@ -97,8 +97,8 @@ function pickConsole(level: LevelName): (...args: Array<unknown>) => void {
 const schemaLoggerOpts = z.object({
     colors: z
         .transform<
-            Partial<LoggerRecord<LevelColors>>,
-            LoggerRecord<LevelColors>
+            Partial<LoggerRecord<LogLevelColors>>,
+            LoggerRecord<LogLevelColors>
         >((val) => {
             return { ...LEVEL_COLORS, ...val }
         })
@@ -111,8 +111,8 @@ const schemaLoggerOpts = z.object({
 
 export type Logger = {
     readonly name: string | undefined
-    readonly level: LevelName
-    setLevel: (level: LevelName) => void
+    readonly level: LogLevelName
+    setLevel: (level: LogLevelName) => void
     child: (
         name: string,
         overrides?: Partial<z.input<typeof schemaLoggerOpts>>,
@@ -144,16 +144,16 @@ export const createLogger = (opts?: LoggerOpts): Logger => {
     let minLevel: number = LOG_LEVELS[cfg.level]
     const showTime: boolean = cfg.time_stamp
     const timeFormat = cfg.time_format
-    // If your schema already merged colors, this is already LevelColors
-    const colors: LoggerRecord<LevelColors> = {
+    // If your schema already merged colors, this is already LogLevelColors
+    const colors: LoggerRecord<LogLevelColors> = {
         ...LEVEL_COLORS,
         ...(cfg.colors ?? {}),
     }
 
-    const shouldLog = (level: LevelName): boolean =>
+    const shouldLog = (level: LogLevelName): boolean =>
         LOG_LEVELS[level] >= minLevel && level !== 'silent'
 
-    const prefix = (level: LevelName): string => {
+    const prefix = (level: LogLevelName): string => {
         const bg_color = getColorChalkInstance(colors[level], 'bg')
         //assertChalkColor( color)
         return [
@@ -164,7 +164,7 @@ export const createLogger = (opts?: LoggerOpts): Logger => {
     }
 
     const emit = <Type extends Array<unknown>>(
-        level: LevelName,
+        level: LogLevelName,
         ...args: Type
     ): void => {
         if (!shouldLog(level)) return
@@ -183,10 +183,10 @@ export const createLogger = (opts?: LoggerOpts): Logger => {
         }
     }
 
-    const _levelName = (): LevelName =>
+    const _levelName = (): LogLevelName =>
         (Object.entries(LOG_LEVELS).find(
             ([, n]) => n === minLevel,
-        )?.[0] as LevelName) ?? 'info'
+        )?.[0] as LogLevelName) ?? 'info'
 
     return {
         child: (childName, overrides = {}): Logger =>
@@ -209,13 +209,13 @@ export const createLogger = (opts?: LoggerOpts): Logger => {
         info: (...a): void => {
             emit('info', ...a)
         },
-        get level(): LevelName {
+        get level(): LogLevelName {
             return _levelName()
         },
         get name(): string | undefined {
             return loggerName
         },
-        setLevel: (level: LevelName): void => {
+        setLevel: (level: LogLevelName): void => {
             minLevel = LOG_LEVELS[level]
         },
         trace: (...a): void => {
