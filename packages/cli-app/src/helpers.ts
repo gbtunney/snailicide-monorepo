@@ -1,4 +1,4 @@
-import { fmt, getLogger } from '@snailicide/build-config'
+import { fmt, logger } from '@snailicide/build-config'
 import { MergeExclusive } from 'type-fest'
 import { z } from 'zod'
 // Example: Refactor sichema merging
@@ -120,18 +120,24 @@ export const getValueSchema = <Schema extends z.ZodType>(
             : undefined
 
         if (!_outputType) {
-            getLogger().warn(
-                `no output detected in pipe; this may cause unexpected behavior.`,
-            )
+            logger
+                .get()
+                .warn(
+                    `no output detected in pipe; this may cause unexpected behavior.`,
+                )
         } else if (_outputType.type === 'transform') {
-            getLogger().info(
-                fmt`zod pipe TRANSFORM detected; unwrapping output:[${_outputType.type}] input:[${_inputType?.type}]`,
-            )
+            logger
+                .get()
+                .info(
+                    fmt`zod pipe TRANSFORM detected; unwrapping output:[${_outputType.type}] input:[${_inputType?.type}]`,
+                )
 
             if (_inputType?.type !== 'transform') {
-                getLogger().debug(
-                    fmt`TRANSFORM outtype detected; ATTEMPTING TO SUBSTITUTE INPUT input:[${_inputType?.type}]`,
-                )
+                logger
+                    .get()
+                    .debug(
+                        fmt`TRANSFORM outtype detected; ATTEMPTING TO SUBSTITUTE INPUT input:[${_inputType?.type}]`,
+                    )
 
                 //attempt to coerce inner type ( STUPID ZOD)
                 const myNewType: z.ZodType | undefined = (
@@ -142,16 +148,20 @@ export const getValueSchema = <Schema extends z.ZodType>(
                       ] as z.ZodType)
                     : undefined
                 if (myNewType) {
-                    getLogger().debug(
-                        fmt`SUBSTITUTE SUCESS ${myNewType?.type} hasUnwrap: ${hasUnwrap(myNewType)} hasRemoveDefault:${hasRemoveDefault(myNewType)} hasInnerType:${hasInnerType(myNewType)}`,
-                    )
+                    logger
+                        .get()
+                        .debug(
+                            fmt`SUBSTITUTE SUCESS ${myNewType?.type} hasUnwrap: ${hasUnwrap(myNewType)} hasRemoveDefault:${hasRemoveDefault(myNewType)} hasInnerType:${hasInnerType(myNewType)}`,
+                        )
                     return getValueSchema(myNewType, unwrapContainers)
                 }
             }
         } else {
-            getLogger().info(
-                fmt`zod pipe detected; unwrapping output:[${_outputType.type}] input:[${_inputType?.type}]`,
-            )
+            logger
+                .get()
+                .info(
+                    fmt`zod pipe detected; unwrapping output:[${_outputType.type}] input:[${_inputType?.type}]`,
+                )
             return getValueSchema(_outputType as z.ZodType, unwrapContainers)
         }
     }
@@ -160,7 +170,7 @@ export const getValueSchema = <Schema extends z.ZodType>(
         return current
     }
 
-    // getLogger().debug(`${current.type} hasUnwrap: ${hasUnwrap(current)} hasRemoveDefault:${hasRemoveDefault(current)} hasInnerType:${hasInnerType(current)}`)
+    // logger.get().debug(`${current.type} hasUnwrap: ${hasUnwrap(current)} hasRemoveDefault:${hasRemoveDefault(current)} hasInnerType:${hasInnerType(current)}`)
     if (hasUnwrap(current)) {
         return getValueSchema(current.unwrap(), unwrapContainers)
     }

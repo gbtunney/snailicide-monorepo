@@ -1,14 +1,13 @@
-import { fmt, formatValue, getLogger } from '@snailicide/build-config'
+import { fmt, formatValue, logger } from '@snailicide/build-config'
 import chalk from 'chalk'
 import yargs from 'yargs'
 import type { Argv, Options } from 'yargs'
 import yargsInteractive from 'yargs-interactive'
 import { z } from 'zod'
-import * as process from 'process'
 import { AppConfig, AppConfigIn, appConfigSchema } from './app-config.js'
 import { doPrintHeader, getHeader } from './header.js'
 import { wrapSchema, ZodObjectSchema } from './helpers.js'
-import { prettyErrorLog , removeAnsi } from './string-utils.js'
+import { prettyErrorLog, removeAnsi } from './string-utils.js'
 import { getYargAppOptionObject } from './zod-schema.js'
 
 /**
@@ -50,7 +49,7 @@ export const initApp = async <AppOptionsSchema extends ZodObjectSchema>(
         /* RESOLBED APP CONFIG */
         const app_config: AppConfig = _appConfigResult.data
         /** .child({ module: 'initApp' }) */
-        const LOGGER = getLogger().child('app_init')
+        const LOGGER = logger.get().child('app_init')
         ///LOGGER.setLevel('debug')
 
         const option_schema: z.ZodObject =
@@ -92,21 +91,34 @@ export const initApp = async <AppOptionsSchema extends ZodObjectSchema>(
                 .example(app_config.examples)
             return yargs_instance
         }
+        // Build configured yargs first
+        const yargsInstance = getArgsInstance(_yargs).boolean('interactive')
+
+        // short-circuit for help/version so yargs handles printing and exit code
+
+        const hasVersion = _yargs.includes('-v') || _yargs.includes('--version')
+        const hasHelp = _yargs.includes('-h') || _yargs.includes('--help')
 
         // if (app_config.clear) clear()
         /* * Print the header if print ==true  * */
         console.log(header)
-        const raw_arguments = getPlainArgsInstance(_yargs).argv
-        //const argSuccess2 = optionsSchema.parse(raw_arguments)
-        const argSuccess = optionsSchema.safeParse(raw_arguments)
+        if (hasVersion) {
+            console.log(app_config.version)
+            return yargsInstance
+        }
+        if (hasHelp) {
+            yargsInstance.showHelp()
+            return yargsInstance
+        }
+        const raw_arguments = yargsInstance.argv as Record<string, unknown>
 
-        const yargsInstance = getArgsInstance(_yargs)
+        const argSuccess = optionsSchema.safeParse(raw_arguments)
 
         /* i dont know what anything does after this */
 
         if (argSuccess.success) {
             const resolvedArgs: z.output<AppOptionsSchema> = argSuccess.data
-            LOGGER.debug(fmt`RESOLVED ARGUMENTS::${resolvedArgs}`)
+            LOGGER.debug(fmt`SUCCESS! RESOLVED ARGUMENTS::${resolvedArgs}`)
             const _help: string = await yargsInstance.getHelp()
             await initFunction(resolvedArgs, app_config, removeAnsi(_help))
 
@@ -115,6 +127,7 @@ export const initApp = async <AppOptionsSchema extends ZodObjectSchema>(
             /* IF WE ARE IN ERROR MODE , arggs did not parse */
         } else {
             const argParseError = argSuccess.error
+
             LOGGER.error(
                 prettyErrorLog(
                     argParseError,
@@ -122,14 +135,16 @@ export const initApp = async <AppOptionsSchema extends ZodObjectSchema>(
                     undefined,
                 ),
             )
-            /*  const interactive_bool = resolveAppOptionsSchema(
-                z.object({ interactive: z.boolean().default(true) }),
-                raw_arguments,
-            )*/
-            const interactive_bool = !_appConfigResult.data.skip_interactive
+            /* Respect CLI flag if provided; otherwise fallback to config */
+            const interactive_arg = (raw_arguments as any)?.interactive
+            const interactive_bool =
+                typeof interactive_arg === 'boolean'
+                    ? interactive_arg
+                    : !_appConfigResult.data.skip_interactive
 
-            if (!interactive_bool) return undefined
-            else {
+            if (!interactive_bool) {
+                return undefined
+            } else {
                 const options: yargsInteractive.Option = {
                     errorlist: {
                         choices: ['HELP', 'SHOW ERROR', 'DONE'],
@@ -164,13 +179,15 @@ export const initApp = async <AppOptionsSchema extends ZodObjectSchema>(
             }
         }
     } else
-        getLogger().fatal(
-            prettyErrorLog(
-                _appConfigResult.error,
-                'Invalid app configuration',
-                'magenta',
-            ),
-        )
+        logger
+            .get()
+            .fatal(
+                prettyErrorLog(
+                    _appConfigResult.error,
+                    'Invalid app configuration',
+                    'magenta',
+                ),
+            )
     return undefined
 }
 export const initializeApp = initApp

@@ -1,4 +1,9 @@
-import { fmt, formatValue, getLogger } from '@snailicide/build-config'
+import {
+    fmt,
+    formatValue,
+    Logger,
+    logger,
+} from '@snailicide/build-config'
 import type { ArrayValues, Primitive } from 'type-fest'
 import { Choices, Options as SingleYarg } from 'yargs'
 import yargsInteractive from 'yargs-interactive'
@@ -19,6 +24,10 @@ type YargsType = SingleYarg['type']
 type YargAppOption = Pick<SingleYarg, 'describe' | 'default' | 'type'>
 type YargAppOptions = Record<string, SingleYarg> // Pick<Options, 'describe' | 'default' | 'type'>
 type YargsEnumOptions = ArrayValues<Choices>
+
+const LOGGER = (): Logger =>
+    logger.get().child('zod-schema', { level: 'error' })
+
 export const getYargsInteractive = (): yargsInteractive.Interactive => {
     return yargsInteractive()
 }
@@ -33,8 +42,6 @@ export const getYargAppOptionObject = <
 >(
     optionsSchema: AppOptionsSchema,
 ): YargAppOptions => {
-    const LOGGER = getLogger()
-
     const option_schema: AppOptionsSchema =
         wrapSchema<AppOptionsSchema>(optionsSchema)
 
@@ -43,7 +50,7 @@ export const getYargAppOptionObject = <
         Object.entries(option_schema.shape) as Array<[string, z.ZodType]>,
     )
 
-    LOGGER.info(fmt`------KEY LIST IS" , ${keyList.join(', ')}`)
+    LOGGER().warn(fmt`------KEY LIST IS" , ${keyList.join(', ')}`)
 
     const result: YargAppOptions = rawEntries.reduce(
         (accum, [_key, value]: [string, z.ZodType]) => {
@@ -52,12 +59,6 @@ export const getYargAppOptionObject = <
             const outerSchema = getValueSchema(wrapperSchema)
             const innerSchema = getValueSchema(outerSchema)
 
-            if (innerSchema.type === 'default') {
-                console.log(
-                    'THE INNER SCHEMA IS DEFAULT  outer is ',
-                    innerSchema.type,
-                )
-            }
             const innerContainerSchema = getValueSchema(value, true)
             /* Set ids to the hash key and get meta*/
             const optionMeta: CLIAppMeta | undefined = updateMetaForSchema(
@@ -66,15 +67,13 @@ export const getYargAppOptionObject = <
             )
 
             // ...existing code...
-            LOGGER.info(
+            LOGGER().warn(
                 fmt`\n\tKEY:[${_key}] WRAPPER:${wrapperSchema.type}\n\tOUTER: ${outerSchema.type} INNER:${innerSchema.type} CONTAINER:${innerContainerSchema.type} \n\tREQUIRED: [${!isOptionalType(wrapperSchema)}] DEFAULT: ${getDefaultValue(wrapperSchema)}`,
             )
 
             if (!optionMeta?.description) {
-                LOGGER.warn(fmt`\nNO Description META FOR ${_key}`)
+                LOGGER().warn(fmt`\nNO Description META FOR ${_key}`)
             }
-
-            LOGGER.debug(getEnumValues(innerSchema))
 
             //wrapString(getEnumValuesString(innerSchema))
             const resultYargsConfig: SingleYarg = {
@@ -121,7 +120,7 @@ export const convertZodToYargsType = (
     const _inner = type.type
 
     if (!isZodYargsFriendly(type)) {
-        getLogger().warn('YARGS unfriendly type encountered::: ', _inner)
+        logger.get().warn('YARGS unfriendly type encountered::: ', _inner)
     }
 
     const enumValues = getEnumValues(type)
@@ -152,9 +151,6 @@ export const getEnumValues = <
 ): Array<util.EnumValue> | undefined => {
     if (schema instanceof z.ZodEnum && schema.type === 'enum') {
         const _options: ReadonlyArray<util.EnumValue> = schema.options
-
-        console.error('THIS IS AN ENUM', _options)
-
         const result: Array<util.EnumValue> = _options.map(
             (value: util.EnumValue): util.EnumValue => {
                 return value

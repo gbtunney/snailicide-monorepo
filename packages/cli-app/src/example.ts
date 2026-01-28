@@ -1,5 +1,4 @@
-import { fmt, getLogger } from '@snailicide/build-config'
-import * as RA from 'ramda-adjunct'
+import { fmt, logger } from '@snailicide/build-config'
 import yargsInteractive from 'yargs-interactive'
 import { z } from 'zod'
 import { AppConfig } from './app-config.js'
@@ -11,30 +10,15 @@ import {
     InitSuccessCallback,
 } from './index.js'
 
-const LOGGER = getLogger({
+//todo: fix log levels
+const LOGGER = logger.get({
     colors: {},
-    level: 'trace',
+    level: 'debug',
     name: 'example',
     time_stamp: true,
 })
-//LOGGER.setLevel('info')
 /** Define custom schema, wrapper is required to avoid typescript error */
-const transformTest: z.ZodType<Array<string>, Array<string>> = z.transform<
-    Array<string>,
-    Array<string>
->((val: Array<string>): Array<string> => {
-    if (val.length === 1 && val[0]?.includes(',')) {
-        return val[0].split(',').map((v) => v.trim())
-    }
-    return RA.ensureArray(val)
-})
 
-const transformTest2: z.ZodType<number, Array<string>> = z.transform<
-    Array<string>,
-    number
->((val: Array<string>) => {
-    return RA.ensureArray(val).length
-})
 const custom_schema = z.object({
     enumtest: z
         //.enum({'one':4444, 'two':555, 'three' :33333})
@@ -49,6 +33,12 @@ const custom_schema = z.object({
             alias: ['g', 'gbt'],
             description: 'this is gillian',
         }),
+    /** Control interactive prompt behavior */
+    interactive: z
+        .boolean()
+        .default(true)
+        .meta({ alias: ['i'], description: 'Run without interactive prompts' }),
+
     //.describe('test array'),
     junk: z.number().default(1).meta({
         description: 'TEST VAR',
@@ -58,26 +48,18 @@ const custom_schema = z.object({
         .array(z.number())
         .default([])
         .meta({ alias: ['ii', 'num'], description: 'anothwr array ' }),
+    testarr: z.array(z.number()).default([]).meta({
+        description: 'this is test array 1',
+    }),
+    testarr4: z
 
-    testarr: z
-        .array(z.number())
-        .default([])
+        .array(z.string())
+        .nonempty()
         .meta({
             alias: ['z', 'zzz'],
-            description: 'this is test array 1',
-        }),
-    testarr4: z
-        .array(z.string())
-        /*.pipe( transformTest )*/
-        .meta({
             description: 'GBT TEST HI',
         }),
 })
-//custom_schema.extend(commonFlagsSchema)
-//commonFlagsSchema.extend(custom_schema)
-//type MergeSchema <A extends z.ZodObject,B extends z.ZodObject =  Merge<A,B>
-
-//const my_merged_schema =commonFlagsSchema.extend(custom_schema.shape) //.extend(custom_schema) //MergedSchemas<typeof commonFlagsSchema,typeof custom_schema>
 
 const my_merged_schema = mergeSchemas(commonFlagsSchema, custom_schema)
 
@@ -86,35 +68,30 @@ const initFunc: InitSuccessCallback<typeof my_merged_schema> = async (
     args: z.infer<typeof my_merged_schema>,
     config: AppConfig,
 ): Promise<void> => {
-    // getLogger().setLevel('error')
-    getLogger().debug(
-        //  `Resolved APP ARGS: ${JSON.stringify(args, undefined, 4)}`,
-        fmt`!!!!!!!Resolved APP ARGS: ${args}`,
-    )
-
-    const test: Partial<z.infer<typeof my_merged_schema>> = args
-
-    const options: yargsInteractive.Option = {
-        errorlist: {
-            choices: Object.keys(args), //['HELP', 'SHOW ERROR','DONE'],
-            describe: 'List test',
-            type: 'list',
-        },
-        interactive: { default: true },
+    logger
+        .get()
+        .debug(`Resolved APP ARGS:`, fmt`!!!!!!!Resolved APP ARGS: ${args}`)
+    if (!args.interactive) {
+        logger.get().info('Non-interactive mode: skipping prompts')
+    } else {
+        //this is for example
+        const options: yargsInteractive.Option = {
+            errorlist: {
+                choices: Object.keys(args), //['HELP', 'SHOW ERROR','DONE'],
+                describe: 'List test',
+                type: 'list',
+            },
+            interactive: { default: true },
+        }
+        await yargsInteractive()
+            .interactive(options)
+            .then((result) => {
+                logger.get().info(result.errorlist)
+                return undefined
+            })
     }
-    await yargsInteractive()
-        .interactive(options)
-        .then((result) => {
-            getLogger().info(result.errorlist)
-            return undefined
-        })
 
-    getLogger().debug(JSON.stringify(args, undefined, 4))
-
-    const teee: z.infer<typeof my_merged_schema> = {
-        ...args,
-    }
-    getLogger().info(JSON.stringify(args))
+    logger.get().info(JSON.stringify(args))
     //return void
     return
 }
@@ -126,8 +103,9 @@ const exampleAppConfigOptions: AppConfigIn = {
         ['$0 --config "~/config.json"', 'Use custom config'],
         ['$0 --safe', 'Start in safe mode'],
     ],
-
     name: 'Example App',
+
+    version: '0.0.0',
 }
 /** Initialize App */
 const initialize = async (): Promise<'SUCCESS' | 'ERROR'> => {
@@ -138,10 +116,10 @@ const initialize = async (): Promise<'SUCCESS' | 'ERROR'> => {
     )
     //console.log('YARGS INSTANCE: ', instance_yargs)
     if (instance_yargs === undefined) {
-        //  process.exit(1)
+        process.exit(1)
         return 'ERROR'
     }
-    // process.exit(0)
+    process.exit(0)
     return 'SUCCESS'
 }
 

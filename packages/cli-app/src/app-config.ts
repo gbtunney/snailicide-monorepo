@@ -1,4 +1,4 @@
-import { getLogger, logger } from '@snailicide/build-config'
+import { logger } from '@snailicide/build-config'
 import { colorUtils, stringUtils } from '@snailicide/g-library'
 import { Merge } from 'type-fest'
 import { z } from 'zod'
@@ -79,7 +79,7 @@ export const appConfigSchema = z.object({
             return { ...default_aliases, ...value }
         }),
 
-    log_level: z.enum(logger.LEVEL_NAMES).default('info'),
+    log_level: z.enum(logger.LEVEL_NAMES).default('debug'),
     /** Hide an option from the help screen */
     /* hidden: z
         .array(z.string())
@@ -140,7 +140,7 @@ export const resolveAppConfigSchema = <
     } else {
         const result = schema.safeParse(value)
         if (!result.success) {
-            getLogger().error(z.prettifyError(result.error))
+            logger.get().error(z.prettifyError(result.error))
         }
         return undefined
     }
@@ -158,7 +158,7 @@ export const parsePackageJson = (
     if (_parseResult.success) {
         return _parseResult.data
     }
-    getLogger().error(z.prettifyError(_parseResult.error))
+    logger.get().error(z.prettifyError(_parseResult.error))
 
     return undefined
 }
