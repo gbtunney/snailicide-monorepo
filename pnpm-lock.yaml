@@ -712,9 +712,6 @@ importers:
             '@types/ramda':
                 specifier: ^0.31.0
                 version: 0.31.1
-            dayjs:
-                specifier: ^1.11.19
-                version: 1.11.19
             ramda:
                 specifier: ^0.32.0
                 version: 0.32.0
