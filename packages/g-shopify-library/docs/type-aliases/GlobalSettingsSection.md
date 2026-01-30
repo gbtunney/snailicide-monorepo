@@ -1,4 +1,4 @@
-[**@snailicide/g-shopify-library v0.3.7**](../README.md)
+[**@snailicide/g-shopify-library v0.3.8**](../README.md)
 
 ---
 
