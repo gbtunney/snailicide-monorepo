@@ -7,7 +7,7 @@
 # Function: toGID()
 
 ```ts
-function toGID(value): undefined | string
+function toGID(value): string | undefined
 ```
 
 Defined in:
@@ -26,6 +26,6 @@ toGID
 
 ## Returns
 
-`undefined` | `string`
+`string` | `undefined`
 
 The decoded GID if valid, otherwise undefined.

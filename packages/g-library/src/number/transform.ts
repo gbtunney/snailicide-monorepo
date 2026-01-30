@@ -62,10 +62,8 @@ export const toStringNumeric = <Type extends string>(
 
     if (!strictChars && isStringNumeric(value, false)) {
         const regex = new RegExp(/([a-z]|[A-Z]|,|\?|$|\$|!|@|#|%|&)/, 'g')
-        const replaced_value = removeAllNewlines(value.toString()).replace(
-            regex,
-            '',
-        )
+        // remove unnecessary toString() on a string
+        const replaced_value = removeAllNewlines(value).replace(regex, '')
         if (replaced_value.length > 0) {
             const _pre = replaced_value
             return parseFloat(_pre)
@@ -78,14 +76,14 @@ export const toStringNumeric = <Type extends string>(
  * Convert a value to a valid number type
  *
  * @group Transform
- * @see {@link parseToNumeric}
- * @see {@link parseToInteger}
+ * See: parseToNumeric, parseStringToInteger
  */
 export const toNumeric = <Type extends PossibleNumeric>(
     value: Type,
 ): Numeric | undefined => {
     if (isPossibleNumeric<Type>(value)) {
-        if (isBigInt(value)) return BigInt(value)
+        // avoid unnecessary BigInt() on a bigint
+        if (isBigInt(value)) return value
         else if (isNumber(value)) return value
         else if (tgIsString(value) && isStringNumeric(value)) {
             return toStringNumeric(value)
@@ -115,7 +113,10 @@ export const numericToFloat = <Type extends Numeric>(
  */
 export const numericToInteger = <Type extends Numeric, Strict = false>(
     value: Strict extends true ? Integer<Type> : Type,
-): Numeric | undefined => parseStringToInteger(value.toString())
+): Numeric | undefined => {
+    const str = tgIsString(value) ? value : value.toString()
+    return parseStringToInteger(str)
+}
 
 const cleanString = (value: string): string =>
     trimWhiteSpace(removeAllNewlines(value))

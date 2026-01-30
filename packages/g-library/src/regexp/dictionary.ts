@@ -6,9 +6,10 @@ import type { Writable } from 'type-fest'
  * Name field in package.json
  *
  * @example
- *     '@snailicide/g-library'
- *     #bad
- *     ;('GLibrary')
+ *     '@snailicide/g-library'(
+ *         // bad
+ *         'GLibrary',
+ *     )
  */
 export const validPackageName =
     /^(@[a-z0-9-~][a-z0-9-._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/
@@ -21,11 +22,19 @@ export const validPackageName =
 export const packageManager = /(npm|pnpm|yarn)@\d+\.\d+\.\d+(-.+)?/
 
 /**
- * @category SCIENCE (Removed Nan and Infinity)
+ * Scientific Number
+ *
+ * @category Numeric Removed NaN and Infinity from original source. Allows numeric separators (_) in integer,
+ *   fractional, and exponent digits.
  * @see {@link https://regex101.com/r/oubK67/5}
  */
 export const scientificNumber =
-    /^([+-]?(?:0(?:[bB][01](?:_?[01]+)*|[oO]?[0-7](?:_?[0-7]+)*|[xX][0-9a-fA-F](?:_?[0-9a-fA-F]+)*)|(?:(?:0|0(?:[0-9](?:_?[0-9]+)*)?[89](?:[0-9](?:_?[0-9]+)*)?|[1-9](?:_?[0-9]+)*)(?:\.(?:[0-9](?:_?[0-9]+)*)?)?|\.[0-9](?:_?[0-9]+)*)(?:[eE][+-]?[0-9](?:_?[0-9]+)*)?)|-?(?:0(?:[bB][01](?:_?[01]+)*|[oO][0-7](?:_?[0-7]+)*|[xX][0-9a-fA-F](?:_?[0-9a-fA-F]+)*)?|[1-9](?:_?[0-9]+)*)n)$/
+    /^[+-]?(?:\d(?:_?\d)*(?:\.\d(?:_?\d)*)?|\.\d(?:_?\d)*)(?:e[+-]?\d(?:_?\d)*)?$/i
+
+export const hexNumber = /^[+-]?0x[0-9a-f](?:_?[0-9a-f])*$/i
+export const binaryNumber = /^[+-]?0b[01](?:_?[01])*$/i
+export const bigintNumber =
+    /^[+-]?(?:\d(?:_?\d)*|0x[0-9a-f](?:_?[0-9a-f])*|0b[01](?:_?[01])*)n$/i
 
 /** Common characters to trim from CSS classes or otherwise. */
 export const DEFAULT_TRIM_CHARACTERS = [

@@ -35,7 +35,7 @@ const example_package_bad = {
 
 describe('Rolluup Config Test', () => {
     test('BANNER', () => {
-        // @ts-expect-error: package error
+        //@ts-expect-error  Intentional bad data for test
         expect(getBanner('hhhhhGTESTLIB', example_package_bad, false)).toBe(
             undefined,
         )

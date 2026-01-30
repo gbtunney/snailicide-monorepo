@@ -1,13 +1,15 @@
+import { logger } from '@snailicide/build-config'
 import { colorUtils, stringUtils } from '@snailicide/g-library'
-import { zod } from '@snailicide/g-library/node'
 import { Merge } from 'type-fest'
 import { z } from 'zod'
 import { tgZodSchema, wrapSchema, ZodObjectSchema } from './helpers.js'
-
 export type DefaultAliases = {
     help?: string
     version?: string
 }
+
+// ...existing code...
+
 const default_aliases: DefaultAliases = {
     help: 'h',
     version: 'v',
@@ -23,10 +25,12 @@ export type AppHidden<Schema extends ZodObjectSchema> = Array<
 export type AppConfigOut = z.infer<typeof appConfigSchema>
 export type AppConfig = AppConfigOut
 
-export type AppConfigIn<Schema extends ZodObjectSchema> = z.input<
+export type AppConfigIn<
+    Schema extends ZodObjectSchema = typeof appConfigSchema,
+> = z.input<
     z.ZodType<
         AppConfig,
-        z.ZodTypeDef,
+        //  z.ZodTypeDef,
         Merge<
             z.input<AppConfigSchema>,
             {
@@ -41,23 +45,22 @@ export type AppConfigIn<Schema extends ZodObjectSchema> = z.input<
  * client cli app
  */
 export const appConfigSchema = z.object({
-    /** Clears the terminal window */
     clear: z
         .boolean()
         .default(true)
-        .describe('Clear the terminal screen if possible.'),
+        .meta({ description: 'Clear the terminal screen if possible.' }),
     description: z.string().optional(),
     /** Examples of usage */
     examples: z
-        .array(zod.tuple([zod.string(), zod.string()]))
+        .array(z.tuple([z.string(), z.string()]))
         .default([])
-        .describe('Examples for app cli help'),
+        .meta({ description: 'Examples for app cli help' }),
     //todo: allow figlet options?
     /** Use figlet to make large ascii title */
     figlet: z
         .boolean()
         .default(true)
-        .describe('Get title using lg ascii text w/FIGfont spec'),
+        .meta({ description: 'Get title using lg ascii text w/FIGfont spec' }),
     /**
      * Shorthand Option Aliases (--help , -h )
      *
@@ -69,32 +72,37 @@ export const appConfigSchema = z.object({
      * ```
      */
     flag_aliases: z
-        .record(z.string())
+        .record(z.string(), z.string())
         .default(default_aliases)
-        .transform((value: Record<string, string>): Record<string, string> => {
-            return { ...value, ...default_aliases }
+        .transform((value) => {
+            // defaults first, user overrides win
+            return { ...default_aliases, ...value }
         }),
+
+    log_level: z.enum(logger.LEVEL_NAMES).default('debug'),
     /** Hide an option from the help screen */
-    hidden: z
+    /* hidden: z
         .array(z.string())
         .default([])
-        .describe('hide a key from the help menu'),
+        .meta({ description: 'hide a key from the help menu' }),*/
     name: z
         .string()
         .transform((value: string): string =>
             stringUtils.hyphenate(value).toLowerCase(),
         ),
-    print: z.boolean().default(true).describe('Print the header'),
+    print: z.boolean().default(true).meta({ description: 'Print the header' }),
+    /** Clears the terminal window */
+    skip_interactive: z.boolean().default(false),
     title_color: z
         .object({
-            bg: zod
+            bg: z
                 .string()
                 .default('#12043A')
                 .refine(
                     (value: string) => colorUtils.isValidColor(value),
                     'Must be a valid chroma.ts color string',
                 ),
-            fg: zod
+            fg: z
                 .string()
                 .default('#d104ff')
                 .refine(
@@ -106,15 +114,17 @@ export const appConfigSchema = z.object({
             bg: '#12043A',
             fg: '#d104ff',
         })
-        .describe(
-            'Color for the title text and background. Please use a valid string chroma.ts color value.',
-        ),
-    version: zod
+        .meta({
+            description:
+                'Color for the title text and background. Please use a valid string chroma.ts color value.',
+        }),
+    version: z
         .string()
         .default('0.0.0')
         .refine((value) => stringUtils.isValidSemVer(value), {
             message: 'Version must be a valid semver',
-        }),
+        })
+        .meta({ alias: ['v', 'version'] }),
 })
 
 export type AppConfigSchema = typeof appConfigSchema
@@ -124,14 +134,13 @@ export const resolveAppConfigSchema = <
 >(
     value: AppConfigIn<AppOptionsSchema>,
     schema: AppConfigSchema, //note : the default parameter errors like: schema:  AppConfigSchema=appConfigSchema
-    suppressError: boolean = true,
 ): z.infer<AppConfigSchema> | undefined => {
     if (tgZodSchema(schema, value)) {
         return schema.parse(value)
     } else {
         const result = schema.safeParse(value)
-        if (!result.success && !suppressError) {
-            console.error(JSON.stringify(result.error.format(), undefined, 4))
+        if (!result.success) {
+            logger.get().error(z.prettifyError(result.error))
         }
         return undefined
     }
@@ -145,13 +154,11 @@ const packageSchema = wrapSchema<typeof appConfigSchema>(appConfigSchema).pick({
 export const parsePackageJson = (
     pkg: unknown,
 ): z.infer<typeof packageSchema> | undefined => {
-    if (packageSchema.safeParse(pkg).success) {
-        return packageSchema.parse(pkg)
-    } else {
-        console.error(
-            'Invalid package.json',
-            packageSchema.safeParse(pkg).error,
-        )
-        return undefined
+    const _parseResult = packageSchema.safeParse(pkg)
+    if (_parseResult.success) {
+        return _parseResult.data
     }
+    logger.get().error(z.prettifyError(_parseResult.error))
+
+    return undefined
 }

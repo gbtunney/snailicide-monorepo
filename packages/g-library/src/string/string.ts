@@ -20,6 +20,7 @@ export const insert = (
  *
  * @category Remove Characters
  */
+
 export const truncate = (
     value: string,
     maxChars: number = 200,
@@ -35,4 +36,18 @@ export const truncate = (
         ? value.substring(0, value.lastIndexOf(' '))
         : trim(value)
     return `${value}${append}`
+}
+
+/**
+ * Inserts a delimiter between every user-perceived character. Uses Array.from to preserve surrogate pairs (e.g. emojis)
+ * without splitting them.
+ *
+ * @category Transform
+ * @example
+ *     spaceText('ABC') // 'A B C'
+ *     spaceText('hello', '-') // 'h-e-l-l-o'
+ *     spaceText('👩‍💻', ' ') // '👩 💻'
+ */
+export const spaceText = (value: string, delimiter: string = ' '): string => {
+    return Array.from(value).join(delimiter)
 }

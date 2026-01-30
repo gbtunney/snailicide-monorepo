@@ -20,7 +20,7 @@ type ThemeInfo = {
 Defined in:
 [packages/g-shopify-library/src/settings/theme.ts:24](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/g-shopify-library/src/settings/theme.ts#L24)
 
-## Type declaration
+## Type Declaration
 
 | Name                                                            | Type           | Defined in                                                                                                                                                              |
 | --------------------------------------------------------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

@@ -1,4 +1,3 @@
-import { zod } from '@snailicide/g-library/node'
 import { z } from 'zod'
 
 import { select_option, text_base } from './composable.js'
@@ -15,23 +14,23 @@ import { select_option, text_base } from './composable.js'
  * @property {z.ZodSchema} rangd
  */
 const basic_settings_schema_map = {
-    checkbox: zod.object({
-        default: zod.boolean().default(false),
-        type: zod.literal('checkbox'),
+    checkbox: z.object({
+        default: z.boolean().default(false),
+        type: z.literal('checkbox'),
     }),
-    number: zod.object({
-        default: zod.number().default(4444),
-        placeholder: zod.string().optional(),
-        type: zod.literal('number'), //zod.string().optional(),
+    number: z.object({
+        default: z.number().default(4444),
+        placeholder: z.string().optional(),
+        type: z.literal('number'), //zod.string().optional(),
     }),
-    radio: zod.object({
+    radio: z.object({
         //format?
         /* * default - If unspecified, then the first option is selected using index=0 * */
-        default: zod.union([zod.string(), zod.number().default(0)]),
-        options: zod.array(select_option),
-        type: zod.literal('radio'),
+        default: z.union([z.string(), z.number().default(0)]),
+        options: z.array(select_option),
+        type: z.literal('radio'),
     }),
-    range: zod.object({
+    range: z.object({
         default: z.number(),
         //integer idk??
         max: z.number().default(1000), //required by shopify for range only
@@ -44,18 +43,18 @@ const basic_settings_schema_map = {
             z.string().default('px'),
         ]),
     }),
-    select: zod.object({
-        default: zod.union([zod.string(), zod.number().default(0)]),
-        group: zod.string().optional(),
-        options: zod.array(select_option),
+    select: z.object({
+        default: z.union([z.string(), z.number().default(0)]),
+        group: z.string().optional(),
+        options: z.array(select_option),
         //todo: make this dynamic or factory??
-        type: zod.literal('select'), //group?: string /// no other info providewd
+        type: z.literal('select'), //group?: string /// no other info providewd
     }),
     text: text_base.extend({
-        type: zod.literal('text'),
+        type: z.literal('text'),
     }),
     textarea: text_base.extend({
-        type: zod.literal('textarea'),
+        type: z.literal('textarea'),
     }),
 }
 enum BasicSettingsTypesEnum {

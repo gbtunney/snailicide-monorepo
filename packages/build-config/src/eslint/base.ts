@@ -44,7 +44,7 @@ export const flatEslintConfig = async (__dirname: string): Promise<Config> => {
             languageOptions: {
                 globals: { ...globals.browser, ...globals.node },
                 parserOptions: {
-                    project: true,
+                    // project: true,
                     projectService: true,
                     tsconfigRootDir: __dirname,
                 },
@@ -91,13 +91,14 @@ export const flatEslintConfig = async (__dirname: string): Promise<Config> => {
         },
 
         /** ** Typescript Eslint : Disable Type Checked for js files */
-        ...tseslint.config({
-            extends: [tseslint.configs.disableTypeChecked],
+        {
+            // Take the preset and apply only to JS extensions
+            ...tseslint.configs.disableTypeChecked,
             files: [
                 ...getFileExtensionList(JS_FILE_EXTENSIONS, false, '**/*.'),
             ],
             name: 'Typescript Eslint : Disable Type Checked for js files',
-        }),
+        },
     ]
     return EslintConfig
 }

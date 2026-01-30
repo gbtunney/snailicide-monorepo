@@ -10,6 +10,45 @@ import {
     urlScheme,
 } from '../regexp/dictionary.js'
 
+export const minLen = (value: string, min: number): boolean =>
+    typeof value === 'string' && value.length >= min
+/**
+ * Checks if a string starts with a given prefix. Optional trim before comparison.
+ *
+ * @example
+ *     startsWithPrefix('  hello', 'he', true) // true
+ *     startsWithPrefix('hello', 'he') // true
+ *     startsWithPrefix('hello', 'x') // false
+ */
+export const startsWithPrefix = (
+    value: string,
+    prefix: string,
+    trimmed: boolean = false,
+): boolean =>
+    typeof value === 'string' &&
+    (trimmed ? value.trim() : value).startsWith(prefix)
+/**
+ * Checks if a string ends with a given suffix. Optional trim before comparison.
+ *
+ * @example
+ *     endsWithSuffix('hello  ', 'lo', true) // true
+ *     endsWithSuffix('hello', 'lo') // true
+ *     endsWithSuffix('hello', 'xx') // false
+ */
+export const endsWithSuffix = (
+    value: string,
+    suffix: string,
+    trimmed: boolean = false,
+): boolean =>
+    typeof value === 'string' &&
+    (trimmed ? value.trim() : value).endsWith(suffix)
+/**
+ * Minimatch pattern validation. True when value matches pattern (glob style).
+ *
+ * @example
+ *     getValidMinimatch('src/index.ts', 'src/*.ts') // true
+ *     getValidMinimatch('src/index.js', 'src/*.ts') // false
+ */
 export const getValidMinimatch = (value: string, pattern: string): boolean => {
     return minimatch(value, pattern)
 }
@@ -27,9 +66,12 @@ export type URLDomainExtention = ValueOf<typeof URL_DOMAIN_EXTENSION>
 export type IPAddress = z.BRAND<'IPAddress'>
 
 /**
- * @category URL
- * @category IPAddress
- * @category Validators todo: try to type URLScheme
+ * Validates an IP address string (optionally with scheme). Returns branded IPAddress or undefined.
+ *
+ * @example
+ *     getValidIPAddress('127.0.0.1') // IPAddress
+ *     getValidIPAddress('http://127.0.0.1') // IPAddress
+ *     getValidIPAddress('999.0.0.1') // undefined
  */
 export const getValidIPAddress = <Type extends string>(
     value: Type,
@@ -48,9 +90,12 @@ export const getValidIPAddress = <Type extends string>(
 }
 
 /**
- * @category URL
- * @category IPAddress
- * @category Validators todo: try to type URLScheme
+ * IP address syntax check (optionally requires scheme).
+ *
+ * @example
+ *     isValidIpAddress('127.0.0.1') // true
+ *     isValidIpAddress('http://127.0.0.1') // true
+ *     isValidIpAddress('999.0.0.1') // false
  */
 export const isValidIpAddress = <Type extends string = string>(
     value: Type,
@@ -73,8 +118,11 @@ export const isValidIpAddress = <Type extends string = string>(
 export type URL = z.BRAND<'URL'>
 
 /**
- * @category URL
- * @category Validators todo: try to type URLScheme
+ * Validates a URL string (optionally with scheme). Returns branded URL or undefined.
+ *
+ * @example
+ *     getValidUrl('https://example.com') // URL
+ *     getValidUrl('example') // undefined
  */
 export const getValidUrl = <Type extends string>(
     value: Type,
@@ -93,10 +141,12 @@ export const getValidUrl = <Type extends string>(
 }
 
 /**
- * Checks if a string is a valid URL.
+ * URL syntax check (optionally requires scheme).
  *
- * @category URL
- * @category Validators todo: try to type URLScheme
+ * @example
+ *     isValidUrl('https://example.com') // true
+ *     isValidUrl('ftp://example.com') // true
+ *     isValidUrl('example') // false
  */
 export const isValidUrl = <Type extends string = string>(
     value: Type,
@@ -113,6 +163,10 @@ export const isValidUrl = <Type extends string = string>(
  * Checks if the provided string is a valid semantic version (SemVer).
  *
  * @category Validators
+ * @example
+ *     isValidSemVer('1.2.3') // true
+ *     isValidSemVer('1.2') // false
+ *     isValidSemVer('invalid') // false
  */
 export const isValidSemVer = (value: string): boolean =>
     semvervalid(value) !== null
@@ -121,6 +175,9 @@ export const isValidSemVer = (value: string): boolean =>
  * If the length of the string is >1 and string contains a number.
  *
  * @category Validators
+ * @example
+ *     stringContainsNumber('a1') // true
+ *     stringContainsNumber('abc') // false
  */
 export const stringContainsNumber = <Type extends string>(
     value: Type,
@@ -130,6 +187,9 @@ export const stringContainsNumber = <Type extends string>(
  * If the length of the string is >1 and the string does not match a letter, return true.
  *
  * @category Validators
+ * @example
+ *     stringContainsLetter('a1') // true
+ *     stringContainsLetter('123') // false
  */
 export const stringContainsLetter = <Type extends string>(
     value: Type,

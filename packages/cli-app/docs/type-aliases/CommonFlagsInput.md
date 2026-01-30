@@ -9,20 +9,16 @@
 ```ts
 type CommonFlagsInput = {
   debug?: boolean
-  outDir: string
-  rootDir?: string
-  verbose?: boolean
+  outDir?: string
 }
 ```
 
 Defined in:
-[packages/cli-app/src/app-options.ts:16](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-options.ts#L16)
+[packages/cli-app/src/app-options.ts:28](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-options.ts#L28)
 
-## Type declaration
+## Type Declaration
 
-| Name                            | Type      | Defined in                                                                                                                                    |
-| ------------------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| <a id="debug"></a> `debug?`     | `boolean` | [packages/cli-app/src/app-options.ts:6](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-options.ts#L6)   |
-| <a id="outdir"></a> `outDir`    | `string`  | [packages/cli-app/src/app-options.ts:7](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-options.ts#L7)   |
-| <a id="rootdir"></a> `rootDir?` | `string`  | [packages/cli-app/src/app-options.ts:8](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-options.ts#L8)   |
-| <a id="verbose"></a> `verbose?` | `boolean` | [packages/cli-app/src/app-options.ts:12](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-options.ts#L12) |
+| Name                          | Type      | Defined in                                                                                                                                    |
+| ----------------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| <a id="debug"></a> `debug?`   | `boolean` | [packages/cli-app/src/app-options.ts:9](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-options.ts#L9)   |
+| <a id="outdir"></a> `outDir?` | `string`  | [packages/cli-app/src/app-options.ts:14](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-options.ts#L14) |

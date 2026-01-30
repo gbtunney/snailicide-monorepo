@@ -11,7 +11,7 @@ type WrappedSchema<Schema> = Schema extends ZodObjectSchema ? Schema : never
 ```
 
 Defined in:
-[packages/cli-app/src/helpers.ts:4](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/helpers.ts#L4)
+[packages/cli-app/src/helpers.ts:6](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/helpers.ts#L6)
 
 ## Type Parameters
 

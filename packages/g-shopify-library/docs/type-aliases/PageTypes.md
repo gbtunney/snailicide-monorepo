@@ -31,4 +31,4 @@ type PageTypes =
 ```
 
 Defined in:
-[packages/g-shopify-library/src/sections/index.ts:44](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/g-shopify-library/src/sections/index.ts#L44)
+[packages/g-shopify-library/src/sections/index.ts:43](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/g-shopify-library/src/sections/index.ts#L43)

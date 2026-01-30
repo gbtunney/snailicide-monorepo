@@ -15,6 +15,17 @@ export type * from './commitlint/index.js'
 export { EsLint } from './eslint/index.js'
 export type * from './eslint/index.js'
 
+export {
+    fmt,
+    formatArgs,
+    formatValue,
+    prettify,
+    prettyPrint,
+} from './logger/index.js'
+/** @namespace Logger A custom logger with colors!! */
+export { logger } from './logger/index.js'
+
+export type * from './logger/index.js'
 /**
  * A Node.js command line interface and style checker / lint tool for Markdown files.
  *
@@ -22,29 +33,29 @@ export type * from './eslint/index.js'
  * @see [davidAnson/markdownlint](https://github.com/DavidAnson/markdownlint)
  */
 export { markdownlint } from './markdownlint/index.js'
-export type * from './markdownlint/index.js'
 
+export type * from './markdownlint/index.js'
 /**
  * @namespace Collection of Generic NPM Package Utility Schemas and Typeguards
  * @see [NPM - Node Package Manager](https://www.npmjs.com/)
  */
 export { npm } from './npm/index.js'
-export type * from './npm/index.js'
 
+export type * from './npm/index.js'
 /**
  * @namespace Prettier Configuration
  * @see [Prettier - Opinionated Code Formatter](https://prettier.io/)
  */
 export { Prettier } from './prettier/index.js'
-export type { PrettierConfig, PrettierOptions } from './prettier/index.js'
 
+export type { PrettierConfig, PrettierOptions } from './prettier/index.js'
 /**
  * @namespace Rollup Configuration, Plugins, and helper functions
  * @see [Rollup - The JavaScript module bundler](https://rollupjs.org/guide/en/)
  */
 export { rollup } from './rollup/index.js'
-export type * from './rollup/index.js'
 
+export type * from './rollup/index.js'
 /**
  * @namespace Typedoc Configuration
  * @see [Typedoc - Documentation Generator for TypeScript Projects](https://typedoc.org/)

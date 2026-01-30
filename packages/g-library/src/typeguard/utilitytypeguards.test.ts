@@ -5,6 +5,7 @@ import {
     isBigInt,
     isEmptyObject,
     isInteger,
+    isNilOrEmpty,
     isNonEmptyArray,
     isNonEmptyObject,
     isNotNumber,
@@ -14,9 +15,11 @@ import {
 describe('typeguards', () => {
     test('utility typeguards', () => {
         //TODO: PLEASE REWRITE OR RECOVER these tests
-        const test: EmptyArray = []
+        const test = [] as const
+        const testArr: EmptyArray = []
         const test2 = ['gillian']
         const testObj = { hi: 'gillian' }
+        const testEmptyObj = {}
         expect(isNonEmptyArray<Array<string>>(test2)).toBe(true)
 
         const gbt: string | number | bigint = '2'
@@ -46,12 +49,14 @@ describe('typeguards', () => {
         expect(isNonEmptyArray(testObj)).toBe(false)
 
         expect(isNonEmptyObject(testObj)).toBe(true)
+        expect(isNilOrEmpty(testEmptyObj)).toBe(true)
+        expect(isNilOrEmpty(testArr)).toBe(true)
+        // @ts-expect-error tsexpect error
+        expect(isEmptyObject(test)).toBe(false)
 
-        //TODO :: FIX THIS
-        // @ts-expect-error ts error
-        expect(isEmptyObject(test)).toBe(true)
+        // @ts-expect-error tsexpect error
+        expect(isEmptyObject(testArr)).toBe(false)
 
-        //TODO :: FIX THIS ??!
         // @ts-expect-error tsexpect error
         expect(isNonEmptyObject(test2)).toBe(false)
     })

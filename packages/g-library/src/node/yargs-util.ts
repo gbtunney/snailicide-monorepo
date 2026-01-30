@@ -2,7 +2,7 @@ import yargs from 'yargs'
 import { z } from 'zod'
 
 /** @group yargs */
-export const getYArgs = <Type extends z.ZodSchema>(
+export const getYArgs = <Type extends z.ZodObject>(
     schema: Type,
     debug = false,
     _yargs = process.argv,

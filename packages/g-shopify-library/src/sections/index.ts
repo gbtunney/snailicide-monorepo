@@ -1,4 +1,3 @@
-import { zod } from '@snailicide/g-library/node'
 import { z } from 'zod'
 
 import {
@@ -45,7 +44,7 @@ export type PageTypes = z.infer<typeof pageTypes>
 
 const block_schema = z.object({
     ///dont know if optional
-    limit: zod.number().int().optional(), //change to literal?
+    limit: z.number().int().optional(), //change to literal?
     name: z.string().optional(), //todo:might be wrong
     settings: getSettingGroupSchema(),
     type: z.string(),
@@ -55,7 +54,7 @@ const section_schema = z.object({
     blocks: z.array(block_schema).optional(),
     class: z.string().optional(),
     //todo: validate??
-    limit: zod.number().int().default(3),
+    limit: z.number().int().default(3),
     name: z.string(),
     settings: getSettingGroupSchema().optional(),
 

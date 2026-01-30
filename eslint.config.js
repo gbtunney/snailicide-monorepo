@@ -36,5 +36,17 @@ export default [
             'filenames-simple/naming-convention': 'warn',
         },
     }),
+    //TODO TEMPORARY   - problem in jsdoc file g-librry dictionary
+    // @TODO: Temporarily disabled rules - review later - has to do with eslint fixer jsdoc and prettier order busted.
+    ...tseslint.config({
+        files: ['packages/**/*'],
+        rules: {
+            'jsdoc/check-indentation': 'warn',
+        },
+    }),
+    {
+        files: ['packages/cli-app/**/*.ts'],
+        rules: { '@typescript-eslint/unified-signatures': 'off' },
+    },
     {},
 ]

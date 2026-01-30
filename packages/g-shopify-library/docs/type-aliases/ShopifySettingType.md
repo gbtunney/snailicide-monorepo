@@ -11,4 +11,4 @@ type ShopifySettingType = keyof typeof shopify_settings_schema_map
 ```
 
 Defined in:
-[packages/g-shopify-library/src/settings/shopify.ts:70](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/g-shopify-library/src/settings/shopify.ts#L70)
+[packages/g-shopify-library/src/settings/shopify.ts:69](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/g-shopify-library/src/settings/shopify.ts#L69)

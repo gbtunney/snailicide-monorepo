@@ -13,7 +13,7 @@ type AppFlagAliases<Schema> = DefaultAliases & {
 ```
 
 Defined in:
-[packages/cli-app/src/app-config.ts:16](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L16)
+[packages/cli-app/src/app-config.ts:18](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L18)
 
 This type is used to autocomplete the yargs aliases property. This creates
 shorthand values for option flags.

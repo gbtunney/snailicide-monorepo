@@ -1,9 +1,8 @@
 import { ensureArray } from 'ramda-adjunct'
-
 import type { ValueOf } from 'type-fest'
 import { escapeStringRegexp } from './escape.js'
 import { isStringValidRegExp } from './validators.js'
-import { isArray, isRegExp } from '../typeguard/utility.typeguards'
+import { isArray, isRegExp } from '../typeguard/utility.typeguards.js'
 
 /**
  * Converts a string to a regular expression.
@@ -46,8 +45,8 @@ export const getRegExpTrim = (
     _value: string | Array<string>,
     flag: Flag | Array<Flag> | undefined = 'global',
 ): RegExp => {
-    const start = getRegExpStartOfString(_value, flag).source.toString()
-    const end = getRegExpEndOfString(_value, flag).source.toString()
+    const start: string = getRegExpStartOfString(_value, flag).source
+    const end: string = getRegExpEndOfString(_value, flag).source
     const value: string = `${start}}${end}`
     return new RegExp(value, mapFlags(flag))
 }

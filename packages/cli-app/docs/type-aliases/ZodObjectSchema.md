@@ -7,8 +7,8 @@
 # Type Alias: ZodObjectSchema
 
 ```ts
-type ZodObjectSchema = z.AnyZodObject | z.ZodEffects<z.AnyZodObject>
+type ZodObjectSchema = z.ZodObject
 ```
 
 Defined in:
-[packages/cli-app/src/helpers.ts:3](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/helpers.ts#L3)
+[packages/cli-app/src/helpers.ts:5](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/helpers.ts#L5)

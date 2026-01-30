@@ -11,4 +11,4 @@ type BasicSettingType = keyof typeof basic_settings_schema_map
 ```
 
 Defined in:
-[packages/g-shopify-library/src/settings/basic.ts:74](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/g-shopify-library/src/settings/basic.ts#L74)
+[packages/g-shopify-library/src/settings/basic.ts:73](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/g-shopify-library/src/settings/basic.ts#L73)

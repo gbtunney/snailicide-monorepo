@@ -35,6 +35,7 @@
         "docs:nx": "cross-var nx run $npm_package_name:docs:build",
         "docs:open": "cross-var pnpm exec open $npm_package_config_docs_url",
         "\n========== PUBLISH >> ==========": "",
+        "git:add": "pnpm exec git add .",
         "release": "pnpm prerelease && pnpm publish --access public --report-summary",
         "test:release": "pnpm prerelease && cross-var pnpm publish --access public --report-summary --no-git-checks --registry $npm_package_config_publish_private",
         "TODO": "TODO: Fix wierd bug that breaks jsdoc ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL not sure if pnpm or jsdoc",
@@ -59,24 +60,24 @@
         "@types/semver": "^7.5.8",
         "@types/yargs": "^17.0.32",
         "chroma.ts": "^1.0.10",
+        "dayjs": "^1.11.19",
         "escape-string-regexp": "^5.0.0",
         "flat": "^6.0.1",
         "format": "^0.2.2",
         "fuse.js": "^7.0.0",
-        "glob": "^11.0.0",
+        "glob": "^13.0.0",
         "handlebars": "^4.7.8",
         "is-glob": "^4.0.3",
         "markdown-it": "^14.1.0",
         "minimatch": "^10.0.1",
-        "moment": "^2.30.1",
-        "ramda": "^0.31.3",
+        "ramda": "^0.32.0",
         "ramda-adjunct": "^5.0.0",
         "semver": "^7.6.3",
         "ts-deepmerge": "^7.0.0",
-        "type-fest": "^4.22.0",
+        "type-fest": "^5.2.0",
         "typedoc-material-theme": "^1.1.0",
         "yargs": "^18.0.0",
-        "zod": "^3.23.8"
+        "zod": "^4.1.11"
     },
     "devDependencies": {
         "@snailicide/build-config": "workspace:*",
@@ -88,8 +89,8 @@
         "typedoc": "^0.28.3",
         "typedoc-plugin-remove-references": "^0.0.6",
         "typescript": "^5.4.5",
-        "vite": "^7.0.2",
-        "vitest": "^3.1.2"
+        "vite": "^7.2.6",
+        "vitest": "^4.0.14"
     },
     "type": "module",
     "exports": {

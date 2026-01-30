@@ -1,19 +1,32 @@
 import z from 'zod'
 import { ensureArray, numeric, resolveRegExpSchema } from './schemas.js'
 
-/** @category Zod */
+/**
+ * @category Zod
+ * @example
+ *     schemaForType<{
+ *         horse: string
+ *         cat: number
+ *     }>()(
+ *         z.object({
+ *             horse: z.string(),
+ *             cat: z.number(),
+ *         }),
+ *     )
+ */
 export const schemaForType =
     <Type>() =>
-    <Schema extends z.ZodType<Type, any, any>>(arg: Schema): Schema => {
+    <Schema extends z.ZodType<Type>>(arg: Schema): Schema => {
         return arg
     }
-
 /**
  * So that it doesnt lose its schema typing after a transform or merge function
  *
  * @category Zod
  */
-export const wrapSchema = <Schema extends z.Schema>(schema: Schema): Schema => {
+export const wrapSchema = <Schema extends z.ZodType>(
+    schema: Schema,
+): Schema => {
     return schema
 }
 /**
@@ -34,7 +47,7 @@ export const wrapSchema = <Schema extends z.Schema>(schema: Schema): Schema => {
  *     prop2: 2
  *     }
  */
-export const parseZodData = <Schema extends z.ZodSchema>(
+export const parseZodData = <Schema extends z.ZodType>(
     value: unknown,
     schema: Schema,
 ): z.infer<Schema> | undefined => {
@@ -56,7 +69,7 @@ export const parseZodData = <Schema extends z.ZodSchema>(
  *     } )
  *     => true
  */
-export const isZodParsable = <Schema extends z.ZodSchema>(
+export const isZodParsable = <Schema extends z.ZodType>(
     value: unknown,
     schema: Schema,
 ): value is z.infer<Schema> => {
@@ -64,9 +77,9 @@ export const isZodParsable = <Schema extends z.ZodSchema>(
 }
 
 export const parseFactory =
-    <T extends z.ZodTypeAny>(schema: T) =>
-    (data: unknown): z.infer<T> | undefined => {
-        if (isZodParsable<T>(data, schema)) {
+    <Schema extends z.ZodType>(schema: Schema) =>
+    (data: unknown): z.infer<Schema> | undefined => {
+        if (isZodParsable<Schema>(data, schema)) {
             return schema.parse(data)
         }
         return undefined

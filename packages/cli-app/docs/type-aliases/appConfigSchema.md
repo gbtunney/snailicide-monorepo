@@ -11,7 +11,7 @@ type appConfigSchema = ZodObject<AppConfigOut>
 ```
 
 Defined in:
-[packages/cli-app/src/app-config.ts:43](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L43)
+[packages/cli-app/src/app-config.ts:47](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L47)
 
 This is the schema used to configure the Cli Application, these should NOT used
 in cli arguments when running the client cli app

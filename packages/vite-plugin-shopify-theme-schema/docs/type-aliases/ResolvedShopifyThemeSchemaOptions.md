@@ -18,7 +18,7 @@ type ResolvedShopifyThemeSchemaOptions = {
 Defined in:
 [packages/vite-plugin-shopify-theme-schema/src/options.ts:13](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/vite-plugin-shopify-theme-schema/src/options.ts#L13)
 
-## Type declaration
+## Type Declaration
 
 | Name                                       | Type                         | Defined in                                                                                                                                                                            |
 | ------------------------------------------ | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

@@ -27,7 +27,7 @@ export default function shopifyModules(
 type PluginSchema = typeof plugin_options_schema
 const _dummy: PluginSchema = plugin_options_schema
 const processModules = <
-    Schema extends z.AnyZodObject = typeof plugin_options_schema,
+    Schema extends z.ZodType = typeof plugin_options_schema,
 >(
     _value: z.infer<typeof plugin_options_schema>,
 ): void => {

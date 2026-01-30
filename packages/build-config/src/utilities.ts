@@ -1,4 +1,5 @@
 /** Utility functions (mainly for working with lintstaged,file extensions and JSON data) */
+
 import micromatch from 'micromatch'
 import {
     ensureArray,
@@ -16,9 +17,10 @@ import type {
     ReadonlyDeep,
     UnknownRecord,
 } from 'type-fest'
-
 import fs from 'fs'
+import { fileURLToPath } from 'node:url'
 import path from 'path'
+import { getLogger } from './logger/index.js'
 
 export const JS_FILE_EXTENSIONS = ['js', 'mjs', 'cjs', 'jsx'] as const
 export const TS_FILE_EXTENSIONS = ['ts', 'mts', 'cts', 'tsx'] as const
@@ -80,52 +82,12 @@ export const globFileFilter = (
     return result
 }
 
-//sh,html,json,yaml,yml,graphql,md
-
-/*
-export type JSONExportEntry<Type extends Jsonifiable = JsonArray | JsonObject> =
-    {
-        data: Type
-        filename: string
-    }
-export type JSONExportConfig<
-    Type extends Jsonifiable = JsonArray | JsonObject,
-> = Array<JSONExportEntry<Type>>
-
-export const exportJSON = (
-    config: ReadonlyDeep<JSONExportConfig> | JSONExportConfig,
-    outdir: string | undefined = undefined,
-): boolean => {
-    const successMap: Array<boolean> = Array.from(config).map((entry) => {
-        try {
-
-          //  TODO:FIX
-            fs.writeFileSync(
-                outdir === undefined
-                    ? `${addFileExtension(entry.filename)}`
-                    : `${outdir}/${addFileExtension(entry.filename)}`,
-                getJSONString<typeof entry.data>(entry.data),
-            )
-            return true
-        } catch (e) {
-            console.error(e)
-        }
-        return false
-    })
-    const hasSuccess = successMap.find((value: boolean) => {
-        return value
-    })
-    return hasSuccess === true
-}
-const getJSONString = <Type = unknown>(value: Type, indentSpaces = 4): string =>
-    JSON.stringify(JSON.parse(JSON.stringify(value)), undefined, indentSpaces)
-*/
-
-const addFileExtension = (value: string, extension = '.json'): string => {
-    const _extension = String(extension).startsWith('.')
-        ? extension
-        : `.${extension}`
-    return String(value).endsWith(_extension) ? value : `${value}${extension}`
+const addFileExtension = (
+    value: string,
+    extension: string = '.json',
+): string => {
+    const _extension = extension.startsWith('.') ? extension : `.${extension}`
+    return value.endsWith(_extension) ? value : `${value}${extension}`
 }
 
 export type NotAssignableToJson =
@@ -150,39 +112,53 @@ export const isPlainObject = <Type extends UnknownRecord = UnknownRecord>(
     return isNotUndefined(value) && RAisPlainObject(value)
 }
 
-export const safeDeserializeJSON = <Type = UnknownRecord>(
-    data: any,
-): JSONCompatible<Type> | undefined => {
+export const safeDeserializeJSON = <Type extends JsonValue = JsonValue>(
+    data: unknown,
+): Type | undefined => {
+    const LOGGER = getLogger().child('safeDeserializeJSON')
     try {
-        const str: string = JSON.stringify(data)
-        const obj: JSONCompatible<Type> = JSON.parse(str)
-        return obj
-    } catch (e) {
+        // Only attempt to clone JSON-compatible values
+        return JSON.parse(JSON.stringify(data)) as Type
+    } catch {
+        LOGGER.error('JSON deserialization failed for data:', data)
         return undefined
     }
 }
+
 export const importJSON = async (
     filename: string,
-    returnValue: unknown = undefined,
-): Promise<undefined | JsonPrimitive | JsonArray | JsonObject> => {
-    const _path = path.resolve(filename)
-    if (!fs.existsSync(_path)) {
-        console.warn(`File not found: ${_path}`)
+): Promise<JsonValue | undefined> => {
+    const absolutePath = path.resolve(filename)
+    const LOGGER = getLogger().child('importJSON')
+    if (!fs.existsSync(absolutePath)) {
+        LOGGER.error(`File not found: ${absolutePath}`)
         return undefined
     }
-    const json: JsonObject = await import(_path, {
-        assert: { type: 'json' },
-    })
-    if (isArray(json['default'])) {
-        return json['default'] as JsonArray
+    try {
+        LOGGER.info(`Trying to read file: ${absolutePath}`)
+        const raw = await fs.promises.readFile(absolutePath, 'utf8')
+        const parsed: unknown = JSON.parse(raw)
+
+        if (isArray(parsed)) return parsed as JsonArray
+        if (RAisPlainObject(parsed)) return parsed as JsonObject
+        if (isPrimitive(parsed)) return parsed as JsonPrimitive
+        // Fallback: still return (could be null)
+        return parsed as JsonValue
+    } catch (e) {
+        LOGGER.error(`Failed to parse JSON file: ${absolutePath}`, e)
+        return undefined
     }
-    if (RAisPlainObject(json['default'])) {
-        return json['default'] as JsonObject
-    }
-    if (isPrimitive(json['default'])) {
-        return json['default'] as JsonPrimitive
-    }
-    return undefined
+}
+/**
+ * GetParentDirectoryPath
+ *
+ * @param {meta} - Please use import.meta to get the callers file path
+ */
+export const getFilePath = (meta: ImportMeta, file_path: string): string => {
+    const __dirname = path.dirname(fileURLToPath(meta.url))
+    if (!fs.existsSync(path.resolve(__dirname)))
+        throw new Error(`Directory does not exist: ${path.resolve(__dirname)}`)
+    return path.resolve(`${__dirname}/${file_path}`)
 }
 export default {}
 

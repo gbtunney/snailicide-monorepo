@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest'
-import { flatten, tg, unflatten } from './index.js'
-
+import { z } from 'zod'
+import { flatten, jsonParser, tg, unflatten } from './index.js'
 test('Vitest Example', () => {
     expect(true).toBe(true)
 })
@@ -26,6 +26,27 @@ test('isJsonifiableArray', () => {
     const arr = [1, 2, 3]
     const isJsonifiableArray = tg.isJsonifiableArray(arr)
     expect(isJsonifiableArray).toBe(true)
+    const _schema = z.array(z.number())
+    const _parser = jsonParser(_schema)
+    expect(jsonParser<typeof _schema>(_schema).validate(arr)).toBe(true)
+
+    expect(
+        jsonParser<typeof _schema>(_schema).validate("['1', '2', '3']"),
+    ).toBe(false)
+
+    //needs to be number, string w single quotes is invalid JSON
+    expect(jsonParser().validate('[1, 2, 3]')).toBe(true)
+    const _resultVal = jsonParser<typeof _schema>(_schema).serialize([1, 2, 3])
+
+    expect(jsonParser().deserialize(_resultVal)).toBeDefined()
+    expect(
+        jsonParser<typeof _schema>(_schema).deserialize(_resultVal),
+    ).toBeDefined()
+
+    //idk look more into these?
+    expect(
+        jsonParser(z.array(z.coerce.number())).validate(['1', '2', '3']),
+    ).toBe(true)
 })
 
 test('isJsonifiableObject', () => {

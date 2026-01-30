@@ -1,20 +1,12 @@
 import { ensureArray as R_ensureArray } from 'ramda-adjunct'
-import z, {
-    ZodArray,
-    ZodBigInt,
-    ZodEffects,
-    ZodNumber,
-    ZodString,
-    ZodType,
-    ZodUnion,
-} from 'zod'
+import z from 'zod'
 
 import { Numeric } from '../number/index.js'
 import { toNumeric } from '../number/transform.js'
 import { escapeStringRegexpInvalid } from '../regexp/escape.js'
 import { isRegExp, isString } from '../typeguard/utility.typeguards.js'
 
-export type ZodRegExp = ZodType<RegExp>
+export type ZodRegExp = z.ZodType<RegExp>
 
 /**
  * @category Zod
@@ -22,38 +14,20 @@ export type ZodRegExp = ZodType<RegExp>
  */
 export const resolveRegExpSchema = (
     doEscape: boolean = true,
-): z.ZodEffects<
-    z.ZodEffects<z.ZodUnion<[z.ZodString, ZodRegExp]>, RegExp, string | RegExp>,
-    RegExp,
-    string | RegExp
-> => {
-    const union: z.ZodEffects<
-        z.ZodEffects<
-            z.ZodUnion<[z.ZodString, ZodRegExp]>,
-            RegExp,
-            string | RegExp
-        >,
-        RegExp,
-        string | RegExp
-    > = z
+): z.ZodType<RegExp, string | RegExp> => {
+    const union = z
         .union([z.string(), z.instanceof(RegExp)])
-        .transform((value): RegExp => {
+        .transform<RegExp>((value) => {
             if (isString<string>(value)) {
                 const _value = escapeStringRegexpInvalid(value, doEscape)
-                if (_value !== undefined) {
-                    return new RegExp(_value)
-                } else {
-                    return new RegExp('')
-                }
+                return new RegExp(_value ?? '')
             } else {
-                const _reg: RegExp = value
-                return _reg
+                return value
             }
         })
         .refine((value: RegExp) => {
             return value.source !== '(?:)' ? isRegExp(value) : false
         }, 'Please provide a valid regular expression.')
-
     return union
 }
 
@@ -61,18 +35,16 @@ export const resolveRegExpSchema = (
  * @category Zod
  * @category Schema
  */
-export const ensureArray = <Type extends z.ZodTypeAny>(
+export const ensureArray = <Type extends z.ZodType>(
     schema: Type,
-): ZodEffects<ZodUnion<[ZodArray<Type>, Type]>, Array<Type['_output']>> => {
-    const union: ZodEffects<
-        ZodUnion<[ZodArray<Type>, Type]>,
-        Array<Type['_output']>
-    > = z
+): z.ZodType<Array<z.output<Type>>, z.input<Type> | Array<z.input<Type>>> => {
+    const union = z
         .union([z.array(schema), schema])
-        .transform((value): z.infer<ZodArray<typeof schema>> => {
-            return R_ensureArray<typeof schema>(value)
+        .transform<
+            Array<z.output<Type>>
+        >((value: z.output<Type> | Array<z.output<Type>>): Array<z.output<Type>> => {
+            return R_ensureArray(value) ///Array.isArray(value) ? value : [value]
         })
-
     return union
 }
 
@@ -80,17 +52,13 @@ export const ensureArray = <Type extends z.ZodTypeAny>(
  * @category Zod
  * @category Schema
  */
-export const numeric = (): ZodEffects<
-    ZodEffects<
-        ZodUnion<[ZodString, ZodNumber, ZodBigInt]>,
-        bigint | number | undefined
-    >,
-    bigint | number | undefined,
-    bigint | string | number
+export const numeric = (): z.ZodType<
+    Numeric | undefined,
+    string | number | bigint
 > => {
     const result = z
         .union([z.string(), z.number(), z.bigint()])
-        .transform((value) => {
+        .transform((value: string | number | bigint): Numeric | undefined => {
             const _value: Numeric | undefined = toNumeric<typeof value>(value)
             return _value
         })

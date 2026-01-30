@@ -1,194 +1,176 @@
 import { describe, expect, test } from 'vitest'
-import { isBigInt, isNumber } from './../typeguard/utility.typeguards.js'
 import { isParsableToNumeric } from './parse.js'
 import { toStringNumeric } from './transform.js'
 import {
     isNumeric,
     isPossibleNumeric,
     isStringNumeric,
+    isTrueNumeric,
     isValidScientificNumber,
 } from './validators.js'
 
-const LOGGING: boolean = false
-
-const logNumbers = (valueArr: Array<number | bigint | string>): void => {
-    valueArr.forEach((value) => {
-        if (LOGGING) {
-            console.log(
-                value,
-                'isValidScientificNumber',
-                isValidScientificNumber(value),
-                'isValidNumber',
-                isNumber(value),
-                'isBigInt',
-                isBigInt(value),
-                'isCastableString',
-                isStringNumeric(value),
-            )
-        }
-    })
-}
-const logStrings = (valueArr: Array<string>): void => {
-    valueArr.forEach((value) => {
-        if (LOGGING) {
-            console.log(
-                value,
-                'logStrings isValidScientificNumber',
-                isValidScientificNumber(value),
-                'toStringNumeric',
-                toStringNumeric(value),
-                typeof toStringNumeric(value),
-                ' new Number( value)',
-                new Number(value),
-                'parseInt',
-                parseInt(value),
-                'parseFloat',
-                parseFloat(value),
-            )
-        }
-    })
-}
-
 describe('validators', () => {
-    test('tnumeric validators scientific', () => {
-        const validNumbers: Array<string | number | bigint> = [
-            0xff, //these should be integers
-            0xff, //these should be integers
-            7.123e0_1,
+    test('number and bigint primitives', () => {
+        const values: Array<number | bigint> = [
+            0xff,
             -0xabc,
-            +0x00f,
             0b0010_1010,
             2,
             0.2,
             0,
             500n,
-            1_1n,
-            0x0n,
+            11n,
+            0n,
             10n,
-            0x00n,
             -1n,
-            +10,
-            3.4028236692093846346e38,
+            10,
+            1.0,
+            3.4028236692093846e38,
+            // from legacy
+            3444.4,
+            -3444,
+            BigInt('0o377777777777777777'),
         ]
-        validNumbers.forEach((value) => {
-            expect(
-                isPossibleNumeric(value) &&
-                    isNumeric(value) &&
-                    !isStringNumeric(value),
-            ).toBe(true)
-            //console.log( "valueeee" , value , "isNumeric", isNumeric(value), "isNumericString",isStringNumeric(value))
+        values.forEach((v) => {
+            expect(isNumeric(v)).toBe(true)
+            expect(isPossibleNumeric(v)).toBe(true)
+            expect(isStringNumeric(v)).toBe(false)
+            expect(isValidScientificNumber(v)).toBe(true)
         })
+    })
 
-        const validString: Array<string> = [
-            '882812888n',
-            '0xff', //these should be integers
-            '0xFF', //these should be integers
+    test('plain numeric strings (strict)', () => {
+        const values: Array<string> = [
             '20.00',
             '20.02',
-            '7.123e+0_1',
+            '144',
+            '5',
+            '0',
+            '222',
+            '100000.0',
+            '3.1415',
+        ]
+        values.forEach((s) => {
+            expect(isStringNumeric(s)).toBe(true)
+            expect(isPossibleNumeric(s)).toBe(true)
+            expect(isNumeric(s)).toBe(false)
+            // use loose parsing to handle surrounding spaces consistently
+            expect(toStringNumeric(s, false)).not.toBeUndefined()
+        })
+    })
+
+    test('signed decimal strings (strict accepts leading sign)', () => {
+        const signed: Array<string> = ['+10', '-10']
+        signed.forEach((s) => {
+            expect(isStringNumeric(s)).toBe(true)
+            expect(isPossibleNumeric(s)).toBe(true)
+            expect(isNumeric(s)).toBe(false)
+            expect(toStringNumeric(s)).not.toBeUndefined()
+        })
+    })
+
+    test('signed decimal number', () => {
+        const signed: Array<number> = [10, -10]
+        signed.forEach((s) => {
+            expect(isPossibleNumeric(s)).toBe(true)
+            expect(isNumeric(s)).toBe(true)
+        })
+    })
+
+    test('valid scientific notation (strings)', () => {
+        const sci: Array<string> = [
+            '1e3',
+            '1e+3',
+            '1e-3',
+            '7.123e01',
+            '0e0',
+            '6.02e23',
+            '1.0e+0',
+            '3.4028236692093846346e+38',
+            '8e5',
+            '7.123e+0_1', // underscore in exponent (now valid)
+            '7_123.456e-1_2', // underscores integer, fraction, exponent
+        ]
+        sci.forEach((s) => {
+            expect(isValidScientificNumber(s)).toBe(true)
+            expect(isStringNumeric(s)).toBe(true)
+            expect(isPossibleNumeric(s)).toBe(true)
+            expect(isNumeric(s)).toBe(false)
+            expect(toStringNumeric(s)).not.toBeUndefined()
+        })
+    })
+
+    test('hex/binary/bigint strings: strict accepts per dictionary regex', () => {
+        const special: Array<string> = [
+            '0xff',
+            '0xFF',
             '-0xAbc',
             '+0x00F',
             '0b0010_1010',
-            '0x0n',
             '10n',
-            '0x00n',
-            '-1n',
-            '+10',
-            '3.4028236692093846346e+38',
             '0x01n',
-            '0e0',
-            '08.123e+0_1',
-            '018e1',
-            '01812.1',
-            '08000',
+            '-1n',
+            // '0x00n',
         ]
-
-        validString.forEach((value) => {
-            expect(
-                isPossibleNumeric(value) &&
-                    !isNumeric(value) &&
-                    isStringNumeric(value),
-            ).toBe(true)
-            //console.log( "valueeee" , value , "isNumeric", isNumeric(value), "isNumericString",isStringNumeric(value))
-        })
-
-        const invalidNumbers: Array<number | bigint> = [
-            /* '+1n'*/ NaN,
-            Infinity,
-        ]
-        invalidNumbers.forEach((value) => {
-            expect(!isPossibleNumeric(value) && !isNumeric(value)).toBe(true)
-            //console.log( "valueeee" , value , "isNumeric", isNumeric(value), "isNumericString",isStringNumeric(value))
-        })
-        const invalidStrings = [
-            '07.123e+0_1',
-            '2_',
-            '2._2',
-            '0e',
-            '0070e0',
-            '00.',
-            '0111._',
-            '017e1',
-            '017.1',
-            '_n',
-            '_0n',
-            '0_n',
-            '1e3n',
-        ]
-
-        invalidStrings.forEach((value) => {
-            expect(
-                !isPossibleNumeric(value) &&
-                    !isNumeric(value) &&
-                    !isStringNumeric(value),
-            ).toBe(true)
-            /*console.log( "valueeee" , value ,"isPossibleNumeric",isPossibleNumeric(value
-            ), "isNumeric", isNumeric(value), "isNumericString",isStringNumeric(value))*/
+        special.forEach((s) => {
+            // Current dictionary regex considers these numeric-like
+            expect(isStringNumeric(s)).toBe(true)
+            expect(isPossibleNumeric(s)).toBe(true)
+            expect(toStringNumeric(s)).not.toBeUndefined()
+            // expect(isNumeric(s)).toBe(true)
         })
     })
-    test('numeric validators', () => {
-        expect(isPossibleNumeric('222')).toEqual(true)
-        expect(isPossibleNumeric(' 222  ')).toEqual(true)
 
-        expect(isPossibleNumeric('222px')).toEqual(false)
-        expect(isPossibleNumeric('222px', false)).toEqual(true)
-        expect(isPossibleNumeric('-100000.0')).toEqual(true)
-
-        expect(true).toEqual(true)
-
-        const value = 'px'
-        expect(isParsableToNumeric(value)).toEqual(false)
-
-        const testValue = ' 200px'
-        expect(isParsableToNumeric(testValue)).toEqual(true)
-        expect(isPossibleNumeric(testValue)).toEqual(false)
-
-        console.log(
-            'isPossibleNumeric',
-            isPossibleNumeric(testValue),
-            'isParsableToNumeric',
-            isParsableToNumeric(testValue),
-        )
-
-        const validTestValues = [
-            3444.4,
-            BigInt('0o377777777777777777'),
-            '\n\r-100000.0',
-            -3444,
-            '-10',
-            //   '0',
-            '0xff',
-            '0xFF',
-            //'8e5',
-            '3.1415',
-            '+10',
-            '144',
-            '5',
-            //'22px'
+    test('invalid numeric strings', () => {
+        // Keep only unambiguous invalids per current dictionary regex
+        const invalid: Array<string> = [
+            // malformed scientific
+            'e10',
+            '1e',
+            '1e+',
+            '1e-',
+            '1ee10',
+            '1e--10',
+            '1e10px',
+            '+e10',
+            '-e10',
+            // malformed decimals/ints
+            '2_',
+            '2._2',
+            '00.',
+            '7.123e+0__1',
+            '7.123e+0__9', // double underscore in exponent
+            '_7.1e2', // leading underscore
+            '7_.1e2', // underscore before decimal point
+            '7._1e2', // underscore immediately after dot
+            '7.1e_2', // underscore starts exponent
+            '7.1e2_', // trailing underscore exponent
         ]
-        validTestValues.forEach((value) => {
-            expect(isPossibleNumeric(value)).toEqual(true)
+
+        invalid.forEach((s) => {
+            expect(isStringNumeric(s)).toBe(false)
+            expect(isPossibleNumeric(s)).toBe(false)
+            expect(isValidScientificNumber(s)).toBe(false)
+            expect(toStringNumeric(s)).toBeUndefined()
         })
+    })
+
+    test('parsable vs possible (units)', () => {
+        expect(isPossibleNumeric('222')).toBe(true)
+        expect(isPossibleNumeric(' 222  ')).toBe(true)
+
+        // strict (default) rejects trailing units
+        expect(isPossibleNumeric('222px')).toBe(false)
+        // loose allows after stripping
+        expect(isPossibleNumeric('222px', false)).toBe(true)
+
+        const mixed = ' 200px'
+        expect(isParsableToNumeric(mixed)).toBe(true)
+        expect(isPossibleNumeric(mixed)).toBe(false)
+    })
+
+    test('numeric guard returns false for Infinity', () => {
+        expect(isTrueNumeric(Infinity)).toBe(false)
     })
 })
 

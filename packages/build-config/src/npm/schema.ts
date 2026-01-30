@@ -3,7 +3,7 @@ import { z } from 'zod'
 
 export const basePackage = z.object({
     author: z.object({
-        email: z.string().email(),
+        email: z.email(),
         name: z.string(),
     }),
     description: z.string(),

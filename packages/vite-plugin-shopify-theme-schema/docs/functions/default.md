@@ -7,7 +7,7 @@
 # Function: default()
 
 ```ts
-function default(options): Plugin$1;
+function default(options): Plugin;
 ```
 
 Defined in:
@@ -24,4 +24,4 @@ Defined in:
 
 ## Returns
 
-`Plugin$1`
+`Plugin`

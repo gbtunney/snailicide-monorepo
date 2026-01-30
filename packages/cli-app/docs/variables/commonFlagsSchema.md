@@ -11,4 +11,4 @@ const commonFlagsSchema: ZodObject<CommonFlagsOutput>
 ```
 
 Defined in:
-[packages/cli-app/src/app-options.ts:5](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-options.ts#L5)
+[packages/cli-app/src/app-options.ts:8](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-options.ts#L8)

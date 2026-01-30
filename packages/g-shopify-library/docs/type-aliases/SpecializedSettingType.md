@@ -11,4 +11,4 @@ type SpecializedSettingType = keyof typeof specialized_settings_schema_map
 ```
 
 Defined in:
-[packages/g-shopify-library/src/settings/specialized.ts:78](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/g-shopify-library/src/settings/specialized.ts#L78)
+[packages/g-shopify-library/src/settings/specialized.ts:77](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/g-shopify-library/src/settings/specialized.ts#L77)

@@ -1,12 +1,25 @@
-import { markdownlint } from '@snailicide/build-config'
-export const mdlint = { config: markdownlint.config({}) }
-// @ts-check
+import {
+    markdownlint,
+    MarkdownlintConfiguration,
+} from '@snailicide/build-config'
 
-const options = {
+const options: MarkdownlintConfiguration = {
     config: {
-        'MD032': false,
-        'no-multiple-blanks': false,
+        //"MD002": false,
     },
+    gitignore: true,
+    ignores: [
+        '**/dist/**',
+        '**/build/**',
+        '**/.git/**',
+        '**/.github/instructions/**',
+        '**/.husky/**',
+        '**/coverage/**',
+        '**/{.changeset,docs}/**',
+        'packages/cli-template/templates/**/*',
+    ],
 }
 
-export default mdlint
+export default await markdownlint.config.get(options, { throwOnError: true })
+//@todo: this will take extra properties that are not in the schema wtf
+//console.log(await markdownlint.rules.validate(options.config,{throwOnError:true} ) )

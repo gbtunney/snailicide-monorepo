@@ -25,7 +25,7 @@ export const transformExplodeArray = function ({
     //the only case for delimiter being undefined is if value as an array
     let result: Array<string> = isArray<Array<string>>(value)
         ? value
-        : isString(value) && isNotUndefined<string>(delimiter)
+        : isString(value) && isNotUndefined<RegExp | string>(delimiter)
           ? value.split(delimiter)
           : [value]
 

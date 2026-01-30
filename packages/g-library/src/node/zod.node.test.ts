@@ -25,6 +25,14 @@ describe('zod custom schemas', () => {
                 .success,
         ).toBe(true)
 
+        //test path resolution TODO: reenable someday
+        const _resolvedSchema = zod
+            .fsPathTypeExists()
+            .safeParse('./sample_image/..//sample_image/testimage.jpeg')
+        //expect(_resolvedSchema.data).toEqual('/Users/gilliantunney/snailicide-monorepo/packages/g-library/sample_image/testimage.jpeg')
+        //const _resolvedDir = zod.fsPathTypeExists('directory').safeParse('./sample_image/..//sample_image/')
+        //expect(_resolvedSchema.data).toEqual('/Users/gilliantunney/snailicide-monorepo/packages/g-library/sample_image/testimage.jpeg')
+
         expect(
             zod.fsPathTypeExists('any').safeParse('./sample_image/*').success,
         ).toBe(true)
