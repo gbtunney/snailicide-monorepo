@@ -17,7 +17,7 @@
         "test": "vitest run",
         "test:watch": "vitest watch",
         "test:nx": "cross-var nx run $npm_package_name:test",
-        "test:example": "pnpm build && pnpm exec tsx ./src/example.ts",
+        "test:example": "pnpm build:nx && pnpm exec tsx ./src/example.ts",
         "\n========== DOCS >> ==========": "",
         "docs:build": "pnpm run build:ts && pnpm exec typedoc && pnpm docs:format",
         "docs:format": "pnpm exec prettier ./docs --write",
