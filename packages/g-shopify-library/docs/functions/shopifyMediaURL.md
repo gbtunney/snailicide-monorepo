@@ -13,7 +13,7 @@ function shopifyMediaURL(
   height?,
   crop?,
   scale?,
-): undefined | string
+): string | undefined
 ```
 
 Defined in:
@@ -36,6 +36,6 @@ shopifyMediaURL
 
 ## Returns
 
-`undefined` | `string`
+`string` | `undefined`
 
 The modified media URL or undefined if the source URL is invalid.

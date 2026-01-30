@@ -11,7 +11,9 @@ function wrapSchema<Schema>(schema): Schema
 ```
 
 Defined in:
-[packages/cli-app/src/helpers.ts:6](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/helpers.ts#L6)
+[packages/cli-app/src/helpers.ts:11](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/helpers.ts#L11)
+
+TODO THIS HAS THE PRETTIFY HELPERS IN IT !!!
 
 ## Type Parameters
 

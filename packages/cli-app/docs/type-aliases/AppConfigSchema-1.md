@@ -11,4 +11,4 @@ type AppConfigSchema = typeof appConfigSchema
 ```
 
 Defined in:
-[packages/cli-app/src/app-config.ts:120](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L120)
+[packages/cli-app/src/app-config.ts:130](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L130)

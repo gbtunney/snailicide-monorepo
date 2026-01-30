@@ -8,7 +8,6 @@
 
 ```ts
 const parseSetting: (data, id) =>
-  | undefined
   | {
   content: string;
   type: "header";
@@ -17,7 +16,8 @@ const parseSetting: (data, id) =>
   content: string;
   type: "paragraph";
 }
-  | ({ default: boolean; type: "checkbox"; } | { default: number; type: "number"; placeholder?: string | undefined; } | { default: string | number; options: { value: string; label: string; }[]; type: "radio"; } | ... 20 more ... | { ...; }) & { ...; } = parseSingleSetting;
+  | ({ default: boolean; type: "checkbox"; } | { default: number; type: "number"; placeholder?: string | undefined; } | { default: string | number; options: { value: string; label: string; }[]; type: "radio"; } | ... 20 more ... | { ...; }) & { ...; }
+  | undefined = parseSingleSetting;
 ```
 
 Defined in:
@@ -25,15 +25,15 @@ Defined in:
 
 ## Parameters
 
-| Parameter | Type        | Default value |
-| --------- | ----------- | ------------- | ----------- |
-| `data`    | `unknown`   | `undefined`   |
-| `id`      | `undefined` | `string`      | `undefined` |
+| Parameter | Type      | Default value |
+| --------- | --------- | ------------- | ----------- |
+| `data`    | `unknown` | `undefined`   |
+| `id`      | `string`  | `undefined`   | `undefined` |
 
 ## Returns
 
-| `undefined` | { `content`: `string`; `type`: `"header"`; } | { `content`:
-`string`; `type`: `"paragraph"`; } | ({ default: boolean; type: "checkbox"; } |
-{ default: number; type: "number"; placeholder?: string | undefined; } | {
-default: string | number; options: { value: string; label: string; }\[]; type:
-"radio"; } | ... 20 more ... | { ...; }) & { ...; }
+| { `content`: `string`; `type`: `"header"`; } | { `content`: `string`; `type`:
+`"paragraph"`; } | ({ default: boolean; type: "checkbox"; } | { default: number;
+type: "number"; placeholder?: string | undefined; } | { default: string |
+number; options: { value: string; label: string; }\[]; type: "radio"; } | ... 20
+more ... | { ...; }) & { ...; } | `undefined`

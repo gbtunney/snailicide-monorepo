@@ -8,7 +8,6 @@
 
 ```ts
 const parseBlockSchema: (data) =>
-  | undefined
   | {
   limit?: number;
   name?: string;
@@ -23,11 +22,12 @@ const parseBlockSchema: (data) =>
    }
     | ({ default: boolean; type: "checkbox"; } | { default: number; type: "number"; placeholder?: string | undefined; } | { default: string | number; options: { value: string; label: string; }[]; type: "radio"; } | ... 20 more ... | { ...; }) & { ...; })[];
   type: string;
-};
+}
+  | undefined;
 ```
 
 Defined in:
-[packages/g-shopify-library/src/sections/index.ts:78](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/g-shopify-library/src/sections/index.ts#L78)
+[packages/g-shopify-library/src/sections/index.ts:77](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/g-shopify-library/src/sections/index.ts#L77)
 
 ## Parameters
 
@@ -37,9 +37,9 @@ Defined in:
 
 ## Returns
 
-| `undefined` | { `limit?`: `number`; `name?`: `string`; `settings`: ( | {
-`content`: `string`; `type`: `"header"`; } | { `content`: `string`; `type`:
-`"paragraph"`; } | ({ default: boolean; type: "checkbox"; } | { default: number;
-type: "number"; placeholder?: string | undefined; } | { default: string |
-number; options: { value: string; label: string; }\[]; type: "radio"; } | ... 20
-more ... | { ...; }) & { ...; })\[]; `type`: `string`; }
+| { `limit?`: `number`; `name?`: `string`; `settings`: ( | { `content`:
+`string`; `type`: `"header"`; } | { `content`: `string`; `type`: `"paragraph"`;
+} | ({ default: boolean; type: "checkbox"; } | { default: number; type:
+"number"; placeholder?: string | undefined; } | { default: string | number;
+options: { value: string; label: string; }\[]; type: "radio"; } | ... 20 more
+... | { ...; }) & { ...; })\[]; `type`: `string`; } | `undefined`

@@ -31,9 +31,7 @@ const getLintStagedConfig = () => {
     const wip = isWipBranch()
 
     return {
-        /**
-         * Markdown (warn-only)
-         */
+        /** Markdown (warn-only) */
         [`*.${mdExt.toString()}`]: (stagedFiles: string | Array<string>) => {
             const list = Array.isArray(stagedFiles)
                 ? stagedFiles
@@ -45,9 +43,7 @@ const getLintStagedConfig = () => {
             ]
         },
 
-        /**
-         * JS-like: always run Prettier; ESLint is non-blocking on wip/*
-         */
+        /** JS-like: always run Prettier; ESLint is non-blocking on wip/*/
         [`*.{${jsExt.toString()}}`]: (stagedFiles: string | Array<string>) => {
             const list = Array.isArray(stagedFiles)
                 ? stagedFiles
@@ -65,10 +61,10 @@ const getLintStagedConfig = () => {
             ]
         },
 
-        /**
-         * Misc Prettier
-         */
-        [`*.{${prettierExt.toString()}}`]: (stagedFiles: string | Array<string>) => {
+        /** Misc Prettier */
+        [`*.{${prettierExt.toString()}}`]: (
+            stagedFiles: string | Array<string>,
+        ) => {
             const list = Array.isArray(stagedFiles)
                 ? stagedFiles
                 : [stagedFiles]

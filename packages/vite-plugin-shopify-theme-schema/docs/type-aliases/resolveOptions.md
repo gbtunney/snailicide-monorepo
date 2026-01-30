@@ -8,12 +8,12 @@
 
 ```ts
 type resolveOptions = (options) =>
-  | undefined
   | {
       entryPoints: Record<string, string>
       sourceCodeDir: string
       themeRoot: string
     }
+  | undefined
 ```
 
 Defined in:
@@ -30,5 +30,5 @@ Defined in:
 
 ## Returns
 
-| `undefined` | { `entryPoints`: `Record`<`string`, `string`>; `sourceCodeDir`:
-`string`; `themeRoot`: `string`; }
+| { `entryPoints`: `Record`<`string`, `string`>; `sourceCodeDir`: `string`;
+`themeRoot`: `string`; } | `undefined`

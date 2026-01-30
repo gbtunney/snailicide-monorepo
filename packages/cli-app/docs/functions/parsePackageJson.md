@@ -8,16 +8,16 @@
 
 ```ts
 function parsePackageJson(pkg):
-  | undefined
   | {
       description?: string
       name: string
       version: string
     }
+  | undefined
 ```
 
 Defined in:
-[packages/cli-app/src/app-config.ts:145](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L145)
+[packages/cli-app/src/app-config.ts:154](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L154)
 
 ## Parameters
 
@@ -27,5 +27,18 @@ Defined in:
 
 ## Returns
 
-| `undefined` | { `description?`: `string`; `name`: `string`; `version`:
-`string`; }
+```ts
+{
+  description?: string;
+  name: string;
+  version: string;
+}
+```
+
+| Name           | Type     | Description                         | Defined in                                                                                                                                    |
+| -------------- | -------- | ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `description?` | `string` | -                                   | [packages/cli-app/src/app-config.ts:52](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L52)   |
+| `name`         | `string` | Hide an option from the help screen | [packages/cli-app/src/app-config.ts:88](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L88)   |
+| `version`      | `string` | -                                   | [packages/cli-app/src/app-config.ts:121](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L121) |
+
+`undefined`

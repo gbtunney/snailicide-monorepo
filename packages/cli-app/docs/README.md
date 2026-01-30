@@ -110,9 +110,8 @@ type MergedSchema = WrappedSchema<typeof my_merged_schema>
 
 /** Set the init function which will be called after app is intialized with typed arguments. */
 const initFunc: InitSuccessCallback<MergedSchema> = <
-  Schema extends
-    | z.AnyZodObject
-    | z.ZodEffects<z.AnyZodObject> = typeof commonFlagsSchema,
+  Schema extends z.AnyZodObject | z.ZodEffects<z.AnyZodObject> =
+    typeof commonFlagsSchema,
 >(
   args: z.infer<Schema>,
 ) => {
@@ -173,7 +172,7 @@ export default initialize()
 | ------------------------------------------------- | ------------------------------------------------------------------------------- |
 | [parsePackageJson](functions/parsePackageJson.md) | -                                                                               |
 | [initApp](functions/initApp.md)                   | Initializes the application with the provided configuration and options schema. |
-| [wrapSchema](functions/wrapSchema.md)             | -                                                                               |
+| [wrapSchema](functions/wrapSchema.md)             | TODO THIS HAS THE PRETTIFY HELPERS IN IT !!!                                    |
 
 ## Type Aliases
 
@@ -186,6 +185,7 @@ export default initialize()
 | [AppConfigIn](type-aliases/AppConfigIn.md)                 | -                                                                                                                                |
 | [appConfigSchema](type-aliases/appConfigSchema.md)         | This is the schema used to configure the Cli Application, these should NOT used in cli arguments when running the client cli app |
 | [AppConfigSchema](type-aliases/AppConfigSchema-1.md)       | -                                                                                                                                |
+| [CommonFlagsSchema](type-aliases/CommonFlagsSchema.md)     | -                                                                                                                                |
 | [CommonFlagsOutput](type-aliases/CommonFlagsOutput.md)     | -                                                                                                                                |
 | [CommonFlagsInput](type-aliases/CommonFlagsInput.md)       | -                                                                                                                                |
 | [InitSuccessCallback](type-aliases/InitSuccessCallback.md) | A callback type that is invoked upon successful initialization of the application.                                               |

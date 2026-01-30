@@ -7,7 +7,7 @@
 # Function: toSID()
 
 ```ts
-function toSID<Type>(value, min_digits?): undefined | number
+function toSID<Type>(value, min_digits?): number | undefined
 ```
 
 Defined in:
@@ -33,6 +33,6 @@ toSID
 
 ## Returns
 
-`undefined` | `number`
+`number` | `undefined`
 
 The SID if conversion is possible, otherwise undefined.

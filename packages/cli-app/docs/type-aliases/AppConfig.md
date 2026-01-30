@@ -11,4 +11,4 @@ type AppConfig = AppConfigOut
 ```
 
 Defined in:
-[packages/cli-app/src/app-config.ts:24](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L24)
+[packages/cli-app/src/app-config.ts:26](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L26)

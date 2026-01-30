@@ -11,7 +11,7 @@ type AppHidden<Schema> = keyof z.infer<Schema>[]
 ```
 
 Defined in:
-[packages/cli-app/src/app-config.ts:20](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L20)
+[packages/cli-app/src/app-config.ts:22](https://github.com/gbtunney/snailicide-monorepo/blob/master/packages/cli-app/src/app-config.ts#L22)
 
 ## Type Parameters
 

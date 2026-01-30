@@ -8,7 +8,6 @@
 
 ```ts
 const parseThemeSettingSection: (data) =>
-  | undefined
   | {
   name: string;
   settings: (
@@ -21,7 +20,8 @@ const parseThemeSettingSection: (data) =>
      type: "paragraph";
    }
     | ({ default: boolean; type: "checkbox"; } | { default: number; type: "number"; placeholder?: string | undefined; } | { default: string | number; options: { value: string; label: string; }[]; type: "radio"; } | ... 20 more ... | { ...; }) & { ...; })[];
-};
+}
+  | undefined;
 ```
 
 Defined in:
@@ -35,9 +35,9 @@ Defined in:
 
 ## Returns
 
-| `undefined` | { `name`: `string`; `settings`: ( | { `content`: `string`;
-`type`: `"header"`; } | { `content`: `string`; `type`: `"paragraph"`; } | ({
-default: boolean; type: "checkbox"; } | { default: number; type: "number";
-placeholder?: string | undefined; } | { default: string | number; options: {
-value: string; label: string; }\[]; type: "radio"; } | ... 20 more ... | { ...;
-}) & { ...; })\[]; }
+| { `name`: `string`; `settings`: ( | { `content`: `string`; `type`: `"header"`;
+} | { `content`: `string`; `type`: `"paragraph"`; } | ({ default: boolean; type:
+"checkbox"; } | { default: number; type: "number"; placeholder?: string |
+undefined; } | { default: string | number; options: { value: string; label:
+string; }\[]; type: "radio"; } | ... 20 more ... | { ...; }) & { ...; })\[]; } |
+`undefined`
