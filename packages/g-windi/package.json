@@ -1,6 +1,6 @@
 {
     "name": "@snailicide/g-windi",
-    "version": "0.0.12",
+    "version": "0.0.13",
     "private": false,
     "description": "Function library for Windicss/UnoCSS and Vue 3",
     "scripts": {

@@ -1,5 +1,13 @@
 # @snailicide/vite-plugin-shopify-theme-schema
 
+## 0.2.8
+
+### Patch Changes
+
+- Updated dependencies [df43ef7]
+  - @snailicide/g-library@1.2.3
+  - @snailicide/g-shopify-library@0.3.8
+
 ## 0.2.7
 
 ### Patch Changes
