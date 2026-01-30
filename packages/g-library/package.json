@@ -1,5 +1,5 @@
 {
-    "name": "@gbtunney/g-library",
+    "name": "@snailicide/g-library",
     "version": "1.2.3",
     "private": false,
     "description": "Function library written in typescript",
