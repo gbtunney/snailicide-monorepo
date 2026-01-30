@@ -1,5 +1,5 @@
 {
-    "name": "@snailicide/build-config",
+    "name": "@gbtunney/build-config",
     "version": "2.0.0",
     "private": false,
     "description": "Snailicide Shared Build Configuration",
