@@ -1,4 +1,4 @@
-**@snailicide/cli-app v0.4.2**
+**@snailicide/cli-app v0.4.3**
 
 ---
 
