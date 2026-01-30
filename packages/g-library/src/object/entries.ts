@@ -1,9 +1,4 @@
-import type {
-    Entries,
-    Simplify,
-    UnknownRecord,
-    ValueOf,
-} from 'type-fest'
+import type { Entries, Simplify, UnknownRecord, ValueOf } from 'type-fest'
 import type {
     EntriesOf,
     FromEntriesTuples,

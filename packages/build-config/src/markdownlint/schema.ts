@@ -21,9 +21,8 @@ export type MarkdownlintConfiguration = OmitIndexSignature<
 >
 export type MarkdownlintRuleConfiguration = MarkdownlintConfigurationSchema
 export type MarkdownlintProcessedResult<
-    Schema extends
-        | MarkdownlintConfiguration
-        | MarkdownlintRuleConfiguration = MarkdownlintConfiguration,
+    Schema extends MarkdownlintConfiguration | MarkdownlintRuleConfiguration =
+        MarkdownlintConfiguration,
 > = {
     config: Schema
     valid: boolean

@@ -1,9 +1,4 @@
-import {
-    fmt,
-    formatValue,
-    Logger,
-    logger,
-} from '@snailicide/build-config'
+import { fmt, formatValue, Logger, logger } from '@snailicide/build-config'
 import type { ArrayValues, Primitive } from 'type-fest'
 import { Choices, Options as SingleYarg } from 'yargs'
 import yargsInteractive from 'yargs-interactive'

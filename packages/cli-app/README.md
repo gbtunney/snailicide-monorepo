@@ -106,9 +106,8 @@ type MergedSchema = WrappedSchema<typeof my_merged_schema>
 
 /** Set the init function which will be called after app is intialized with typed arguments. */
 const initFunc: InitSuccessCallback<MergedSchema> = <
-  Schema extends
-    | z.AnyZodObject
-    | z.ZodEffects<z.AnyZodObject> = typeof commonFlagsSchema,
+  Schema extends z.AnyZodObject | z.ZodEffects<z.AnyZodObject> =
+    typeof commonFlagsSchema,
 >(
   args: z.infer<Schema>,
 ) => {

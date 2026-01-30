@@ -163,7 +163,9 @@ export const parseStringToNumeric = <Type extends string>(
 
 - Has no concept of BigInt or arbitrary precision
 
-## My numeric library currently is structured like this: PLEASE SUGGEST A NEWstructure or FORMAT outline
+## My numeric library currently is structured like this
+
+> PLEASE SUGGEST A NEWstructure or FORMAT outline
 
 - GOAL: this library needs to be reallt composable, as in smaller functions that
   can be reused to customize stuff , use with zod etc and make things VERY CLEAR
@@ -210,17 +212,26 @@ So there are 2 main of validator category
 
 ### a way to coallate a 'type' with a
 
-    - types : 'binary'|'octal'|'hex'|'decimal'|'bigint'  and maybe more generic ones like 'scientific' which is combo idk , are ALL numbers considered valid scientific number strings , notation?   does it make sense to add a specific type for exponential also to get more sense making, idk?
-
-
-    - regexp
-    - parser function    (string) =>  number|bigint
-
-    - so it can be used to make a:
-    - a generaric factory for a validator function (string)=> resulting type  ( idk, does it make sense to use a brand??) for the type??
-    - factory for a parsing  function    ( idk, does it make sense to use a brand??) for the type?? even though it is just a number  - or does it make more sense to brand it with a number type - like RealNumber(idk what to call this )|Int|Float|?Exponential?
-    - how do u think i should deal with trailing chracters that can be parsed off? the regexp seems to hate whitesapce and nondigits, but ideally i also  need some explicit way to parse off whitespace and/or units?
-        - this function should have sig  validateUnits(value:string)=> bool and true if contains a digit and (possible whitespace)trailing unit string ;after it and trim off arbitrary whitespace and other punctionation. this might be good case for a brand to make number but identify px vs em etc.
+- types : 'binary'|'octal'|'hex'|'decimal'|'bigint' and maybe more generic ones
+  like 'scientific' which is combo idk , are ALL numbers considered valid
+  scientific number strings , notation? does it make sense to add a specific
+  type for exponential also to get more sense making, idk?
+- regexp
+- parser function (string) => number|bigint
+- so it can be used to make a:
+- a generaric factory for a validator function (string)=> resulting type ( idk,
+  does it make sense to use a brand??) for the type??
+- factory for a parsing function ( idk, does it make sense to use a brand??) for
+  the type?? even though it is just a number - or does it make more sense to
+  brand it with a number type - like RealNumber(idk what to call this
+  )|Int|Float|?Exponential?
+- how do u think i should deal with trailing chracters that can be parsed off?
+  the regexp seems to hate whitesapce and nondigits, but ideally i also need
+  some explicit way to parse off whitespace and/or units?
+- this function should have sig validateUnits(value:string)=> bool and true if
+  contains a digit and (possible whitespace)trailing unit string ;after it and
+  trim off arbitrary whitespace and other punctionation. this might be good case
+  for a brand to make number but identify px vs em etc.
 
 The reason for some kind of mappng is that i sometimes use zod and forget what i
 am doing so i want to make it clear which type can be parsed by which function -

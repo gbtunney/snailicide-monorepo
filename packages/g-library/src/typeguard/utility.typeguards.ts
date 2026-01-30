@@ -1,10 +1,5 @@
 import { isNil } from 'ramda'
-import {
-    Integer,
-    IsLiteral,
-    UnknownArray,
-    UnknownRecord,
-} from 'type-fest'
+import { Integer, IsLiteral, UnknownArray, UnknownRecord } from 'type-fest'
 
 import type {
     // EmptyObject,

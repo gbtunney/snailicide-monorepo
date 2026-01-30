@@ -1,9 +1,6 @@
 import { describe, expect, expectTypeOf, test } from 'vitest'
 import { z } from 'zod'
-import {
-    jsonParser,
-    makeJsonStringifiedSchema,
-} from './json-stringified.js'
+import { jsonParser, makeJsonStringifiedSchema } from './json-stringified.js'
 import { prettyPrintJSON, safeDeserializeJson } from './json.js'
 describe('JSON serialize', () => {
     test('prettyPrintJSON should return a pretty-printed JSON string', () => {

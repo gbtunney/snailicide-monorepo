@@ -43,7 +43,7 @@ const getLintStagedConfig = () => {
             ]
         },
 
-        /** JS-like: always run Prettier; ESLint is non-blocking on wip/*/
+        /** JS-like: always run Prettier; ESLint is non-blocking on wip/ */
         [`*.{${jsExt.toString()}}`]: (stagedFiles: string | Array<string>) => {
             const list = Array.isArray(stagedFiles)
                 ? stagedFiles

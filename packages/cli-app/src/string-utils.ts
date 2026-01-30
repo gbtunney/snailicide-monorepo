@@ -1,7 +1,4 @@
-import {
-    ChalkColor,
-    logger,
-} from '@snailicide/build-config'
+import { ChalkColor, logger } from '@snailicide/build-config'
 import chalk, { ChalkInstance } from 'chalk'
 import { z } from 'zod'
 

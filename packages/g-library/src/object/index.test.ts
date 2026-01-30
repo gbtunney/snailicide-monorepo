@@ -1,11 +1,6 @@
 import { expect, test } from 'vitest'
 import { z } from 'zod'
-import {
-    flatten,
-    jsonParser,
-    tg,
-    unflatten,
-} from './index.js'
+import { flatten, jsonParser, tg, unflatten } from './index.js'
 test('Vitest Example', () => {
     expect(true).toBe(true)
 })
