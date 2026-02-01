@@ -9,16 +9,16 @@ import { configMarkdown, configVitepress } from './markdown.js'
 import { TypedocConfigFunction } from './shared.js'
 import { config, materialTheme, MaterialThemeOptions } from './standard.js'
 
+type MaterialThemeConfig = TypedocConfigFunction<MaterialThemeOptions>;
+type MarkdownConfig = TypedocConfigFunction<MarkdownPluginOptions>;
+
 export type Typedoc = {
-    config: TypedocConfigFunction
-    materialTheme: TypedocConfigFunction<MaterialThemeOptions>
-    configMaterialTheme: TypedocConfigFunction<MaterialThemeOptions>
-    configMarkdown: TypedocConfigFunction<MarkdownPluginOptions>
-    configVitepressTheme: TypedocConfigFunction<MarkdownPluginOptions>
-    /* plugin: {  //todo: error.
-         load: MarkdownPlugin
-     }*/
-}
+    config: TypedocConfigFunction;
+    materialTheme: MaterialThemeConfig;
+    configMaterialTheme: MaterialThemeConfig;
+    configMarkdown: MarkdownConfig;
+    configVitepressTheme: MarkdownConfig;
+};
 
 /** @ignore */
 export const typedoc: Typedoc = {
