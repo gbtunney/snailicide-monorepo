@@ -1,7 +1,0 @@
-{
-    "extends": "@snailicide/build-config/tsconfig-base",
-    "compilerOptions": {
-        /* Language and Environment */
-        "moduleResolution": "Node" //"outDir": "./dist",
-    }
-}

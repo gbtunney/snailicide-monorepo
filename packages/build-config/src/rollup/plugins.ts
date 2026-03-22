@@ -6,8 +6,9 @@ import { isNotBoolean } from 'ramda-adjunct'
 import { Plugin } from 'rollup'
 import { nodeExternals as nodeExternalsPlugin } from 'rollup-plugin-node-externals'
 import nodePolyfillsPlugin from 'rollup-plugin-polyfill-node'
-import tsPlugin from 'rollup-plugin-ts'
+import { dts } from 'rollup-plugin-dts'
 
+const tsPlugin = dts
 const PLUGINS_CONFIG = {
     commonJS: commonjsPlugin,
     json: jsonPlugin,
@@ -31,15 +32,7 @@ const DEFAULT_CONFIG: PluginsDefaultConfig = {
     nodePolyfills: {},
     nodeResolve: { preferBuiltins: true },
     terser: {},
-    typescriptTS: {
-        tsconfig: (resolvedConfig) => ({
-            ...resolvedConfig,
-            allowJs: false,
-            declaration: true,
-            declarationMap: true,
-            sourceMap: true,
-        }),
-    },
+    typescriptTS: {},
 }
 
 export type PluginKey = keyof typeof PLUGINS_CONFIG

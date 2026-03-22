@@ -1,7 +1,7 @@
 import { RollupOptions } from 'rollup'
 import shell from 'shelljs'
 import type { Jsonify, JsonObject } from 'type-fest'
-import _package from './package.json' assert { type: 'json' }
+import pkg from './package.json' with { type: 'json' }
 import { exportJSONFile } from './types/export.json.file.js'
 import { Prettier, rollup } from './types/index.js'
 import {
@@ -9,6 +9,7 @@ import {
     MarkdownlintConfiguration,
 } from './types/markdownlint/index.js'
 import { tsConfigBase } from './types/tsconfig/index.js'
+import { dts } from 'rollup-plugin-dts'
 
 const LIBRARY_NAME: string = 'GBBuildConfig'
 const PRINT_EXPORTS: boolean = false
@@ -37,6 +38,7 @@ const JSON_EXPORTS = [
 ]
 const DIRECTORY_PATHS = {
     output_dir: './dist/',
+    declarations_dir: './types/',
     source_dir: './src/',
 } as const
 
@@ -50,15 +52,38 @@ const rollUp = (): Array<RollupOptions> => {
         [
             {
                 export_key: '*',
-                export_types: ['default', 'import', 'require', 'types'],
+                export_types: ['default', 'import', 'require'],
                 library_name: LIBRARY_NAME,
             },
         ],
         rollup.getPluginsConfiguration(),
-        _package,
+        pkg,
     )
-    rollup.getPackageExports(CONFIG_OBJ, PRINT_EXPORTS)
-    return rollup.getRollupConfig(CONFIG_OBJ)
-}
 
+    //todo? this is a hacky way to add a separate config for types, should be refactored
+    const CONFIG_TS = rollup.getConfigEntries(
+        { ...DIRECTORY_PATHS, source_dir: './types/' },
+        [
+            {
+                export_key: '*',
+                in_file_name_override: 'index.d',
+                export_types: ['types'],
+                library_name: LIBRARY_NAME,
+            },
+        ],
+        rollup.getPluginsConfiguration(),
+        pkg,
+    )
+
+    //TODO? hacky way to add a separate config for types, should be refactored
+    return [
+        ...rollup.getRollupConfig(CONFIG_OBJ),
+        {
+            input: './types/index.d.ts',
+            output: [{ file: 'dist/index.d.ts', format: 'es' }],
+            plugins: [dts({ sourcemap: true })],
+        },
+    ]
+}
+git
 export default rollUp()

@@ -1,4 +1,0 @@
-generated
-#todo: move this to dist folder?
-*.js
-src/*.js

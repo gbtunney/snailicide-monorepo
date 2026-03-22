@@ -1,4 +1,0 @@
-#!/bin/bash
-
-echo ">> Running in shell:: $SHELL \n"
-pnpm exec commitlint --edit "$1"
